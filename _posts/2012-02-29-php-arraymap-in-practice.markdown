@@ -80,23 +80,27 @@ You have to do a map on the second dimension of the array.. It&#39;s a little mo
 <div class='comment'>
 <div class='author'>Anonymous</div>
 <div class='content'>
-$rs=odbc_exec($con,$sql);
 
-//declare an array to hold the query results
-$data = array();
+```php
+  $rs=odbc_exec($con,$sql);
 
-//populate the jobs array with the query result set
-while($curRow = odbc_fetch_array($rs)){
- $data[] = array_map(&quot;convert_smart_quotes&quot;,$curRow);
-}
-echo json_encode(array(
-&quot;sae&quot; =&gt; $data[&quot;sae&quot;],
-&quot;bara&quot; =&gt; $data[&quot;bara&quot;],
-&quot;ghobdg&quot; =&gt; $data[&quot;ghobdg&quot;],
-&quot;ghobks&quot; =&gt; $data[&quot;ghobks&quot;],
-&quot;ghocrb&quot; =&gt; $data[&quot;ghocrb&quot;])
-);
+  //declare an array to hold the query results
+  $data = array();
 
-it&#39;s doesn&#39;t work, help me</div>
+  //populate the jobs array with the query result set
+  while($curRow = odbc_fetch_array($rs)){
+   $data[] = array_map(&quot;convert_smart_quotes&quot;,$curRow);
+  }
+  echo json_encode(array(
+  &quot;sae&quot; =&gt; $data[&quot;sae&quot;],
+  &quot;bara&quot; =&gt; $data[&quot;bara&quot;],
+  &quot;ghobdg&quot; =&gt; $data[&quot;ghobdg&quot;],
+  &quot;ghobks&quot; =&gt; $data[&quot;ghobks&quot;],
+  &quot;ghocrb&quot; =&gt; $data[&quot;ghocrb&quot;])
+  );
+
+  it&#39;s doesn&#39;t work, help me
+```
+  </div>
 </div>
 </div>
