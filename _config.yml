@@ -62,10 +62,6 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/delicious.
 
 # Github repositories
 github: 'finalcut'
-github_user: finalcut
-github_repo_count: 3
-github_show_profile_link: true
-github_skip_forks: false
 
 # Twitter
 twitter_user: finalcut
@@ -84,16 +80,12 @@ googleplus_hidden: false
 pinboard_user:
 pinboard_count: 3
 
-# Delicious
-delicious_user:
-delicious_count: 3
-
 # Disqus Comments
-disqus_short_name: inthetrenches
-disqus_show_comment_count: true
+disqus: 'inthetrenches'
+comments: true
 
 # Google Analytics
-google_analytics_tracking_id: UA-166850-3
+gaaccount: UA-166850-3
 
 # Facebook Like
 facebook_like: false
