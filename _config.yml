@@ -3,8 +3,8 @@
 # ----------------------- #
 
 url: http://code.rawlinson.us
-title: In The Trenches
-subtitle: Software Development from In The Trenches
+name: In The Trenches
+description: Software Development from In The Trenches
 author: Bill Rawlinson
 simple_search: http://google.com/search
 description: Covering Software Engineering, ColdFusion, Java, Design Patterns, .Net, and a smattering of other languages from deep in the trenches.
@@ -40,7 +40,6 @@ rdiscount:
     - smart
 
 paginate: 10          # Posts per page on the blog index
-pagination_dir: blog   # Directory base for pagination URLs eg. /blog/page/2/
 recent_posts: 5       # Posts in the sidebar Recent Posts section
 excerpt_link: "Read on &rarr;"  # "Continue reading" link text at the bottom of excerpted articles
 
