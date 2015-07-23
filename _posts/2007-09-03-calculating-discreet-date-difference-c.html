@@ -1,0 +1,112 @@
+---
+layout: post
+title: "Calculating a Discreet Date Difference (C# Sample Code)"
+date: 2007-09-03
+comments: false
+categories:
+ - .net
+ - datetime
+ - c#
+ - utility
+---
+
+<div class='post'>
+<p>I recently had to figure out how to display the exact difference in Years, Months, and Days between two distinct dates.  Here is my solution.  A slightly more useful return type would probably be a fixed 3 element array with {Y:M:D} and then you could do what you wanted with the numbers. However, for the moment this solution serves a good job of illustrating how it works.</p><br /><pre name="code" class="csharp"><br />        private static string DateDiffAsString(DateTime inDate1, DateTime inDate2)<br />  {<br />   int y = 0;<br />   int m = 0;<br />   int d = 0;<br /><br />   //make sure date1 is before (or equal to) date2..<br />   DateTime date1 = inDate1 <= inDate2 ? inDate1 : inDate2;<br />   DateTime date2 = inDate1 <= inDate2 ? inDate2 : inDate1;<br />   DateTime temp1;<br /><br /> if(DateTime.IsLeapYear(date1.Year) && !DateTime.IsLeapYear(date2.Year) && date1.Month == 2 && date1.Day == 29){<br />  temp1 = new DateTime(date2.Year, date1.Month, date1.Day-1);<br /> } else {<br />  temp1 = new DateTime(date2.Year, date1.Month, date1.Day);<br /> }<br /><br />   y = date2.Year - date1.Year - (temp1 > date2 ? 1 : 0);<br />   m = date2.Month - date1.Month + (12 * (temp1 > date2 ? 1 : 0));<br />   d = date2.Day - date1.Day;<br />   if (d < 0)<br />   {<br />    if (date2.Day == DateTime.DaysInMonth(date2.Year, date2.Month) && (date1.Day >= DateTime.DaysInMonth(date2.Year, date2.Month) || date1.Day >= DateTime.DaysInMonth(date2.Year, date1.Month)))<br />    {<br />     d = 0;<br />    }<br />    else<br />    {<br />     m--;<br />     if (DateTime.DaysInMonth(date2.Year, date2.Month) == DateTime.DaysInMonth(date1.Year, date1.Month) && date2.Month != date1.Month)<br />     {<br />      int dayBase = date2.Month - 1 > 0 ? DateTime.DaysInMonth(date2.Year, date2.Month - 1) : 31;<br />      d = dayBase + d;<br />     }<br />     else<br />     {<br />      // d = DateTime.DaysInMonth(date2.Year, date1.Month) + d;<br />      d = DateTime.DaysInMonth(date2.Year, date2.Month == 1 ? 12 : date2.Month - 1) + d;<br />     }<br />    }<br />   }<br /><br />            string ts = "";<br /><br />            if (y &gt; 0)<br />                ts += y + "y ";<br />            if (m &gt; 0)<br />                ts += m + "m ";<br />            if (d &gt; 0)<br />                ts += d + "d ";<br /><br />            return ts;<br />        }<br /></pre></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Thanks to help me to calc. date Diff.</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+Sadly,  I don&#39;t really have time to test your VB port but I did add a new test case to my suite:<br /><br />  [Test]<br />  public void ComputeTenor19()<br />  {<br />   DateTime refDate = new DateTime(2009, 9, 14);<br /><br />   DateTime date1 = new DateTime(2010, 9, 13);<br />   DateParts expected1 = new DateParts(0, 11, 30);<br />   DateParts actual1 = DateHelper.DateDiff(refDate, date1);<br />   Assert.AreEqual(expected1, actual1, &quot;19. actual19: &quot; + actual1.ToString() + &quot;  != expected19: &quot; + expected1.ToString());<br />  }<br /><br /><br /><br />And this test passes as expected (showing a difference of 11mos and 30 days.<br /><br />Have you stepped through to see how it is coming up with a number not between 1 and 12?</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+I&#39;ve had to convert it into VB.  Here is the exact code:  <br />StartDate: Sept 14, 2009 <br />Enddate Sept 13, 2010. <br /><br />error: &quot;Month must be between one and twelve. Parameter name: month&quot; <br /><br />Private Shared Function DateDiffAsString(ByVal inDate1 As DateTime, ByVal inDate2 As DateTime) As Double<br />Dim y As Integer = 0<br />Dim m As Integer = 0<br />Dim d As Double = 0<br /><br />&#39;make sure date1 is before (or equal to) date2..<br />Dim date1 As DateTime = If(inDate1 &lt;= inDate2, inDate1, inDate2)<br />Dim date2 As DateTime = If(inDate1 &lt;= inDate2, inDate2, inDate1)<br /><br />Dim temp1 As DateTime<br /><br /> If DateTime.IsLeapYear(date1.Year) And Not DateTime.IsLeapYear(date2.Year) And date1.Month = 2 And date1.Day = 29 Then<br />            temp1 = New DateTime(date2.Year, date1.Month, date1.Day - 1)<br /> Else<br />            temp1 = New DateTime(date2.Year, date1.Month, date1.Day)<br /> End If<br /><br /> y = date2.Year - date1.Year - (If(temp1 &gt; date2, 1, 0))<br />m = date2.Month - date1.Month + (12 * (If(temp1 &gt; date2, 1, 0)))<br />d = date2.Day - date1.Day<br />       <br /> If d &lt; 0 Then<br />            If date2.Day = DateTime.DaysInMonth(date2.Year, date2.Month) AndAlso _<br />            (date1.Day &gt;= DateTime.DaysInMonth(date2.Year, date2.Month) OrElse _<br />             date1.Day &gt;= DateTime.DaysInMonth(date2.Year, date1.Month)) Then<br />                d = 0<br /> Else<br />                m = m - 1<br />                If DateTime.DaysInMonth(date2.Year, date2.Month) = DateTime.DaysInMonth(date1.Year, date1.Month) And date2.Month &lt;&gt; date1.Month Then<br />                    Dim dayBase As Integer = If(date2.Month - 1 &gt; 0, DateTime.DaysInMonth(date2.Year, date2.Month - 1), 31)<br />                    d = dayBase + d<br />                Else<br /><br />                    d = DateTime.DaysInMonth(date2.Year, date2.Month = IIf(1, 12, date2.Month) - 1) + d<br /><br />                    <br />                End If<br />            End If<br />  End If<br /><br /><br /><br />Dim result As Double = 0<br /><br /> If y &gt; 0 Then<br />            result += y * 12<br /> End If<br />        <br />If m &gt; 0 Then<br />            result += m<br />End If<br /> If d &gt; 0 Then<br />            result += d / System.DateTime.DaysInMonth(System.DateTime.Now.Year, date2.Month)<br />End If<br /><br />Return result<br />End Function</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+When I get a chance I&#39;ll throw your example into my test cases but I don&#39;t know why your getting a problem.<br /><br />Can you provide the exact code you used when calling the method?  thanks</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+This is great.. I don&#39;t know if it&#39;s just me, but I&#39;m getting an error &quot;Month must be between one and twelve.  Parameter name: month&quot; when I compare start: Sept 14, 2009 with end date Sept 13, 2009.  It errors on<br />&quot;d = DateTime.DaysInMonth(date2.Year, date2.Month == 1 ? 12 : date2.Month - 1) + d;&quot;</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Thanks for nice article.</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+I just posted a minor update to the function.  There was a problem if date1 was a leapday (feb 29) but date2.year wasn't in a leap year when computing the value "temp1".</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+how about you just email me? My name is bill rawlinson and my email account is at gmail.<BR/><BR/>just put a period between my first and last names and the email should get to me.<BR/><BR/>The test cases are pretty lengthy and I don't want to fill up the page with them all.<BR/><BR/>Thanks<BR/>Bill</div>
+</div>
+<div class='comment'>
+<div class='author'>Garowetz</div>
+<div class='content'>
+I just came up with another algorithm that makes the code a lot simpler, I think!<BR/><BR/>Can you post your test cases and answers for me to test against. I've done preliminary testing but I want to run by some more examples.<BR/><BR/>Thanks</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+the version of the code I had here seemed a little outdated based on what I have in my utility class so I reposted the entire method with this change.<BR/><BR/>There were quite a few differences but this is the one that passes all of my unit tests.</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+sweet - your suggested change not only worked but it found a flaw in one of my other unit tests (where my own math had been incorrect).<BR/><BR/>Now all 18 of my unit tests pass <BR/><BR/>I'll update my post accordingly.  Thanks</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+thanks for the dates - i tried all three and the first one failed my unit tests.<BR/><BR/>I'll try your suggested change and see what happens.</div>
+</div>
+<div class='comment'>
+<div class='author'>Garowetz</div>
+<div class='content'>
+I tried to post last night but don't know if it got through...<BR/><BR/>This could also be a logic error on my part converting back and forth between Javascript.<BR/><BR/>Here are the dates I'm using (yyyy,mm,dd):<BR/>2006-02-17 to 2008-02-06 = 1y 11m 20d<BR/>2007-12-25 to 2008-02-06 = 0y 01m 12d<BR/>2008-02-06 to 2009-05-23 = 1y 03m 17d<BR/><BR/>I also confirmed these with an excel sheet that I created using the "datediff()" function.<BR/><BR/>let me know what you think.</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+Can you give me some date examples where you don't think it is working properly?<BR/><BR/>I have a suite of unit tests I run against this and knowing which dates you have found aren't working would help me test it again - and to make sure any changes don't break anything else.<BR/><BR/>Thanks</div>
+</div>
+<div class='comment'>
+<div class='author'>Garowetz</div>
+<div class='content'>
+I'm having a little trouble with the algorithm now!! ... And I think it all revolves around the last line of the code:<BR/><BR/><BR/>d = DateTime.DaysInMonth(date2.Year, date1.Month) + d;<BR/><BR/><BR/>It's the second argument that I'm having trouble with, it's giving me the wrong number of days. I changed it so that it was calculating the month before date2.Month so it would be like (I'm trying to convert this logic back from Javascript):<BR/><BR/><BR/>d = DateTime.DaysInMonth(date2.Year, date2.Month == 1 ? 12 : date2.Month - 1) + d;<BR/><BR/><BR/>I think that's how it's supposed to be written. Anyhow, when I do this it seems to work better correcting some dates when they are off.<BR/><BR/>I'm using a calculator and pencil as well as the site below to verify.<BR/><BR/><A HREF="http://www.timeanddate.com/date/duration.html" REL="nofollow">timeanddate.com</A><BR/><BR/>Let me know what you think.</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+Cool - I'm glad you were able to use it.  It's always nice to know I was able to help someone, and it's even better when I find out they are passing along the help.<BR/><BR/>If you happen to comeback feel free to put a link to your javascript version here in the comments so others can find it.</div>
+</div>
+<div class='comment'>
+<div class='author'>Garowetz</div>
+<div class='content'>
+Hey just wanted to say thanks for the algorithm. It was exactly what I was looking for and saved me a bunch of time. I've now implemented it in Java script. (with a pointer back to this page!)<BR/><BR/>Thanks<BR/><BR/>:)</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+No, because when calculating the days difference you can see I use the later dates year..<BR/><BR/>I have actually tested this quite a bit and it seems to work regardless of the dates I pass in.<BR/><BR/>However, if you use it and come across a date that gives invalid results please let me know so I can re-evaluate it.<BR/><BR/>Thanks</div>
+</div>
+<div class='comment'>
+<div class='author'>Flashsnake</div>
+<div class='content'>
+Any problem when dealing with Leap Year?</div>
+</div>
+</div>

@@ -1,0 +1,15 @@
+---
+layout: post
+title: "VB.Net Generic Singleton Provider"
+date: 2006-10-11
+comments: false
+categories:
+ - vb.net
+ - pattern
+ - generics
+ - design patterns
+ - singleton
+---
+
+<div class='post'>
+I took the c# generic singleton provider example found at <a href="http://www.codeproject.com/csharp/genericsingleton.asp">The Code Project</a> and converted it to VB.net syntax using the <a href="http://www.ondotnet.com/pub/a/dotnet/2004/05/25/whidbey_vbnet_pt2.html">power of generics</a>.  Here it is:<br /><br /><pre name="code" class="vb"><br />Public Class SingletonProvider(Of itemtype As {New})<br />    Public Sub New()<br />    End Sub<br /><br /><br />    Public Shared ReadOnly Property Instance() As itemtype<br /><br />        Get<br />            Return SingletonCreator.instance<br />        End Get<br /><br />    End Property<br />    Class SingletonCreator<br />        Shared Sub New()<br />        End Sub<br /><br />        Public Shared ReadOnly instance As itemtype = New itemtype()<br />    End Class<br />End Class<br /></pre><br /><br />Now, whenever you want to create a singleton object you call this provider.  For example, lets say you want a singleton instance of your DAO Factory which you conveniently called daoFactory you create it like so:<br /><br /><pre name="code" class="vb"><br />Dim myDaoFactory as DaoFactory = Singleton(Of DaoFactory).Instance<br /></pre><br /><br />The prior implementation of the Singleton provider has one constraint on it; that is the objects you want to create as singletons have to have a public New method that takes in zero parameters.  <br /><br />A cool thing about this is now the code for managing the singleton creation is removed from all your objects and your objects can focus on what they actually do instead of how to persist themselves in memory.</div>

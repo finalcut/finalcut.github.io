@@ -1,0 +1,337 @@
+---
+layout: post
+title: "Another IE Gotcha - Dynamically Created Radio Buttons"
+date: 2006-03-20
+comments: false
+categories:
+ - javascript
+ - ie
+ - dom
+ - ajax
+---
+
+<div class='post'>
+As soon as I think I have it all worked out I bump into another oddity between Firefox and IE and handling the DOM.  Specifically adding a radio button (or set of them) dynamically.<br /><br />My initial javascript went something like this:<br /><br /><pre name="code" class="jscript"><br />var rdo = document.createElement('input');<br />rdo.type = 'radio';<br />rdo.id = 'someUniqueID';<br />rdo.name = 'myRadio';<br />rdo.value = 1;<br /><br />myDocumentsBody.appendChild(rdo);<br /><br /></pre><br /><br />This almost worked perfectly. The input was added, it was a radio button, but it was totally unselectable.  I could select it via javascript but the normal "click" event didn't cause the radio button to assume the "selected" state in IE?  What gives?<br /><br />Well, I don't know what gives but it turns out I can't assign the type independently of creating a radio control.  Instead, I have to create my radio object like so:<br /><br /><pre name="code" class="jscript"><br />var rdo = document.createElement("&lt;input type=\"radio\" name=\"fldID\" &gt;");<br /></pre><br /><br />By specifying the type during the creation process the radio button was then selectable in the normal manner. <strike>This method works inboth IE and FF.</strike><br /><br />Update: 9 May 2006<br />Well, as has been reported by many people I was crazy when I said this technique worked in both IE and Firefox.  What was I thinking?   It doesn't work in Firefox at all.  However, there is a fairly easy solution that will insert a selectable radio button in both IE and Firefox - however, I'm sorry to say, it doesn't work in Opera.  Damn these browsers; well, really, damn IE for not working properly - and damn Opera for not throwing an error when we use IE's crazy syntax.<br /><br />So here is the javascript that is needed to create a radio button that will work in IE and Firefox:<br /><br /><pre name="code" class="coldfusion"><br />   try{<br />    rdo = document.createElement('&lt;input type="radio" name="fldID" /&gt;');<br />   }catch(err){<br />    rdo = document.createElement('input');<br />    rdo.setAttribute('type','radio');<br />    rdo.setAttribute('name','fldID');<br />   }<br /></pre><br /><br />Here is a <a href="http://rawlinson.us/blog/documents/jsradio.html">demo page</a> - just view the page source to see what I am doing and how it works.  If anyone has a good solution that will work in all three browsers please let me know.<br /><br />Final Update (18 July 2008) - the <a href="http://rawlinson.us/blog/documents/jsradio.html">demo page</a> is also updated to reflect this change.<br /><br /><pre name="code" class="coldfusion"><br /> try{<br />     rdo = document.createElement('&lt;input type="radio" name="fldID" /&gt;');<br /> }catch(err){<br />  rdo = document.createElement('input');<br /> }<br /> rdo.setAttribute('type','radio');<br /> rdo.setAttribute('name','fldID');<br /></pre><br /><br />That works in IE 7, FF 3, Opera 9, and Safari 3.1 for windows.</div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+this post saved my ass after 8 hours of work.  much much thanks.</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill Rawlinson</div>
+<div class='content'>
+At this point I&#39;m not really trying to keep this working with more modern browsers. I wrote it when IE 7 Was considered modern in 2006.<br /><br />There are much better ways to do it now. If you&#39;re doing a lot of dynamic html consider something like jquery. </div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+not working in in IE9</div>
+</div>
+<div class='comment'>
+<div class='author'>Peter Laman</div>
+<div class='content'>
+I always use this to work around the IE quirks with input elements:<br /><br />// Stupid way of creating an element, that copes with IE mistreatment of input elements<br />function createInputElement(arrAttributes)<br />{<br />    var span = document.createElement(&quot;span&quot;);<br />    var html = &quot;&lt;input&quot;;<br />    for ( var attName in arrAttributes)<br />    {<br />        attValue = arrAttributes[attName];<br />        html +=  &quot; &quot;+attName + &quot;=\&quot;&quot; + attValue + &quot;\&quot;&quot;;<br />    }<br />    html += &quot;/&gt;&quot;;<br />    span.innerHTML = html;<br />    <br />    // Throw away the span, since we only needed it to create the input!!<br />    var input = span.firstChild;<br />    span.removeChild( input );<br />    return input;<br />}</div>
+</div>
+<div class='comment'>
+<div class='author'>thraddash</div>
+<div class='content'>
+I looked through most of the comments and didn&#39;t see my current dilemma.<br /><br />I&#39;ve used the suggested try/catch method for creating dynamic radio buttons... but I found that if you remove the element, or even the parent of the element, and reattach it to the DOM again the radio button is now unselected.<br /><br /><b>parent.removeChild(radio1);<br />parent.appendChild(radio1);</b><br /><br />I believe this is an IE6/IE7 gotcha, but I still need to support them somewhat.</div>
+</div>
+<div class='comment'>
+<div class='author'>craig stevens</div>
+<div class='content'>
+Hi<br />This is great, exactly what I am looking for, however (excuse my ignorance) how do you remove the dots at the start of each line?<br /><br />cheers<br />Craig</div>
+</div>
+<div class='comment'>
+<div class='author'>Arvind Kumar</div>
+<div class='content'>
+Just take care of that element name while creating the radio button that will solve your problem, don&#39;t assign name after creating element that is the problem.<br /><br />You can find detailed solution here<br /><br />http://onlyprogrammers.blogspot.com/2010/10/ie6-ie7-radio-button-jquery-problem.html<br /><br />Arvind Kumar<br />http://arvindlounge.wordpress.com/</div>
+</div>
+<div class='comment'>
+<div class='author'>jazzland</div>
+<div class='content'>
+Hi Sir, I made me save a lot of waste with your advices many thanks<br />Regards from Italy</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+Patrick,  I will take a look at this as soon as I get a chance but that might not be until this evening or tomorrow sorry.</div>
+</div>
+<div class='comment'>
+<div class='author'>Patrick</div>
+<div class='content'>
+Bill,<br /><br />Please see this link as it is related to this problem: http://www.telerik.com/community/forums/aspnet-ajax/upload/how-can-i-use-a-radiobutton-as-addtional-field.aspx<br />I&#39;m using a Telerik upload control. I am adding a radio button list for the user to select the type of file that will be uploaded. <br /><br />Then I want to retrieve the selected button, and hence the value of the radio button list, in my source code. <br /><br />Protected Sub RadGrid1_UpdateCommand(ByVal source As Object, ByVal e As Telerik.Web.UI.GridCommandEventArgs)<br />        Dim upload As RadUpload = TryCast(e.Item.FindControl(&quot;RadUpload1&quot;), RadUpload)<br />        Dim proposalNumber As String = TryCast(e.Item.FindControl(&quot;lblProposalInEdit&quot;), Label).Text<br /><br />        If upload.UploadedFiles.Count &gt; 0 Then<br />            For Each file As UploadedFile In upload.UploadedFiles<br /><br />                Dim fileType As String = file.GetFieldValue(&quot;fileType&quot;)<br /><br />                If fileType = &quot;AO&quot; Then<br />                    SaveAOFile(upload, file.GetName, proposalNumber)<br />                ElseIf fileType = &quot;Contract&quot; Then<br />                    SaveContractFile(upload, file.GetName, proposalNumber)<br />                End If<br /><br />            Next<br />        Else : MsgBox(&quot;Please select a file to upload&quot;, MsgBoxStyle.Information, &quot;Select a file&quot;)<br />        End If<br />    End Sub<br /><br />I can programmatically specify that one of the buttons is checked and the value shows up the source code, but I still cannot check the buttons when the app is running. I also tried using the innerHTML attribute of a span element, to no avail.<br /><br />Thanks for your help,<br />Patrick</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+I don&#39;t really understand what you&#39;re trying to do.  Perhaps you can create a very simple demo of your desired functionality (broken still) and point me to it and I can look at it and give you a hand?</div>
+</div>
+<div class='comment'>
+<div class='author'>Patrick</div>
+<div class='content'>
+Thanks so much for all of the great info here. I&#39;m trying to add a group of 2 radio buttons to an upload box and then get the value from the button list. I&#39;ve tried everything possible and still cannot get the value from my source code. Please help!!<br /><br />Thanks,<br />Patrick</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+thanks a bunch man, saved me alot of code rewriting :D</div>
+</div>
+<div class='comment'>
+<div class='author'>patrick</div>
+<div class='content'>
+Thank's a lot ...</div>
+</div>
+<div class='comment'>
+<div class='author'>rooter</div>
+<div class='content'>
+just wanted to chime in to say thanks!  also, you should google 'createElements' - great article about a function which allows you to define elements with JSON.  I had to modify their code with yours to get the radio buttons to work :)</div>
+</div>
+<div class='comment'>
+<div class='author'>valli</div>
+<div class='content'>
+Excellent. I could not make radio buttons work in IE, and some page said you cant. I just checked browser and if IE, then do it with html and if Firefox or others, normally create the radio button(s).</div>
+</div>
+<div class='comment'>
+<div class='author'>Kevin</div>
+<div class='content'>
+AWESOME!  I could've spent hours on this if I didn't find your page!  Thanks!</div>
+</div>
+<div class='comment'>
+<div class='author'>dan</div>
+<div class='content'>
+thanks for this write-up! it saved my morning!</div>
+</div>
+<div class='comment'>
+<div class='author'>Chris Sladky</div>
+<div class='content'>
+RM-if you're having any issues with setting radios to checked, be sure you add them to the page first. I was having weird issues with making radios checked in both firefox 2 and IE. After some Googling, I learned that if you add them to the page first, then select what you just added to the page and mark those as checked, the issues disappear.<BR/>Hope that helps!</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+RM - if you want to make a radio button checked you need to use the "CHECKED" attribute.  Changing the value attribute will just mess you up when you submit the form and this odd value is passed on.</div>
+</div>
+<div class='comment'>
+<div class='author'>John Trupiano</div>
+<div class='content'>
+Thanks, you saved me loads of time today!</div>
+</div>
+<div class='comment'>
+<div class='author'>RM</div>
+<div class='content'>
+But to make it selected via the javascript, do you use the "value" or the "checked" attribute?</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+Chris Sladky's suggested fix works fine in all four browsers on windows so I updated the post to include that change.</div>
+</div>
+<div class='comment'>
+<div class='author'>live_fiercely</div>
+<div class='content'>
+Great post, it saved me about an hour of digging around the web and cursing IE - AGAIN.<BR/><BR/>I tried your solution in IE7, IE6, IE5.5, FF, and Safari; worked perfect in all of those.<BR/><BR/>Thanks for the help.<BR/><BR/>Algie</div>
+</div>
+<div class='comment'>
+<div class='author'>Chris Sladky</div>
+<div class='content'>
+Sorry for the double-post; I got the bracket directions wrong last time.<BR/><BR/>Opera fix here:<BR/>Simply leave in the rdo.setAttribute("name", "yourNameHere") line-IE ignores it and it works with firefox and opera. Basically, move the line "rdo.setAttribute('name','fldID');" out of the catch loop. Actually, you don't have to set type in the catch loop either.<BR/>The following is the changed code that should work across browsers:<BR/>try{<BR/>rdo = document.createElement('&lt;input name="fldID" /&gt;');<BR/>}catch(err){<BR/>rdo = document.createElement('input');<BR/>}<BR/>rdo.setAttribute('name','fldID');<BR/>rdo.setAttribute('type','radio');</div>
+</div>
+<div class='comment'>
+<div class='author'>Chris Sladky</div>
+<div class='content'>
+Opera fix here:<BR/>Simply leave in the rdo.setAttribute("name", "yourNameHere") line-IE ignores it and it works with firefox and opera. Basically, move the line "rdo.setAttribute('name','fldID');" out of the catch loop. Actually, you don't have to set type in the catch loop either.<BR/>The following is the changed code that should work across browsers:<BR/>try{<BR/>rdo = document.createElement('&gt;input name="fldID" /&lt;');<BR/>}catch(err){<BR/>rdo = document.createElement('input');<BR/>}<BR/>rdo.setAttribute('name','fldID');<BR/>rdo.setAttribute('type','radio');</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+The final example (using the try catch) in the actual post works pretty well (though, admittedly, it does have a problem in Opera).  <BR/><BR/>You can see that technique working in the example I mentioned in an earlier comment:<BR/><BR/><A HREF="http://rawlinson.us/blog/documents/jsradio.html" REL="nofollow">http://rawlinson.us/blog/documents/jsradio.html</A></div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+So, as you can see above there are 3 methods to add a radio input.<BR/>1) a=CreateElement('input');a.type='radio';a.name=..;<BR/>2) a=CreateElement('< input name=".."/>');a.type='radio';<BR/>3) parent.innerhtml='< input..>';<BR/><BR/>1) is not working in IE (option will be not selectable). It's because the IE is not allow you to set name dynamically. And have a big problem in FF. For example you already have an option named 'mainProduct'. When you add an option by this method you get TWO independent groups of radios with ONE name (maybe I'm wrong, but I have this problem)<BR/>2) Works fine in IE, but not works at all in FF<BR/>3) The worse, but the most working solution<BR/><BR/>Use 3). As I understand only 3) works fine everywhere</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+I'm pretty sure I have submitted forms using the dynamically created radio buttons before.  I'll try to find some time to build up a working example and then I'll post it here when I do.</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Hi there, bit old but anyways... I wonna post those dynamically cereated inputs but it doesn't POST anything :( My code is perfectly fine but for some reason it just doen't work... I generated input tag with innerHTMland create element... so both ways doen't work. Prety stupid :/</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Thanks! Your solution is perfect! This is what I like: a simple workaround for a bothersome bug. It worked for me in IE, Firefox, and Opera.</div>
+</div>
+<div class='comment'>
+<div class='author'>Ewan</div>
+<div class='content'>
+Thank you so much for helping me out with this, I was tearing my hair out!</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+Thanks for sharing your workaround and overall good humor.</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Hi,<BR/><BR/>This happens on all input elements. IE will not throw an error if you attempt to set the NAME attribute. Its not hard.. deal with it.<BR/><BR/><BR/>use this, name is optional<BR/><BR/>function newElement(tag, name) {<BR/> var ele = (document.all && name) ? document.createElement('&lt;' + tag + ' name="' + name + '"&gt;') : document.createElement(tag);<BR/> if (!document.all && name) {<BR/>  ele.name = name;<BR/> }<BR/> return ele;<BR/>}<BR/><BR/>If all browsers worked the same where would the job security and high pay go? And what would be the point of having more than one browser?<BR/><BR/>Plus... all you people who like to complain about "standards" would have nothing to be huffy about.<BR/><BR/>And if you are going to write code for the public... please... idiot proof it.<BR/><BR/>To Test:<BR/><BR/><BR/><BR/>&lt;body onload="var ele = newElement('input', 'test'); ele.type='radio'; document.getElementById('tform').appendChild(ele); alert(document.forms[0].elements['test']);"&gt;<BR/>&lt;script type="text/javascript"&gt;<BR/>function newElement(tag, name) {<BR/> var ele = (document.all && name) ? document.createElement('&lt;' + tag + ' name="' + name + '"&gt;') : document.createElement(tag);<BR/> if (!document.all && name) {<BR/>  ele.name = name;<BR/> }<BR/> return ele;<BR/>}<BR/>&lt;/script&gt;<BR/>&lt;form id="tform"&gt;<BR/>&lt;/form&gt;<BR/>&lt;/body&gt;</div>
+</div>
+<div class='comment'>
+<div class='author'>Ann</div>
+<div class='content'>
+Me too!  Wouldn't you know, I used to have innerHTML in my code, but changed it to use the DOM, which of course works beautifully in FF...  Thanks so much for this post and discussion.</div>
+</div>
+<div class='comment'>
+<div class='author'>Prakash</div>
+<div class='content'>
+Thank you so much i have faced same problem and this post really helped me...!!!</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+Because I was trying to use the DOM to add the nodes and, at the time I was trying to do this, using innerHTML wasn't a standard way to do things; in fact it was generally frowned upon.</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Just use innerHTML.  This is what the attribute was designed for and it works on IE and FF.<BR/><BR/>var span = document.createElement('span');<BR/><BR/>span.innerHTML = '&lt;input type="radio" name="radgroup"&gt;';<BR/><BR/>document.body.appendChild(span);</div>
+</div>
+<div class='comment'>
+<div class='author'>iambanese</div>
+<div class='content'>
+Woot!  Thanks, this got it! :)</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+I am trying to generate radio buttons using jquery and jquery-dom plugin and the code is as follows<BR/>In the below code that plugin first generates tr,td and then radio buttons.<BR/>my problem is it generates radio button but showing all buttons selected but it should show only last button selected coz if I copy paste the generated code that code shows me only last button selected.<BR/><BR/>but if i tried to generate only radio buttons code works perfectly.<BR/><BR/><BR/><BR/>tableElementForACategory.append($.TR({className:'',id: 'H'}, $.TD({}, $.INPUT({NAME:'hood',type:'radio',value:$("value", this).text(),checked:'checked',classname:'standard_paint'}), $.LABEL({forname:'C23899_P1'})), $.TD({}, 'aaa')));<BR/><BR/>tableElementForACategory.append($.TR({className:'',id: 'H'}, $.TD({}, $.INPUT({NAME:'hood',type:'radio',value:$("value", this).text(),checked:'checked',classname:'standard_paint'}), $.LABEL({forname:'C23899_P1'})), $.TD({}, 'aaa')));</div>
+</div>
+<div class='comment'>
+<div class='author'>annerose</div>
+<div class='content'>
+These comments have been invaluable to me as is this whole site. I thank you for your comment.</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+Shailesh, how big of a tree are you describing?<BR/><BR/>How big is your largest single node?</div>
+</div>
+<div class='comment'>
+<div class='author'>Shailesh</div>
+<div class='content'>
+Hi All,<BR/>    I am new here and want to get some help for speeding up and resolving IE issue while creating tree using ajax.<BR/><BR/>My tree contains radio buttons at each level and I am getting all tree data from database. To speed up, what I am doing is to have tree in session at server side<BR/>and whenever ajax needs the tree , it sends appropriate tree key request and get the tree object from server.<BR/><BR/>My problem starts while processing huge tree. I have products tree object which is very huge and IW is taking 15 secs to build the tree and also hangs for 15 seconds. Firefox and mozilla hands this tree creation pretty neatly.<BR/><BR/>I am also building this tree on back ground on page load so that I have the tree ready when user clicks on + sign to get the tree.<BR/><BR/>I am building tree by using this method recursively.<BR/><BR/>function createMLNode(tagId,tagDesc){<BR/>    var liElm = null;<BR/>    var radioElm = null;<BR/><BR/>    // Creating List Item - html tag<BR/>    liElm = document.createElement("li");<BR/>    liElm.id = tagId;<BR/><BR/>// treeSelected is global variable contains information about <BR/>// which tree + sign has clicked.<BR/>// replacing < with [ for posting<BR/>radioElm = document.createElement('[input type="radio" name="'+ "radio_" + treeSelected + '" /]');<BR/><BR/>    radioElm.className="height";<BR/><BR/>    radioElm.id = "radio-" + tagId;<BR/><BR/>    radioElm.onclick = function(evt) {selectTagIdForRadio(tagId , treeSelected);} ;<BR/>    liElm.appendChild(radioElm);<BR/>    liElm.appendChild(document.createTextNode(tagDesc));<BR/><BR/>    return liElm;<BR/>}<BR/><BR/>Please help me so that I can encounter the IE hang issue or any other advice which can speed up tree building for large tree.<BR/><BR/>Thanks for your valuable suggestions.<BR/><BR/>Shailesh</div>
+</div>
+<div class='comment'>
+<div class='author'>John Medema</div>
+<div class='content'>
+Try this for IE/FF/Opera:<br /><br />try            <br />  { tempNode = document.createElement("[input type='hidden' name='myName' value='myValue'/]"); }<br />catch(err)<br />  { tempNode = document.createElement("input"); }<br /><br />tempNode.setAttribute("Type", "hidden");<br />tempNode.setAttribute("Name", "myName");<br />tempNode.setAttribute("Value", "myVal");<br />document.appendChild(tempNode);</div>
+</div>
+<div class='comment'>
+<div class='author'>Andy S.</div>
+<div class='content'>
+In reply to Paddy's answer--<br />Thanks for explaining the innerHTML thing!  I was trying for the longest time the past couple of days to figure out why a piece of Javascript wasn't working with IE but WAS working with FF/Safari, etc.  And it turned out to be because I was trying to set a NAME attribute for a dynamically-generated form... with setAttribute.  So I changed it to use innerHTML for now.  Reading around, it sounds like innerHTML IS faster... but I like how setAttribute works better in some ways.</div>
+</div>
+<div class='comment'>
+<div class='author'>Brian McAllister</div>
+<div class='content'>
+Hi guys, I'm a bit late on adding my comment here but anyways...<br /><br />The little used IE-only conditional compilation might just come in handy here e.g.<br /><br />function createRadioButton(parent, id, name) {<br />  // Internet Explorer (windows <= v6)<br />/*@cc_on<br />/*@if (@_jscript_version == 5.6)<br />  var elem = document.createElement('[input type="radio" name="'+name+'" id="'+id+'" /]');<br />  parent.appendChild(elem);<br />  return;                          <br />/*@end<br />@*/<br /><br />  // All other browsers<br />  var rdo = document.createElement('input');<br />  rdo.setAttribute('type','radio');<br />  rdo.setAttribute('name',name);<br />  rdo.setAttribute('id',id);<br />  parent.appendChild(rdo);<br />}<br /><br />Of course, I've never tested the code but it should work.<br /><br />P.S. HTML tags have been mangled to pass the blogger comment system.</div>
+</div>
+<div class='comment'>
+<div class='author'>Paddy</div>
+<div class='content'>
+Adding to the last comment:<BR/><BR/>innerHTML compatability: http://www.quirksmode.org/dom/w3c_html.html<BR/>something to be careful of in IE5.0:<BR/>http://www.quirksmode.org/bugreports/archives/2004/10/innerhtml_and_o.html<BR/><BR/>Basically its sound in everything except for IE5.2 on the Mac</div>
+</div>
+<div class='comment'>
+<div class='author'>Paddy</div>
+<div class='content'>
+Hi there, not sure if this now an old topic but I reached it through google so feel I should add a comment that may help future people passing by :)<BR/><BR/>The reason that these elements don't work in IE is because it doesn't support the 'name' attribute being added dynamically (*grumble*) as documented at http://msdn.microsoft.com/workshop/author/dhtml/reference/properties/name_2.asp <BR/><BR/>Now, IE has its own native ability to use createElement with the full HTML tag and attributes there, which is great (well, it works) - so this is one solution.  However, I don't have opera installed - and someone else suggests it doesn't work in opera.<BR/><BR/>So, the best solution is actually to use innerHTML.  Until yesterday I was avoiding this like the plague, but some research has revealed that (in no small part thanks to XMLHTTPRequest) attitudes have changed - while its not a W3C standard it has become a widely supported de facto standard.  The key is not that its a nice way of doing it, but that its quicker - check out the benchmarks at http://www.quirksmode.org/dom/innerhtml.html a / read the comments at http://domscripting.com/blog/display/35 / consider the views of Ajaxian (clearly experienced JS players) http://ajaxian.com/archives/dhtml-versus-dom-comparing-both-approaches<BR/><BR/>The only instance whereby this is not a suitable solution for the radio button issue is if you dynamically want to change which button is checked.  This is something I actually wanted to be the case, but found that in internet explorer the reset button will always revert to the original pageload selections regardless of any JS manipulation.  As a result I had already changed to the approach of 'refreshing' the radio buttons - i.e. recreating them, thus dynamically changing their 'checked' status is no longer a problem and I can use innerHTML.<BR/><BR/>:o</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+As for the "file" field input being added dynamically I do this:<BR/>...<BR/>// create the file input control..<BR/> var f = document.createElement('input');<BR/> f.type = 'file';<BR/> f.name = '#Attributes.Name#' + fileFieldCount;<BR/> f.id = '#Attributes.Name#' + fileFieldCount;<BR/> f.className = 'filefield';<BR/> f.onchange=copyAttachmentPath;<BR/><BR/> var c = r.insertCell(1);<BR/><BR/> c.appendChild(f);<BR/><BR/> // create a hidden control to store the origional file name<BR/> var h = document.createElement('input');<BR/> h.type = 'hidden';<BR/> h.name ='#Attributes.Name#'+ fileFieldCount + 'ref';<BR/> h.id = '#Attributes.Name#'+ fileFieldCount + 'ref';<BR/> <BR/> c.appendChild(h);<BR/>...<BR/><BR/>function copyAttachmentPath(){<BR/>  getStyleObject(this.id+'ref').value = this.value;<BR/> }<BR/><BR/>and it works fine in both IE and FF.</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+"But problem is that i can't get post data while form is submit in FF. but it works well in IE."<BR/><BR/>Hey! I have this exact problem.. the form is submitted with elements in IE but not in FireFox. Whats going on there?</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+I have used <BR/><BR/>obj = document.createElement("input");<BR/>obj.setAttribute('type','file');<BR/>obj.setAttribute('name','file'+iteration);<BR/>obj.setAttribute('id','file'+iteration);<BR/>obj.setAttribute('style.color','#cccccc');<BR/>obj.setAttribute('style.fontSize','9px');<BR/>obj.setAttribute('style.fontFamily','Verdana, Arial, Helvetica, sans-serif');<BR/>obj.setAttribute('size','25');<BR/><BR/><BR/><BR/><BR/>  it works well in both IE and FF.<BR/> But problem is that i can't get post data while form is submit in FF. but it works well in IE.<BR/><BR/>  Please help me what was the problem is there?</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Adding to the post that has the functions - if anyone does want to use them the addRadio function needs ALL the attributes in the attributes object. That is it needs the 'type' attribute set to radio so the catch in the function will work.</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+it should work in IE but it doesn't. The radio button isn't selectable.</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+just:<BR/><BR/>rdo=document.createElement('input');<BR/>rdo.setAttribute('type','radio');<BR/>rdo.setAttribute('name','fldID');<BR/><BR/>should work both in IE and Firefox (dunno about Opera).</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+I have fixed my post - those of you who mentioned the Firefox error were correct - sorry.<BR/><BR/>I have also put up a sample file that demonstrates how the code works in IE/Firefox - and how it still won't work in Opera 8.<BR/><BR/>Demo at: http://rawlinson.us/blog/documents/jsradio.html</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+I will put together a more feature complete demo at some point today and put a link to it here.  Perhaps we can figure out why some of us are having an error and others aren't.</div>
+</div>
+<div class='comment'>
+<div class='author'>Dmitri Colebatch</div>
+<div class='content'>
+Hi Bill,<BR/><BR/>I've got the same problem that others are reporting, here's some snippets of code:<BR/>[code]<BR/>  var i = 4;<BR/>  function addRow()<BR/>  {<BR/>    var tbody = document.getElementById("optionsTableBody")<BR/>    var tr = document.createElement("&lt;TR id=\"optionsTableRow_" + i + "\"&gt;");<BR/>    ....<BR/>  }<BR/>[/code]<BR/><BR/>I get the same error as others - the line it appears on is the createElement(tr...) line.<BR/><BR/>A bit of experienting shows me that as soon as I put the &lt;&gt; tags around the tr I get the error (I of course have a whole bunch of elements to create).<BR/><BR/>This looks pretty similar to what you had in your post so I'm a little confused as to the cause.  Using FF 1.5.0.3.<BR/><BR/>cheers<BR/>dim</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+once again I need someone to send me some code so I can take a look at what is happening to you - I will be happy to try to help with some additional info.</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+I am getting the same error in FF.  Did anyone figured what could have been causing this.</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+I would need to see your code. YOu can send it to me as an attachment at my gmail account using my user name of bill.rawlinson<BR/><BR/>Once I have it perhaps I can see what is going wrong.  I pretty much always develop for Firefox first - then IE - so I know what I did worked in FF - but perhaps I explained it in a flawed manner on the post.</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+doesn't work in Mozilla get the error:  Error: uncaught exception: [Exception... "String contains an invalid character"  code: "5" nsresult: "0x80530005 (NS_ERROR_DOM_INVALID_CHARACTER_ERR)"  location: "http://127.0.0.1/testcode/javascriptInsertHTML.html Line: 54"]<BR/>I escaped everything</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+i forgot to escape the characters when i was posting initially.  But yes the technique does work in both IE and FF.<BR/><BR/>Which browser are you using where it doesn't work?</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+I couldn´t make it work on both ie and ff. Are you sure it works on both?<BR/>Since the html got rendered above I suppose it should be:<BR/>var rdo = document.createElement('"[input name='name' type='radio']"');<BR/>(changing the above ][ for ><)</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+I couldn´t make it work on both ie and ff. Are you sure it works on both?<BR/>Since the html got rendered above I suppose it should be:<BR/>var rdo = document.createElement('"[input name='name' type='radio']"');<BR/>(changing the above ][ for ><)</div>
+</div>
+</div>

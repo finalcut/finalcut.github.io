@@ -1,0 +1,24 @@
+---
+layout: post
+title: "SQL Update with a CASE"
+date: 2005-07-15
+comments: false
+categories:
+ - sql
+---
+
+<div class='post'>
+Because I just read the post titled "<a href="http://mkruger.cfwebtools.com/index.cfm?mode=alias&alias=Join%20Update">Leveraging Your SQL - Update Using a Join</a>" over at Coldfusion Muse I figured I would add this post in an effort to help expand our SQL Updating skills.  Sometimes, particularly with update scripts, I might need to update a bunch of rows in the same table to have different values based on some other value in their row.  One way to do this is to write a bunch of different updates (one per row) OR you can write one update with a CASE statement in it.<br /><pre name="code" class="sql"><br />UPDATE user SET confirmed_ind =<br />    CASE data_release<br />        WHEN 0 THEN 1    /* if no consent, we don't care about the 2006 confirmation */<br />        WHEN 1 THEN 0    /* if prior consent given, user must confirm that a 2006 consent is registered. */<br />    END;<br /></pre><br /><br />You can even do much more complicated things as well:<br /><pre name="code" class="sql"><br />UPDATE user SET type_id =<br />    CASE payrate<br />        WHEN 0 THEN 125<br />        WHEN 1 THEN 150<br />        WHEN 2 THEN 175<br />        WHEN 3 THEN 150<br />        WHEN 4 THEN 125<br />         WHEN 5 THEN 200<br />        WHEN 6 THEN 125<br />         WHEN 7 THEN 250<br />    END;<br /></pre></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Kostas</div>
+<div class='content'>
+In that case you can a different SET clause for every column with their own conditions</div>
+</div>
+<div class='comment'>
+<div class='author'>paul</div>
+<div class='content'>
+Is there a way to use a CASE statement in an Update to change the column that is being updated?</div>
+</div>
+</div>

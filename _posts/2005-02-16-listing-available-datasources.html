@@ -1,0 +1,20 @@
+---
+layout: post
+title: "Listing Available Datasources"
+date: 2005-02-16
+comments: false
+categories:
+ - coldfusion
+ - utilities
+---
+
+<div class='post'>
+Here is some code I wrote quite a while ago to list the available datasources on the server. More than likely it is some code I found somewhere else as I doubt I was anywhere near the first person to do this.<br /><br />However, I figure it might be useful to someone else so here goes:<br /><pre name="code" class="coldfusion"><br /> &lt;CFLOCK Name="ServiceFactory" Type="Exclusive" TimeOut="10"&gt;<br />  &lt;CFSET Factory         = CreateObject("java", "coldfusion.server.ServiceFactory")&gt;<br />  &lt;CFSET Service        = Factory.getDataSourceService()&gt;<br />  &lt;CFSET DataSources    = Service.DataSources&gt;<br />  &lt;CFSET Datasources    = StructKeyArray(Datasources)&gt;<br />  &lt;CFSET Temp         = ArraySort(Datasources, "textnocase", "asc")&gt;               <br /> &lt;/CFLOCK&gt;           <br /><br /> &lt;select name="datasource"&gt;               <br /> &lt;CFOUTPUT&gt;<br />  &lt;CFLOOP From="1" To="#ArrayLen(Datasources)#" Index="i"&gt;<br />   &lt;option value="#Datasources[i]#"&gt;#Datasources[i]#&lt;/option&gt;<br />  &lt;/CFLOOP&gt;<br /> &lt;/CFOUTPUT&gt;<br /> &lt;/select&gt;                                <br /></pre></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Mohsin Raza</div>
+<div class='content'>
+Thanks. This was very helpful in sorting out a hosting related problem.</div>
+</div>
+</div>

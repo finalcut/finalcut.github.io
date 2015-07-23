@@ -1,0 +1,26 @@
+---
+layout: post
+title: "SQL SERVER CE - Change a Column Name"
+date: 2008-08-01
+comments: false
+categories:
+ - sql
+ - sql server ce
+ - column renaming
+---
+
+<div class='post'>
+Lets say you have a column that is currently storing just integers but you really want it to store nvarchars in SQL Server CE - what do you do?  <br /><br />Well, you can't just modify the column definition (it seems, though I could be wrong).  Instead you have to alter the table to create the new column, copy the data over from the int column to the nvarchar column, drop the int column, recreate it as a nvarchar column, copy the data back, and then delete the temp column you started with.  Something like this:<br /><br /><pre name="code" class="sql">alter table myTable add tempCol nvarchar(10);<br />update myTable set tempCol = myIDcol;<br />alter table myTable drop column myIDcol;<br />alter table myTable add myIDcol nvarchar(10);<br />update myTable set myIDcol = tempCol;<br />alter table myTable drop column tempCol;<br /></pre><br /><br /><br />Fun isn't it?  If there is a better way to do this in SQL Server CE please share!  Thanks.</div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Last line should be --<br />alter table myTable drop column tempCol;</div>
+</div>
+<div class='comment'>
+<div class='author'>Yoo-sang</div>
+<div class='content'>
+it&#39;s best(just) way.</div>
+</div>
+</div>

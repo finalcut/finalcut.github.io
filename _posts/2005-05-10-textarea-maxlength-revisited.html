@@ -1,0 +1,36 @@
+---
+layout: post
+title: "textarea maxlength revisited"
+date: 2005-05-10
+comments: false
+categories:
+ - javascript
+ - maxlength
+ - textarea
+---
+
+<div class='post'>
+<p><span style="color: rgb(255, 102, 102);">NOTICE: I updated all of the JS in this post on 5/24/2005 as there was some cut-n-paste problems before.  If you got the code from here before then, please get it again now.  You can also <a href="http://rawlinson.us/blog/codesamples/textareaMaxLen.js">download the file from here</a></span><a href="http://rawlinson.us/blog/codesamples/textareaMaxLen.js"><br /></a></p> <p><br /></p> <p>Yesterday I posted some code showing how to add, in a fairly unobtrusive manner, a maxlength property and behavior to the textarea control using the fundamental idea of "unobtrusive javascript". Today, I am going to expand on the idea a little.<br /></p> <p>Basically, If I am using a textarea odds are good that my maxlength value is going to be large. Becuase of that I want to give the user some form of clue as to how much of the textarea's capacity they have used. Since this needs to change dynamically it seems appropriate that I do this as part of the code that also limits the size of the textarea.</p><br /><pre name="code" class="jscript"><br />&lt;script type="text/javascript"&gt;<br />function textAreas_init() {<br />/*<br /> I initialize all textareas and send them to the addMaxLength method<br /><br /> @return  null<br /> @see  addMaxLength()<br />*/<br /> if (!document.getElementsByTagName) return;<br /><br /> objs = document.getElementsByTagName("textarea");<br /> for (oi=0;oi&lt;objs.length;oi++) {<br />  thisObj = objs[oi];<br />  // this part enforces the maxLength<br />  addMaxLength(thisObj);<br /> }<br />}<br /><br />function addMaxLength(thisObj){<br />/*<br /> I replace the onkeyup event of a textarea with a new action, forceMaxLength.  I also<br /> insert a sibling object that displays the current areas content length<br /><br /> @param thisObj  required the object whose content length we are constraining<br /> @return null<br /> @see forceMaxLength()<br />*/<br /> if (thisObj.getAttribute('maxLength')){<br />  thisObj.onkeyup = forceMaxLength;<br />  insertSpanSibling(thisObj,thisObj.value.length + '/' + thisObj.getAttribute('maxLength') + ' of maximum length used');<br /> }<br />}<br /><br />function forceMaxLength(){<br />/*<br /> I replace an event on a textarea forcing the length of the textareas content to be within the maxLength constraing<br /> <br /> @return null<br />*/<br /><br /> var maxLength = parseInt(this.getAttribute('maxLength'));<br /> if(this.value.length &gt; maxLength){<br />  this.value = this.value.substring(0,maxLength);<br /> }<br /><br /> this.nextSibling.innerHTML = this.value.length + '/' + maxLength + ' of maximum length used';<br />}<br /><br /><br />function insertSpanSibling(obj,msg,cssClass){<br />/*<br /> I add a span after the current object<br /> @param obj   required    the object that is getting the sibling inserted after it<br /> @param msg   required    the contents of the sibling<br /> @param cssClass not required   a class name for the new sibling<br /> @return null<br />*/<br /><br /> <br /> var newSpan = document.createElement('SPAN');<br /> newSpan.innerHTML = msg;<br /> obj = obj.nextSibling;<br /> if(obj.readOnly)<br />  obj = obj.nextSibling;<br /> if(cssClass)<br />  newSpan.className = cssClass;<br /><br /> obj.parentNode.insertBefore(newSpan,obj);<br />}<br /><br />function addEvent(elm, evType, fn, useCapture)<br />// addEvent and removeEvent<br />// cross-browser event handling for IE5+,  NS6 and Mozilla<br />// By Scott Andrew<br />{<br /> if (elm.addEventListener){<br />   elm.addEventListener(evType, fn, useCapture);<br />   return true;<br /> } else if (elm.attachEvent){<br />   var r = elm.attachEvent("on"+evType, fn);<br />   return r;<br /> } else {<br />   alert("Handler could not be removed");<br /> }<br />}<br /><br /><br />&lt;/script&gt;<br /></pre><br /><p>As you can see I didn't do a whole lot of new stuff. However, I did clean up the code some and make it a bit easier to use. It would probably be a good idea to move the code the updates the tooltip text out into its own function that would identify if the tooltip existed and create it if it didn't, other wise update it. I should probably also update the insertSpan function to take an ID value for the new span so that it would be easier to identify if the tooltip is there.</p></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Swifty</div>
+<div class='content'>
+Here is an updated insertSpanSibling that avoids a JavaScript error when obj has no nextSibling.<br />When there is no nextSibling, in the original code, obj.parentNode is meaningless<br /><br />function insertSpanSibling(obj,msg,cssClass){<br />/*<br /> I add a span after the current object<br /> @param obj   required    the object that is getting the sibling inserted after it<br /> @param msg   required    the contents of the sibling<br /> @param cssClass not required   a class name for the new sibling<br /> @return null<br />*/<br /><br /> <br /> var newSpan = document.createElement(&#39;SPAN&#39;);<br /> newSpan.innerHTML = msg;<br /> var next = obj.nextSibling;<br /> if(next)<br />  if(next.readOnly)<br />   next = next.nextSibling;<br /> if(cssClass)<br />  newSpan.className = cssClass;<br /><br /> if(next) next.parentNode.insertBefore(newSpan,next);<br /> else obj.parentNode.appendChild(newSpan);<br /><br />}</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+I think something happend to my Javascript in the post because it is all whacky now.<BR/><BR/>I will update it tomorrow to make it correct again.<BR/><BR/>wierd.</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+your right, I think my &lt; was not escaped when I pasted it in and so it is lost in "tag" ness.<BR/><BR/>thanks though!</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+for (oi=0;oi<BR/>   thisObj = objs[oi];<BR/>   addMaxLength(thisObj);<BR/>  }<BR/><BR/>Should be:<BR/><BR/>for (oi=0;oi < objs.length; oi++){<BR/>   thisObj = objs[oi];<BR/>   addMaxLength(thisObj);<BR/>  }</div>
+</div>
+</div>

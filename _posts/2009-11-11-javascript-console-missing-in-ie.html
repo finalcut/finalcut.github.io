@@ -1,0 +1,27 @@
+---
+layout: post
+title: "Javascript Console - Missing in IE?"
+date: 2009-11-11
+comments: false
+categories:
+ - javascript
+ - logging
+ - debugging
+ - console
+---
+
+<div class='post'>
+Ok so lets say your hacking away at your favorite web app using Firefox or Chrome and your dropping some "conole.log()" calls around to help you debug.  Then you try the site in IE and it doesn't work.  You look at the javascript error and you see that "console" is undefined.<br /><br />You don't really want to have to remember to change your console.log() calls to alerts or something else when you test in IE so what do you?  Well, it's easy to fix actually.  Just plop this bit of Javascript in your file and worry no more.<br /><pre name="code" class="javascript"><br />if(console === undefined){<br />  function _console(){<br />   return {<br />    log : function(v){<br />     alert(v);<br />    }<br /><br />   }<br />  }<br />  var console = new _console();<br />}<br /></pre><br /><br />Admittedly that is a pretty weak implementation of the console.log() but it is a good starting place for you.  If you want you can extend that do do things a little better (like append the log messages to the bottom of your webpage) but you get the basic idea.  Enjoy!<br /><br />Here is a slightly better version to give you an idea how you might extend it (requires the $ function such as that found in JQuery):<br /><pre name="code" class="javascript"><br />if(console === undefined){<br />  function _console(){<br />   return {<br />    log : function(v){<br />     this.prepLog();<br />     var l = '&lt;tr&gt;&lt;td&gt;'+v+'&lt;/td&gt;&lt;/tr&gt;';<br />     $('#divConsoleLog').append(l);<br />    },<br />    prepLog : function(){<br />     if(!$('#divConsoleLog')[0]){<br />      var d = '&lt;table id="divConsoleLog"&gt;&lt;caption&gt;Console&lt;/caption&gt;&lt;/table&gt;';<br />      $('body').append(d);<br />     }<br />    }<br />   }<br />  }<br />  var console = new _console();<br />}<br /><br /></pre><br /><br />Unsurprisingly, someone had this idea before me and they have a more feature rich implementation - check out "<a href="http://icant.co.uk/sandbox/fauxconsole/">faux console</a>" - but for whatever reason his didn't work for me and I don't feel like debugging it.  However, his style sheet is pretty much just what I want:<br /><br /><pre name="code" class="css"><br />#divConsoleLog{<br /> position:absolute;<br /> top:0;<br /> right:0;<br /> width:300px;<br /> border:1px solid #999;<br /> font-family:courier,monospace;<br /> background:#eee;<br /> font-size:10px;<br /> padding:10px;<br />}<br />html>body #divConsoleLog{<br /> position:fixed;<br />}<br />#divConsoleLog a{<br /> float:right;<br /> padding-left:1em;<br /> padding-bottom:.5em;<br /> text-align:right;<br />}<br /></pre></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+Thanks,<br /><br />this looks like it might be a pretty slick solution.  I&#39;ll try it out.</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Let me introduse my modest solution.<br /><br />This console work on IE6+, FF, Chrome, Safari, Opera.<br />Press &#39;~&#39; to show/hide them<br />http://dez.in.ua/console/light.html<br />http://dez.in.ua/console/<br /><br />Console supply <br />• console.log(message);<br />• console.info(message);<br />• console.warn(message);<br />• console.debug(message);<br />• console.error(message);<br />• console.group(marker);<br />• console.group();<br />• console.groupCollapsed();<br />• console.groupCollapsed(marker);<br />• console.groupEnd(marker);<br />• console.groupEnd();<br />• console.time(marker);<br />• console.timeEnd(marker);<br />• console.clear();<br />in all - IE6+, Chrome, Safari, Opera, FF( still work with FireBug, but done all console.  requests).</div>
+</div>
+</div>

@@ -1,0 +1,15 @@
+---
+layout: post
+title: "Javascript: When a String isn't"
+date: 2008-10-27
+comments: false
+categories:
+ - javascript
+ - int
+ - gotcha
+ - string
+ - cast
+---
+
+<div class='post'>
+This is actually pretty simple and is best explained with example code:<br /><br /><pre name="code" class="jscript"><br />  var x = "0E1234";<br /><br />  if(x != 0){<br />    alert("ok, makes sense!");<br />  }<br /></pre><br /><br />If you stick that source code into any browser and try to execute it you'll never see the alert.  Look at it again and see if you can tell why?<br /><br />Javascript is pretty agressive in casting things so if you have an int on the right and a value that can be successfully cast as an int on th left Javascript will cast the second half of the expression to an int as well.  0E1234 casts to an int as 0.<br /><br />Basically, if you wanted that javascript to do what you expected you'd need to write:<br /><pre name="code" class="jscript"><br />  var x = "0E1234";<br /><br />  if(x != "0"){<br />    alert("ok, makes sense!");<br />  }<br /></pre><br /><br />Note the quotes around the zero now.  Now it treats both sides of the expression as a string and voila' the alert box will appear.<br /><br /><h3>===</h3><br />There is another option to test for equality, the === (triple equal sign).  What this does is check for absolute equality in not just value but base type as well. <br /><br /><pre name="code" class="jscript"><br />  var x = "0E1234";<br /><br />  if(!(x === 0)){<br />    alert("ok, makes sense!");<br />  }<br /></pre><br /> <br />That would cause the alert to go off as well.  Just remember that "0" and 0 aren't the same either so:<br /><pre name="code" class="jscript"><br />  var x = "0";<br /><br />  if(!(x === 0)){<br />    alert("ok, makes sense!");<br />  }<br /></pre><br /><br />would also evaluate to the point where the alert dialog appeared.  Pretty simple stuff but it can really bite you when you least expect it.<br /><br />For instance, let's say you were trying to evaluate a dropdown boxes selected value.  The first value {Please Select A Value} evaluates to "0" <br /><pre name="code" class="xml"><br />...<br />   &tl;option value="0"&gt;Please Select A Value&lt;/option&gt;<br />...<br /></pre><br /><br />If you try to make sure the selected value isn't equal to zero wrap the zero your comparing against in quotes because, otherwise, you'll end up confused as to why "0" doesn't equal 0.</div>

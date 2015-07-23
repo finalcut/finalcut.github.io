@@ -1,0 +1,27 @@
+---
+layout: post
+title: "Setting up Ubuntu 8.1 For Development"
+date: 2008-10-30
+comments: false
+categories:
+ - ruby
+ - partition manager
+ - linux
+ - installation
+ - gparted
+ - sqlite
+ - citrix
+ - ubuntu
+ - irb
+---
+
+<div class='post'>
+I have to dual boot into Linux to do some ruby work.  Sure, I <strong>can</strong> do most of my dev work in windows but, to be honest, it doesn't work that well for all of my ruby needs.  For instance many Gems just won't build on windows especially with my not having VC++ 6.0 installed.  Thus, I have to have something else to work in; enter Linux.<br /><br />If you have been following along you'll know that last year (or earlier this year) I attempted to setup a pure Linux dev environment but one of my projects (a coldfusion+ms sql server 2005) forced me back to windows. So I went back to a pure windows setup.  Now, finally, I am compromising.<br /><br />Fortunately my old posts helped me <a href="http://cf-bill.blogspot.com/2008/05/ubuntu-i-wish-i-could-love-you.html">get my citrix client setup</a> (though I had some new issues with my display adapter).  Here follows some tips that helped me get over the hump of getting things installed and working as needed.<br /><br /><ul><li><span style="font-weight: bold;">nVidia Adapter</span> - I actually had a lot of problems with this.  I installed from a newly pressed Beta cd for Ubuntu 8.10 and activated the necessary driver; however no matter how hard I tried I couldn't get my video settings to save in the xorg.conf file properly.  Fortunately a perusal of <a href="http://ubuntuforums.org/showthread.php?p=6050098">a forum post</a> turned up the answer:<br /><pre name="code" class="xml"><br />~$ sudo nvidia-xconfig<br />~$ gksudo nvidia-settings<br /></pre><br />The first line backs up the xorg.conf file and creates a new one that the nvidia driver can understand.  The second opens the settings dialog as super-user and lets you make your changes.  However, before doing this I had to update my system.  Even though I seemed to have the latest and greatest version of the drivers an update was required before my machine would boot with the nVidia settings.</li><li><span style="font-weight: bold;">synaptic package manager</span> - for whatever reason synaptic just won't see all the software that is out there to install.  I've enabled all the different repos but synaptic shows me almost nothing.  Thankfully, the command line saves the day.  First, if you want to find something useful you can type<br /><pre name="code" class="xml"><br />apt-cache search {item of interest}<br /></pre>Where {item of interest} is some string to search for.  Then you can use<br /><pre name="code" class="xml"><br />sudo apt-get install {x}<br /></pre>Where {x} is the package to install.</li><li><span style="font-weight: bold;">irb </span>- Once ruby was installed I couldn't get irb to run from the command line.  The problem was irb was called irb1.8 in /usr/bin so I created a symbolic link at /usr/bin/irb that points to /usr/bin/irb1.8 like so:<br /><pre name="code" class="xml"><br />sudo ln -s /usr/bin/irb1.8 /usr/bin/irb<br />sudo chmod 755 /usr/bin/irb<br /></pre></li><li><span style="font-weight: bold;">sqllite for ruby</span> If you try to use gem to install sqlite3-ruby it will bitch and moan. You have to use apt-get to install libsqlite3-ruby like so:<br /><pre name="code" class="xml"><br />sudo apt-get install libsqlite3-ruby<br /></pre><br />Then anything you try to install that needs sqlite support should work OK.  Sadly, this was also a pain on windows; but thanks to the RubyOnRails wiki:<br /><blockquote><br />Grab <a href="http://www.sqlite.org/sqlitedll-3_6_1.zip">http://www.sqlite.org/sqlitedll-3_6_1.zip</a> and unzip the contents to a location on your path. I use c:\ruby\bin.<br /><br />Next, install the SQlite3 gem:<br /><br />gem install sqlite3-ruby<br /><br />Note, as of 30/08/2008 this can fail because the latest sqlite3-ruby gem does not have a windows version. To get around this, install as so:<br /><br />gem install --version 1.2.3 sqlite3-ruby<br /></blockquote><br /></li><li><span style="font-weight: bold;">partitioning</span> - Honestly, this should have been obvious but don't try to install while you have a large usb drive connected.  The partition manager takes forever to scan the external drive.  The partition manager is also pretty unclear with it's graphical display of what your partitions will look like so I used the manual option and setup a 2gb swap and a 13 gb linux partition mounted at /.  I don't need anything more complicated.</li><br /></ul></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>A_J780</div>
+<div class='content'>
+Thanks for the info,<BR/> my Nvidia adapter has been buggy since my upgrade to 8.1 and this just fixed it <BR/><BR/>Thanks again !</div>
+</div>
+</div>

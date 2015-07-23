@@ -1,0 +1,32 @@
+---
+layout: post
+title: "Acrobat Reader - slim and sporty"
+date: 2005-11-15
+comments: false
+---
+
+<div class='post'>
+Today I had to spend some time trying to slim Acrobat Reader down to it's barest minimum in order for it to work.  The resulting Reader had to be able to do just 3 things.  Open/display PDF files, allow for the searching of the open PDF file, and print the PDF file.  Anything else was verboten.<br /><br />Thanks to google I found an abundance of ideas on how to get started in this pruning but none really did a full job of pruning Reader 7.0x the following steps get Reader to be as lightweight as I could.<br /><br /><ol><br /><li>rename the optional directory to backup</li><br /><li>copy all plugins and folders from the plugins directory to the backup directory EXCEPT</li><br /> <ul><br /> <li>ESCRIPT</li><br /> <li>EWH32</li><br /> <li>Search</li><br /> </ul><br />for ease of later undo create a plugins directory in the backup directory and put all that stuff you just<br />moved into the plugins directory</li><br /><li>copy the javascripts directory to the backup directory then delete the websearch.js file from the origional javascripts directory</li><br /><li>copy the plugins3d directory to the backup directory then delete everything in the origional plugins3d directory</li><br /><li>copy the spplugins directory to the backup directory then delete everything in the origional spplugins directory</li><br /><li>move the updater directory to the backup directory</li><br /><li>move the browser directory to the backup directory</li><br /><li>move the websearch directory to the backup directory</li><br /><li>copy the files: AcroRd32Info.exe, AdobeUpdateManager.exe, reader_sl.exe, and Readme.htm to the backup directory</li><br /></ol><br /><br />Now, Reader does just what I need it to do and nothing else.  It also starts REALLY FAST (between 0.5-2.0 seconds).  Mission Accomplished.<br /><br />However, even when Reader is this pared down it still has a memory footprint of over 14MB!  The freely available <a href="http://www.foxitsoftware.com/pdf/rd_intro.php">Foxit Reader</a> loads just as fast, has no installation process, doesn't require any slimming down to get to this point, and only takes up 5MB of memory.<br /><br />The advantage for normal usage goes to Foxit.  However, this exercise in slimming down Acrobat Reader wasn't for normal usage.  It is going somewhere where the users can't launch a webbrowser and becuase I could remove the plugins that affect web connectivity Acrobat Reader fits the bill nicely.  I still won't use it on my personal machine.  But if you have no choice perhaps these tips will help you get the most (or the least) out of Acrobat Reader.</div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+The newest version of Foxit (2.0) supports form filling and save</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+I started using foxit to and was going to install it on my parents pc then I found out it doesn't support interactive forms. These are actually quite commonly used for fill-it-in-print-it-out-sign-it-and-send-it-back type of things, so can't recomend it for general use yet. I've just put acrobat 4.05 on and I'll give that and 7 a try and see which suits me best.</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+Get a Mac.. thats funny; a little expensive just to find a better pdf reader.<BR/><BR/>Foxit works perfectly for me.  It is lightweight and loads fast. Plus it required No installation.</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+get a mac, use preview instead.</div>
+</div>
+</div>

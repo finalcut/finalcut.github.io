@@ -1,0 +1,70 @@
+---
+layout: post
+title: "Oracle NVL = Microsoft ISNULL"
+date: 2005-10-20
+comments: false
+categories:
+ - sql-server
+ - oracle
+---
+
+<div class='post'>
+Sometimes when writing a query, particularly during concatenation, you don't want a NULL value in part to force a NULL return to the expression.  With Oracle I have always avoided that result using the NVL function and today (suprisingly for the first time) I needed the same feature in Transact SQL (SQL Server).  The equivilent is ISNULL.<br /><br /><h3>Oracle NVL Usage</h3><br /><pre name="code" class="sql"><br />nvl(check_expression, replacement_value)<br /></pre><br /><br /><h3>T-SQL ISNULL Usage</h3><br /><pre name="code" class="sql"><br />ISNULL ( check_expression , replacement_value )<br /></pre><br /><br />In both cases the function will return the replacement_value if check_expression is NULL otherwise they will return check_expression.  Note that replacement_value needs to be of the same type as check_expression.  You can't give the user back an orange when they ask for an apple so to speak!</div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Evandro</div>
+<div class='content'>
+Thanks a lot!</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Bill -<br /><br />Thank you.  Exactly what I was looking for!  I took a new job recently and the new company uses MS SQL Server as opposed to the Oracle I&#39;m used to.</div>
+</div>
+<div class='comment'>
+<div class='author'>Don</div>
+<div class='content'>
+Actually, they do work the same. What is not the same is that Oracle treats &#39;&#39; as equivalent to null. So, a statement like:<br />NVL(somefield,&#39;&#39;)<br />is useless, because you are replacing null with null.</div>
+</div>
+<div class='comment'>
+<div class='author'>Esger</div>
+<div class='content'>
+Hey, thanks for this.<br /><br />One caveat I found is that whereas<br /><br />where isnull(somefield,&#39;&#39;) != &#39;gimme_all_other_values_including_NULL&#39;<br /><br />works in tsql<br /><br />NVL(somefield,&#39;&#39;) != &#39;gimme_all_other_values_including_NULL&#39;<br /><br />doesn&#39;t seem to return any result. at least when &#39;somefield&#39; is a nullable VARCHAR2(30 CHAR) type field.<br /><br />adding a character in the NVL construct<br /><br />NVL(somefield,&#39;x&#39;) != &#39;gimme_all_other_values_including_NULL&#39;<br /><br />does the trick, but it shows that the behaviour is not entirely the same and would blow some code when doing a tsql-plsql recoding.</div>
+</div>
+<div class='comment'>
+<div class='author'>Luke</div>
+<div class='content'>
+Thanks for the post - I was looking for the Oracle equivalent of ISNULL().</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+As of Oracle 9, COALESCE now works in Oracle.</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Both Oracle and SQL Server 2005 allow the use of the CASE statement (syntax shown below):<BR/><BR/>SELECT CASE WHEN col5 = 0 THEN 'Value of column 5 is zero'<BR/>            WHEN col5 = 1 THEN 'Value of column 5 is one'<BR/>            WHEN col5 = 2 THEN 'Value of column 5 is two'<BR/>            WHEN col5 IS NULL THEN 'Value of column 5 is NULL'<BR/>            ELSE 'Value of column 5 is invalid'<BR/>            END AS Column5Value<BR/>FROM <I>sometable</I></div>
+</div>
+<div class='comment'>
+<div class='author'>Dov</div>
+<div class='content'>
+I don't know if Oracle has a variable-length method such as:<BR/><BR/><B><BR/>NVL(orig, repl1, repl2, repl3, ...)<BR/></B><BR/><BR/>But you can simulate it with:<BR/><BR/><B><BR/>NVL(orig, NVL(repl1, NVL(repl2, NVL(repl3, ...))))<BR/></B><BR/><BR/>It's certainly not as pretty, but probably nicer than some multi-line CASE statement.</div>
+</div>
+<div class='comment'>
+<div class='author'>Adriano</div>
+<div class='content'>
+Wow!<BR/><BR/>This information help me a lot!<BR/><BR/>Thanks!</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+While not a particularly pretty way of doing it you could use the T-SQL function: DECODE to accomplish the same thing as Coalesce.<br /><br />DECODE is a function that lets you perform one big case statement with conditionals at each case point.<br /><br />I don't know if there is a cleaner way to do what you're asking.</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Thanks for the info.<br /><br />Is there an Oracle equivalent to T-SQL's COALESCE statement?<br /><br />COALESCE takes an arbitrary list of parameters and returns the first non-null parameter in the list. ISNULL is equivalent to calling COALESCE with two parameters.<br /><br />-Jamie<br /><br />http://blogs.conchango.com/jamiethomson</div>
+</div>
+</div>

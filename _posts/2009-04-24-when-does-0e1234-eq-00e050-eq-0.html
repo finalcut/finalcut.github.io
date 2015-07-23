@@ -1,0 +1,37 @@
+---
+layout: post
+title: "When does '0E1234' EQ '00E050'  EQ '0'?"
+date: 2009-04-24
+comments: false
+categories:
+ - coldfusion
+ - duck-typing
+ - scientific-notation
+ - cf
+---
+
+<div class='post'>
+You might be thinking never but, as it turns out, you'd be wrong.  In CF7 at least this equivalence and many other odd ones can (and will) occur.  It is, undoubtedly, kind of crazy and it definitely doesn't make a ton of sense but I'll give you some sample code so you can test it out for yourself.  Please try it on CF8 as well and let me know what happens.<br /><br /><pre name="code" class="coldfusion"><br />&lt;cfparam name="url.idval" default="0" type="numeric" /&gt;<br /><br /><br />&lt;cfset q1 = QueryNew("id,name") /&gt;<br /><br />&lt;cfset QueryAddRow(q1) /&gt;<br />&lt;cfset QuerySetCell(q1,"id","0") /&gt;<br />&lt;cfset QuerySetCell(q1,"name","") /&gt;<br /><br /><br /><br />&lt;cfset QueryAddRow(q1) /&gt;<br />&lt;cfset QuerySetCell(q1,"id","0E1234") /&gt;<br />&lt;cfset QuerySetCell(q1,"name","0E1234") /&gt;<br /><br />&lt;cfset QueryAddRow(q1) /&gt;<br />&lt;cfset QuerySetCell(q1,"id","020302") /&gt;<br />&lt;cfset QuerySetCell(q1,"name","Some Other Row") /&gt;<br /><br /><br />&lt;cfset QueryAddRow(q1) /&gt;<br />&lt;cfset QuerySetCell(q1,"id","00E050") /&gt;<br />&lt;cfset QuerySetCell(q1,"name","00E050") /&gt;<br /><br /><br />&lt;form name="" method="post" action="oe.cfm"&gt;<br />&lt;select name="idval"&gt; <br /> &lt;cfoutput query="q1"&gt;<br />  &lt;option value="#q1.id#" &lt;cfif q1.id EQ url.idval&gt;SELECTED&lt;/cfif&gt;&gt;#q1.name#&lt;/option&gt;<br /> &lt;/cfoutput&gt;<br />&lt;/select&gt;<br />&lt;input type="submit" name="btnGo" value="go" /&gt;<br />&lt;/form&gt;<br /></pre><br /><br />If you stick that in a cfml file called oe.cfm and load it you'll notice that all three options with the id "0", "0E1234", and "00E050" are marked as selected.  You might be thinking, WTF?<br /><br />Well, my theory is CF in its' typless glory is treating all of these strings as numbers and, because 0E (or 00E) is scientific notation it is basically treating them all as equivalent to zero (0).<br /><br />How do you get around this?  My simple solution:<br /><pre name="code" class="coldfusion"><br />  &lt;option value="#q1.id#" &lt;cfif "_#q1.id#_" EQ "_#url.idval#_"&gt;SELECTED&lt;/cfif&gt;&gt;#q1.name#&lt;/option&gt;<br /></pre><br /><br />I wrapped them both in underscores for the purpose of measuring equivalence which forces CF to treat them as strings and voila the expected behavior now occurs.</div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+It's funny how these things pop up.  The app that was using this code had been in use for years and the problem just recently manifested itself because they added a new code to the system that started 00E and there was already a code that started 0E.</div>
+</div>
+<div class='comment'>
+<div class='author'>Ben Nadel</div>
+<div class='content'>
+I've had similar issues where strings were being evaluated as times (from what I could gather):<br /><br />http://www.bennadel.com/blog/566-Did-You-Know-That-000-Equals-00A-In-ColdFusion-.htm</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+well this example was very made up to illustrate the point.  The actual production code that encountered this problem was doing a real query against an Oracle database.  <br /><br />However, the same problem could occur if you just have two variables that are string representations of values that match the pattern I described.  <br /><br />This post is really more of a warning than a "here is the WAY" to solve it.<br /><br />Thanks for sharing your solution though, perhaps it will inform some people of the syntax available in QueryNew for specifying the column type.</div>
+</div>
+<div class='comment'>
+<div class='author'>joel</div>
+<div class='content'>
+Another possible solution, explicitly treating the values as strings:<br /><br />&lt;cfparam name=&quot;form.idval&quot; default=&quot;0&quot; type=&quot;string&quot; /&gt;  <br />  <br />&lt;cfset q1 = QueryNew(&quot;id,name&quot;,&quot;varchar,varchar&quot;) /&gt;<br /><br />...<br /><br />&lt;option value=&quot;#q1.id#&quot; &lt;cfif CompareNoCase(q1.id, form.idval) EQ 0&gt;SELECTED&lt;/cfif&gt;&gt;#q1.name#&lt;/option&gt;</div>
+</div>
+</div>

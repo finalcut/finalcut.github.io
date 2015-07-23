@@ -1,0 +1,32 @@
+---
+layout: post
+title: "Monitor Your Java Heap on the Fly"
+date: 2010-11-05
+comments: false
+categories:
+ - coldfusion
+ - java
+ - memory
+ - heap
+---
+
+<div class='post'>
+This sample code will be in ColdFusion as that was where I decided to test it.  However, it can obviously be used within a Java app if you wanted.<br /><br />I'm not going to get into the pros and cons of manually calling the garbage collector but feel free to hash it out in the comments.<br /><br />Anyway, here is how you check your currently used Heap and, if you want, how you call the garbage collector.<br /><br /><pre class="coldfusion"" name="code">&lt;cffunction name="cleanGC"&gt;<br /> &lt;cfset var rt = createObject("java","java.lang.Runtime") /&gt;<br /> &lt;cfset var used = rt.getRunTime().totalMemory()  - rt.getRuntime().freeMemory() /&gt;<br /> &lt;cfset var half = rt.getRunTime().totalMemory()/2/&gt;<br /> &lt;cfif used GT (half)&gt;&lt;!--- more than half as many megs as are available being used? Clean up if we can ---&gt;<br />  &lt;!--- call garbage collection ---&gt;<br />  &lt;cfset rt.getRunTime().gc() /&gt;<br /> &lt;/cfif&gt;<br />&lt;/cffunction&gt;<br /></pre><br />It's pretty straight-forward really.  Use at your own risk.</div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+Thanks Larry. I&#39;ll fix it as soon as im at a real computer</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+Thanks Larry. I&#39;ll fix it as soon as im at a real computer</div>
+</div>
+<div class='comment'>
+<div class='author'>Larry C. Lyons</div>
+<div class='content'>
+I saw a very minor issue in your code, you repeat the &lt;cffunction line twice.<br /><br />other than that nice post.<br /><br />regards,<br />larry</div>
+</div>
+</div>

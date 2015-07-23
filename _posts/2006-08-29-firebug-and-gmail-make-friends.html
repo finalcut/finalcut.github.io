@@ -1,0 +1,30 @@
+---
+layout: post
+title: "Firebug and Gmail - make friends!"
+date: 2006-08-29
+comments: false
+categories:
+ - gmail
+ - firebug
+---
+
+<div class='post'>
+This is my final post, I hope, on the topic of  Firebug and Gmail compatability.  A recent reader of my blog has posted a <a href="http://www.paulchaplin.com/blog/firebug-and-gmail-friends-at-last/">xpi hack that will get Firebug to not interact with Gmail </a>at all so you can keep a Gmail tab open and keep Firebug active.<br /><br />If you decide to edit the xpi yourself I have summarized the code change here:<br /><br /><pre name="code" class="jscript"><br />FireBug.isWindowInspectable = function(win)<br />{<br />  var isOK = false;<br />   <br />      if(win.location.href != "about:blank" &&amp; win.location.href.indexOf('mail.google.com') == -1){<br />          isOK = true;<br />      }<br /><br /><br />  return isOK;<br /><br />}<br /></pre><br /><br />This change goes in the following file:<br /><br />&lt;your documents and settings path&gt;\Application Data\Mozilla\Firefox\Profiles\&lt;your profile&gt;\extensions\firebug@software.joehewitt.com\chrome\firebug.jar\content\firebug\firebug.js<br /><br />After you make the change just restart your browser to have it take effect.  Before making any changes though I encourage you to <a href="http://www.paulchaplin.com/blog/firebug-and-gmail-friends-at-last/">read his blog post</a>. It provides much more complete and step -by- step instructions or an alternative already edited XPI file you can install.<br /><br />Thanks Paul</div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+thank you for digging in and finding the hack.<br /><br />I should have done the same but the thought never even occured to me.  I'm getting lazy I guess :O)</div>
+</div>
+<div class='comment'>
+<div class='author'>Paul Chaplin</div>
+<div class='content'>
+Ah, update: just after bumping that thread, I saw Joe's <a href="http://www.joehewitt.com/blog/next_firebug.php">recent blog post about FireBug</a> - someone had already posted a comment requesting domain filtering, so I echoed it. Here's hoping!</div>
+</div>
+<div class='comment'>
+<div class='author'>Paul Chaplin</div>
+<div class='content'>
+Glad I could help, and thanks for posting about it. :)<br /><br />I'll be keeping my fingers crossed that Joe will add a GUI blacklist (and possibly whitelist) option soon, since someone else <a href="http://www.joehewitt.com/software/firebug/forums/viewtopic.php?t=14">requested it</a> a while back on his forum (and I just bumped it).<br /><br />If that doesn't happen, I'll see about doing it myself, to make the current solution more generalised - it can't be just us and just Gmail experiencing problems.<br /><br />Cheers Bill.</div>
+</div>
+</div>

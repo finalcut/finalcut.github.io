@@ -1,0 +1,25 @@
+---
+layout: post
+title: "AJAX - XMLHTTPRequest"
+date: 2005-03-01
+comments: false
+categories:
+ - ajax
+ - xmlHttpRequest
+---
+
+<div class='post'>
+I just read over at MossyBlog about the term AJAX (Asynchronous Javascript and XML). And, since I have recently been posting code that deals with that I figured I would post this little blurb as well. Technically it is just an update to some code I posted last week but it allows for slightly more flexibility.<br /><br /><pre name="code" class="jscript"><br />isIE = false;<br />var xmlhttp;<br /><br />function newXMLobj(){<br /> var xmlObj;<br /> if (window.XMLHttpRequest) {<br />  xmlObj = new XMLHttpRequest();<br /> } else if (window.ActiveXObject){<br />  xmlObj = new ActiveXObject("Microsoft.XMLHTTP");<br />  isIE = true;<br /> }<br /><br /> return xmlObj;<br />}<br /><br /><br />/**<br />* loads an xml document object and executes the appropriate method<br />*<br />* @param xmldoc STRING the name of the file to load. The URL will be<br />* built from this filename.<br />* @param stateHandler FUNCTION the function to call on state change to the xml object<br />* this is the method that will do something with the XML<br />* fetched<br />* @return NULL<br />* @see http://developer.apple.com/internet/webcontent/xmlhttpreq.html<br />*<br />*<br />* sample usage:<br />* &lt;button onclick="loadXMLDoc('sample.xml.cfm',xmlStateChange);"&gt;Test&lt;/button&gt;<br />*<br />**/<br />function loadXMLDoc(xmldoc,stateHandler,debug,xmlObj){<br /> var xmlURL = xmlRoot + xmldoc;<br /> var xmlData = '';<br /> var idList = '';<br /><br /><br /> if(debug==1){<br />  alert(xmlURL);<br /> }<br /> if(xmlObj){<br />  xmlObj.open("GET", xmlRoot + xmldoc,true);<br />  xmlObj.onreadystatechange = stateHandler;<br />  xmlObj.send(null)<br /> } else {<br />  xmlhttp = newXMLobj();<br />  xmlhttp.open("GET", xmlRoot + xmldoc,true);<br />  xmlhttp.onreadystatechange = stateHandler;<br />  xmlhttp.send(null)<br /> }<br />}<br /></pre><br /><br />Now basically all I really changed is the fact that loadXMLDoc now contains an optional parameter, xmlObj. If xmlObj is provided then we know an XMLHTTPRequest object has been passed in and I reference it. Otherwise we initialize the global variable xmlhttp and go from there.<br /><br />Why did I do this? Well if you have to call loadXMLDoc multiple times on the same page its for the best. Using the same objet (xmlhttp) on multiple consecutive calls you will get unexpected and unwanted results.<br /><br />Bear in mind, because of the response handler system you need to define a new global variable for each xmlhttprequest object you want to use. Here is a simple example:<br /><br /><pre name="code" class="jscript"><br />&lt;script type="text/javascript"&gt;<br /> var xmlCat = newXMLobj();<br /> var xmlCmp = newXMLobj();<br /><br /> function fireActivityClick(linkID){<br />  // get categories based on activity<br />  loadXMLDoc('someURL.cfm?linkID=' + linkID,catHandler,0,xmlCat);<br /><br />  // get compliance issues based on activity<br />  loadXMLDoc('someOtherURL.cfm?linkID=' + linkID,cmpHandler,0,xmlCmp);<br /><br /> }<br /><br /><br /> function catHandler(){<br />  ...<br /> }<br /> function cmpHandler(){<br />  ...<br /> }<br />&lt;/script&gt;<br /></pre></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+Hey Bruno,<BR/><BR/>you may want to check out my more recent post regarding AJAX - and a wrapper library called SACK which is now my preferred method.<BR/><BR/>http://twilightuniverse.com/2005/05/sack-of-ajax/<BR/><BR/>just note that I added a line to SACK <BR/><BR/>      self.responseXML = self.xmlhttp.responseXML;<BR/><BR/><BR/>I added that down just after the line that says:<BR/>      self.response = self.xmlhttp.responseText<BR/><BR/><BR/>in the case statement for option 4 (done).</div>
+</div>
+<div class='comment'>
+<div class='author'>Bruno Oliveira</div>
+<div class='content'>
+Hi, Bill.<BR/><BR/>I'm Bruno Oliveira from Portugal.<BR/><BR/>I'm using firefox 1.0.1 and your example don't work for me except if I change this line:<BR/><BR/>xmlhttp.onreadystatechange = stateHandler;<BR/><BR/>for this:<BR/><BR/>xmlhttp.onreadystatechange = eval(stateHandler);<BR/><BR/>Keep up the good work.<BR/><BR/>Bruno Oliveira</div>
+</div>
+</div>

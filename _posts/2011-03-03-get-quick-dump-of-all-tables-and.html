@@ -1,0 +1,13 @@
+---
+layout: post
+title: "Get Quick Dump of all Tables and Columns in Oracle Schema"
+date: 2011-03-03
+comments: false
+categories:
+ - pl/sql developer
+ - plsql
+ - oracle
+---
+
+<div class='post'>
+Today I was asked if there were any columns in our schema that contained the string "WIZ" in their name. &nbsp;Here is the query I used to confidently answer no.<br /><br /><br /><pre class="sql" name="code"><div style="border-collapse: collapse; font-family: arial, sans-serif; font-size: 13px;"><br /></div><div style="border-collapse: collapse; font-family: arial, sans-serif; font-size: 13px;">SELECT table_name, column_name &nbsp;from dba_tab_columns</div><div style="border-collapse: collapse; font-family: arial, sans-serif; font-size: 13px;">WHERE LOWER(owner) = 'schema_name'</div><div style="border-collapse: collapse; font-family: arial, sans-serif; font-size: 13px;">AND UPPER(column_name) LIKE '%WIZ%'</div><span class="Apple-style-span" style="border-collapse: collapse; font-family: arial, sans-serif; font-size: 13px;">ORDER BY table_name, column_name</span><br /><span class="Apple-style-span" style="border-collapse: collapse; font-family: arial, sans-serif; font-size: 13px;"><br /></span><br /></pre><br /><br />The only caveat was I had to be logged in as the db admin to access the "dba_tab_columns" table.</div>

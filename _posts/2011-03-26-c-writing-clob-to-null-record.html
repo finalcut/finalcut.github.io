@@ -1,0 +1,22 @@
+---
+layout: post
+title: "C# Writing a CLOB to an Oracle Database GOTCHA"
+date: 2011-03-26
+comments: false
+categories:
+ - c#
+ - oracleclob
+ - oracle
+ - clob
+---
+
+<div class='post'>
+This may not apply to everyone but it did for me using Visual Studio 2008 with .Net 3.5<br /><br />I found plenty of examples on how to write a CLOB to an Oracle Database but none of them worked if the CLOB cell currently had nothing it in to write to. &nbsp;Thus I came up with this solution.<br /><br />Sadly, it involves writing to the database twice. &nbsp;The first &nbsp;inserts a single space character into the field and the second actually writes the CLOB. &nbsp;Here is some source code to help.<br /><br /><br />Listing 1: Update the clob cell to have a single space in it.<br /><pre class="csharp" name="code">string sql = "UPDATE table SET mycell = :myval WHERE myid = :myid";<br /> OracleConnection conn = GetConnection(); //helper method that gets my connection object.<br /> conn.Open();<br /> using(OracleCommand sqlCommand = new OracleCommand(sql, conn);<br /> {<br />  OracleParameter myval = sqlCommand.Parameters.Add("myval", OracleType.VarChar);<br />  myval.Value = " ";<br /><br />  OracleParameter myid = sqlCommand.Parameters.Add("myid", OracleType.Int16);<br />  myval.Value = idValue; // assume idValue was predefined..<br /><br />  sqlCommand.ExecuteNonQuery();<br /> }<br /> UpdateClob("table", "mycell", "WHERE id = " + idValue.ToString(), stringValue); // stringValue is predefined and is what will be finally stored in the CLOB<br /></pre><br /><br />UpdateClob is a function that will actually write the final value to the CLOB field:<br /><pre class="csharp" name="code">protected void UpdateClob(string table, string column, string where, string value)<br />        {<br />            var sql = "SELECT " + column + " FROM " + table + " " + where + " FOR UPDATE";<br /><br />     // you need to convert your string into a byte array to pass into to the CLOB later<br />            byte[] newvalue = System.Text.Encoding.Unicode.GetBytes(value);<br /><br /><br />            OracleConnection conn = GetConnection();<br />            OracleTransaction transaction = conn.BeginTransaction();<br />            using (OracleCommand cmd = conn.CreateCommand())<br />            {<br />                cmd.Transaction = transaction;<br />                cmd.CommandText = sql;<br />                using (OracleDataReader reader = cmd.ExecuteReader())<br />                {<br />                    if (reader.Read())<br />                    {<br />                        OracleLob clob = reader.GetOracleLob(0);<br />   // if I didn't prepopulat the field the clob object would mysteriously have a null connection object.<br />                        clob.Write(newvalue, 0, newvalue.Length);<br />                        clob.Close();<br />                    }<br />                }<br />                transaction.Commit();<br />            }<br />        }<br /></pre><br />Anyway, overall it's a pretty straight forward process but kind of kludgy considering you have to write to the table twice.  I could not just use a parameterized query to pass in the CLOB's byte array value.  And, if I pre-wrote with an empty string like "" then it was as if I did nothing so I had to prepopulate with at least one character.<br /><br />Oddly enough, if I prepopulated with something like "PLACEHOLDER STRING" and then tried to write an empty string to it using the clob.Write() the method call succeeded by the value of the column didn't update.<br /><br />I can't say it makes a lot of sense but there you have it.</div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Thank You So Much Man, been wasting time until I found your blog.</div>
+</div>
+</div>

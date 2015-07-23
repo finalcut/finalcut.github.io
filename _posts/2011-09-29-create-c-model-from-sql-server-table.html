@@ -1,0 +1,21 @@
+---
+layout: post
+title: "Create a C# Model From a SQL Server Table"
+date: 2011-09-29
+comments: false
+categories:
+ - .net
+ - c#
+ - sql-server
+---
+
+<div class='post'>
+If you aren't using a framework of some sort that helps make this even easier here is a sql script that will help you generate a set of getters/setters for a SQL Server table in C#.<br /><br />I haven't tested it much (nil) but it looks like it will work ok. &nbsp;Basically you can just cut and paste the records returned into your class definition and you'll be good to go. &nbsp;You may, however, wish to fix the case of the property names to match the proper convention. &nbsp;I'm not sure how to fix the case using just SQL.<br /><br /><br /><pre class="sql" name="code"><br />SELECT 'public '  +<br />		CASE data_type<br />			WHEN 'bigint'		THEN 'int'<br />--			WHEN 'binary'		THEN 'raw'<br />			WHEN 'bit'		THEN 'int'<br />			WHEN 'char'		THEN 'char'<br />			WHEN 'datetime'		THEN 'DateTime'<br />			WHEN 'decimal'		THEN 'decimal'<br />			WHEN 'float'		THEN 'float'<br />--			WHEN 'image'		THEN 'long raw'<br />			WHEN 'int'		THEN 'int'<br />			WHEN 'money'		THEN 'double'<br />			WHEN 'nchar'		THEN 'string'<br />			WHEN 'ntext'		THEN 'string'<br />			WHEN 'nvarchar'		THEN 'string'<br />			WHEN 'numeric'		THEN 'int'<br />			WHEN 'real'		THEN 'decimal'<br />			WHEN 'smalldatetime'	THEN 'DateTime'<br />			WHEN 'smallmoney'	THEN 'double'<br />			WHEN 'smallint'		THEN 'int'<br />			WHEN 'text'		THEN 'string'<br />			WHEN 'timestamp'	THEN 'Date'<br />			WHEN 'uniqueidentifier' THEN 'string'<br />			--WHEN 'varbinary'	THEN 'raw'<br />			WHEN 'varchar'		THEN 'string'<br />			ELSE 'CHECK THIS.. ' + data_type + ' DataType'<br />		END + ' ' + COLUMN_NAME + ' { get; set; }'<br />	<br />FROM information_schema.columns<br />WHERE table_name = 'class'<br /></pre> There are also a  few data types in here I'm not sure I converted properly; this was just a quick one-off thing I put together for a friend.  So, if you have any suggestions or corrections please leave them in the comments and I'll update it as I go.</div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+This is exactly what I was looking for. Thanks!<br /><br />I made some changes to the data types:<br /><br />SELECT &#39;public &#39;  +<br /> CASE data_type<br />  WHEN &#39;bigint&#39; THEN &#39;long&#39;<br />  WHEN &#39;binary&#39; THEN &#39;byte[]&#39;<br />  WHEN &#39;bit&#39; THEN &#39;bool&#39;<br />  WHEN &#39;char&#39; THEN &#39;string&#39;<br />  WHEN &#39;date&#39; THEN &#39;DateTime&#39;<br />  WHEN &#39;datetime&#39; THEN &#39;DateTime&#39;<br />  WHEN &#39;datetime2&#39; THEN &#39;DateTime&#39;<br />  WHEN &#39;datetimeoffset&#39; THEN &#39;DateTimeOffset&#39;<br />  WHEN &#39;decimal&#39; THEN &#39;decimal&#39;<br />  WHEN &#39;float&#39; THEN &#39;float&#39;<br />  WHEN &#39;image&#39; THEN &#39;byte[]&#39;<br />  WHEN &#39;int&#39; THEN &#39;int&#39;<br />  WHEN &#39;money&#39; THEN &#39;decimal&#39;<br />  WHEN &#39;nchar&#39; THEN &#39;char&#39;<br />  WHEN &#39;ntext&#39; THEN &#39;string&#39;<br />  WHEN &#39;numeric&#39; THEN &#39;decimal&#39;<br />  WHEN &#39;nvarchar&#39; THEN &#39;string&#39;<br />  WHEN &#39;real&#39; THEN &#39;double&#39;<br />  WHEN &#39;smalldatetime&#39; THEN &#39;DateTime&#39;<br />  WHEN &#39;smallint&#39; THEN &#39;short&#39;<br />  WHEN &#39;smallmoney&#39; THEN &#39;decimal&#39;<br />  WHEN &#39;text&#39; THEN &#39;string&#39;<br />  WHEN &#39;time&#39; THEN &#39;TimeSpan&#39;<br />  WHEN &#39;timestamp&#39; THEN &#39;DateTime&#39;<br />  WHEN &#39;tinyint&#39; THEN &#39;byte&#39;<br />  WHEN &#39;uniqueidentifier&#39; THEN &#39;Guid&#39;<br />  WHEN &#39;varbinary&#39; THEN &#39;byte[]&#39;<br />  WHEN &#39;varchar&#39; THEN &#39;string&#39;<br />  ELSE &#39;CHECK THIS.. &#39; + data_type + &#39; DataType&#39;<br /> END + &#39; &#39; + COLUMN_NAME + &#39; { get; set; }&#39;<br /> <br />FROM information_schema.columns<br />WHERE table_name = &#39;class&#39;<br /><br /><br /><br />Cheers,<br />Chris</div>
+</div>
+</div>

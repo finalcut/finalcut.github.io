@@ -1,0 +1,17 @@
+---
+layout: post
+title: "Force Wordpress to be Case-Insensitive"
+date: 2012-01-27
+comments: false
+---
+
+<div class='post'>
+We recently had a minor annoyance happen when some marketing material was sent out that had a url with a capital "B" in it; such as http://www.mysite.com/Bill instead of http://www.mysite.com/bill. &nbsp;Our webserver runs IIS so it is case-insensitive but wordpress, which is being used to host the hypothetical "bill" website is written in PHP which is case sensitive. <br /><br />Fortunately it is fairly easy to change this default behavior without using URL rewrite rules (which are limited to suckness on IIS 6 anyway). &nbsp;Wordpress Plugins to the rescue!<br /><br />Our wordpress install uses a multi-site setup with over 150 sites so clearly this is a plugin you'd want to network activate. &nbsp;Sadly, for some reason, network activate didn't do the trick. Instead the plugin had to go in the mu-plugins directory (mu-plugins = must use plugins; they are forced onto every site and loaded before anything else basically).<br /><br />I found the perfect plugin code over at <a href="http://www.unfocus.com/2007/08/31/case-insensitive-permalinks-plugin-for-wordpress/">unfocus.com's website</a>&nbsp;but I renamed it to something that made a little more sense for us (from a maintenance perspective) in the future. Here is the code of the plugin in case that site goes away someday.<br /><br /><br /><pre class="php" name="code"> &lt;?php<br />  /*<br />  Plugin Name: case-insensitive-url<br />  Plugin URI: http://www.unfocus.com/projects/<br />  Description: A plugin to make wordpress case insensitive in regards to urls.<br />  Version: 1.0a<br />  Author: Kevin Newman<br />  Author URI: http://www.unfocus.com/projects/<br />  */<br />  function case_insensitive_url() {<br />   if (preg_match('/[A-Z]/', $_SERVER['REQUEST_URI'])) {<br />    $_SERVER['REQUEST_URI'] = strtolower($_SERVER['REQUEST_URI']);<br />    $_SERVER['PATH_INFO']   = strtolower($_SERVER['PATH_INFO']);<br />   }<br />  }<br />  add_action('init', 'case_insensitive_url');<br /> ?&gt;<br /></pre><br />That's it.  This now runs automatically at the beginning of every page load and insures that each request is handled in a case-insensitive manner.  I'm not sure what, if any real, performance impact this has, but it is worth the cost for the reliability of knowing all incoming urls are treated the same regardless of case.  It's too expensive in terms of reputation and marketing dollars to have&nbsp;pamphlets, postcards, and flyers printed that point to a 404 error if we don't do it.</div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>arudd</div>
+<div class='content'>
+LIFE SAVER!</div>
+</div>
+</div>

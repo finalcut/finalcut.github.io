@@ -1,0 +1,44 @@
+---
+layout: post
+title: "Quickly Script a SQL Server View to Oracle Table"
+date: 2011-08-19
+comments: false
+categories:
+ - sql
+ - sql-server
+ - oracle
+---
+
+<div class='post'>
+I recently had a need to mirror a SQL server view in an Oracle database.  Without getting to detailed the basic premise is that a job runs once daily that copies data from the SQL Server via hetergenous data services into the Oracle table.  This allows some useful reporting queries to run that are joined across multiple Oracle schemas without having the slowdown involved with communicating directly over the heterogenous link on each query.<br /><br />Anyway, some of these views are stupid huge and I did not want to type each and every column name and column type. Thankfully there is a great resource inside SQL server that made my life quite a bit easier - the INFORMATION_SCHEMA.COLUMNS table.  It basically describes all the bits and pieces involved in all of the tables and views in your database.<br /><br />It's important to note that not all SQL server columns fit exactly into Oracle columns so I also needed to include a bit of logic to make <a href="http://download.oracle.com/docs/cd/B19306_01/gateways.102/b14270/apa.htm">the translation between datatypes</a>.<br /><br />Here is the query:<br /><br /><pre class="sql" name="code">SELECT '"' + column_name + '"     ' +
+<br />		CASE data_type
+<br />			WHEN 'bigint'		THEN 'number(19)'
+<br />			WHEN 'binary'		THEN 'raw'
+<br />			WHEN 'bit'		THEN 'number(3)'
+<br />			WHEN 'char'		THEN 'char'
+<br />			WHEN 'datetime'		THEN 'timestamp'
+<br />			WHEN 'decimal'		THEN 'number(' + CAST(numeric_precision as varchar) + ',' + CAST(numeric_scale as varchar) + ')'
+<br />			WHEN 'float'		THEN 'float(49)'
+<br />			WHEN 'image'		THEN 'long raw'
+<br />			WHEN 'int'		THEN 'number(10)'
+<br />			WHEN 'money'		THEN 'number(19,4)'
+<br />			WHEN 'nchar'		THEN 'nchar'
+<br />			WHEN 'ntext'		THEN 'long'
+<br />			WHEN 'nvarchar'		THEN 'nchar'
+<br />			WHEN 'numeric'		THEN 'number(' + CAST(numeric_precision as varchar) + ',' + CAST(numeric_scale as varchar) + ')'
+<br />			WHEN 'real'		THEN 'float(23)'
+<br />			WHEN 'smalldatetime'	THEN 'date'
+<br />			WHEN 'smallmoney'	THEN 'number(10,4)'
+<br />			WHEN 'smallint'		THEN 'number(5)'
+<br />			WHEN 'text'		THEN 'long'
+<br />			WHEN 'timestamp'	THEN 'raw'
+<br />			WHEN 'uniqueidentifier' THEN 'char(36)'
+<br />			WHEN 'varbinary'	THEN 'raw'
+<br />			WHEN 'varchar'		THEN 'varchar2( ' + CAST(CHARACTER_MAXIMUM_LENGTH AS varchar) + ')'
+<br />			ELSE 'CHECK THIS.. ' + data_type + ' DataType'
+<br />		END + ', '
+<br />	
+<br />
+<br />FROM information_schema.columns
+<br />WHERE table_name = 'your_table_or_view_name'
+<br /></pre><br />This will basically give you backa bunch of records that have the column name surrounded by quotes and then the type of the column followed by a comma.<br /><br />Once you have that you just need to prepend the "CREATE TABLE tablename (" bit at the beginning and remove the final comma and append a closing ");" and you've got a nice script to create a table.<br /><br />If you have a small table this probably isn't too helpful.  However, some of the views I have to mirror have over 250 columns!  <br /><br />It is possible that at times you will see a -1 in the datatype field.  If that happens it is because the length was set to "MAX" however I didn't really need to update my query to handle that so I'll leave that as an exercise for you if you need to handle that special case.</div>

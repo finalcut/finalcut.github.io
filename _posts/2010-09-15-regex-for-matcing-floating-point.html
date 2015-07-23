@@ -1,0 +1,34 @@
+---
+layout: post
+title: "Regex for matching floating point numbers that include commas"
+date: 2010-09-15
+comments: false
+categories:
+ - period
+ - comma
+ - float
+ - decimal
+ - regex
+ - numbers
+---
+
+<div class='post'>
+Honestly, I thought it would be easy to find a regex that would match something like:<br /><br />1,234.56  OR 1234.56  OR 123,456.789029329 or even -223.233434332 etc.<br /><br />But it wasn't.  I found some but they didn't quite work or <br /><br />Anywhere here is the regex I crafted and settled on:<br /><br /><b>^(\d|-)?(\d|,\d{3})*\.?\d*$</b><br /><br /><br />It isn't perfect, but it is as close as I could manage.  Here are some matches:<br /><ul><li>1322.23</li><li>1,322.23</li><li>1,322</li><li>1132</li></ul><div>Here are some numbers that fail to match</div><div><ul><li>1,32</li><li>1,32,2</li><li>1320.223,232</li></ul><div>So, in general this works great but it is possible to get by the regex somewhat because I just am not strong enough with regex's at the moment to fix it:</div></div><div><br /></div><div>Here is an example:</div><div><ul><li>1,2345,232</li></ul><div>Notice there are four numbers between the first and the second commas. &nbsp;My rule insists there has to be at least 3 numbers but doesn't insist on a comma before the next number. &nbsp;The reason for this is the fact that I don't want commas to be required before the decimal point. &nbsp;My initial effort which insisted on three numbers after the first comma and a second comma before the next three numbers etc required that any number in the thousands or higher had to have a comma if I wanted to use a decimal point. &nbsp;That wasn't acceptable so the current regex is my best compromise.</div></div><div><br /></div><div>If you can offer one better let me know in the comments.</div></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>AdamNation</div>
+<div class='content'>
+Try this:<br /><br />^0(\.0*)?$|^(-?0?\.0*[1-9]\d*)$|^(-?[1-9]((\d{0,2},(\d{3},)*\d{3})|(\d)*)(\.\d*)?)$<br /><br /><br />It doesn&#39;t allow trailing zeros (&quot;012&quot;) (&quot;0.000x&quot; is allowed). Negative zero is not allowed. A number is valid if it ends with a period, as in &quot;12.&quot;</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+Sorry that doesn&#39;t work.<br /><br />I just tested it and with the number<br />1,234.232.232  it fails in two ways:<br /><br />first, it selects 234.232.232 so it drops off the 1, and it allows multiple decimal points.</div>
+</div>
+<div class='comment'>
+<div class='author'>AdamNation</div>
+<div class='content'>
+The following is untested, but I think it may be on the right track, unless I&#39;m breaking the regex engine somehow...<br /><br />Basically, it first tries to match &quot;0&quot;. If it can&#39;t, it tries to match -1 &lt; x &lt; 1. If it still fails, it tries to match ddddd.ddddd with optional commas. No leading 0&#39;s are allowed.<br /><br />The only problem I see is that -0.0000 is currently allowed, but I think that could be resolved.<br /><br />^<br />   0  <br />|<br />   -?0?.\d+ <br />|<br />   -?[1-9]<br />      ( <br />      (\d{0,2},(\d{3},)*\d{3}) |<br />      (\d*)<br />      )<br />   (.\d*)?<br />$</div>
+</div>
+</div>

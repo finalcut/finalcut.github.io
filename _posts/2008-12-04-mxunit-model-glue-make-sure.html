@@ -1,0 +1,13 @@
+---
+layout: post
+title: "MxUnit + Model Glue : Make Sure ModelGlue.xml Doesn't have Duplicate Events"
+date: 2008-12-04
+comments: false
+categories:
+ - coldfusion
+ - model-glue
+ - mxunit
+---
+
+<div class='post'>
+This is a simple test I threw together to make sure our fairly complex ModelGlue.xml config file doesn't end up getting two events named with the same name.  While this shouldn't happen it did and so I needed a test to make sure it didn't happen again.<br /><br /><pre name="code" class="html"><br /> &lt;cffunction name="testConfigFileForDuplicateEventNodeNames" access="public" returntype="void"&gt;<br />  &lt;cfset var local = structNew() /&gt;<br /><br />  &lt;cfset local.filepath = ExpandPath('\lb2\config\ModelGlue.xml') /&gt;<br /><br />  &lt;cfset local.xml = XmlParse(local.filePath) /&gt;<br /><br />  &lt;cfset local.events = local.xml.modelglue["event-handlers"].XmlChildren /&gt;<br />  &lt;cfset local.usedKeys = structnew() /&gt;<br /><br /><br />  &lt;cfloop from="1" to="#ArrayLen(local.events)#" index="local.i"&gt;<br />   &lt;cfset local.node = local.events[local.i].XmlAttributes.name /&gt;<br />   &lt;cfif StructKeyExists(local.usedKeys, local.node)&gt;<br />    &lt;cfset fail("the node " & local.node & " is defined more than once in ModelGlue.xml") /&gt;<br />   &lt;/cfif&gt;<br />   &lt;cfset local.usedKeys["#local.node#"] = "" /&gt;<br />  &lt;/cfloop&gt;<br /><br /> &lt;/cffunction&gt;<br /></pre><br /><br />This is obviously an incredibly simple test and it doesn't collate problems, it just fails on the first one. Nor will it tell you where in your ModelGlue.xml file to find the problem; but it works for a simple peace of mind test.  Hope it helps someone else!<br /><br />Finally I mention mxUnit but obviously you can easily update this to work with the unit test framework of your choice.  I just happen to choose mxUnit.</div>

@@ -1,0 +1,49 @@
+---
+layout: post
+title: "C#: Use Embedded Resource"
+date: 2007-11-13
+comments: false
+categories:
+ - embedded
+ - xml
+ - c#
+ - stream
+ - resource
+ - filestream
+---
+
+<div class='post'>
+I recently had the need to embed a few xml files into a project and wanted to write a wrapper class that would deal with these embedded resources.  I'm lazy though and didn't want much cruft around them so I wanted a very simple method for getting the resource and returning it as an XmlDocument - or null if it wasn't found.<br /><br />My other code will use the XmlDocument or not even show a form field if the returned value is null.<br /><br /><strong>I made some minor changes to the following code so that you can see what references I'm using and I'm getting the Assembly via reflection now.</strong><br /><br />Here is the code for fetching the resource:<br /><pre name="code" class="csharp"><br />using System.Reflection;<br />using System.IO;<br />using System.Xml;<br /><br />  public XmlDocument GetResource(string resourceCode)<br />  {<br />   XmlDocument xml = null<br />   try<br />   {<br />    string filePath = "Com.MyDomain.MyProject.Resources" + resourceCode + ".xml";<br />    Stream fileStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(filePath);<br />    if (fileStream != null)<br />    {<br />     xml = new XmlDocument();<br />     xml.Load(fileStream);<br />    }<br />    <br />   }<br />   catch { <br />   // if anything goes wrong I don't care - just return a null object.<br />   }<br /><br />   return xml;<br />  }<br /></pre></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>abatishchev</div>
+<div class='content'>
+Thanks!</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+how to save an xml which is stored as an embedded resource in my project..</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Totally awesome post! Was looking all over for this.  Thanks!</div>
+</div>
+<div class='comment'>
+<div class='author'>B-dizzle</div>
+<div class='content'>
+Sweet!!! Exactly the example I&#39;m looking for up here in MD.</div>
+</div>
+<div class='comment'>
+<div class='author'><b>P</b>etros</div>
+<div class='content'>
+This is <B>exactly</B> what I needed :)</div>
+</div>
+<div class='comment'>
+<div class='author'>@Ste</div>
+<div class='content'>
+very nice, thank you!</div>
+</div>
+</div>

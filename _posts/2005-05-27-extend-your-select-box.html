@@ -1,0 +1,39 @@
+---
+layout: post
+title: "Extend Your Select Box"
+date: 2005-05-27
+comments: false
+categories:
+ - javascript
+---
+
+<div class='post'>
+Since javascript is a nice object oriented language you can do some pretty cool things with it. For instance you can extend the functionality of various objects - such as the SELECT box control.<br /><br />About 4 years ago when I first wrote an application that used "AJAX" like techniques one thing I needed to do was dynamically populate a select box based on the selections of other select boxes, radio buttons, and text fields (LOTS of business rules). Obviously, at that point the app was IE only since they invented the whole xmlHttpRequest object. Anyway, I digress.<br /><br />What I needed was some simple functionality that would add new options, remove options, clear options, or insert options within an existing SELECT. These are the scripts I came up with.<br /><br /><br /><pre name="code" class="jscript"><br />/***********************************************<br /><br /> Basic Javascript library that adds extended<br /> functionality to some standard objects used<br /> in javascript and an html document.<br /><br />***********************************************/<br /><br /><br /><br /><br /><br />/********<br />STRINGS<br />********/<br />// like Trim( ) in vbscript. removes trailing and<br />// leading whitespace from a string<br />String.prototype.trim = function() {<br /> return this.replace(/^\s*|\s*$/g, "")<br />}<br /><br /><br /><br /><br />/********<br />SELECT BOXES<br />********/<br />// removes all options from the select box<br />HTMLSelectElement.prototype.clear = function(){<br />   while (this.length &gt; 0) {<br />       this.remove(0);<br />   }<br />}<br /><br />// adds a new option to a select box<br />HTMLSelectElement.prototype.appendOption = function(id,textValue){<br />   var opt = new Option(textValue,id);<br />   this.appendChild(opt);<br />}<br /><br />// clears a select box and optionaly inserts a first object<br />HTMLSelectElement.prototype.init = function(id,textValue){<br /> this.clear();<br /> if(textValue){<br />  this.options[0] = new Option(textValue,id);<br /> }<br />}<br /><br />/* helper function */<br />function copyOptionsToArray(obj){<br /> var optArray = new Array(1);<br /> var idx = 0;<br /> <br /> for(idx=0;idx&lt;obj.length;idx++){<br />  optArray[idx] = obj[idx];<br /> }<br /><br /> return optArray;<br /><br />}<br /><br /><br />HTMLSelectElement.prototype.prependOption = function(id,textValue){<br /> var opt = new Option(textValue,id);<br /> var optArray = copyOptionsToArray(this);<br /><br /> var nopt;<br /> var idx=0;<br /><br /> this.init(id,textValue);<br /><br /> for(idx=0;idx&lt;optArray.length;idx++){<br />  this.appendChild(optArray[idx]);<br /> }<br />}<br /><br /><br />HTMLSelectElement.prototype.insertOption = function(id,textValue,position){<br /> if(!isNaN(position)){<br />  if(position &gt;= this.length){<br />   this.append(id,textValue);<br />  } else {<br />   var optArray = copyOptionsToArray(this);<br />   var idx = 0;<br /><br />   this.init();<br /><br />   for(idx=0;idx&lt;optArray.length;idx++){<br />    if(idx==position){<br />     this.appendOption(id,textValue);<br />     position = -1;<br />     idx--;<br />    } else {<br />     this.appendChild(optArray[idx]);<br />    }<br />   }<br />  }<br /> }<br />}<br /><br /><br />HTMLSelectElement.prototype.dropOption = function(position){<br /> if(!isNaN(position) &&amp; position &lt; this.length){<br />  var optArray = copyOptionsToArray(this);<br />  var idx = 0;<br /><br />  this.init();<br /><br />  for(idx=0;idx&lt;optArray.length;idx++){<br />   if(idx!=position){<br />    this.appendChild(optArray[idx]);<br />   }<br />  }<br /> }<br />}<br /></pre><br /><br />I realize there is next to no documentation there. Sorry, but most of them are pretty self explanitory. If you need help just leave a comment.<br /><br />Calling them is pretty easy; lets assume you already have a reference to a SELECT object (objSel):<br /><br /><pre name="code" class="jscript"><br /><br /> objSel.prependOption("1","prepend");<br /><br /> objSel.dropOption(4);<br /><br /> objSel.appendOption("someval","append");<br /><br /> objSel.init(); <br />or<br /> objSel.init("someval","append");<br /><br /> objSel.insertOption("1","insert2",2);<br /><br /></pre></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+I don't just set the length to 0 because I am not certain the memory is cleared - whereas I feel the remove function is going to initiate the necessary garbage collection.</div>
+</div>
+<div class='comment'>
+<div class='author'>mclow</div>
+<div class='content'>
+Hi!<BR/><BR/>Why don't just:<BR/><BR/>// removes all options from the select box<BR/>HTMLSelectElement.prototype.clear = function(){<BR/>  this.length = 0;<BR/>}<BR/><BR/>?<BR/><BR/>mclow</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+very true, the inherent limitation in the plan sucks.. but it was a fun exercise.<BR/><BR/>maybe IE7 will let us extend the SELECT..and Opera some day..</div>
+</div>
+<div class='comment'>
+<div class='author'>Dan Delaney</div>
+<div class='content'>
+Personally, I love the idea of using HTMLSelectElement.prototype to extend the select element's capabilities. Unfortunately, however, it only works in Mozilla browsers. IE and Safari both complain that there is no HTMLSelectElement object. It would be wonderful if all browsers supported this fucntionality. But alas, the Web is an imperfect place, and coding for one browser, whatever that browser may be, is a move in the wrong direction.</div>
+</div>
+<div class='comment'>
+<div class='author'>Dan Delaney</div>
+<div class='content'>
+Personally, I love the idea of using HTMLSelectElement.prototype to extend the select element's capabilities. Unfortunately, however, it only works in Mozilla browsers. IE and Safari both complain that there is no HTMLSelectElement object. It would be wonderful if all browsers supported this fucntionality. But alas, the Web is an imperfect place, and coding for one browser, whatever that browser may be, is a move in the wrong direction.</div>
+</div>
+</div>

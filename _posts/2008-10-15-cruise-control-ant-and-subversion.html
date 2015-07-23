@@ -1,0 +1,15 @@
+---
+layout: post
+title: "Cruise Control, Ant, and Subversion"
+date: 2008-10-15
+comments: false
+categories:
+ - continuous-integration
+ - tortoisesvn
+ - cruisecontrol
+ - ant
+ - svn
+---
+
+<div class='post'>
+I run in a windows environment generally and thus I use TortoiseSVN as my local svn client.  So, when I was setting up my CruiseControl installation for my current project I used Tortoise to initially check out the source code and then wanted to use the SvnAnt task to keep that version up to date before running any tests.<br /><br />Nice dream.<br /><br />It seems that one of the three clients involved in my efforts just didn't get along with the others.  First there is the TortoiseSVN client, then SvnAnt, and finally whatever CruiseControl is using to check the repo.  One of these three is causing me all sorts of grief.  Basically, what happens is, if I update the repo with one client the other's wont work due to their being "too old of a version".<br /><br />I'm using TortoiseSVN 1.5.  I'm using SvnAnt ver 1.2 RC 1 (for SVN 1.5).  My SVN server is 1.5.5 and I'm using the latest version of CruiseControl.  Maybe I'm just missing something really simple but whatever is going on I'm kind of annoyed so I've taken SvnAnt out of the picture.<br /><br />Basically, all of us on the team us Windows with TortoiseSvn so now my ant file has a target like so:<br /><pre name="code" class="xml"><br /> &lt;target name="updateSource"&gt;<br />  &lt;exec executable="C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe"&gt;<br />   &lt;arg value="/command:update" /&gt;<br />   &lt;arg value="/closeonend:3" /&gt;<br />  &lt;/exec&gt;<br /> &lt;/target&gt;<br /></pre><br /><br />The /closeonend:3 argument forces the dialog to close so long as no errors, conflicts, or merges.  This will be a little annoying considering, at the moment, the CruiseControl server is on my dev box so everyonce in a while the update dialog will flash by.  However, this is a small price to pay to get everything working.<br /><br />If anyone can recommend a good tandem of CruiseControl, TortoiseSVN, and SvnAnt I would really appreciate it!<br /><br /><strong>UPDATE</strong><br />TortoiseSVN 1.5.0 and SvnAnt 1.2 RC 1 work very well together.  The problem lies in the CruiseControl svn client which is older.  However, I can't use the SvnAnt 1.1 RC 2 task because it won't work with SVN Server 1.5.5.  <br /><br />Thus, at the moment, I have to pass on using the SVN config options for CruiseControl.  Hopefully someone is working on a new plugin for CC and SVN!<br /><br /><strong>BETTER UPDATE</strong><br />HAHA! Success.  One of the older versions of SvnAnt came with a JavaSVN jar.  Once I removed it all of my svn needs work.  Tortoise, SvnAnt, CruiseControl... Boo YA!</div>

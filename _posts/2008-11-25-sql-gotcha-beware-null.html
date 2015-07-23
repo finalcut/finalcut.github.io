@@ -1,0 +1,51 @@
+---
+layout: post
+title: "SQL Gotcha:  Beware the NULL"
+date: 2008-11-25
+comments: false
+categories:
+ - sql
+ - null
+ - gotcha
+---
+
+<div class='post'>
+Today I ran into a little bit of SQL that, on first glance, didn't make a bunch of sense.  Before I show you the SQL I'll give you a basic idea of the two tables being queried:<br /><div style="border: 1px solid black; width:250px;"><br /><h3 style="border-bottom: 1px solid black;">AREA</h3><br /><pre><br />areaid | int NOT NULL<br />areaname | varchar2(100) NOT NULL<br /></pre><br /></div><br /><div style="border: 1px solid black; width:350px;"><br /><h3 style="border-bottom: 1px solid black;">FACILITY</h3><br /><pre><br />facilityid | int NOT NULL<br />facilityname | varchar2(100)  NOT NULL<br />areaid | int NULL<br /></pre><br /></div><br /><br /><br />There is actually a bit more to it but these columns are the important ones.  The query that had been written was trying to find all areas that had no facilities within them:<br /><br /><pre name="code" class="sql"><br />SELECT ar.* FROM area ar WHERE ar.areaid NOT IN (SELECT f.areaid FROM facility f)<br /></pre><br /><br />That query returned no rows at all.  Meanwhile the following query returned one row:<br /><br /><pre name="code" class="sql"><br />SELECT ar.* FROM area ar WHERE NOT EXISTS (SELECT f.areaid FROM facility f.areaid = ar.areaid)<br /></pre><br /><br />Honestly, I've given you a big hint to figuring this one out already since I titled this thing Beware the Null and I showed you which columns could be NULL and which couldn't.  But here is the problem.<br /><br /><strong>Any SQL comparision that involves a NULL will evaluate to FALSE</strong><br /><br />That means all of the following examples would return no rows:<br /><pre name="code" class="sql"><br />  SELECT * FROM area WHERE areaid NOT IN (1,2,NULL);<br /><br />  SELECT * FROM area WHERE areaid IN (1,2,NULL);<br /><br />  SELECT 1 as myRow FROM dual WHERE 1=null;<br /><br />  SELECT 1 as myRow FROM dual WHERE 1 != null;<br /><br />  SELECT 1 as myRow FROM dual WHERE null = null;<br /></pre><br /><br />All of those return no rows because any comparison operator used with a null evaluates to false (IN, NOT IN, =, !=, etc).  <br /><br />So, how do I fix the NOT IN query to work the way I expected it to?<br /><br /><pre name="code" class="sql"><br />SELECT ar.* FROM area ar WHERE ar.areaid NOT IN (SELECT f.areaid FROM facility f WHERE f.areaid IS NOT NULL)<br /></pre></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Bryan Price</div>
+<div class='content'>
+As an aside, I notice that having a NULL in an IN query is ok, but in a NOT IN query it's bad. <br /><br />Thus the statement<br /><br />SELECT ar.* FROM area WHERE areaid IN ( 1 , 2 , NULL )<br /><br />will come up with results if areaid = 1 or areaid = 2, but<br /><br />SELECT ar.* FROM area WHERE areaid NOT IN ( 1 , 2 , NULL )<br /><br />will get no results in any case, even if there was an areaid=3 in there.</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+Thanks for the additional clarification Chris!</div>
+</div>
+<div class='comment'>
+<div class='author'>Chris</div>
+<div class='content'>
+The key to this behaviour is the meaning of NULL. NULL does not mean "not existing", it means "unknown, if it even exists". <BR/><BR/>If the value is unknown, you can not know whether it should be in the subselect result set. But, NOT IN selects a specified resultset. <BR/><BR/>And if a value is unknown, it can not be part of that result set. ;-)<BR/><BR/>BTW Doug's solution is way faster than NOT IN, at least when it comes to bigger subselects... NOT IN can be a real performance killer.</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+Thanks Doug, you are correct and your query will return areas with no facilities.</div>
+</div>
+<div class='comment'>
+<div class='author'>Doug Giles</div>
+<div class='content'>
+A left join will give you the results that you're looking for:<BR/><BR/>SELECT ar . *<BR/>FROM area ar<BR/>LEFT JOIN facility fa ON ( ar.areaid = fa.areaid )<BR/>WHERE (fa.facilityid IS NULL)<BR/><BR/>That query should return the areas that do not have a facility.</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+Because that won't work either:<BR/><BR/>I edited your code a little to work with Oracle:<BR/>SELECT ar.*<BR/>FROM area ar<BR/>INNER JOIN facility fa<BR/>ON (ar.areaid = fa.areaid)<BR/>WHERE (fa.facilityid IS NULL) <BR/><BR/><BR/>And it too returns no rows.. Where I am trying to find the rows in the area table that don't exist in the facility table.<BR/><BR/>Beyond the fact that your query returns no records (because the facility ID can't be NULL) I don't even see how I could convert your query to get what I wanted; I really don't want a join of the two tables, I want to find the differences between the two so to speak.</div>
+</div>
+<div class='comment'>
+<div class='author'>Rick</div>
+<div class='content'>
+Why not a straight-up join?<BR/><BR/>SELECT ar.*<BR/>FROM area AS ar<BR/>  INNER JOIN facility AS fa<BR/>  ON (ar.areaid = fa.areaid)<BR/>WHERE (fa.facilityid IS NULL)</div>
+</div>
+</div>

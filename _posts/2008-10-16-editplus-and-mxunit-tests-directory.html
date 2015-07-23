@@ -1,0 +1,15 @@
+---
+layout: post
+title: "EditPlus and MxUnit Tests Directory Testing Tool"
+date: 2008-10-16
+comments: false
+categories:
+ - coldfusion
+ - tdd
+ - unit-testing
+ - mxunit
+ - editplus
+---
+
+<div class='post'>
+Sometimes it is useful to be able to fairly quickly fire off a directory of unit tests using MxUnit.  EditPlus and the UserTool functionality come in handy once again:<br /><br /><ol><br /><li>Create a new user tool; I called mine MxUnitTest a Directory</li><br /><li>Command: c:\Program Files\Internet Explorer\iexplore.exe</li><br /><li>Argument: http://localhost/mxunit/runner/HtmlRunner.cfc?method=run&test=$(FileDir)&output=html&componentPath=$(Prompt)</li><br /></ol><br /><br />The $(Prompt) argument is there to ask you what the component path is.  For example I just ran this one against lb2.unittests.model.bean - it wants the component path to the directory so make sure you don't include the final portion that would point to a specific component.<br /><br />The ($FileDir) argument basically grabs the full path to whatever directory your currently active file is in.</div>

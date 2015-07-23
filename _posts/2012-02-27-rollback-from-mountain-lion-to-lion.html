@@ -1,0 +1,98 @@
+---
+layout: post
+title: "Rollback from Mountain Lion to Lion"
+date: 2012-02-27
+comments: false
+categories:
+ - macports
+ - xcode
+ - mac
+ - mountain-lion
+ - lion
+---
+
+<div class='post'>
+<b><span style="color: red;">Disclaimer: Before you do this; if it doesn't work you can't blame me. &nbsp;It worked OK for me but maybe I was just lucky.</span></b><br /><br />Ok, with that out of the way here's the lowdown. &nbsp;I installed the developer preview of Mac OS X Mountain Lion and immediately started to notice some things that I really needed wouldn't work anymore. &nbsp;No parallels, macports had issues and couldn't compile things with XCode 4.4 (what is required for Mt Lion), and quite a bit more dealing with things that depended on macports or the compiler within xcode.<br /><br />So what did I do? &nbsp;I tried to be creative and everything failed.<br /><br />Oh, and I didn't have a time machine snapshot of my system before the upgrade. &nbsp; Anyway, I eventually went to google to find some solutions and found this posting explaining how to <a href="http://kurrytran.blogspot.com/2012/02/how-to-uninstall-mountain-lion-os-x.html">install uninstall Mountain Lion</a> except it doesn't show you how to uninstall Mountain Lion at all; it just shows you how to install Lion on another partition. &nbsp;It does, however, have the key to the castle so to speak and I'll get into that in a little bit.<br /><br />Before you can install Lion you need a copy of Lion. &nbsp;Makes sense right? &nbsp;Well I didn't have a copy but the aforementioned post told me I could get it using my apple dev center account but then it said I couldn't&nbsp;because&nbsp;I was running mountain lion and that I'd need to get it another way. &nbsp;Well damn.<br /><br />Later in the article he said you have to fool the system to let you install lion on the other partition by changing the version number of Mountain Lion. &nbsp;I thought, well, what if I just do that now so I can get a copy of Lion and BAM! it worked. &nbsp;So here are the basic steps.<br /><br /><ol><li>&nbsp;I use sublime as my text editor and I have a command alias to launch sublime using the word sublime from the terminal..<br /><i><span style="font-family: 'Courier New', Courier, monospace;">$ sublime&nbsp;<span style="background-color: white; color: #4f4f4f; font-size: 13px; line-height: 18px; text-align: left;">/System/Library/CoreServices/SystemVersion.plist</span></span></i></li><li style="text-align: left;"><span style="color: #4f4f4f; font-family: 'Courier New', Courier, monospace; font-size: x-small;"><span style="line-height: 18px;"><i><span style="color: black; font-family: Times; font-size: small; font-style: normal; line-height: normal; text-align: -webkit-auto;">It will ask you for your password; enter it then change the two version instances from 10.8 to 10.7</span></i></span></span></li><li style="text-align: left;"><span style="color: #4f4f4f; font-family: 'Courier New', Courier, monospace; font-size: x-small;"><span style="line-height: 18px;"><i><span style="color: black; font-family: Times; font-size: small; font-style: normal; line-height: normal; text-align: -webkit-auto;">Save the file; you'll be asked for your password again; enter it.</span></i></span></span></li><li style="text-align: left;"><span style="color: #4f4f4f; font-family: 'Courier New', Courier, monospace; font-size: x-small;"><span style="line-height: 18px;"><i><span style="color: black; font-family: Times; font-size: small; font-style: normal; line-height: normal; text-align: -webkit-auto;">Now download Lion. &nbsp;If you don't have an dev center account I guess you can pay the $30.</span></i></span></span></li><li style="text-align: left;"><span style="color: #4f4f4f; font-family: 'Courier New', Courier, monospace; font-size: x-small;"><span style="line-height: 18px;"><i><span style="color: black; font-family: Times; font-size: small; font-style: normal; line-height: normal; text-align: -webkit-auto;">wait a while. &nbsp;Lion is big and it takes a long time to download. &nbsp;It kind of freaked me out because it showed it going into my "Applications" at first but then it felt like nothing was happening. &nbsp;Have some patience; go read reddit for a while.</span></i></span></span></li><li style="text-align: left;"><span style="color: #4f4f4f; font-family: 'Courier New', Courier, monospace; font-size: x-small;"><span style="line-height: 18px;"><i><span style="color: black; font-family: Times; font-size: small; font-style: normal; line-height: normal; text-align: -webkit-auto;">Eventually the download will finish and the Lion installer will open automatically. &nbsp;Notice, nowhere in this list did I tell you to make a new partition. &nbsp;Screw that step!</span></i></span></span></li><li style="text-align: left;"><span style="color: #4f4f4f; font-family: 'Courier New', Courier, monospace; font-size: x-small;"><span style="line-height: 18px;"><i><span style="color: black; font-family: Times; font-size: small; font-style: normal; line-height: normal; text-align: -webkit-auto;">Install right over mountain lion. &nbsp;Just pick the partition you normally have things on and GO.</span></i></span></span></li><li style="text-align: left;"><span style="color: red; font-family: 'Courier New', Courier, monospace; font-size: x-small;"><span style="line-height: 18px;"><i><span style="font-family: Times; font-size: small; font-style: normal; line-height: normal; text-align: -webkit-auto;"><b>WAIT WAIT.. finish reading this before you go...IT'S REALLY IMPORTANT</b></span></i></span></span></li><li style="text-align: -webkit-auto;">When the install is done your machine will reboot and prompt you to login but you won't be able to. <a href="http://www.gibni.com/cant-login-after-os-x-lion-install-solved">&nbsp;Lion hates your old passwords and gets rid of them all</a> - you can't login yet. &nbsp;Just reboot again and wait for the screen to go completely black then hold down &nbsp;cmd+r&nbsp;</li><li style="text-align: -webkit-auto;">HOLD THEM DOWN; don't just press and release. &nbsp;HOLD THEM BOTH until a window opens called "Utilities"</li><li style="text-align: -webkit-auto;">In the main menu bar there is a services option, click on it and find terminal. &nbsp;If it isn't services just look in each menu until you find terminal; open terminal</li><li style="text-align: -webkit-auto;">in the terminal window type "resetpassword" without the quotes and hit enter</li><li style="text-align: -webkit-auto;">A new windows opens and it shows you all of your old accounts. &nbsp;Find yours and reset your password.</li><li style="text-align: -webkit-auto;">While you're at it reset the administrator password.</li><li style="text-align: -webkit-auto;">Once your down with that close all the windows then in the system menu pick restart</li><li style="text-align: -webkit-auto;">This time you don't have to hold down any keys.</li><li style="text-align: -webkit-auto;">Eventually the login screen will pop up; login as yourself</li><li style="text-align: -webkit-auto;">Now go to the system menu and install any updates so you're nice and secure.</li></ol><div>That worked for me (I also reinstalled xcode 4.3 from the app store after that).</div><div><br />Good luck</div><br />-------<br />Some&nbsp;additional&nbsp;notes:<br /><br /><ol><li>After you re-install XCode 4.3; go to preferences, downloads, and install the command line tools</li><li>I also reinstalled macports to be on the safe side</li><li>parallels still doesn't work for me after the rollback.. I will reinstall parallels and hope for the best <b>UPDATE:</b> uninstall and reinstall fixed it.</li><li>because of some changes to mail; rolling back left me with a broken mail app; not a deal breaker as I can just use outlook as we get our mail from an exchange server at the office.</li><li><b>UPDATE</b>: you can't use the systems preferences panel for setting desktop backgrounds after doing this. &nbsp;You can still set your primary monitor background using the "right click, services menu" on the image you wan to make your wallpaper.</li></ol></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Yar Oo</div>
+<div class='content'>
+Sir, I am from Myanmar, your help me with great deal and you also a great mac man! thanks</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+I walked through this solution with a senior apple advisor and it worked. I did not restore with time machine however. Instead I deleted the /System/Library/PrivateFrameworks/iLifeMediaBrowser.framework <br /> folder and then restarted the computer. And then did software update. Software update found that I needed &quot;iLife support&quot;. After updating the folder was replaced and boom!: mail.app opens.</div>
+</div>
+<div class='comment'>
+<div class='author'>teethblast!</div>
+<div class='content'>
+I walked through this solution with a senior apple advisor and it worked. I did not restore with time machine however. Instead I deleted the /System/Library/PrivateFrameworks/iLifeMediaBrowser.framework <br /> folder and then restarted the computer. And then did software update. Software update found that I needed &quot;iLife support&quot;. After updating the folder was replaced and boom!: mail.app opens.</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill Rawlinson</div>
+<div class='content'>
+Yes, the rollback doesn&#39;t leave everything working as you might hope.<br /><br />Mail also will fail to work.<br /><br />Also, after re-upgrading to Mt. Lion final certain things just didn&#39;t work quite right.  Thus, when I decided to settle on using the final version of Mt Lion I did a clean install.<br /><br />The rollback worked well enough - but if you absolutely must use some of those apps Apple wasn&#39;t lying when they said you can&#39;t rollback.</div>
+</div>
+<div class='comment'>
+<div class='author'>Garrett</div>
+<div class='content'>
+Worked for me, but I am unable to use iPhoto, Logic 9.1.7 ect.  Crashes on startup with a similar error message for both.</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill Rawlinson</div>
+<div class='content'>
+Had I shown sufficient foresight and created a time machine backup of lion in the first place I wouldn&#39;t have had to deal with any of these problems most likely - I probably could have just restored to that backup.</div>
+</div>
+<div class='comment'>
+<div class='author'>Bren Munroe</div>
+<div class='content'>
+Out of curriousity:<br /><br />Could you follow each of these steps, then make a new Time Machine backup of Lion to aide in making a proper clean-install that would fix all of the small kinks in the system?<br /><br />A little extra work, but could still help in fixing the issue. Though I guess it somewhat kills the point.</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+For the mail issue, does anyone have a way i can get a copy of the privateframeworks folder that i can get ahold of?</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Thanks a bunch man!<br />This saved me a lot of trouble.<br />I was too curious too think about all the implications of this preview. While I&#39;ve got everything to work, coding was not possible anymore.mu</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Thanks a lot! I&#39;m really surprised how easy your method is, after having spent a lot of time looking for this. I was just desperate. I wonder why this is not known by every Mac user :)<br />You&#39;re great man. Things are easier thanks to guys like you. Thanks again.</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill Rawlinson</div>
+<div class='content'>
+Scott, glad it helped.  I don&#39;t have a donate button as none is necessary but if you insist I have a paypal account bill@doxie.org :O)</div>
+</div>
+<div class='comment'>
+<div class='author'>Scott</div>
+<div class='content'>
+WOW.  Where is the donate button?  You just saved me hours and hours and hours and so much lost productivity...  I just successfully downgraded from Mountain Lion Preview 2 to Lion 10.7.3.  I don&#39;t have sublime and I didn&#39;t know my su password, so I changed the permissions of SystemVersion.plist in Finder so everyone could read/write it, then used emacs from Terminal (for some reason TextEdit still wouldn&#39;t let me save the file).<br /><br />THANK YOU!!!</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Thanks. Worked well.<br /><br />I managed to fix the Mail issue by copying <br /><br />/System/Library/PrivateFrameworks/iLifeMediaBrowser.framework<br /><br />from a different Lion machine. The installer probably doesn&#39;t update it and leaves the ML version.<br /><br />Drew</div>
+</div>
+<div class='comment'>
+<div class='author'>Daniel</div>
+<div class='content'>
+is there any way to fix the mail app?</div>
+</div>
+<div class='comment'>
+<div class='author'>Chaitan Roa</div>
+<div class='content'>
+Worked like a charm, many thanks</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Hi,<br />parallels works fine if you move &quot;Parallel Service&quot; from &quot;Non-compatible apps&quot; to &quot;Parallels&quot; folder.<br />After that, restart your mac.<br /><br />thanks for the guide</div>
+</div>
+</div>

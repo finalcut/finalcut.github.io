@@ -1,0 +1,38 @@
+---
+layout: post
+title: "C# : Parsing a URL for its Component Parts"
+date: 2008-07-17
+comments: false
+categories:
+ - http
+ - uri
+ - url parsing
+ - c#
+ - url-parsing
+---
+
+<div class='post'>
+I recently had need to break a URL down to it's component pieces so that I could use just those parts that I needed at different times. My initial approach to solving this problem was to Google for a built in solution to parsing URLs in C# but I couldn't find one.  So then I feel back to a RegEx pattern.  .Net in general has some nice regex features (including being able to name groups) and so this is the RegEx I came up with (after looking at some others that already existed):<br /><br /><pre name="code" class="csharp"><br /> private static Regex pattern = new Regex("(?&lt;protocol&gt;http(s)?|ftp)://(?&lt;server&gt;([A-Za-z0-9-]+\\.)*(?&lt;basedomain&gt;[A-Za-z0-9-]+\\.[A-Za-z0-9]+))+((:)?(?&lt;port&gt;[0-9]+)?(/?)(?&lt;path&gt;(?&lt;dir&gt;[A-Za-z0-9\\._\\-]+)(/){0,1}[A-Za-z0-9.-/]*)){0,1}");<br /></pre><br /><br />However, that RegEx has a problem where it won't get the full Port number if the port is immediately followed by a query like so:<br />http://my.domain.com:8000?arg1=this&amp;arg2=that<br /><br />Instead of returning the port of 8000 the regex ends up with the port of 8.  That sucks.  Fortunately, I know someone else who I could ask about it and he pointed me at the useful built in C# library : System.Uri.<br /><br />Why this library didn't pop up in my Google queries I don't know but, let me tell you, it does pretty much everything I need.  However, I do have one minor quibble.  The protocol portion of the URL is parsed out and identified by Scheme.<br /><br />Now, with a string based representation of a URL I can break it down quickly using the System.URI class.  Lets say you want to get the port:<br /><br /><pre name="code" class="csharp"><br />string url = "http://my.domain.com:8000?arg1=this&amp;arg2=that";<br />System.Uri uri = new System.Uri(url);<br /><br />// get the port<br />int port = uri.Port;<br /><br />// get the host name (my.domain.com)<br />string host = uri.Host;<br /><br />// get the protocol<br />string protocol = uri.Scheme;<br /><br />// get everything before the query:<br />string cleanURL = uri.Scheme + "://" + uri.GetComponents(UriComponents.HostAndPort, UriFormat.UriEscaped);<br /></pre><br /><br />As you can imagine there is actually a lot you can do.  If you don't think you can find a bit from the URL check out that uri.GetComponents method - the UriComponents enumeration has a bunch of options you can dig into!</div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Jarosław Dobrzański</div>
+<div class='content'>
+Thanks for well presented examples!</div>
+</div>
+<div class='comment'>
+<div class='author'>Bill</div>
+<div class='content'>
+Thanks.  It&#39;s now fixed</div>
+</div>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Clipping 2, line 2, missing &quot;s&quot;. <br /><br />;)</div>
+</div>
+<div class='comment'>
+<div class='author'>John</div>
+<div class='content'>
+Thanks!  You saved me quite some time with this.  For something so useful, I was surprised that no one else in my office had heard of it.</div>
+</div>
+</div>

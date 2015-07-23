@@ -1,0 +1,20 @@
+---
+layout: post
+title: "SVN Merging for Dummies with TortoiseSVN"
+date: 2010-11-01
+comments: false
+categories:
+ - tortoisesvn
+ - subeclipse
+---
+
+<div class='post'>
+I'm a big fan of branching in Subversion when working on a new feature set.  However, I'm also a moron who has endless trouble getting my branch to merge back into the main trunk of the repository.  Thus, this guide, to help me (and you) remember the easiest way to merge a branch back into trunk.<br /><br />I use TortoiseSVN version 1.6.7 so you may have to adjust these steps for your version.<br /><br /><ol><li>Merge Trunk into your Branch - you have to do this first; do it at least once a week if your trunk is actively seeing development so that your merge back is as painless as possible.<br /><ol><li>Right click in the root of your checked out branch and select TortoiseSVN - Merge</li><li>In the dialog that appears select "Merge From Range of Revisions"</li><li>In the form put your repository trunk in and leave the revision field blank.</li><li>Click the "test" button if you want; or just click Merge; depending on the size of your repo you may be waiting a while; have patience and relax...</li><li>Eventually the merge will finish, when it does, check the log for any conflicts and figure out how to resolve them.  There shouldn't be many.</li><li>Check in your branch noting the merge in the comments.</li></ol></li><li>Merge your Branch to Trunk - only do this after step one is completed.<br /><ol><li>Navigate to a checked out copy of your trunk</li><li>right click in the root and pick TortoiseSVN - Merge</li><li>In the popup select "Merge between two branches</li><li>In the from field enter your trunk path.  I know this is kind of counter-intuitive but it is correct.  You want to update from the trunk's current state so that it then matches your branches current state (since you just merged trunk into your branch</li><li>in the TO field put your branches path.</li><li>Choose the HEAD revision for both branches</li><li>Merge away (or test if you prefer)</li><li>Check in the trunk noting the merge in the comments</li></ol></li></ol><br />It's painfully simple really but It messes me up almost every time.  Also, remember to update your checked out branches (your branch and trunk) before you do any of the merges.  <br /><br />Good coding and good luck!</div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Anonymous</div>
+<div class='content'>
+Thanks!</div>
+</div>
+</div>
