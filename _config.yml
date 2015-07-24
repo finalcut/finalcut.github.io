@@ -9,8 +9,8 @@ author: Bill Rawlinson
 simple_search: http://google.com/search
 description: Covering Software Engineering, ColdFusion, Java, Design Patterns, .Net, and a smattering of other languages from deep in the trenches.
 highlighter: pygments
-markdown: rdiscount
-rdiscount:
+markdown: redcarpet
+redcarpet:
   extensions: ["autolink", "footnotes", "smart"]
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
