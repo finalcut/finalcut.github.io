@@ -17,6 +17,7 @@ There is an application somewhere in our organization that utilizes an access da
 
 Here is the basic way the json was being generated previously:
 
+
 ```php
   $rs=odbc_exec($conn,$sql);
   //declare an array to hold the query results
@@ -24,10 +25,13 @@ Here is the basic way the json was being generated previously:
 
   //populate the jobs array with the query result set
   while($curRow = odbc_fetch_array($rs)){
-    $data[] = $curRow;
+
+$data[] = $curRow;
   }
   echo json_encode(array('jobs'=>$jobs));
+
 ```
+
 
 Very straight forward and, it appeared to work well until today.  Someone copied and pasted a descriptive field of one of the catalog items from a word document into the access database and a single smart quote (apostrophe really) worked its way into the data.  When this happened that field was rendered in the json as null even though there was clearly data contained within.
 It took me a little while to see that it was a smart quote buried in the middle of the paragraph of text but once I did I knew right away how to clean it out - using MAP; or in php paralance, array_map.  Combined with this nice function to <a href="http://shiflett.org/blog/2005/oct/convert-smart-quotes-with-php">convert smart quotes</a> I had a winning solution on my hand without having to add much code at all.  Here is the final version of that same code:
@@ -41,11 +45,14 @@ It took me a little while to see that it was a smart quote buried in the middle 
 
   //populate the jobs array with the query result set
   while($curRow = odbc_fetch_array($rs)){
-    $data[] = array_map("convert_smart_quotes",$curRow);
+
+$data[] = array_map("convert_smart_quotes",$curRow);
   }
 
   echo json_encode(array('jobs'=>$jobs));
+
 ```
+
 
 Just updating that one line in the middle of my while loop let me make sure that every element in every row was clean of nasty smart quotes by telling array_map to call the convert_smart_quotes function on each element.  I have to say I really do like the power and simplicity of map (and reduce).
 

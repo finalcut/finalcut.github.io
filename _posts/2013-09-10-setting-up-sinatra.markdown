@@ -15,27 +15,37 @@ Some of the yeoman setup stuff flys by on the screen as it loads and downloads t
 
 By viewing the source of the index.html page I saw that a directory called "bower_components" is supposed to exist. It didn't. I tried to reinstall the angular stuff using "yo -f angular && karma" (which also reinstalls the karma stuff I think). But that was when I noticed a lot of errors connecting to github. The aforementioned google group posting was the solution to that. In case it disappears here is what it was:
 
+
 ```ruby
  git config --global url."https://".insteadOf git://
+
 ```
+
 
  That says to git to use https:// instead of git://. When I'm back home on my own network I'll have to edit my global git config to remove that but, as I was in a Panera at the time I needed to use this because the port for the git ssh protocol was blocked (git status 128 error).
 
 I'm pretty sure I have at to figure out a few more things still. For instance, if I edited the SASS file (/app_root/app/styles/main.scss) that was auto-generated the changes aren't reflected in the generated .css file (/app_root/.tmp/styles/main.css). In fact, in the development environment the styles didn't show up at all unless I added this block of code to /app_root/app.rb
 
+
 ```ruby
 get '/styles/main.css' do
 	send_file File.join(settings.styles_folder, 'main.css')
  end
+
 ```
+
 
 And this line to the configuration block at the top of /app_root/app.rb:
 
+
 ```ruby
 set :styles_folder, ENV['RACK_ENV'] == 'production' ? 'dist/styles' : '.tmp/styles';
+
 ```
 
+
 Thus, once I was done my /app_root/app.rb file looks like this:
+
 
 ```ruby
 require 'sinatra/base'
@@ -56,7 +66,9 @@ class App < Sinatra::Base
 	end
 
 end
+
 ```
+
 
 Undoubtedly, as I figure out the actual architecture of my app this will change a bit. My hope is to have a "single-paged" app that utilizes the powers and capabilities of angular while providing the back-end api via the sinatra framework.
 

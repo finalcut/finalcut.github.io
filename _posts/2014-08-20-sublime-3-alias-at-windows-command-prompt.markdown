@@ -20,9 +20,12 @@ I try out new editors all the time but I typically end up back at EditPlus 3 or 
 
 First I created a directory at c:\dev\tools\aliases - this directory will hold all of the aliases I decide to define.  Within that folder I created a batch file named `subl.bat`  and in that batch file I entered:
 
+
 ```bat
 @call "c:\dev\tools\Sublime3\sublime_text.exe" %*
+
 ```
+
 Finally, and this is probably the most important step.  Add the directory c:\dev\tools\aliases to your system path.
 
    1. Right click on computer in start menu
@@ -45,9 +48,12 @@ Sadly, from the gitbash control is not returned to the console until you close t
 
 I found the `@call` syntax in a comment on [this blog post](https://coderwall.com/p/bn2inq).  The blog post does a pretty decent job of showing you how to define bash aliases in a .bashrc file.  However, the original post doesn't show you the trick of having control return to the bash prompt after launching sublime.  Basically, if you append an ampersand `&` to the command it wil return.
 
+
 ```sh
 subl <filename> &
+
 ```
+
 
 You can't put the & in the alias or else it will try to execute a bunch of commands based on the contents of the file you're trying to edit.  I just learned that from experience! Whoops.
 

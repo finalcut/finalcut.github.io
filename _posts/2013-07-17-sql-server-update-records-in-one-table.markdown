@@ -8,8 +8,13 @@ categories:
  - update
  - sql-server
 ---
-I always forget this syntax so it I'm posting this for my memory ```sql UPDATE
+I always forget this syntax so it I'm posting this for my memory
+
+```sql
+UPDATE
 t1 SET t1.col1 = t2.col1 ,t1.col2 = t2.col2 FROM table_one t1 JOIN table_two
 t2 ON t2.table_one_id = t1.table_one_id WHERE t1.col3 =
-'some_further_filter_value' ```
+'some_further_filter_value'
+```
+
 

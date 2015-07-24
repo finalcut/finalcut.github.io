@@ -14,6 +14,7 @@ This is probably the easiest container I'll ever build - but it was a little tri
 
 Here are the guts of the `Dockerfile`.  I'll explain the particulars after.
 
+
 ```bat
 FROM ubuntu:latest
 MAINTAINER finalcut bill@rawlinson.us
@@ -35,12 +36,14 @@ RUN rm -Rf coldspring-2.0-alpha1
 VOLUME /var/cflibs
 
 CMD ["/bin/sh"]
+
 ```
+
 
 At the moment this container is based on the latest version of Ubuntu.  This is most certainly overkill.  I should (and will) switch to a much smaller base - I'm just not sure which one to use yet.
 
 
-I do have to install unzip using apt-get so that I can unzip the mxunit archive file.  One cool thing I learned in building this is that I can point the [`ADD`](https://docs.docker.com/reference/builder/#add) command at a remote url and Docker will pull it down and put it wherever I tell it to (including using the name for the file I provide).  Previously I was using a bash script to fetch them first.  
+I do have to install unzip using apt-get so that I can unzip the mxunit archive file.  One cool thing I learned in building this is that I can point the [`ADD`](https://docs.docker.com/reference/builder/#add) command at a remote url and Docker will pull it down and put it wherever I tell it to (including using the name for the file I provide).  Previously I was using a bash script to fetch them first.
 
 After I download the libraries (using the versions I want) I extract them, move the contents around to suit my needs and then delete the cruft that remains.  For instance, I really just want the framework of coldspring and none of the other stuff so I copy the coldspring subdirectory up to my `WORKDIR` and then delete the rest of it.  I also get rid of the archive files.
 
@@ -48,40 +51,55 @@ Now here is where the big gotcha I hinted at earlier comes into play.  If you de
 
 Finally this container executes a bash shell but that isn't that important because; after you start the container you'll actually be stopping it.  This container does not need to still be running to be used!
 
-When you execute a docker container it shows up in the list of running containers when you use the command `docker ps`.  
+When you execute a docker container it shows up in the list of running containers when you use the command `docker ps`.
+
 
 ```sh
 CONTAINER ID        IMAGE                          COMMAND             CREATED             STATUS              PORTS                            NAMES
 7efb1a15c160        finalcut/coldfusion10:latest   /sbin/my_init       40 minutes ago      Up 40 minutes       8500/tcp, 0.0.0.0:8880->80/tcp   determined_wilson
+
 ```
 
-When you stop the container however it doesn't really go away even though you don't see it if you run `docker ps` - instead you need to run `docker ps -a` to see the container still exists.  Because this file system container isn't executing any processes simply having the container exist is enough to make it usable.  
+
+When you stop the container however it doesn't really go away even though you don't see it if you run `docker ps` - instead you need to run `docker ps -a` to see the container still exists.  Because this file system container isn't executing any processes simply having the container exist is enough to make it usable.
 
 
 Thus I start up this container using the command:
 
+
 ```sh
 docker run -i -t  --name cflibs finalcut/cflibs_mxunit_coldspring
+
 ```
+
 
 The container immediately loads and presents me with a bash prompt.  I hit exit and that takes me out of the container and stops it - but the container continues to exist with the name "cflibs".
 
 Now that my cflibs container exists I start up my coldfusion container using the `--volumnes-from` switch to tie the two containers together.
 
+
 ```sh
  docker run -d -p 8880:80 -v /var/www:/var/www --volumes-from cflibs finalcut/coldfusion10
 
+
 ```
+
 
 The last step of this process is to execute a ColdFusion server initialization script that creates ColdFusion server mappings for the different libraries like so:
 
-```cfm
+
+```cfc
 <cfscript>
-        mapObj = createObject("component", "cfide.adminapi.extensions");
-        mapObj.setMapping("coldspring", "/var/cflibs/coldspring");
-        mapObj.setMapping("mxunit", "/var/cflibs/mxunit");
+
+    mapObj = createObject("component", "cfide.adminapi.extensions");
+
+    mapObj.setMapping("coldspring", "/var/cflibs/coldspring");
+
+    mapObj.setMapping("mxunit", "/var/cflibs/mxunit");
 </cfscript>
+
 ```
+
 
 I could, just as easily, define those mappings as application specific mappings within the applications application.cfc file.  Because I also have to define a datasource using the administrative api of ColdFusion I am currently initializing the server with everything I need in one script.  I may change how I approach this as I learn more.
 

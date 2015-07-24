@@ -19,10 +19,13 @@ and test_value are NOT NULL but if they are both NULL you won't identify the two
 
 I've typically handled this by having this clunky bit of logic:
 
+
 ```sql
 	WHERE (source_col = test_value OR (source_col IS NULL and test_value IS NULL))
 		AND ...
+
 ```
+
 
 If you are testing against five or six records your query quickly becomes kind of ugly and difficult to visually parse so I've not been really happy with this technique
 even though it does work.  NOTE: `NVL(source_col, 'fakevalue') = NVL(test_value, 'fakevalue')` is both [slower](http://stackoverflow.com/a/192072/7329) and fraught with the possibility that fakevalue might, possibly
@@ -30,10 +33,13 @@ find a way to validly exist in the source_col which could lead to a false positi
 
 So with all that said what is a better solution?  Here is one that was suggested in [a stack overflow comment](http://stackoverflow.com/a/5303981/7329) referencing a book titled [Expert Oracle Database Architecture](http://www.amazon.com/gp/product/1590595300/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1590595300&linkCode=as2&tag=strictlymovie-20).
 
+
 ```sql
 	WHERE DECODE(source_col, test_value, 1) = 1
 		AND ...
+
 ```
+
 
 This is super simple and brilliat but does depend on future maintainers of your code to understand how `DECODE` works.  Here is my explanation.  `DECODE` is defined like so `DECODE(expression, search_value, result)`.
 `DECODE` is actually a little more complicated than what I'm describing so if please [read the documentation](http://www.techonthenet.com/oracle/functions/decode.php).  Anyway, for my usage `DECODE` is just dealing
@@ -44,13 +50,19 @@ Thus if your source_col value IS NULL and test_value is NULL or your souce_col v
 
 WARNING!  I can't really stress this enough.  Oracle considers an empty string to be null.  Thus `DECODE(null, '', 1)` will return the `1` result.  Consider this dummy example
 
+
 ```sql
 	SELECT 'foo' as bar from dual WHERE '' IS NULL;
+
 ```
+
 
 You will get a row back with bar == 'foo' which may not be what you expected.  Thus, you will get a row back as well if you do this:
 
+
 ```sql
 	SELECT 'foo' as bar FROM dual WHERE DECODE('',NULL,1) = 1
+
 ```
+
 Even if you switch the NULL and empty string around the `DECODE = 1` will evaluate to `TRUE` so you will get this match every time.  This is just a part of how oracle works and I'm not sure you can do anything to work around it.

@@ -13,59 +13,65 @@ You might be thinking never but, as it turns out, you'd be wrong. In CF7 at
 least this equivalence and many other odd ones can (and will) occur. It is,
 undoubtedly, kind of crazy and it definitely doesn't make a ton of sense but
 I'll give you some sample code so you can test it out for yourself. Please try
-it on CF8 as well and let me know what happens.  
-  
-```cfm  
-<cfparam name="url.idval" default="0" type="numeric" />  
-  
-  
-<cfset q1 = QueryNew("id,name") />  
-  
-<cfset QueryAddRow(q1) />  
-<cfset QuerySetCell(q1,"id","0") />  
-<cfset QuerySetCell(q1,"name","") />  
-  
-  
-  
-<cfset QueryAddRow(q1) />  
-<cfset QuerySetCell(q1,"id","0E1234") />  
-<cfset QuerySetCell(q1,"name","0E1234") />  
-  
-<cfset QueryAddRow(q1) />  
-<cfset QuerySetCell(q1,"id","020302") />  
-<cfset QuerySetCell(q1,"name","Some Other Row") />  
-  
-  
-<cfset QueryAddRow(q1) />  
-<cfset QuerySetCell(q1,"id","00E050") />  
-<cfset QuerySetCell(q1,"name","00E050") />  
-  
-  
-<form name="" method="post" action="oe.cfm">  
-<select name="idval">  
-<cfoutput query="q1">  
+it on CF8 as well and let me know what happens.
+
+
+```cfc
+<cfparam name="url.idval" default="0" type="numeric" />
+
+
+<cfset q1 = QueryNew("id,name") />
+
+<cfset QueryAddRow(q1) />
+<cfset QuerySetCell(q1,"id","0") />
+<cfset QuerySetCell(q1,"name","") />
+
+
+
+<cfset QueryAddRow(q1) />
+<cfset QuerySetCell(q1,"id","0E1234") />
+<cfset QuerySetCell(q1,"name","0E1234") />
+
+<cfset QueryAddRow(q1) />
+<cfset QuerySetCell(q1,"id","020302") />
+<cfset QuerySetCell(q1,"name","Some Other Row") />
+
+
+<cfset QueryAddRow(q1) />
+<cfset QuerySetCell(q1,"id","00E050") />
+<cfset QuerySetCell(q1,"name","00E050") />
+
+
+<form name="" method="post" action="oe.cfm">
+<select name="idval">
+<cfoutput query="q1">
 <option value="#q1.id#" <cfif q1.id EQ
-url.idval>SELECTED</cfif>>#q1.name#</option>  
-</cfoutput>  
-</select>  
-<input type="submit" name="btnGo" value="go" />  
-</form>  
-```  
-  
+url.idval>SELECTED</cfif>>#q1.name#</option>
+</cfoutput>
+</select>
+<input type="submit" name="btnGo" value="go" />
+</form>
+
+```
+
+
 If you stick that in a cfml file called oe.cfm and load it you'll notice that
 all three options with the id "0", "0E1234", and "00E050" are marked as
-selected. You might be thinking, WTF?  
-  
+selected. You might be thinking, WTF?
+
 Well, my theory is CF in its' typless glory is treating all of these strings
 as numbers and, because 0E (or 00E) is scientific notation it is basically
-treating them all as equivalent to zero (0).  
-  
-How do you get around this? My simple solution:  
-```cfm  
+treating them all as equivalent to zero (0).
+
+How do you get around this? My simple solution:
+
+```cfc
 <option value="#q1.id#" <cfif "_#q1.id#_" EQ
-"_#url.idval#_">SELECTED</cfif>>#q1.name#</option>  
-```  
-  
+"_#url.idval#_">SELECTED</cfif>>#q1.name#</option>
+
+```
+
+
 I wrapped them both in underscores for the purpose of measuring equivalence
 which forces CF to treat them as strings and voila the expected behavior now
 occurs.
@@ -82,8 +88,8 @@ that started 0E.
 Ben Nadel
 
 I've had similar issues where strings were being evaluated as times (from what
-I could gather):  
-  
+I could gather):
+
 http://www.bennadel.com/blog/566-Did-You-Know-That-000-Equals-00A-In-
 ColdFusion-.htm
 
@@ -91,26 +97,28 @@ Bill
 
 well this example was very made up to illustrate the point. The actual
 production code that encountered this problem was doing a real query against
-an Oracle database.  
-  
+an Oracle database.
+
 However, the same problem could occur if you just have two variables that are
-string representations of values that match the pattern I described.  
-  
-This post is really more of a warning than a "here is the WAY" to solve it.  
-  
+string representations of values that match the pattern I described.
+
+This post is really more of a warning than a "here is the WAY" to solve it.
+
 Thanks for sharing your solution though, perhaps it will inform some people of
 the syntax available in QueryNew for specifying the column type.
 
 joel
 
-Another possible solution, explicitly treating the values as strings:  
-  
-<cfparam name="form.idval" default="0" type="string" />  
-  
-<cfset q1 = QueryNew("id,name","varchar,varchar") />  
-  
-...  
-  
+Another possible solution, explicitly treating the values as strings:
+
+```cfc
+<cfparam name="form.idval" default="0" type="string" />
+
+<cfset q1 = QueryNew("id,name","varchar,varchar") />
+
+...
+
 <option value="#q1.id#" <cfif CompareNoCase(q1.id, form.idval) EQ
 0>SELECTED</cfif>>#q1.name#</option>
 
+```

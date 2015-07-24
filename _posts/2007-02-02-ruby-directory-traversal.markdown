@@ -17,6 +17,7 @@ The nice thing was that once I found that module the script to accomplish my tas
 
 Here is the code - if you see something that could be improved, please let me know in the comments.
 
+
 ```ruby
 require 'find'
 class PatentBuilder
@@ -40,23 +41,35 @@ totalFiles = 0;
   if FileTest.directory?(path)
    #determine if this is a directory we don't like...
    if @excludedDirectoryNames.include?(File.basename(path.downcase))
-    Find.prune #don't look in this directory
+
+Find.prune #don't look in this directory
    else
-    outfile << "// DIRECTORY: " << path
-    outfile << "\n"
-    next
+
+outfile << "// DIRECTORY: " << path
+
+outfile << "\n"
+
+next
    end
   else #we have a file
    filetype = File.basename(path.downcase).split(".").last
    if @includedFileTypes.include?(filetype)
-    outfile << "// FILE: " << path
-    outfile << "\n"
-    File.open(path).each do |line|
-     outfile << line
-    end
-    #puts path
-    totalFiles = totalFiles + 1
-    outfile << "\n"
+
+outfile << "// FILE: " << path
+
+outfile << "\n"
+
+File.open(path).each do |line|
+
+ outfile << line
+
+end
+
+#puts path
+
+totalFiles = totalFiles + 1
+
+outfile << "\n"
    else
    end
 
@@ -67,9 +80,12 @@ end
 end
 
 PatentBuilder.new.RecurseTree
+
 ```
 
+
 The configuration file (named patent.cfg) is pretty simple and needs to go in the same directory as the ruby file (patent.rb):
+
 
 ```ruby
 ::Root Directory
@@ -78,6 +94,8 @@ c:\some\directory\path
 cs,aspx,vb,asmx,css,xml,resx,ascx,master,sitemap,sql,
 ::Excluded Directory Names
 Tests,Documentation,.svn,
+
 ```
+
 
 You may notice that each of my lists is comma separated and the final item in each list is trailed by a comma. Without that trailing comma the code to split the string on the comma's lost the final token in my list.

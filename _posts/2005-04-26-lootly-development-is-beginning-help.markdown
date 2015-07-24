@@ -45,26 +45,33 @@ I was able to build a simple application. It was even faster than CF - and CF
 is about as fast as you can get really. Ruby also has some really cool
 shortcuts for quickly creating mutators (getters/setters).
 
-    
-    
-      
-          class Song  
-          attr_reader :name, :artist, :duration  
-          end         
-    ```
-      
-    
-    
-            This creates getters on the Song class for the name, artist and        duration fields.      
-    
-        Example thanks to [    Philip Jacob](http://www.whirlycott.com/phil/2005/04/13/ruby-first-impressions/).    
-    
-          Recent development in PHP land such as the release of mach-ii for      PHP and CAKE (a Rails like framework) make PHP very intriguing as      well. Plus, once again there is that cost factor. However, I have      decided to start out with Ruby. I want to learn the language      anyway and this seems like a great opportunity to do so. Who      knows, maybe I'm crazy.    
-    
-        
-    
-          Anyway, if you have read about Lootly! at the link I provided      earlier and you think you might want to get involved, contact me      at bill.rawlinson@gmail.com and we can discuss how you and your      skillset can fit into the project. You don't have to know      Ruby (I don't) but you do have to be willing to learn. Some      background in OO is preferred, but again, not required (just a      willingness to learn). I don't expect substantial time      involvement from anyone but 4-8 hours a week would be great! I      hope to hear from you.    
-    
-    
-    
+
+
+
+
+```ruby
+      class Song
+
+      attr_reader :name, :artist, :duration
+
+      end
+
+
+```
+
+
+
+
+
+This creates getters on the Song class for the name, artist and        duration fields.
+
+
+Example thanks to [    Philip Jacob](http://www.whirlycott.com/phil/2005/04/13/ruby-first-impressions/).
+
+
+Recent development in PHP land such as the release of mach-ii for      PHP and CAKE (a Rails like framework) make PHP very intriguing as      well. Plus, once again there is that cost factor. However, I have      decided to start out with Ruby. I want to learn the language      anyway and this seems like a great opportunity to do so. Who      knows, maybe I'm crazy.
+
+
+
+
 

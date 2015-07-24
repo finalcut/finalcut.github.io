@@ -18,10 +18,13 @@ First off you probably want to clone my [GitHub repository](https://github.com/f
 2.  Also download the patch files from adobe.  Here is the [mandatory patch](http://download.macromedia.com/pub/coldfusion/10/cf10_mdt_updt.jar) and here is the [hotfix 13](http://help.adobe.com/en_US/ColdFusion/10.0/Admin/WSe61e35da8d318518-33adffe0134c60cd31c-7ffe.html) file.
 2.  Update prepare.sh to point to your ColdFusion binary.
 3.  Edit the DockerFile - this file tells Docker how to create your container.  It is the recipe!  I had to add two commands to get my docker build to work properly.
+
 ```sh
 RUN chmod -R 755 /etc/service/coldfusion10
 RUN chmod 755 /tmp/install-cf10.sh
+
 ```
+
 4. Find all references to CF 11 and update them to CF 10 in all files.
 5. I also renamed any files that mentioned 11 to mention 10.
 
@@ -51,20 +54,28 @@ When you go through the steps in the readme.md file basically what happens is:
 ***NOTE*** the file *build/install/installer.profile* contains answers to questions that ColdFusion will ask during install.  The most important one to remember is the **SILENT_ADMIN_PASSWORD** - you'll need to know that if you want to set admin settings later.  This setup will not expose the CFIDE/administrator directory so you'll have to set all admin properties using the [CF admin API](http://help.adobe.com/en_US/ColdFusion/10.0/Admin/WSc3ff6d0ea77859461172e0811cbf364104-7fcf.html).
 
 
-Okay, so at this point you have a container that has linux running apache2 with ColdFusion 10 updated to patch 13.  Not too bad.  
+Okay, so at this point you have a container that has linux running apache2 with ColdFusion 10 updated to patch 13.  Not too bad.
 
 At this point you'd probably like to test your container.  Well the last step of the readme.md file shows you how to start it.
 
+
 ```
+
 docker run -d -p 8880:80 -v /var/www:/var/www cf10
+
 ```
+
 
 This runs it as a daemon (-d) and makes port 80 in the container available on port 8880 of the host machine.  It also mounts /var/www on the host machine as /var/www on the container.  This way you can edit your source files on the host without having to connect via ssh to the container (we didn't open the ssh port so this works out great).
 
 On your host machine go to /var/www and then create an index.cfm file.  Inside the file just stink in
+
 ```
+
 <cfdump var="#server#">
+
 ```
+
 
 That will dump out some ColdFusion server information.  Note the product version is `10,0,13,287689` which indicates hotfix 13!  Great work!
 
