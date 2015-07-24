@@ -1,0 +1,168 @@
+---
+layout: post
+title: "Back In XP"
+date: 2008-05-07
+comments: false
+categories:
+ - pl/sql developer
+ - sql-server-2005
+ - linux
+ - .net
+ - windows xp
+ - mediamonkey
+ - c#
+ - ubuntu
+ - svn
+ - oracle
+---
+I liked Ubuntu quite a bit but there were a couple small niggles I couldn't
+get over and, in the end, work requirements just pulled me back to XP. I can't
+really say much bad about my time with Ubuntu and I'll keep it installed on my
+home pc - but it just isn't sufficient for my needs at work right now.  
+  
+
+## My Problems
+
+  
+
+### Database Development
+
+  
+I do a lot of different database development specifically with MS SQL Server
+and Oracle. Short of installing a virtual machine I see no way to continue to
+do development on these two tools from within any Linux distro. While I have
+problems with SQL Server 2005 Management Studio stability it is still far more
+useful than nothing. PL/SQL Developer is pretty much the best tool I have ever
+used with Oracle DB's and is worth far more than we pay for it. I can't really
+live without either tool.  
+  
+
+### .NET
+
+  
+Sure, I could probably look at Mono - but I am not sure it is worth it at this
+point in the game. I have already gotten 3 C# .NET apps out there that I have
+to maintain and, as it turns out, one of them is being funded for further
+work. I'm not sure what is involved in porting one to Mono compatibility (or
+if anything is required) but if anything at all is required I'm sure the
+customer isn't going to pay for it and, honestly, why would they?  
+  
+
+### Music Player
+
+  
+This is just my personal thing but I tried out about 9 different music
+management programs on Ubuntu and I didn't like any of them. I use MediaMonkey
+on windows and it is so vastly superior in both features and performance in
+dealing with my music collection that it alone would have been enough to get
+me back to XP - that's how good it is.  
+  
+Amarok and Exhaile were both "OK" but not too great and both were pretty slow
+at filtering my large collection of music. Neither was particularly good at
+organizing my music, neither had as much Amazon integration as I want (for tag
+cleaning after ripping a CD), and neither had good facilities for converting
+audio formats. Amarok had a plugin but it didn't work very well. Furthermore
+neither let you put different watches on different directories. I have one
+directory that I rip new songs to on my machine and then another that serves
+as the entire library. I want to watch both but I don't really want to check
+the big one on startup while I do with the small one. Finally, I tend to
+listen by Genre more than anything else. There is no easy/good way to browse
+by Genre in either tool.  
+  
+MediaMonkey however just kicks ass at all of this. There is a free version but
+it is so damn good I have a paid version. I have never found another tool that
+is so good at managing my music (and I have a lot of it). Maybe I could have
+run MediaMonkey via wine but, considering the other issues I have already
+mentioned I didn't see much reason to try.  
+  
+
+### Cisco VPN Client
+
+  
+I installed the Linux Cisco VPN client stuff but it just doesn't work with our
+VPN - or at least I couldn't get it to. Meanwhile the windows Cisco VPN client
+works pretty easily. Plus it comes with a native GUI while in Ubuntu I had to
+install a separate KDE GUI that asked for stuff my Windows one doesn't. I
+really don't want to be an expert on VPN's just to connect to one.  
+  
+UPDATE: Well I had someone show me what data I needed to provide - and they
+showed me a better gnome VPN client that integrates with the network-manager.
+So this is no longer a strike against Ubuntu at all.  
+  
+
+### Text Editor
+
+  
+gEdit was ok. Kate was Ok. Vi and Emacs? I don't want to learn a whole new
+keymapping system. I just want to edit my text. I have been using EditPlus for
+years and pretty much love it. While I think "E" and "TextMate" look pretty
+darn good I'm not even sure they are worth giving up Editplus for. EditPlus is
+light and fast. Sure you have to pay for it but, again, it is well worth the
+$30. It's just better for the kind of frequent editing I do than pretty much
+any other free text editor I have tried on either windows or linux.  
+  
+
+### TortoiseSVN
+
+  
+I use SVN for everything and TortoiseSVN is just fantastic. I don't mind using
+the command line but why bother when something as nice as TortoiseSVN exists.
+I found nothing remotely as nice for Ubuntu expect, perhaps, [Gnubversion](htt
+ps://sourceforge.net/project/screenshots.php?group_id=208507&ssid=74692) but I
+didn't get to try it out. I understand KDE has a nice integrated SVN client
+but I was running Gnome.  
+  
+
+## What Was Good
+
+  
+  
+
+### Synaptic
+
+  
+That things kicks ass. No way would I have tried out more than 5 music players
+without it. There is no easier way to download and install software. It's a
+work of genius. I love that thing. I will miss it's functionality in Windows.  
+  
+
+### Gnome-Do
+
+  
+I use "launchy" in windows but it isn't quite as nice as Gnome-Do (without the
+amarok plugin). Launchy is good but I just liked the feel of Gnome-Do better.  
+  
+
+### Easiest Apache Install Ever
+
+  
+Again this is thanks to Synaptic but man it was so easy and I had php, cf, and
+mysql all hooked up with it in no time.  
+  
+I don't blame Linux or Ubuntu specifically for my switch back. It just isn't
+the right tool for my job. It would be great to have a much better
+MediaMonkey-esque music player/manager for Linux but that was really the only
+Linux shortcoming I found, and the fact that Hardy Heron shipped with a Beta
+web-browser. That kind of sucked; too many sites I go to (ESPN fantasy sports,
+Mint) don't work right in it.  
+  
+If I didn't have to do any windows development I probably would have tried
+MediaMonkey via wine and stayed in Ubuntu; I was generally that happy with it.
+But, for now, I am back in XP.
+
+## Comments
+
+Bill
+
+network-manager which has a cisco vpn plugin. network-manager-vpnc is the
+package in ubuntu - it worked like a charm.  
+  
+It turned out to be a lot easier than what I had initially thought.
+Fortunately I knew someone who was more familiar with the available tools.
+
+steve
+
+What was the solution the Cisco VPN problem? This is the only reason why I
+boot into Windows for work, and if I could find a solution I could stay on
+Ubuntu. Any insight would be appreciated. Thanks!
+

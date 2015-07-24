@@ -1,0 +1,33 @@
+---
+layout: post
+title: "Eclipse"
+date: 2005-05-18
+comments: false
+---
+A quick reference to finding and downloading the latest and greatest stable
+version of Eclipse; CFEclipse, Colorer, and maintaining your plugins across
+multiple Eclipse installs (or upgrades).  
+  
+First you need to go to the [downloads
+page](http://eclipse.org/downloads/index.php). However, once there, they hide
+the new milestone release from you. You need to click on the link "looking for
+the old [Eclipse downloads
+page](http://download.eclipse.org/downloads/index.php)?" True, you could just
+click on that link now, but that takes you out of the framed interface of the
+eclipse.org site - which may not be a good thing.  
+  
+Then just click on the link for the "xxx.x Stream stable build" - typically
+this will be the next upgrade level. For instance right now xxx.x = 3.1  
+  
+Now that you have Eclipse you should check out [how to install your plug ins
+separately from Eclipse](http://www.javalobby.org/java/forums/t18678.html) (so
+you can have multiple copies of Eclipse installed using the same plugins), and
+of course you should check out
+[CFEclipse](http://www.spike.org.uk/blog/index.cfm) (grab the latest nightly
+build) so that you can do all your CF development. Finally, you may want to
+give [Colorer](http://sourceforge.net/project/showfiles.php?group_id=34855) a
+look (its a syntax highlighting plugin for Eclipse for stuff like javascript,
+xml, etc.; however it doesn't work with 3.1 M7 currently).  
+  
+I name
+

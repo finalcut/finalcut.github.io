@@ -1,9 +1,0 @@
----
-layout: post
-title: "Remove Ubunutu Dual Boot with Windows 7"
-date: 2012-03-14
-comments: false
----
-
-<div class='post'>
-My linux luck continued with a failure in getting Ubuntu 11.10 to work properly right out of the box so I decided to uninstall it. &nbsp;However, removing it isn't nearly as simple as installing it was. &nbsp;Here are the steps you need:<br /><br /><br /><ol><li>You need to remove the linux partition(s) - I used the free tool <a href="http://www.partition-tool.com/personal.htm">EASUS Partition Master</a>, removed all of the non windows and non-recovery partitions, and then stretched out my windows partition to reclaim that space.</li><li>After you setup the new partition rules your computer has to reboot. &nbsp;After the bios screen the unix boot loader Grub will still appear offering to start linux or windows. &nbsp;Start windows but then hit f8 to get to the recovery menu for windows.</li><li>Pick to start windows in recovery mode; a graphical user interface will open. &nbsp;Eventually you'll have the chance to pick from a small menu of about eight options, pick the "Command Line" option (or console).</li><li>At the command line enter "bootrec /fixmbr" without the quotes. This will get rid of grub. &nbsp;It's almost instantaneous.&nbsp;</li><li>Restart your computer; EASUS Partition Master will then do it's partition resizing foo. &nbsp;This isn't instantaneous so just have some patience.</li><li>You're done.&nbsp;</li></ol><div><br /></div></div>
