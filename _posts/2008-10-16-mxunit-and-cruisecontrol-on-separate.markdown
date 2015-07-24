@@ -2,7 +2,8 @@
 layout: post
 title: "MxUnit and CruiseControl on Separate Machines"
 date: 2008-10-16
-comments: false
+comments: true
+featured: true
 categories:
  - coldfusion
  - continuous-integration
@@ -319,43 +320,3 @@ In order to get good, solid, precise reporting I had to use the testcase MxUnit 
 
 
 This makes sure the end report specifies the exact object that had the failed test in the final report.  So if the clientEmsGatewayTest had a failure on the test "testGetXbyY" the report would say failed test "testGetXbyY" in class "clientEmsGatewayTest"  instead of failed test "testGetXbyY" in class "gateway" as the prior technique did.
-
-
-
-
-
-## Comments
-
-
-
-
-
-
-
-
-
-
-
-billy
-
-
-
-
-
-
-Very impressive, Bill! Keep 'em coming. Also keep an eye out for mxunit 2.0 sometime Q1-09, I hope. Many more goodies, and your inupt would be welcome.
-
-
-bill
-
-mxunit.org
-
-
-
-
-
-
-
-
-
-

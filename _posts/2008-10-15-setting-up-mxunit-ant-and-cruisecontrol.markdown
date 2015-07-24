@@ -2,7 +2,8 @@
 layout: post
 title: "Setting Up MxUnit, Ant, and CruiseControl"
 date: 2008-10-15
-comments: false
+featured: true
+comments: true
 categories:
  - coldfusion
  - continuous-integration
@@ -451,83 +452,6 @@ I know there i a lot to consume here and that I barely scratched the surface.  H
 **UPDATE**
 
 HAHA! Success.  One of the older versions of SvnAnt came with a JavaSVN jar.  Once I removed it all of my svn needs work.  Tortoise, SvnAnt, CruiseControl... Boo YA!
-
-
-
-
-
-## Comments
-
-
-
-
-
-
-
-
-
-
-
-Bill
-
-
-
-
-
-
-Eric,
-
-Thanks.  Hopefully my experience will help make yours a little smoother.
-
-
-
-
-
-
-
-
-
-
-
-Eric Gregory
-
-
-
-
-
-
-Awesome post!  I'm setting up a similar project with CruiseControl, SVN, and Ant, and (ideally) getting some unit tests to work with the whole mess.
-
-
-
-So far, just getting svn to work with Ant took almost half a day (ouch.)
-
-
-In the end I went with Ant 1.7.1 and SVNant 1.2.1.  All you really have to do is copy Jars from SVNant into Ant's lib folder.  You get to choose between svnkit and javahl -- I'm told svnkit is better but have no real means of comparison.
-
-
-My ant script contains:
-
-
-
-<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" />
-
-  <target name="svnAntUpdate">
-
-   <svn username="YourUsername" password="YourPassword">
-
-     <update dir="." recurse="true" />
-
-   </svn>
-
-  </target>
-
-
-
-
-
-
-
 
 
 

@@ -4,6 +4,7 @@ title: "Create a ColdFusion Docker Container"
 date: 2014-08-15 08:23
 comments: true
 categories: [coldfusion, docker]
+featured: true
 published: true
 ---
 All of what I did in this post is based on the prior work of Peter Bücker and his [GitHub repo](https://github.com/naag/docker-coldfusion11) so a big thanks to him.  Also, if I can I'll put the container on docker's repo site so others can download it and use it without having to recreate all of these steps - I'm just not sure I'm allowed to considering how hard Adobe makes it for you to download the ColdFusion Server binary as a developer.

@@ -3,6 +3,7 @@ layout: post
 title: "Oracle NVL = Microsoft ISNULL"
 date: 2005-10-20
 comments: false
+featured: true
 categories:
  - sql-server
  - oracle

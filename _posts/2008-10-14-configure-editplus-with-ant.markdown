@@ -2,7 +2,8 @@
 layout: post
 title: "Configure EditPlus with ANT"
 date: 2008-10-14
-comments: false
+featured: true
+comments: true
 categories:
  - eclipse
  - ant
