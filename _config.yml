@@ -9,6 +9,7 @@ dropcap:			true
 # whether working locally or remotely. Start Jekyll with: jekyll serve --baseurl ''
 url: http://code.rawlinson.us/
 root: /
+baseurl: /
 
 # Owner/author information
 owner:
