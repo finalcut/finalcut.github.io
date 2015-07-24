@@ -13,21 +13,4 @@ categories:
 
 <div class='post'>
 Today I was working on a pretty simple C# project that involves printing out potentially long strings into small constrained areas (in a printable report).  I am pretty new to C# and don't have a deep knowledge or familiarity with the language so I wasn't really sure where to begin beyond the Graphics library.<br /><br />As it turns out the task was easier than I first envisioned.  I had thought I was going to have to chop my text string up into little strings based on the MeasureString method and then determine where words ended and do the line-wrap that way.  Fortunately, it is substantially easier; almost so easy that I could feel guilty.<br /><br />Each of the fields I need to print out is defined in an XML file - a file which I defined so that each field had an x and y coordinate for where it needed to be on the page.  To make this technique work I just had to add a height and width attribute and I was good to go:<br /><br /><pre name="code" class="csharp"><br /> Font typeFace = new Font("Arial", 7, FontStyle.Bold)<br /><br /> float x = float.Parse(element.Attributes["x"].Value);<br /> float y = float.Parse(element.Attributes["y"].Value);<br /> float width = float.Parse(element.Attributes["width"].Value);<br /> float height = float.Parse(element.Attributes["height"].Value);<br /> RectangleF rect = new RectangleF(x, y, width, height);<br /><br /> using (StringFormat formatter = new StringFormat())<br /> {<br />  formatter.FormatFlags = StringFormatFlags.LineLimit;<br />  graphics.DrawString(text_to_print, typeFace, Brushes.Black, rect, formatter);<br /> }<br /></pre><br /><br />I've kind of picked apart my code to just give you the relevant bits.  Hopefully it is enough to give you an idea.  The key to this trick was the StringFormat class. I told it to use the LineLimit <a href="http://msdn2.microsoft.com/en-us/library/system.drawing.stringformatflags.aspx">StringFormatFlags enumeration</a>.<br /><br />Overall it was a surprisingly painless process.  Of course, when I was done with that I needed to be able to export the printout to PDF if the user decided so I dipped into the freely available package <a href="http://www.pdfsharp.com">PDFSharp</a>.  It seems to be a great package and has plenty of examples to get you going.</div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>Βασίλειος</div>
-<div class='content'>
-thanks a lot. this is great.</div>
-</div>
-<div class='comment'>
-<div class='author'>Anonymous</div>
-<div class='content'>
-Thank you very much for your post. Some day I will give you a kiss.</div>
-</div>
-<div class='comment'>
-<div class='author'>Anonymous</div>
-<div class='content'>
-Thankyou thankyou thankyou! Exactly what I have been looking for, as is PDFSharp, so thanks for the link to that too :o)</div>
-</div>
 </div>

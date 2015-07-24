@@ -10,32 +10,4 @@ categories:
 ---
 
 <div class='post'>
-<p>In my prior posts about an IE DOM Gotcha I talked about how to insert a radio button into the DOM dynamically in a fashion that worked in both IE and Firefox but still failed to work properly in Opera.  The problem wasn't getting the radio button in place - but rather getting it to function as a radio button.  The initial problem in IE was that the radio button couldn't be selected.  Once the IE/FF solution was found the same problem persisted in Opera.  Today, a guy named Torbjorn Gyllebring sent me a function that he believes takes care of all of our radio-insertion needs.<br /><br />I honestly haven't had a chance to test it out yet - but I didn't see anything alarming in a casual glance.  Please try it out and see how it works for you.  I'd be particularly interested in hearing how it works in various Mac and Linux browsers.<br /><br /><pre name="code" class="jscript"><br />-----[ Browswer.js follows ]-----<br /><br />/*<br /> Browser façade to smooth over the worst misstakes that IE does.<br />*/<br /><br />function Browser(){}<br /><br />Browser.initIE = function()<br />{<br /> Browser.createInput = function(name)<br /> {<br />  var element = document.createElement("&lt;input name='" + name + "'&gt;");<br />  if(element.toString() == "[object HTMLElement]")//detect Opera masquerade<br />  {<br />   Browser.init();<br />   return Browser.createInput(name);<br />  }<br />  else//skip future checks<br />   Browser.createInput = function(name){ return <br />document.createElement("&lt;input name='" + name + "'&gt;");}<br />  return element;<br /> }<br />}<br /><br />Browser.init = function()<br />{<br /> Browser.createInput = function(name)<br /> {<br />  var element = document.createElement("input");<br />  element.name = name;<br />  return element;<br /> }<br />}<br /><br />if(navigator.appName == "Microsoft Internet Explorer")<br /> Browser.initIE();<br />else<br /> Browser.init();<br /></pre></div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>Navagon</div>
-<div class='content'>
-This is an interesting problem that I have encountered as well.  Remember to always set the type of input when creating in IE.  For all you dynamic attribute setters, don't try to do that with an image map in IE--it only seems to work in the declaration.</div>
-</div>
-<div class='comment'>
-<div class='author'>Bill</div>
-<div class='content'>
-I'm not sure what to tell you anonymous.  Using the method listed in this post (and in my later comments) works fine for me on both IE6 and IE7.<br /><br />Perhaps if you can email your code to me at bill.rawlinson using my gmail account I could take a look at it and give some guidance.</div>
-</div>
-<div class='comment'>
-<div class='author'>Anonymous</div>
-<div class='content'>
-i am still having this problem. after creating the radio buttons, i have an event listener for onClick events.<br />the problem is that if i click on a radio button it is not selected. <br />e.g, if i have 3 radio buttons, and initially the first one is selected by default, now if i click on the second radio button it does not get selected, i don't see any selections on the radio buttons. please help.  i have been trying to solve this problem for the last 2 days. i tried the solutions you posted, that does not seem to work on IE. i have now changed my code like below.<br /><br />RadioButton1 = function(name){<br />var element = document.createElement("input");<br />element.type = 'radio';<br />element.name = name;<br />return element;<br />}<br /><br /><br /><br /><br />none of these see to solve the problem. please help.</div>
-</div>
-<div class='comment'>
-<div class='author'>Bill</div>
-<div class='content'>
-you are correct you need the type attribute thanks.<BR/>without the type attribute you end up with a basic text-input.<BR/><BR/>Again, I don't know if this class works at solving the problems I stated  but it did look promising.</div>
-</div>
-<div class='comment'>
-<div class='author'>Anonymous</div>
-<div class='content'>
-Just pointing out the obvious before someone else beats me to it, to get a radio button that works as intended you need to do:<BR/><BR/>var myRadio = Browser.createInput("Foo");<BR/>myRadio.type = "radio";</div>
-</div>
-</div>
+<p>In my prior posts about an IE DOM Gotcha I talked about how to insert a radio button into the DOM dynamically in a fashion that worked in both IE and Firefox but still failed to work properly in Opera.  The problem wasn't getting the radio button in place - but rather getting it to function as a radio button.  The initial problem in IE was that the radio button couldn't be selected.  Once the IE/FF solution was found the same problem persisted in Opera.  Today, a guy named Torbjorn Gyllebring sent me a function that he believes takes care of all of our radio-insertion needs.<br /><br />I honestly haven't had a chance to test it out yet - but I didn't see anything alarming in a casual glance.  Please try it out and see how it works for you.  I'd be particularly interested in hearing how it works in various Mac and Linux browsers.<br /><br /><pre name="code" class="jscript"><br />-----[ Browswer.js follows ]-----<br /><br />/*<br /> Browser facade to smooth over the worst misstakes that IE does.<br />*/<br /><br />function Browser(){}<br /><br />Browser.initIE = function()<br />{<br /> Browser.createInput = function(name)<br /> {<br />  var element = document.createElement("&lt;input name='" + name + "'&gt;");<br />  if(element.toString() == "[object HTMLElement]")//detect Opera masquerade<br />  {<br />   Browser.init();<br />   return Browser.createInput(name);<br />  }<br />  else//skip future checks<br />   Browser.createInput = function(name){ return <br />document.createElement("&lt;input name='" + name + "'&gt;");}<br />  return element;<br /> }<br />}<br /><br />Browser.init = function()<br />{<br /> Browser.createInput = function(name)<br /> {<br />  var element = document.createElement("input");<br />  element.name = name;<br />  return element;<br /> }<br />}<br /><br />if(navigator.appName == "Microsoft Internet Explorer")<br /> Browser.initIE();<br />else<br /> Browser.init();<br /></pre></div>
