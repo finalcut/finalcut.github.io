@@ -18,7 +18,6 @@ There is an application somewhere in our organization that utilizes an access da
 Here is the basic way the json was being generated previously:
 
 ```php
-
   $rs=odbc_exec($conn,$sql);
   //declare an array to hold the query results
   $data = array();
@@ -28,7 +27,6 @@ Here is the basic way the json was being generated previously:
     $data[] = $curRow;
   }
   echo json_encode(array('jobs'=>$jobs));
-
 ```
 
 Very straight forward and, it appeared to work well until today.  Someone copied and pasted a descriptive field of one of the catalog items from a word document into the access database and a single smart quote (apostrophe really) worked its way into the data.  When this happened that field was rendered in the json as null even though there was clearly data contained within.
@@ -36,7 +34,6 @@ It took me a little while to see that it was a smart quote buried in the middle 
 
 
 ```php
-
   $rs=odbc_exec($conn,$sql);
 
   //declare an array to hold the query results
@@ -48,7 +45,6 @@ It took me a little while to see that it was a smart quote buried in the middle 
   }
 
   echo json_encode(array('jobs'=>$jobs));
-
 ```
 
 Just updating that one line in the middle of my while loop let me make sure that every element in every row was clean of nasty smart quotes by telling array_map to call the convert_smart_quotes function on each element.  I have to say I really do like the power and simplicity of map (and reduce).
@@ -81,7 +77,8 @@ You have to do a map on the second dimension of the array.. It's a little more c
 <div class='author'>Anonymous</div>
 <div class='content'>
 
-<pre>
+
+<pre><code class="php">
   $rs=odbc_exec($con,$sql);
 
   //declare an array to hold the query results
@@ -98,9 +95,9 @@ You have to do a map on the second dimension of the array.. It's a little more c
   "ghobks" => $data["ghobks"],
   "ghocrb" => $data["ghocrb"])
   );
+</code></pre>
 
   it doesn't work, help me
-</pre>
 
   </div>
 </div>
