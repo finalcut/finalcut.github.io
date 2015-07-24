@@ -11,9 +11,9 @@ categories:
 ---
 
 
-Last week I spent some time making sure I understood how map and reduce actually work and what their purposes are. &nbsp;This week I needed to use map while fixing a silly problem. &nbsp;Some of this background info will be pure cruft to most of you but hopefully it will be enlightening in it's own way.
+Last week I spent some time making sure I understood how map and reduce actually work and what their purposes are. This week I needed to use map while fixing a silly problem. Some of this background info will be pure cruft to most of you but hopefully it will be enlightening in it's own way.
 
-There is an application somewhere in our organization that utilizes an access database to store a catalog of information. &nbsp;This catalog is then made available for consumption within our web properties via a webservice that is written in php and which returns the data contained within the database in either json or xml format.
+There is an application somewhere in our organization that utilizes an access database to store a catalog of information. This catalog is then made available for consumption within our web properties via a webservice that is written in php and which returns the data contained within the database in either json or xml format.
 
 Here is the basic way the json was being generated previously:
 
@@ -27,7 +27,7 @@ Here is the basic way the json was being generated previously:
   while($curRow = odbc_fetch_array($rs)){
     $data[] = $curRow;
   }
-  echo json_encode(array('jobs'=&gt;$jobs));
+  echo json_encode(array('jobs'=>$jobs));
 
 ```
 
@@ -47,7 +47,7 @@ It took me a little while to see that it was a smart quote buried in the middle 
     $data[] = array_map("convert_smart_quotes",$curRow);
   }
 
-  echo json_encode(array('jobs'=&gt;$jobs));
+  echo json_encode(array('jobs'=>$jobs));
 
 ```
 
@@ -64,24 +64,24 @@ I actually ran into a situation sort of like yours today:
 
 since your $curRow is already an array do this:
 
-$data = arary_map(&quot;convert_smart_quotes&quot;, $curRow);
+$data = arary_map("convert_smart_quotes", $curRow);
 
-Then you can output the $data[&quot;sae&quot;];  etc. etc.</div>
+Then you can output the $data["sae"];  etc. etc.</div>
 </div>
 <div class='comment'>
 <div class='author'>Bill Rawlinson</div>
 <div class='content'>
-I&#39;m pretty sure this is because my query is just returning one column while yours is returning many; thus my $curRow is a single dimension array while yours is a multi-dimensional array.
+I'm pretty sure this is because my query is just returning one column while yours is returning many; thus my $curRow is a single dimension array while yours is a multi-dimensional array.
 
 I think you would have to just do $data[] = $curRow; in the loop..
 
-You have to do a map on the second dimension of the array.. It&#39;s a little more complicated.</div>
+You have to do a map on the second dimension of the array.. It's a little more complicated.</div>
 </div>
 <div class='comment'>
 <div class='author'>Anonymous</div>
 <div class='content'>
 
-```php
+<pre>
   $rs=odbc_exec($con,$sql);
 
   //declare an array to hold the query results
@@ -89,18 +89,19 @@ You have to do a map on the second dimension of the array.. It&#39;s a little mo
 
   //populate the jobs array with the query result set
   while($curRow = odbc_fetch_array($rs)){
-   $data[] = array_map(&quot;convert_smart_quotes&quot;,$curRow);
+   $data[] = array_map("convert_smart_quotes",$curRow);
   }
   echo json_encode(array(
-  &quot;sae&quot; =&gt; $data[&quot;sae&quot;],
-  &quot;bara&quot; =&gt; $data[&quot;bara&quot;],
-  &quot;ghobdg&quot; =&gt; $data[&quot;ghobdg&quot;],
-  &quot;ghobks&quot; =&gt; $data[&quot;ghobks&quot;],
-  &quot;ghocrb&quot; =&gt; $data[&quot;ghocrb&quot;])
+  "sae" => $data["sae"],
+  "bara" => $data["bara"],
+  "ghobdg" => $data["ghobdg"],
+  "ghobks" => $data["ghobks"],
+  "ghocrb" => $data["ghocrb"])
   );
 
-  it&#39;s doesn&#39;t work, help me
-```
+  it doesn't work, help me
+</pre>
+
   </div>
 </div>
 </div>
