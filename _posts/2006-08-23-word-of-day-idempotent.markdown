@@ -13,7 +13,7 @@ Now, as a person with a computer science degree and around 7 years of on the
 job experience it seems kind of odd to me that I haven't heard this word
 before. I encountered it for the first time today while reading a [white paper
 published by Google dealing with their MapReduce
-library](http://labs.google.com/papers/mapreduce.html).
+library](http://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf). (warning, pdf)
 
 
 I've recently seen a few
@@ -40,4 +40,3 @@ So, it would seem, that the creation of a Singleton is an idempotent action.
 Anonymous
 
 also try Nilpotent or nilpotence
-
