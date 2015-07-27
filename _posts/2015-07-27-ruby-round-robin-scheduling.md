@@ -108,7 +108,7 @@ ruby schedule.rb >> sch.txt
 
 After it runs you'll end up with a file similar to this:
 
-```
+```ObjDump
 Week 1
 	Game 1 White Moose Knuckles -vs- Waka Shame
 	Game 2 Waka Shame -vs- Ultimately Intoxicated
