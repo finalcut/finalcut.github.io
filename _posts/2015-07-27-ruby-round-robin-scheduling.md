@@ -12,6 +12,7 @@ chart:
 comments: true
 featured: false
 ---
+## Background
 I play kickball in an adult league and this season our league manager ran into a problem with
 creating the schedule.  He tried to do it by hand but eventually everything started to blur so
 he kind of gave up which resulted in at least one set of teams not playing each other.
@@ -30,6 +31,14 @@ double header logic.
 on and off the bye week option.
 3. I'll probably convert this to a web app at some point so people can use it without having
 to have ruby locally.
+
+
+## Configuration
+You can modify this by changing the initial teams array to have the teams in your
+league.
+
+If you have an odd number of teams and you want double-headers instead of Bye weeks
+change the replaceByesWithDoubleHeader to true.  Then run the script.  It's that easy.
 
 
 ```ruby
@@ -89,7 +98,7 @@ end
 
 You can get this source code at its [github repo](https://github.com/finalcut/round-robin-schedule)
 
-
+## Usage
 
 To run the script just enter the following command to dump the contents to a txt file.
 
