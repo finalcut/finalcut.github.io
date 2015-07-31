@@ -14,8 +14,7 @@ categories:
 Today I had the seemingly unfortunate task of adding CF10 to my webserver
 while continuing to keep CF 8 and CF 9 running on it.  Before you install CF
 10 first follow my [prior post instructions on getting CF 8 and 9 working
-together with Apache](http://code.rawlinson.us/2011/02/installing-cf8-and-cf9
--side-by-side-on.html).
+together with Apache](http://code.rawlinson.us/2011/02/installing-cf8-and-cf9-side-by-side-on.html).
 
 Once you have that working you just have to install CF10 - I installed to
 c:\dev\tools\ColdFusion10.  I told it to automatically connect to my apache
@@ -205,7 +204,3 @@ Then, restart apache and boom! You'll be all set.  CF8, CF9, and CF10 all will b
 
 
 Hat tip to <http://kmaiya.blogspot.in/2012/04/co-existence-of-coldfusion9-and.html>  for pointing me in the right direction for getting CF10 working.
-
-
-
-
