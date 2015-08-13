@@ -15,19 +15,19 @@ featured: false
 This post is mostly to help a customer switch his current configuration.  I have no access to his server and need to help him get Coldfusion 11 working properly.  He currently has it installed and connected to IIS but it doesn't work quite well.  For instance if he goes to http://hishost.com/ the index.cfm page loads fine.  But if he goes to http://hishost.com/index.cfm he gets a 404 error.  Becuase I work almost exclusivly with Apache and I can't recreate his problem it seemed easier to just move him to Apache.  If you know what caused the problem he is having (he has a cfide and jakarta virtual directory already) then I'd love to hear your thoughts in the comments below.
 
 ## Turn off IIS
-The first step in this migration is to get rid of IIS.  The server we are working on is a Windows 2008 R2 Server so you might have to adjust these instructions based on your version of Windows.  The basic idea though is that we need to turn off the IIS feature within Windows.
+The first step in this migration is to get rid of IIS.  The server we are working on is a Windows 2008 R2 Server so you might have to adjust these instructions based on your version of Windows.  The basic idea though is that we need to turn off the IIS feature within Windows by removing a Role (makes no sense really).
 
 1. Right click on "My Computer" and select "Manage" from the contextual menu
-2. After the "Server Manager" window opens go to the "Features" option
-3. Click on "Remove Features"
+2. After the "Server Manager" window opens go to the "Roles" option
+3. Click on "Remove roles"
   <br />
-  <img src="/images/move-from-iis-to-apache/remove-feature.png" />
+  <img src="/images/move-from-iis-to-apache/remove-role.png" />
   <br />
-4. A dialog will open.  When it does you need to expand the "Remote Server Administration Tools" node; then expand the "Role Administration Tools" and finally uncheck the "Web Server (IIS) Tools"
-  <br />
-  <img src="/images/move-from-iis-to-apache/web-server-tools.png" />
-  <br />
-5. Click on "Remove" and let Windows do it's thing.  You might have to restart the computer when it is done; if so, reboot!
+4. A dialog will open. Uncheck "Web Server (IIS)"
+<br />
+<img src="/images/move-from-iis-to-apache/web-server-role.png" />
+<br />
+5. Click on "Remove" and let Windows do it's thing.  You will have to restart the computer when it is done; if so, reboot!
 
 ## Install Apache Webserver
 Now you need to get Apache.  Simply because I'm more familiar with Apache 2.2.x we'll be using that instead of 2.4.  Once I've had some time to muck around with 2.4 and it's configuration changes I will have him upgrade to 2.4.x.
