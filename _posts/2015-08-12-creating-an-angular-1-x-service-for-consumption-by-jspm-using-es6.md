@@ -47,7 +47,7 @@ import CacheService from 'angular-cache-service';
 
 The CacheService import was undefined.  Interestingly, if I just had the cache-service.js file local and imported it exactly the same the CacheService import was a function (as I expected it to be).
 
-Jason and I both figured the odd jspm file format of `import * ...` was probably just caused because our source file was a different format and that the jspm file was correct.  However, I had a hunch that maybe JSPM didn't like our ES6 at all.  I then went back to the cache service and added a compile step using Babel which generates a very differently formatted file in dist/cache-service.js.
+Jason and I both figured the odd JSPM file format of `import * ...` was probably just caused because our source file was a different format and that the JSPM file was correct.  However, I had a hunch that maybe JSPM didn't like our ES6 at all.  I then went back to the cache service and added a compile step using Babel which generates a very differently formatted file in dist/cache-service.js.
 
 I then updated the package.json file to point main to this copy:
 
@@ -55,12 +55,12 @@ I then updated the package.json file to point main to this copy:
 "main": "dist/cache-service.js",
 ```
 
-And pushed back to github.  Then I re-installed the angular-cache-service using JSPM in the referential data service and everything worked as expected.  And, now, the jspm file looks like so:
+And pushed back to github.  Then I re-installed the angular-cache-service using JSPM in the referential data service and everything worked as expected.  And, now, the JSPM file looks like so:
 
 ```js
 module.exports = require("github:StrictlyBusiness/angular-cache-service@0.0.4/dist/cache-service");
 ```
 
-**NOTE: I'm not pointing at master anymore but at an actual verion tag.  The first three point relases didn't work and it took me a while to think of pointing at master  while testing
+**NOTE: I'm not pointing at master anymore but at an actual verion tag.  The first three point releases didn't work and it took me a while to think of pointing at master  while testing
 
-TL/DR: Compile your ES6 code and point main at the resultant compiled file if you want to resue it via JSPM.
+TL/DR: Compile your ES6 code and point main at the resultant compiled file if you want to reuse it via JSPM.
