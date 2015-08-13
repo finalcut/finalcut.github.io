@@ -43,6 +43,26 @@ end
    end
   end
 
+  # usage rake isolate[my-post]
+  desc "Move all other posts than the one currently being worked on to a temporary stash location (stash) so regenerating the site happens much more quickly."
+  task :stash, :filename do |t, args|
+    stash_dir = "_stash"
+    posts_dir = "_posts"
+    FileUtils.mkdir(stash_dir) unless File.exist?(stash_dir)
+    Dir.glob("#{posts_dir}/*.*") do |post|
+      FileUtils.mv post, stash_dir unless post.include?(args.filename)
+    end
+  end
+
+  desc "Move all stashed posts back into the posts directory, ready for site generation."
+  task :integrate do
+    stash_dir = "_stash"
+    posts_dir = "_posts"
+    FileUtils.mv Dir.glob("#{stash_dir}/*.*"), "#{posts_dir}/"
+  end
+
+
+
   # adapted from https://github.com/imathis/octopress/blob/master/Rakefile
   # usage rake new_post['My New Post'] or rake new_post (defaults to "My New Post")
   desc "Start a new page"
