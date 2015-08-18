@@ -12,7 +12,7 @@ chart:
 comments: true
 featured: false
 ---
-Please pardon the ugly code that is about to follow.  This is mostly just to document a proof of concept idea I had yesterday.  Before I get into the code though let me defend my usage of MS Access.  Basically, I support a legacy Coldfusion application that has to routinely import data from uploaded Access databases into an Oracle database.  Thus, I have to have a script that can read from an access database.  Way back [in 2005 I talked a little bit about how I was reading from an access database that I didn't have a specific datasource defined for](/2005/11/model-glue-waist-deep.html).  Well, in this modern day an age of 64 bit everything using a 32 bit odbc driver is a pretty crappy way of going about things. (I know, I know, I'm using Access; it's already crappy, get off your high horse).
+Before I get into the code though let me defend my usage of MS Access.  Basically, I support a legacy Coldfusion application that has to routinely import data from uploaded Access databases into an Oracle database.  Thus, I have to have a script that can read from an access database.  Way back [in 2005 I talked a little bit about how I was reading from an access database that I didn't have a specific datasource defined for](/2005/11/model-glue-waist-deep.html).  What follows is the start of a more modern solution.
 
 
 [Jackcess](http://jackcess.sourceforge.net/) is a cool Java library that gives you access to Access.  It's at sourceforge which is a problem of sorts but fortunately the download for this is just a `JAR` file and it seems to be contaminate free.
