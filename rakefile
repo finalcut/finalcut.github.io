@@ -31,7 +31,7 @@ end
      post.puts "title: \"#{title.gsub(/&/,'&amp;')}\""
      post.puts "description: "
      post.puts "headline: "
-     post.puts "modified: #{Time.now.strftime('%Y-%m-%d %H:%M:%S %z')}"
+     post.puts "date: #{Time.now.strftime('%Y-%m-%d %H:%M:%S %z')}"
      post.puts "category: personal"
      post.puts "tags: []"
      post.puts "imagefeature: "
