@@ -12,7 +12,7 @@ chart:
 comments: true
 featured: false
 ---
-Up to this point none of my customers have upgraded to CF 11.  Some have been hanging out
+Up to this point none of my customers had upgraded to CF 11.  Some have been hanging out
 at CF9 and others have long since moved to CF 10.  However, this week one moved to CF 11
 and we ran into what I thought was a strange error.
 
@@ -33,7 +33,7 @@ All of the values being passed in to the first five parameters were numbers and 
 
 For a long time now Coldfusion hasn't really cared what you used in the `dbVarName` attribute.  It was ignored and the order of the arguments was all that was considered and my arguments were all in the correct order too.  So what gives?
 
-Well, it turns out that in CF11 Hotfix 3 adobe fixed the long standing problem of the `dbVarName` being ignored AND added a seemingly arbitratry requirement that you prefix your argument names with a colon (:) if you are using an Oracle db or an at sign (@) if you were using MS SQL Server.  I am glad they fixed the naming problem - it always annoyed me that my usage of named arguments as ignored.  But the inclusion of the prefix is kind of antiethical to the nature of Coldfusion which, typically, tries to simplify you're interactions with the database.  Plus it makes my code less portable between the two different database types (unless I use some stupid global setting for the prefix!).
+Well, it turns out that in CF11 Hotfix 3 Adobe fixed the long standing problem of the `dbVarName` being ignored AND added a seemingly arbitratry requirement that you prefix your argument names with a colon (:) if you are using an Oracle db or an at-sign (@) if you were using MS SQL Server.  I am glad they fixed the naming problem - it always annoyed me that my usage of named arguments as ignored.  But the inclusion of the prefix is kind of antiethical to the nature of Coldfusion which, typically, tries to simplify you're interactions with the database.  Plus it makes my code less portable between the two different database types (unless I use some stupid global setting for the prefix!).
 
 Anyway, the entire block of code just had to be changed to this and it worked fine.  Go figure:
 
