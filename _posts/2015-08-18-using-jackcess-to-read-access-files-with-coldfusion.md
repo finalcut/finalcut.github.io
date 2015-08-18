@@ -17,7 +17,7 @@ Before I get into the code though let me defend my usage of MS Access.  Basicall
 
 [Jackcess](http://jackcess.sourceforge.net/) is a cool Java library that gives you access to Access.  It's at sourceforge which is a problem of sorts but fortunately the download for this is just a `JAR` file and it seems to be contaminate free.
 
-Jackcess has a pretty comprehensive [API](http://jackcess.sourceforge.net/apidocs/index.html) and a handy [Cookbook](http://jackcess.sourceforge.net/cookbook.html) that can help you get started.  But, if you aren't entirely confident in taking Java and embedding it in Coldfusion I'm going to show you the simplest bit of code I might need to read in all the rows from an Access table and putting that information into a Coldfusion `query` object.
+Jackcess has a pretty comprehensive [API](http://jackcess.sourceforge.net/apidocs/index.html) and a handy [Cookbook](http://jackcess.sourceforge.net/cookbook.html) that can help you get started.  But, if you aren't entirely confident in taking Java and embedding it in Coldfusion I'm going to show you the simplest bit of code you might need to read in all the rows from an Access table and putting that information into a Coldfusion `query` object.
 
 **NOTE: I am not including any error handling on purpose here to keep things simple.  This should all be used with care and is not intended, as is, for produciton**
 
