@@ -47,7 +47,7 @@ db = builder.open(dbFile);
 // object has a method called getTableNames() you could use to help make
 // sure the table you're asking for is valid before moving on.
 table = db.getTable(arguments.tableName);
-cursor = db.getDefaultCursor();
+cursor = table.getDefaultCursor();
 
 // this gives you an array of objects.  Cool factoid about this array is
 // it is just like a CF array and you can iterate over it just like a CF
@@ -60,8 +60,8 @@ cursor = db.getDefaultCursor();
 
 columns = table.getColumns();
 columnList = "";
-for(colIndex=1; colIndex LTE ArrayLen(columns); colIndex=colIndex+1){
-  columnList = ListAppend(columnList, columns[colIndex].getName());
+for(col in columns){
+  columnList = ListAppend(columnList, col.getName());
 }
 finalQuery = queryNew(columnList);
 
@@ -78,9 +78,9 @@ cursor.beforeFirst();
 for(rowIndex=1;rowIndex LTE rowCount; rowIndex=rowIndex+1){
   queryAddRow(finalQuery);
   row = cursor.getNextRow(); // on first iteration moves to first row
-  for(colIndex=1; colIndex LTE ArrayLen(columns); colIndex=colIndex+1){
+  for(col in columns){
     // because I have to use the column name twice I'll grab it first.
-    columnName=columns[colIndex].getName();
+    columnName=col.getName();
     querySetCell(finalQuery, columnName, row.get(columnName));
   }
 }
