@@ -21,14 +21,9 @@ forms for me.
 Well, fortunately, Tasker has come to the rescue yet again.  Note, however,
 that you need a rooted device to do this stuff.  I am not going to take the
 time right now to explain how to root your device sorry.  Instead I'll assume
-you've rooted and you own [Tasker](https://play.google.com/store/apps/details?
-id=net.dinglisch.android.taskerm&feature=related_apps#?t=W251bGwsMSwxLDEwOSwib
-mV0LmRpbmdsaXNjaC5hbmRyb2lkLnRhc2tlcm0iXQ..).  
+you've rooted and you own [Tasker][tasker].  
   
-After installing Tasker you will also need a plugin called [Secure Settings](h
-ttps://play.google.com/store/apps/details?id=com.intangibleobject.securesettin
-gs.plugin&feature=search_result#?t=W251bGwsMSwxLDEsImNvbS5pbnRhbmdpYmxlb2JqZWN
-0LnNlY3VyZXNldHRpbmdzLnBsdWdpbiJd).  You can get it at the play store.  Ok,
+After installing Tasker you will also need a plugin called [Secure Settings][secureSettings].  You can get it at the play store.  Ok,
 before you jump into tasker first start up Secure Settings, switch to the
 Helper Tab, and install the helper.  You can't do anything without the Helper;
 it is what gives you access to the command to change the keyboard.  
@@ -61,11 +56,14 @@ Ok, now that your prerequisites are setup launch Tasker and do the following:
 
 That's it.  You're done.  Congratulations.  
   
-These instructions are based on the set of instructions I found at
-[grokbase](http://grokbase.com/t/gg/tasker/1292geqd8g/change-of-input-method-
-keyboard-with-tasker-and-plugin-secure-settings) and in the [google groups for
-tasker](https://groups.google.com/forum/?fromgroups=#!topic/tasker/mAco_fbmh2c
-)
+These instructions are based on the set of instructions I found at [grokbase] and in the [google groups for tasker][googleGroup]
+
+
+[tasker]: https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm
+[secureSettings]: https://play.google.com/store/apps/details?id=com.intangibleobject.securesettings.plugin 
+[grokbase]: http://grokbase.com/t/gg/tasker/1292geqd8g/change-of-input-method-
+keyboard-with-tasker-and-plugin-secure-settings
+[googleGroup]: https://groups.google.com/forum/?fromgroups=#!topic/tasker/mAco_fbmh2c
 
 ## Comments
 
