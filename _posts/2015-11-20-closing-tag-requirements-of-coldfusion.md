@@ -28,6 +28,10 @@ The other two categories are pretty self explanatory.
 
 I tried to manually go through the list of tags at [CFDocs](http://cfdocs.org/tags) but that was prone to mistakes on my part.  [Adam Cameron](https://twitter.com/DAC_dev) on twitter recommended I get help from [Dom Watson](https://twitter.com/dom_watson) and Dom pointed me to two helpful lucee functions; [`getTagList`](http://docs.lucee.org/reference/functions/gettaglist.html) and [`getTagData`](http://docs.lucee.org/reference/functions/gettagdata.html) which, when combined, provided me with the answers I needed.
 
+
+**PROTIP** If you don't have lucee installed you can put together quick cf scripts to run against all of the main CF engines at [http://trycf.com/](http://trycf.com/) - that's how I ran this code.
+
+
 Here is the code I used to get a definitive list:
 
 ```cfm
