@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Closing Tag Requirements of ColdFusion"
-description: 
+description: "Code that shows the closing tag requirements of all standard ColdFusion tags" 
 headline: 
 date: 2015-11-20 10:19:45 -0500
 category: coldfusion
