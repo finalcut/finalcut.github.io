@@ -3,13 +3,8 @@ layout: post
 title: "Single Click Deploy of a Coldfusion Project from ANT"
 date: 2013-02-28
 comments: false
-categories:
- - svnant
- - one-click-deploy
- - ant-zip
- - ant-subversion
- - ant-email
- - ant
+category: coldfusion
+tags: [svn,svnant,ant,ant-zip,ant-subversion,ant-email,one-click-deploy]
 ---
 Sometimes I'm way behind the power curve.  Today is one of those days.  I've
 been using ant and cruise control for years to do some continuous integration
@@ -370,13 +365,3 @@ Jim Priest
 
 
 Added to the old Ant wiki:  http://www.thecrumb.com/wiki/ant
-
-
-
-
-
-
-
-
-
-

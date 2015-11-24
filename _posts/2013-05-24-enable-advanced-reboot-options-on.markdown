@@ -3,10 +3,8 @@ layout: post
 title: "Enable Advanced Reboot Options on Cyanogenmod"
 date: 2013-05-24
 comments: false
-categories:
- - cyanogenmod
- - reboot-menu
- - android
+category: android
+tags: [cyanogenmod,root,reboot-menu]
 ---
 For a few months now I've noticed that the option to reboot into recovery has
 been missing from my cyanogenmod rom'd android phone.  I'm running the latest
@@ -34,4 +32,3 @@ finally spent a few minutes googling for the solution.
 That's it.  It's relatively simple but because the settings are very hidden it
 can be next to impossible to find them.   Please note that the reboot options
 won't appear if your phone isn't unlocked.
-

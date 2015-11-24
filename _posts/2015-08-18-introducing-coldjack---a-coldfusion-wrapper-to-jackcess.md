@@ -4,8 +4,8 @@ title: "Introducing ColdJack - a Coldfusion Wrapper to Jackcess"
 description: Jackcess is a Java library for interacting with MS Access. ColdJack makes Jackcess a little easier to use from Coldfusion
 headline:
 date: 2015-08-18 15:05:13 -0400
-category: coldfusion,access,java,jackcess
-tags: []
+category: [coldfusion,java]
+tags: [msaccess,jackcess]
 imagefeature:
 mathjax:
 chart:

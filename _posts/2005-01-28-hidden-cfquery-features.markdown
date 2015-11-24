@@ -3,11 +3,10 @@ layout: post
 title: "Hidden CFQUERY features"
 date: 2005-01-28
 comments: false
-categories:
- - coldfusion
- - query
+category: coldfusion
+tags: [cfquery]
 ---
-On the cfc-def list someone just posted a link to a cool resource that shows
+On the cfc-dev list someone just posted a link to a cool resource that shows
 some undocumented, and thus unsupported, features for the cfquery object. My
 personal favorite is the sort method. Here is an example copied from the page
 that I linked:
@@ -34,4 +33,3 @@ I would bet it is.
 MarkT
 
 This made my day. Much cleaner than a QofQ!
-

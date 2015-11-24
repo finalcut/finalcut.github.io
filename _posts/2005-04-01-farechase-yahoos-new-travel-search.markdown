@@ -3,8 +3,10 @@ layout: post
 title: "Farechase - Yahoos new travel search engine"
 date: 2005-04-01
 comments: false
+category: general
+tags: [yahoo,travel]
 ---
-Sorry for the offtopic post, but I thought this was pretty cool.
+Sorry for the off topic post, but I thought this was pretty cool.
 
 Everytime I get ready to take a trip we muck around with all sorts of travel
 sites like travelocity, travel.yahoo.com, expedia, orbitz, etc. Well, it looks
@@ -17,3 +19,5 @@ close airports as well. For instance when I did a search from Huntington WV it
 also searched out of Charleston as well and, as it turns out, the fare was
 significantly cheaper leaving from Charleston. What a time saver!
 
+**NOTE**: this is a very old post and farechase doesn't exist anymore.  It was cool
+when it was there though.

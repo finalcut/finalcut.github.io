@@ -3,6 +3,8 @@ layout: post
 title: "How Long Waiting for an Answer in StackOverflow - An Addendum"
 date: 2012-10-31
 comments: false
+category: general
+tags: [stack-overflow]
 ---
 Today I came across a post titled "[How Long Waiting for an Answer in
 StackOverflow](http://blog.guillermowinkler.com/blog/2012/10/30/how-long-
@@ -246,13 +248,3 @@ tech, difficulty, was answered
 or
 
 tech, difficulty, number of responses
-
-
-
-
-
-
-
-
-
-

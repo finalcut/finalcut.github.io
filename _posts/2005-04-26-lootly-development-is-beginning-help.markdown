@@ -3,9 +3,8 @@ layout: post
 title: "Lootly! Development is Beginning - Help Appreciated"
 date: 2005-04-26
 comments: false
-categories:
- - ruby
- - lootly
+category: ruby
+tags: [lootly]
 ---
 I know, I know, I said before that I was going to keep updating everyone about
 the progress of my issue tracking revamping. And I will. In fact, if you read
@@ -70,8 +69,3 @@ Example thanks to [    Philip Jacob](http://www.whirlycott.com/phil/2005/04/13/r
 
 
 Recent development in PHP land such as the release of mach-ii for      PHP and CAKE (a Rails like framework) make PHP very intriguing as      well. Plus, once again there is that cost factor. However, I have      decided to start out with Ruby. I want to learn the language      anyway and this seems like a great opportunity to do so. Who      knows, maybe I'm crazy.
-
-
-
-
-

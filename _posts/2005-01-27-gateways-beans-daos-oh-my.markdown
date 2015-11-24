@@ -3,14 +3,8 @@ layout: post
 title: "Gateways, Beans, DAOs - Oh My!"
 date: 2005-01-27
 comments: false
-categories:
- - factories
- - daos
- - coldfusion
- - patterns
- - beans
- - design patterns
- - gateways
+category: coldfusion
+tags: [factories,daos,patterns,beans,design patterns,gateways]
 ---
 Today I progressed (or regressed; it seems I may never know) in my OOP/Pattern
 approach to developing ProTask. First off I consolidate a whole slew of
@@ -129,4 +123,3 @@ the coldfusion land). and I think struts makes alot of sense. Who knows what
 I'll think once I actually try to port this baby.
 
 As always feedback is both welcome and desired. Let me know what you think!
-

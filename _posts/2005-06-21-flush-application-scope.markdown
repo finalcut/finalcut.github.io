@@ -3,9 +3,8 @@ layout: post
 title: "Flush the Application Scope"
 date: 2005-06-21
 comments: false
-categories:
- - coldfusion
- - utilities
+category: coldfusion
+tags: [utilities]
 ---
 I was looking at the model-glue framework today (haven't done much with it yet
 so I won't talk about it yet) and decided I wanted to see how fast one of the
@@ -76,4 +75,3 @@ how often I've modified the static parameters of the scope - like
 "myapplicationname_v1_21" (modified 21 times for example).
 
 -Mark Kruger
-

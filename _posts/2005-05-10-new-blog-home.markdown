@@ -3,10 +3,11 @@ layout: post
 title: "New Blog Home"
 date: 2005-05-10
 comments: false
+category: general
 ---
 With the release of mxna 2.0 I am finally getting away from the
 bill.coldfusionjournal.com site address and moving here.  
-  
+
 While both options are free I'm moving for a couple reasons:  
 
   1. Better Editor
@@ -16,8 +17,9 @@ While both options are free I'm moving for a couple reasons:
   5. Better feeds (includes a summary in my atom feed).  
 
 So, if you used to visit me at http://bill.coldfusionjournal.com you will want
-to update your bookmarks to point here, http://cf-bill.blogspot.com instead.  
-  
+to update your bookmarks to point here, <strikeout>http://cf-bill.blogspot.com</strieout>
+http://code.rawlinson.us instead.  
+
 Thanks!
 
 ## Comments
@@ -26,4 +28,3 @@ Mike
 
 The blog looks much cleaner. Plus, I bet you get higher search rankings on
 Google. ;)
-

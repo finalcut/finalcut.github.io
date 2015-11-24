@@ -3,36 +3,32 @@ layout: post
 title: "Android: Turn of Lock Screen When Using Certain Apps with Tasker"
 date: 2013-07-11
 comments: false
-categories:
- - easy-scorecard-pro
- - tasker
- - endomondo
- - screen-lock
- - android
+category: android
+tags: [tasker,endomondo,easy-scorecard-pro,discgolf,screen-lock]
 ---
 Recently I've been running a lot and when running I use Endomondo to track my
 time/distance details.  However, it's kind of a pain to grab my phone, unlock
 it, and then hit the pause/stop button at the end of an exhausting run.  I
 seem to just end up adding 15 seconds to my overall time as I fidget with my
 phone.  
-  
+
 Yeah, I know, first world problem.  
-  
+
 I also play a lot of disc golf.  I use Easy Score Card pro to track our scores
 on each hole.  The course we mostly play is 19 holes long so I am unlocking
 the phone 19 times during the round while walking on less than smooth terrain.
 It's a bit of a pain.  
-  
+
 Yep, another first world problem.  
-  
+
 Anyway, I decided to make my life easier by creating a simple Tasker Profile
 that will turn off my screen lock when either of those two applications are
 running.  I call it "Screen Lock Off" and here is how I created it.  
-  
+
 NOTE: you have to have the secure settings helper installed to get this to
 work.  
-  
-  
+
+
 
   1. In Tasker, first thing to do is create a "Task" callled "Turn off Lockscreen"
   2. Add action -> Select "PLUGIN"
@@ -70,9 +66,8 @@ profile.
 
 That's it - you're done.  
 
-  
+
 
 NOTE: Each time you update your ROM you'll have to reinstall the secure
 settings helper plugin .. You can do that easily from within the secure
 settings app that remains installed.
-

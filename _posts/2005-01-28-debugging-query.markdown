@@ -3,9 +3,8 @@ layout: post
 title: "Debugging a Query"
 date: 2005-01-28
 comments: false
-categories:
- - coldfusion
- - debugging
+category: coldfusion
+tags: [debugging]
 ---
 I had to debug a query the other day and it was agonizing trying to figure out
 what was going on. It wasn't that the query was complicated - but the problem
@@ -117,4 +116,3 @@ table at a time, from the bottom up, to see where things went haywire. I
 honestly never thought to study the "from" part of the clause because it
 didn't occur to me that someone would alias the same table twice for reason.
 Next time, perhaps, I check that first!
-

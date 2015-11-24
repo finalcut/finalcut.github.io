@@ -4,9 +4,8 @@ title: "Oracle NVL = Microsoft ISNULL"
 date: 2005-10-20
 comments: false
 featured: true
-categories:
- - sql-server
- - oracle
+category: sql
+tags:[mssql,oracle,nvl,isnull]
 ---
 Sometimes when writing a query, particularly during concatenation, you don't
 want a NULL value in part to force a NULL return to the expression. With
@@ -341,13 +340,3 @@ COALESCE takes an arbitrary list of parameters and returns the first non-null pa
 
 
 http://blogs.conchango.com/jamiethomson
-
-
-
-
-
-
-
-
-
-

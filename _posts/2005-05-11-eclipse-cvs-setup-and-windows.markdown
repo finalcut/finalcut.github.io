@@ -3,6 +3,8 @@ layout: post
 title: "Eclipse, CVS setup and Windows"
 date: 2005-05-11
 comments: false
+category: Java
+tags: [eclipse,cvs,windows,version-control]
 ---
 Minor Update: The following will probably only work if you don't have a
 password protected private key file.
@@ -91,4 +93,3 @@ in Java perspective or any other perspective there is no way to identify which
 one is the added file and which is not. How can I solve this ?
 
 Albin Joseph
-

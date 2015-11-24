@@ -3,10 +3,8 @@ layout: post
 title: "Apache POI - Spreadsheets on the FLY"
 date: 2006-08-04
 comments: false
-categories:
- - coldfusion
- - java
- - poi
+category: coldfusion
+tags: [java,poi,msexcel]
 ---
 Using CF 6.1 I have a task where I need to export a bunch of data to an excel
 spreadsheet. Not wanting to use the html table with cfcontent headers method
@@ -69,4 +67,3 @@ another request after the excel was streamed (unless I close the requesting
 browser). I think, if you fail to provide a contentLength value to the
 response stream that it just keeps on streaming until it either times out or
 the request is killed (browser close).
-

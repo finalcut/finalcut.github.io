@@ -3,10 +3,8 @@ layout: post
 title: "CFC Webservice and C#"
 date: 2007-06-27
 comments: false
-categories:
- - coldfusion
- - c#
- - webservices
+category: [coldfusion,c#]
+tags: [webservices]
 ---
 So here I am working on yet another project, this one integrates a ColdFusion
 website with a tablet PC based app written in C#. The CF side needs to expose
@@ -123,13 +121,3 @@ The error message from each known type may help you fix the problem:
   - DTD is prohibited in this XML document.
 
 - Report from 'XML Schema' is 'The root element of a W3C XML Schema should be schema and its namespace should be 'http://www.w3.org/2001/XMLSchema'.'.
-
-
-
-
-
-
-
-
-
-

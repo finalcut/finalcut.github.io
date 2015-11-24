@@ -3,10 +3,8 @@ layout: post
 title: "Unobtrusive Javascript  TextArea maxlength"
 date: 2005-05-09
 comments: false
-categories:
- - javascript
- - maxlength
- - textarea
+category: javascript
+tags: [textarea,maxlength]
 ---
 One of the biggest failings of the textarea control to me is its lack of a
 maxlength attribute. There are plenty of scripts out there that work to
@@ -14,7 +12,7 @@ simulate a maxlength but they always require adding onkeyup, onkeydown, and/or
 onblur event handlers. What pain!
 
 I just want to enter a maxlength="x" and have it be enforced. Thanks to the
-wonders of DOM traversal this can be done as easilly as anything else.
+wonders of DOM traversal this can be done as easily as anything else.
 
 
 ```js
@@ -201,4 +199,3 @@ working on my multi-line fields?
 Any help would be appreciated! Thanks!!
 
 sue at mmcxii dot com
-

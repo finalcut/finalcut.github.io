@@ -3,13 +3,8 @@ layout: post
 title: "Turn off MG Debug for specific requests"
 date: 2006-09-22
 comments: false
-categories:
- - coldfusion
- - cfc
- - ajax
- - xml
- - model-glue
- - debugging
+category: coldfusion
+tags: [ajax,xml,modelglue,debugging]
 ---
 It's funny how when one person is looking for an answer to a problem it seems
 a bunch of other people are looking for the same thing, at the same time. As
@@ -34,4 +29,3 @@ Just stick that code in your XML view and debug output won't be shown. Ray
 also posted a [blog entry](http://ray.camdenfamily.com/index.cfm/2006/9/18
 /Per-request-debugging-in-ModelGlue) that covers this. I'm just recovering the
 topic in case anyone missed this then.
-

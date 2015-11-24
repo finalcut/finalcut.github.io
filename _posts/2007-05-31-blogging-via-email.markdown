@@ -3,6 +3,7 @@ layout: post
 title: "Blogging Via Email"
 date: 2007-05-31
 comments: false
+category: general
 ---
 While I think I will rarely have a reason to post via this method to  
 this blog I figured I would enable the feature. Now, whenever I'm on  
@@ -16,4 +17,3 @@ think is interesting. But, since blogger offers the feature, I
 figured I might as well try to use it.
 
 This post is my first effort at posting via Email.
-

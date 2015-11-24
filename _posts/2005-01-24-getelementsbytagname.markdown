@@ -3,9 +3,8 @@ layout: post
 title: "getElementsByTagName"
 date: 2005-01-24
 comments: false
-categories:
- - coldfusion
- - utilities
+category: coldfusion
+tags: [utilities]
 ---
 Not everything I am going to write about here is as obscure and theoretical as
 my prior two posts. Indeed this post, like many others, will deal with real
@@ -124,5 +123,3 @@ HTML snippet and highlight the problem tags if I need to as well. While both
 functions could probably be improved both work against the problem domain as I
 currently understand it and are both easilly extensible as I understand the
 problem better. Oh, and I guess both could use a little bit of commenting too!
-
-

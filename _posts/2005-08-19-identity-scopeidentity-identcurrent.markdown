@@ -3,8 +3,8 @@ layout: post
 title: "@@identity, scope_identity(), ident_current"
 date: 2005-08-19
 comments: false
-categories:
- - sql
+category: sql
+tags: [mssql]
 ---
 I have been seeing more and more posts lately that discuss the pitfalls of
 @@identity, the boon of using scope_identity(), and never mentioning
@@ -101,13 +101,3 @@ Is the usefulness of IDENT_CURRENT actually restricted by being scope-independen
 
 
 I guess I'd like to see a real belt-and-braces - a scope-dependent identity where we actually specify the table name.
-
-
-
-
-
-
-
-
-
-

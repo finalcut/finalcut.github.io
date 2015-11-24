@@ -3,10 +3,8 @@ layout: post
 title: "DOM Gotchas"
 date: 2006-02-14
 comments: false
-categories:
- - javascript
- - dom
- - ajax
+category: javascript
+tags: [dom,ajax,xmlhttpRequest]
 ---
 In an effort to help others avoid the pitfalls I find I am detailing here two
 trouble spots I recently ran into with Internet Explorer and The DOM.
@@ -583,4 +581,3 @@ the viewport of the browser, not the right-hand scrollbar nor rows that are
 partially "below" the viewport. Only if I resize the browser will the right-
 hand scrollbar and the rest of the table appear. Any suggestions? In Firefox
 1.5 it all works fine.
-

@@ -3,9 +3,8 @@ layout: post
 title: "Build Dynamic Breadcrumbs"
 date: 2005-02-25
 comments: false
-categories:
- - coldfusion
- - breadcrumbs
+category: coldfusion
+tags: [breadcrumbs]
 ---
 I posted about this before but today I did a rewrite which I think is a bit
 cleaner. It is safe to use on CF 5 and above. I suppose it would work on 4.5
@@ -402,4 +401,3 @@ ago). Thank you very much. However the 'build_url_string
 attributeCollection="#attributes#"' doesn't appear to be documented. What
 should this be.
 I hope you are still on this blog!
-

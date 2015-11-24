@@ -3,11 +3,8 @@ layout: post
 title: "Easy Form Validation"
 date: 2006-07-31
 comments: false
-categories:
- - javascript
- - coldfusion
- - form-validation
- - validation
+category: [coldfusion,javascript]
+tags: [validation,form-validation]
 ---
 
 Validation is, without a doubt, the most important part of form
@@ -276,4 +273,3 @@ some better examples as I go.
 
 
 [Download the source](http://blog.rawlinson.us/documents/validate.zip)
-

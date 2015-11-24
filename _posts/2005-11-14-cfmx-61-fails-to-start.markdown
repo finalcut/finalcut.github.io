@@ -3,6 +3,7 @@ layout: post
 title: "CFMX 6.1 Fails to Start"
 date: 2005-11-14
 comments: false
+category: coldfusion
 ---
 Today I have been wrestling with a problem that popped up out of the blue. My
 devleopment machine's CF server wouldn't start. The error log showed that the
@@ -72,13 +73,3 @@ anne
 
 
 Thanks, Thanks, Thanks
-
-
-
-
-
-
-
-
-
-

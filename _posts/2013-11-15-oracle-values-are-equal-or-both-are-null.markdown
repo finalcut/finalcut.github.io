@@ -3,10 +3,8 @@ layout: post
 title: "Oracle values are Equal or Both Are Null"
 date: 2013-11-15 09:30
 comments: true
-categories:
-- Oracle
-- NULL
-- DECODE
+category: [sql]
+tags: [oracle,null,decode]
 ---
 I've been using Oracle on and off for about twelve years so it seems like I should have known this trick already but today I learned so I'm sharing.
 

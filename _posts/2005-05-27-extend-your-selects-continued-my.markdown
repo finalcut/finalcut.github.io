@@ -3,8 +3,8 @@ layout: post
 title: "Extend Your Selects Continued (My Mistakes)"
 date: 2005-05-27
 comments: false
-categories:
- - javascript
+category: javascript
+tags: [dom]
 ---
 Well, it seems I stepped in a pile of something. First, I have to come clean
 with the facts. Before today the methods I showed earlier for extending a
@@ -150,4 +150,3 @@ you out in some situations.
 cheers,
 
 mathieu
-

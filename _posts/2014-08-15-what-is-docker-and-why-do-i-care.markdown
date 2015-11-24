@@ -3,7 +3,8 @@ layout: post
 title: "What is Docker and Why do I Care?"
 date: 2014-08-15 07:36
 comments: true
-categories: [docker, coldfusion, linux, vagrant, containers, drone, continuous-integration]
+category: [docker, coldfusion]
+tags: [linux, vagrant, containers, drone, continuous-integration]
 published: true
 ---
 I've been hearing about Docker for a while now but never really got around to messing with it until this week when a coworker suggested I check out Drone.  Drone is a continuous integration server with tight integration with Docker.  Therefore, before I really dig into Drone I figured I should get a handle on Docker, what it is, and how to use it.  It turns out I was entering a pretty amazing realm and I'm glad I did.

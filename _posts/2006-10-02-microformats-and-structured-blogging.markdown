@@ -3,11 +3,8 @@ layout: post
 title: "microformats and structured blogging"
 date: 2006-10-02
 comments: false
-categories:
- - microformats
- - hreview
- - structured blogging
- - tails
+category: generall
+tags: [microformat,hreview,structured-blogging,tails]
 ---
 I've recently hopped on the [microformats](http://microformats.org/)
 bandwagon. I think they have some great potential for helping push the web
@@ -110,4 +107,3 @@ If you have a firefox plugin called [Tails](http://blog.codeeg.com/tails-firefox
 
   *[1]: 1
   *[October 10, 2006]: 20061002
-

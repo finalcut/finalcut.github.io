@@ -3,19 +3,17 @@ layout: post
 title: "Flash and Wordpress"
 date: 2006-09-05
 comments: false
-categories:
- - wordpress
- - integration
- - flash
+category: general
+tags: [wordpress,flash]
 ---
 I am about to begin a new project where I will be building a Flash Front End
 to a wordpress blog.  
-  
+
 I have only made one, very poor, flash movie before (back in 1998) and I don't
 really remember any of the process. My interface between wordpress and flash,
 I think, will be written in PHP. I will try to post some do's and do nots as I
 go through the process.  
-  
+
 Wish me luck!
 
 ## Comments
@@ -26,7 +24,7 @@ Hi, i've made a little Flash / Wordpress integration is someone is still
 interrested, you can see it here:  
 <http://www.pixellovin.com/actionscriptstuff/wordpress-flash-integration-
 try-1>  
-  
+
 Thx !
 
 Yaniv
@@ -40,7 +38,7 @@ the site.
 The changes to the Wordpress installation are incredibly minimal, amounting
 only to an upgrade to a single installation file, and an uploading of a Flash
 (.SWF) file, along with its HTML holder.  
-  
+
 Simply putting it - your Wordpress or any other website that provides RSS
 feeds, can be shaped like the following front-end.  
 http://www.nastypixel.com/prototype/wordpress-flash-front-end/
@@ -55,7 +53,7 @@ tough. I like using my new ipod to make posts.
 Matt
 
 Thank you Ray!  
-  
+
 I have been looking all over for this . I am trying to build a front end flash
 site for my wife and be able to dynamically post messages to her blog that
 will show up in the flash!
@@ -68,9 +66,9 @@ http://xmlrpcflash.mattism.com/wordpress/
 Michael
 
 Site with Flash interface using Wordpress:  
-  
+
 http://www.liliangarcia.com  
-  
+
 Gets its data from here: http://www.liliangarcia.com/wordpress
 
 Bill
@@ -82,27 +80,27 @@ greg h
 
 The nicest Flash blog ui I have seen yet is here:  
 www.tvwonline.net  
-  
+
 If you last used Flash in 1998 it doesn't matter if you "don't really remember
 any of the process." Flash has evolved so dramatically you will be doing
 everything very differently anyway.  
-  
+
 btw ... Flex may provide a better development process for you than Flash.
 Either way you get a swf and the mechanics of most of the data components are
 the same.  
-  
+
 For PHP/Flash/Flex integration you might find some good background material
 here:  
 http://renaun.com/blog/category/rich-internet-applications/amfphp/  
-  
+
 hth,  
-  
+
 g
 
 Anonymous
 
 http://flash-blog.sourceforge.net/  
-  
+
 Sajid has done some cool stuff. You should check it out  
 1
 
@@ -117,12 +115,12 @@ todd anderson
 
 i have thought about this off and on for a little while... excited to see what
 you come out with.  
-  
+
 my main thinking was being able to turn it off and on in the presentation tab
 of the wpadmin console, since it really is just a presentation layer.  
-  
+
 good luck! ... let me know if i can be of any help...  
-  
+
 -todd
 
 John
@@ -135,15 +133,14 @@ flash - and the html version is never seen.
 Anonymous
 
 Good luck!  
-  
+
 And lots of patience as well!
 
 Rich
 
 that sounds cool, something i've always wanted to do.  
-  
+
 Just to give you a jumpstart, you can find some info about using XML-RPC for
 hooking into wordpress's API here: http://codex.wordpress.org/XML-RPC_Support
 , and there's a link on that page where someone had wrote some php scripts to
 help with that: http://www.dentedreality.com.au/bloggerapi/
-

@@ -3,17 +3,12 @@ layout: post
 title: "textarea maxlength revisited"
 date: 2005-05-10
 comments: false
-categories:
- - javascript
- - maxlength
- - textarea
+category: javascript
+tags: [textarea,maxlength]
 ---
 NOTICE: I updated all of the JS in this post on 5/24/2005 as there was some
 cut-n-paste problems before. If you got the code from here before then, please
-get it again now. You can also [download the file from
-here](http://rawlinson.us/blog/codesamples/textareaMaxLen.js)[
-](http://rawlinson.us/blog/codesamples/textareaMaxLen.js)
-
+get it again now.
 
 
 Yesterday I posted some code showing how to add, in a fairly unobtrusive
@@ -132,4 +127,3 @@ that would identify if the tooltip existed and create it if it didn't, other
 wise update it. I should probably also update the insertSpan function to take
 an ID value for the new span so that it would be easier to identify if the
 tooltip is there.
-

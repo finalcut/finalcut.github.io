@@ -3,10 +3,8 @@ layout: post
 title: "Prototype Library"
 date: 2007-03-30
 comments: false
-categories:
- - javascript
- - development
- - prototype
+category: javascript
+tags: [prototype,framework]
 ---
 I have finally decided to give the Prototype JS library a try on a project I
 am working on. It is a long standing project with a pretty extensive home-
@@ -48,4 +46,3 @@ It's a pretty cool and handy way of grabbing all of those Elements. However,
 what I'm not sure of yet (though I'll be testing later today) is if you can
 specify multiple attribute selectors in one call - if so that would be really
 cool. I'll let you know.
-

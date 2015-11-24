@@ -3,12 +3,8 @@ layout: post
 title: "Printing and PDF Export from C#"
 date: 2007-01-15
 comments: false
-categories:
- - wordwrap
- - graphics
- - c#
- - printing
- - linewrap
+category: c#
+tags: [wordwrap,graphics,printing,linewrap]
 ---
 Today I was working on a pretty simple C# project that involves printing out
 potentially long strings into small constrained areas (in a printable report).
@@ -38,8 +34,8 @@ RectangleF rect = new RectangleF(x, y, width, height);
 
 using (StringFormat formatter = new StringFormat())
 {
-formatter.FormatFlags = StringFormatFlags.LineLimit;
-graphics.DrawString(text_to_print, typeFace, Brushes.Black, rect, formatter);
+  formatter.FormatFlags = StringFormatFlags.LineLimit;
+  graphics.DrawString(text_to_print, typeFace, Brushes.Black, rect, formatter);
 }
 
 ```
@@ -56,4 +52,3 @@ with that I needed to be able to export the printout to PDF if the user
 decided so I dipped into the freely available package
 [PDFSharp](http://www.pdfsharp.com). It seems to be a great package and has
 plenty of examples to get you going.
-

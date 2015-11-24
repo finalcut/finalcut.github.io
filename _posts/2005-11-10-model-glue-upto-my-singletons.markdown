@@ -3,10 +3,8 @@ layout: post
 title: "Model Glue : Upto my Singletons"
 date: 2005-11-10
 comments: false
-categories:
- - coldfusion
- - singletons
- - model-glue
+category: coldfusion
+tags: [modelglue,framework,singletons,mvc,patterns]
 ---
 Ok, so the title of this one stretches the theme of depth in my exploration of
 Model Glue but it does highlight an important feature of Model Glue - the
@@ -50,5 +48,3 @@ So now my method getSecurity looks like this
 />
 
 ```
-
-

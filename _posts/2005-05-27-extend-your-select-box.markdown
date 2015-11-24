@@ -3,8 +3,8 @@ layout: post
 title: "Extend Your Select Box"
 date: 2005-05-27
 comments: false
-categories:
- - javascript
+category: javascript
+tags: [ajax,xmlHttpRequest]
 ---
 Since javascript is a nice object oriented language you can do some pretty
 cool things with it. For instance you can extend the functionality of various
@@ -213,4 +213,3 @@ Mozilla browsers. IE and Safari both complain that there is no
 HTMLSelectElement object. It would be wonderful if all browsers supported this
 fucntionality. But alas, the Web is an imperfect place, and coding for one
 browser, whatever that browser may be, is a move in the wrong direction.
-

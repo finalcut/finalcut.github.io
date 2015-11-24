@@ -3,7 +3,7 @@ layout: post
 title: "Create a ColdFusion Docker Container"
 date: 2014-08-15 08:23
 comments: true
-categories: [coldfusion, docker]
+category: [coldfusion, docker]
 featured: true
 published: true
 ---

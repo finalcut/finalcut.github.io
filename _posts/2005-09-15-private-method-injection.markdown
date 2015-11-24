@@ -3,10 +3,8 @@ layout: post
 title: "Private Method Injection"
 date: 2005-09-15
 comments: false
-categories:
- - coldfusion
- - ioc
- - dependency-injection
+category: coldfusion
+tags: [oop,ioc,dependency-injection]
 ---
 I have to honestly say I haven't had a reason to use Method Injection with CF
 but yesterday I ran into a post at [Compound
@@ -21,7 +19,7 @@ Theory](http://www.compoundtheory.com/?action=displayPost&ID=61). He does a
 fine job of explaining it.
 
 So I quickly jotted down my thought on how to do it last night and was able to
-test it this morning. Suprisingly, it worked. I have two methods of doing it -
+test it this morning. Surprisingly, it worked. I have two methods of doing it -
 but they really both boil down to the same thing.
 
 
@@ -65,7 +63,7 @@ finally, why would you want to?
 
 UPDATE:
 For anyone that wants to know more about IoC or Dependency Injection, which is
-what this whole excerise is about really, Dave Ross left the following link in
+what this whole exercise is about really, Dave Ross left the following link in
 a comment:
 [Dependency Injection Pattern](http://static.springframework.org/spring/docs/1
 .2.x/reference/beans.html#d0)
@@ -165,4 +163,3 @@ getMemento() function for each. I could just inject a getMemento() function
 into the CFC and call it to retrieve the memento to be used in some type of
 TransferObject before passing it to a DataAccessObject to persist. Though, I
 am not sure that I would actually do this since this seems rather invasive.
-

@@ -3,11 +3,8 @@ layout: post
 title: "Another IE Gotcha - Dynamically Created Radio Buttons"
 date: 2006-03-20
 comments: false
-categories:
- - javascript
- - ie
- - dom
- - ajax
+category: javascript
+tags: [ie,dom,ajax,xmlHttpRequest]
 ---
 As soon as I think I have it all worked out I bump into another oddity between
 Firefox and IE and handling the DOM. Specifically adding a radio button (or
@@ -97,4 +94,3 @@ rdo.setAttribute('name','fldID');
 
 
 That works in IE 7, FF 3, Opera 9, and Safari 3.1 for windows.
-

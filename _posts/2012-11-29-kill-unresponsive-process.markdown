@@ -3,13 +3,8 @@ layout: post
 title: "Kill an Unresponsive Process"
 date: 2012-11-29
 comments: false
-categories:
- - awk
- - linux
- - command-line-magic
- - ps
- - grep
- - unix
+category: linux
+tags: [awk,command-line,shell,ps,grep,unix]
 ---
 This is a kind of obscenely specific post. I'm doing this so that I have it
 for my own future usage. However, the concept behind it is translatable into
@@ -142,7 +137,3 @@ kill 1809
 
 
 The first effort should be to use 'kill 1809' without the -9.  This will give the application a chance to execute any "exit" logic before it aborts.  Thus it might shut down gracefully.  If that doesn't do the trick then I can use 'kill -9 1809' which is a FORCE KILL and will just cause the process (and it's children) to stop immediately and no exit code will be executed.
-
-
-
-

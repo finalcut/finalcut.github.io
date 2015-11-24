@@ -3,11 +3,8 @@ layout: post
 title: "Calculating a Discreet Date Difference (C# Sample Code)"
 date: 2007-09-03
 comments: false
-categories:
- - .net
- - datetime
- - c#
- - utility
+category: [c#,.net]
+tags: [datetime,utilities]
 ---
 I recently had to figure out how to display the exact difference in Years,
 Months, and Days between two distinct dates. Here is my solution. A slightly
@@ -17,64 +14,54 @@ moment this solution serves a good job of illustrating how it works.
 
 
 ```c#
-private static string DateDiffAsString(DateTime inDate1, DateTime inDate2)
-{
-int y = 0;
-int m = 0;
-int d = 0;
+private static string DateDiffAsString(DateTime inDate1, DateTime inDate2) {
+  int y = 0;
+  int m = 0;
+  int d = 0;
 
-//make sure date1 is before (or equal to) date2..
-DateTime date1 = inDate1 <= inDate2 ? inDate1 : inDate2;
-DateTime date2 = inDate1 <= inDate2 ? inDate2 : inDate1;
-DateTime temp1;
+  //make sure date1 is before (or equal to) date2..
+  DateTime date1 = inDate1 <= inDate2 ? inDate1 : inDate2;
+  DateTime date2 = inDate1 <= inDate2 ? inDate2 : inDate1;
+  DateTime temp1;
 
-if(DateTime.IsLeapYear(date1.Year) && !DateTime.IsLeapYear(date2.Year) &&
-date1.Month == 2 && date1.Day == 29){
-temp1 = new DateTime(date2.Year, date1.Month, date1.Day-1);
-} else {
-temp1 = new DateTime(date2.Year, date1.Month, date1.Day);
-}
+  if(DateTime.IsLeapYear(date1.Year) &&
+    !DateTime.IsLeapYear(date2.Year) &&
+    date1.Month == 2 &&
+    date1.Day == 29){
+    temp1 = new DateTime(date2.Year, date1.Month, date1.Day-1);
+  } else {
+    temp1 = new DateTime(date2.Year, date1.Month, date1.Day);
+  }
 
-y = date2.Year - date1.Year - (temp1 > date2 ? 1 : 0);
-m = date2.Month - date1.Month + (12 * (temp1 > date2 ? 1 : 0));
-d = date2.Day - date1.Day;
-if (d < 0)
-{
-if (date2.Day == DateTime.DaysInMonth(date2.Year, date2.Month) && (date1.Day
->= DateTime.DaysInMonth(date2.Year, date2.Month) || date1.Day >=
-DateTime.DaysInMonth(date2.Year, date1.Month)))
-{
-d = 0;
-}
-else
-{
-m--;
-if (DateTime.DaysInMonth(date2.Year, date2.Month) ==
-DateTime.DaysInMonth(date1.Year, date1.Month) && date2.Month != date1.Month)
-{
-int dayBase = date2.Month - 1 > 0 ? DateTime.DaysInMonth(date2.Year,
-date2.Month - 1) : 31;
-d = dayBase + d;
-}
-else
-{
-// d = DateTime.DaysInMonth(date2.Year, date1.Month) + d;
-d = DateTime.DaysInMonth(date2.Year, date2.Month == 1 ? 12 : date2.Month - 1)
-+ d;
-}
-}
-}
+  y = date2.Year - date1.Year - (temp1 > date2 ? 1 : 0);
+  m = date2.Month - date1.Month + (12 * (temp1 > date2 ? 1 : 0));
+  d = date2.Day - date1.Day;
+  if (d < 0) {
+    if (date2.Day == DateTime.DaysInMonth(date2.Year, date2.Month) &&
+        (date1.Day >= DateTime.DaysInMonth(date2.Year, date2.Month) ||
+         date1.Day >= DateTime.DaysInMonth(date2.Year, date1.Month))){
+      d = 0;
+    } else {
+      m--;
+      if (DateTime.DaysInMonth(date2.Year, date2.Month) == DateTime.DaysInMonth(date1.Year, date1.Month) && date2.Month != date1.Month)      {
+        int dayBase = date2.Month - 1 > 0 ? DateTime.DaysInMonth(date2.Year,date2.Month - 1) : 31;
+        d = dayBase + d;
+      } else {
+        d = DateTime.DaysInMonth(date2.Year, date2.Month == 1 ? 12 : date2.Month - 1) + d;
+      }
+    }
+  }
 
-string ts = "";
+  string ts = "";
 
-if (y > 0)
-ts += y + "y ";
-if (m > 0)
-ts += m + "m ";
-if (d > 0)
-ts += d + "d ";
+  if (y > 0)
+  ts += y + "y ";
+  if (m > 0)
+  ts += m + "m ";
+  if (d > 0)
+  ts += d + "d ";
 
-return ts;
+  return ts;
 }
 
 ```
@@ -347,4 +334,3 @@ Thanks
 Flashsnake
 
 Any problem when dealing with Leap Year?
-

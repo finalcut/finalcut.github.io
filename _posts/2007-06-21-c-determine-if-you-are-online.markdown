@@ -3,9 +3,7 @@ layout: post
 title: "C# - Determine If You Are Online"
 date: 2007-06-21
 comments: false
-categories:
- - .net
- - c#
+category: [.net,c#]
 ---
 You can use the following code to determine if you are online or not:
 
@@ -20,22 +18,18 @@ using System.Net.NetworkInformation;
 
 public static bool IsOnline()
 {
-bool isConnected = false;
-NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
-foreach (NetworkInterface n in adapters)
-{
-if (n.OperationalStatus == OperationalStatus.Up && n.NetworkInterfaceType !=
-NetworkInterfaceType.Loopback)
-{
-// Since we have a non loopback interface up, we have a network connection
-isConnected = true;
-break;
-}
-}
-
-
-return isConnected;
-
+  bool isConnected = false;
+  NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
+  foreach (NetworkInterface n in adapters)
+  {
+    if (n.OperationalStatus == OperationalStatus.Up && n.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+    {
+    // Since we have a non loopback interface up, we have a network connection
+    isConnected = true;
+    break;
+    }
+  }
+  return isConnected;
 }
 
 ```
@@ -69,4 +63,3 @@ starsky
 
 That function will only tell you if the last adapter in your collection is
 online.
-

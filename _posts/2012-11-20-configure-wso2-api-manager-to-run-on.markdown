@@ -3,11 +3,8 @@ layout: post
 title: "Configure WSO2 API Manager to Run on Multiple Nodes"
 date: 2012-11-20
 comments: false
-categories:
- - java
- - mysql
- - wso2
- - api-manager
+category: [java,sql]
+tags: [wso2,mysql,greg,api-manager,registry]
 ---
 I'm working on some unusual stuff right now; stuff with a lot of promise but
 not enough documentation thus I've decided to document some of the more
@@ -171,7 +168,3 @@ java.sql.SQLException: Can't call commit when autocommit=true
 
 
 Then make sure you have setup the two flags in your connection string.
-
-
-
-

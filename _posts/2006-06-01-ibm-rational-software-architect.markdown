@@ -3,6 +3,8 @@ layout: post
 title: "IBM Rational Software Architect"
 date: 2006-06-01
 comments: false
+category: programming
+tags: [ibm,websphere]
 ---
 This is the first, in what may be, a series of posts detailing my experiences
 with the IBM Rational Software Architect development tool (based on Eclipse).
@@ -11,7 +13,7 @@ the IBM Rational Software Architect has features that make testing for the
 Websphere platform that I need to use. However, at this point, there is very
 little good I can say for the product.
 
-  
+
 
 I installed it yesterday choosing a custom location for it. The installation
 took a long time and put over 4 Gigs of files on my system. Then I had to run
@@ -22,7 +24,7 @@ something didn't install correctly. I spent nearly seven hours installing and
 applying the patch and it didn't install correctly. I am diappointed to say
 the least.
 
-  
+
 
 More to come later...
 
@@ -69,15 +71,15 @@ questions remain unanswered. Just check this by yourself: go to the RSA forum
 and see how many "0" answers are there ... Expensive, big, cumbersome to
 update, help system sucks, no books to find some answers, and the only book
 that exists  
-  
+
 "Visual Modeling with RSA and UML" by Quatrani is pathetic. On Linux? you MUST
 be kidding to use this. On Windows? it's just a bad joke. Forget it.  
-  
+
 Funny enough, if you find a bug, which is VERY easy to do, and you don't have
 a service contract with IBM, then you can't report it. I.e. they don't want
 your input ... So, I guess that they don't want to fix their numerous bugs,
 right?.  
-  
+
 Fortunately THERE ARE other UML and design utilities you can use out there
 (Altova if you got the bucks, MagicDraw and several open source too)
 
@@ -97,6 +99,5 @@ I'm not suprised. While I have never used the particular product you're
 working with, I've found all of the Rational products I've used to be
 overpriced, amateurish and short-sighted. The best part of the RUP is the
 information. The worst part is the attempt to put the knowledge into tools.  
-  
-I replaced Rose with Enterprise Architect and I'll never go back.
 
+I replaced Rose with Enterprise Architect and I'll never go back.

@@ -3,6 +3,7 @@ layout: post
 title: "Word of the Day Idempotent"
 date: 2006-08-23
 comments: false
+category: programming
 ---
 It is rare that I encounter a word that I am completely unfamiliar with and
 based on it's usage I still can determine it's meaning. However, today I must

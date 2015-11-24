@@ -3,9 +3,8 @@ layout: post
 title: "Why are there so many AJAX frameworks"
 date: 2005-05-31
 comments: false
-categories:
- - coldfusion
- - ajax
+category: coldfusion
+tags: [ajax,xmlHttpRequest,sack]
 ---
 At MXNA I keep seeing posts about different AJAX frameworks. One for
 Coldfusion, one for ASP, one for PHP, another that has "backends" for a bunch
@@ -201,4 +200,3 @@ check backbase.com site to see what I mean.
 
 cu,
 m.j.milicevic
-

@@ -3,12 +3,14 @@ layout: post
 title: "Useful Firefox Plugins"
 date: 2005-04-19
 comments: false
+category: general
+tags: [firefox,plugins]
 ---
 As this blog is about development I am not going to discuss too many plugins
 that don't directly deal with website development. Instead, I want to
 highlight the plugins I use that I think help me a great deal depending on the
 circumstances.  
-  
+
 Development Plugins  
 
   1. [Web Developer Toolbar](https://addons.update.mozilla.org/extensions/moreinfo.php?application=firefox&category=Developer%20Tools&numpg=10&id=60) \- quite simply, if you develop webpages and DON'T have this - your doing something wrong. It is super handy and has tons of useful features.
@@ -19,7 +21,7 @@ Development Plugins
   6. [Colorzilla](https://addons.update.mozilla.org/extensions/moreinfo.php?id=271) \- I am not a designer. I can't draw, I can't pick out color palettes very well, and I definitely can't come up with an original color to start with. Colorzilla helps me find inspiration in other peoples color choices by letting me "pick" the color from the screen. Am I a bad person for this?
   7. [HTML Validator](https://addons.update.mozilla.org/extensions/moreinfo.php?id=249) \- I think the necessity of this one is pretty obvious. It saves me trips to the W3C validator and helps me make sure my generated code is all correct; or at least to standard. This is a slick and super nice plugin.
 Other Plugins  
-  
+
 I know I said I wasn't going to talk about too many non development plugins
 but these others are so handy I figured I should let you know about them
 anyway.  
@@ -28,4 +30,3 @@ anyway.
   2. [LiveLines](https://addons.update.mozilla.org/extensions/moreinfo.php?application=firefox&version=1.0%20&os=all&category=Blogging&numpg=10&id=324) \- Works in conjunction with Sage to help you quickly add new feeds to the aggregator by overriding the default "live bookmarks" feature in Firefox.
   3. [Forecast Fox](https://addons.update.mozilla.org/extensions/moreinfo.php?id=398) \- my cube is in a corner of the building with no windows so I never know what the weather is like outside. This saves me from being surprised.
   4. [Spellbound](http://spellbound.sourceforge.net/) \- my spelling often sucks. This helps double check my entries so that they make some sense. Pretty nice! The only caveat is when an editor steals the right context menu (then this isn't available).  
-

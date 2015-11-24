@@ -3,14 +3,15 @@ layout: post
 title: "Data Only Docker Container"
 date: 2014-08-18 10:23
 comments: true
-categories: [docker,coldfusion, data]
+category: [docker,coldfusion]
+tags: [framework,fw1,coldspring,ioc,mxunit,unittest]
 published: true
 ---
 This post is about creating a docker container that has data in it that other containers need to access.  You can use the exact same technique to connect a container that other containers would write to.  In this example I will just be reading from the data container.
 
 In [my last post](http://code.rawlinson.us/2014/08/create-a-coldfusion-docker-container.html) I discussed setting up a container that runs a process (or two) for getting a ColdFusion server up and running.  The next container I needed, for rapidly getting an environment up and running, was one which just contained a variety of ColdFusion libraries that my applications and testing depend upon.  I'm a big fan of [mxunit](mxunit.org), [coldspring](https://github.com/markmandel/coldspring), and [FW/1](https://github.com/framework-one/fw1).  Most of the applications I build with ColdFusion use, at a minimum, mxunit - but there is a strong chance I'm also using coldspring and/or FW/1.  Therefore I wanted to be able to define a container that I could fire up and which would serve up those libraries by exposing them to the ColdFusion container.  ***NOTE*** This post just shows getting mxunit and coldspring. Adding FW/1 is an exercise for the reader or you can visit the [github repo](https://github.com/finalcut/docker-cflibs) to see the rest of the dockerfile.
 
-This is probably the easiest container I'll ever build - but it was a little tricky to define initially becuase there were some aspects of how Docker builds a container that I didn't really understand when I started.  The biggest "gotcha" was using the [`VOLUME`](https://docs.docker.com/reference/builder/#volume) keyword in the [`Dockerfile`](https://docs.docker.com/reference/builder) too early.
+This is probably the easiest container I'll ever build - but it was a little tricky to define initially because there were some aspects of how Docker builds a container that I didn't really understand when I started.  The biggest "gotcha" was using the [`VOLUME`](https://docs.docker.com/reference/builder/#volume) keyword in the [`Dockerfile`](https://docs.docker.com/reference/builder) too early.
 
 Here are the guts of the `Dockerfile`.  I'll explain the particulars after.
 

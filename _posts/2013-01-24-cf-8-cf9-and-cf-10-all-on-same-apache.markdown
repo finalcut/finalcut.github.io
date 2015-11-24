@@ -3,13 +3,8 @@ layout: post
 title: "CF 8, CF9, and CF 10 all on the same apache server!"
 date: 2013-01-24
 comments: false
-categories:
- - coldfusion
- - cf8
- - cf10
- - apache
- - cf9
- - cf
+category: coldfusion
+tags: [cf8,cf10,apache,cf9]
 ---
 Today I had the seemingly unfortunate task of adding CF10 to my webserver
 while continuing to keep CF 8 and CF 9 running on it.  Before you install CF

@@ -3,6 +3,8 @@ layout: post
 title: "Redesign In Practice - Part 1"
 date: 2005-03-19
 comments: false
+category: programming
+tags: [oop]
 ---
 ProTask is an issue management system that was initially developed as "the
 issues system" It was a very clunky, very poorly designed system. It isn't
@@ -102,4 +104,3 @@ After working on a different project where I learned about how little I knew
 about CFC's I new the time would come where I could begin the redesing of
 ProTask. That time is now and I will attempt to address what changes I have
 made and, more importantly, why I made those changes.
-

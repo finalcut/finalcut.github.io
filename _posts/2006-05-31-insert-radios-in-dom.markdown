@@ -3,10 +3,8 @@ layout: post
 title: "Insert Radios in the DOM"
 date: 2006-05-31
 comments: false
-categories:
- - javascript
- - dom
- - ajax
+category: javascript
+tags: [dom,ajax,xmlHttpRequest,ie]
 ---
 In my prior posts about an IE DOM Gotcha I talked about how to insert a radio
 button into the DOM dynamically in a fashion that worked in both IE and
@@ -65,5 +63,3 @@ else
 Browser.init();
 
 ```
-
-

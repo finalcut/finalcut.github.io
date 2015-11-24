@@ -3,9 +3,8 @@ layout: post
 title: "Javascript: Build TOC"
 date: 2005-09-16
 comments: false
-categories:
- - javascript
- - table-of-contents
+category: javascript
+tags: [dom,css]
 ---
 Today I saw a link to a script at javascript.com called BuildTOC. The idea was
 actually a pretty good one but the implementation needed some work. The
@@ -255,4 +254,3 @@ javascript.
 \--[/li]
 \--[li]Topic 2.0[/li]
 [/ul]
-

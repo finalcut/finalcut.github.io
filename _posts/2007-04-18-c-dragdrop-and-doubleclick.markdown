@@ -3,10 +3,8 @@ layout: post
 title: "C# - DragDrop and DoubleClick"
 date: 2007-04-18
 comments: false
-categories:
- - doubleclick
- - dragdrop
- - c#
+category: c#
+tags: [doubleclick,dragdrop,drag-and-drop]
 ---
 I was working on a simple custom control today that displays thumbnails. The
 thumbnail ordering can be changed by dragging/dropping and you can double
@@ -313,4 +311,3 @@ Thanks!!
 Mike Lasseter
 
 thanks. this saved my some time googling
-

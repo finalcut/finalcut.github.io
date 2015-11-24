@@ -3,9 +3,8 @@ layout: post
 title: "problem with cfqueryparam and lists"
 date: 2005-02-02
 comments: false
-categories:
- - coldfusion
- - cfqueryparam
+category: coldfusion
+tags: [cfquery,cfqueryparam,database]
 ---
 Knowing the value of a database plan I pretty much always use the
 <cfqueryparam> tag inside queries with variable parameters. However,
@@ -62,4 +61,3 @@ ListSort might take longer since it is actually doing quite a bit more than my
 listDropEmpty option but I haven't tested this.
 
 So beware lists and <cfqueryparam> in CF 5!
-

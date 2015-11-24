@@ -3,9 +3,8 @@ layout: post
 title: "IE How I Hate thee (Extend Your Selects Cont..)"
 date: 2005-05-27
 comments: false
-categories:
- - javascript
- - ie
+category: javascript
+tags: [ie,dom]
 ---
 This is my final post about extending select boxes. It provides all of the
 methods I described earlier in their functional equivilant. However, note that
@@ -95,5 +94,3 @@ obj.add(newOpt);
 }
 
 ```
-
-

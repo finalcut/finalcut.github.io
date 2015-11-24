@@ -4,8 +4,8 @@ title: "Using Jackcess to read Access Files with ColdFusion"
 description:
 headline:
 date: 2015-08-18 08:53:47 -0400
-category: coldfusion,java,access
-tags: []
+category: [coldfusion,java]
+tags: [msaccess]
 imagefeature:
 mathjax:
 chart:

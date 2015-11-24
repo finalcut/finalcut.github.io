@@ -3,9 +3,8 @@ layout: post
 title: "AJAX - XMLHTTPRequest"
 date: 2005-03-01
 comments: false
-categories:
- - ajax
- - xmlHttpRequest
+category: coldfusion
+tags: [ajax,xmlHttpRequest]
 ---
 I just read over at MossyBlog about the term AJAX (Asynchronous Javascript and
 XML). And, since I have recently been posting code that deals with that I
@@ -151,4 +150,3 @@ xmlhttp.onreadystatechange = eval(stateHandler);
 Keep up the good work.
 
 Bruno Oliveira
-

@@ -3,15 +3,8 @@ layout: post
 title: "WSO2 API Manager with Remote Governance : The Mostly Complete Guide"
 date: 2012-11-29
 comments: false
-categories:
- - remote-governance
- - java
- - api
- - mysql
- - registry
- - greg
- - wso2
- - api-manager
+category: [java,sql]
+tags: [wso2,api,mysql,registry,api-manager,greg]
 ---
 This is a mostly complete rewrite of the article that I previously wrote with
 the same name. I am doing this because I made some mistakes the first time
@@ -1246,16 +1239,3 @@ NOTE: If, after trying to load the store in your browser, you see a bunch of err
 1. Make sure the GREG has the same instance ID in all of your nodes and that no other installation of the WSO2 components has the same GREG instance ID name.
 
 2. comment out the GREG parts of the {STORE_HOME}/repository/conf/registry.xml file; then start the store with the -Dsetup option.  Then stop the store, uncomment the GREG section of the registry.xml and then restart the store without the -Dsetup option
-
-
-
-
-
-
-
-
-
-
-
-
-

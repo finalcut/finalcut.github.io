@@ -3,10 +3,8 @@ layout: post
 title: "Draft Lottery in CFML"
 date: 2005-04-25
 comments: false
-categories:
- - coldfusion
- - draft
- - lottery
+category: coldfusion
+tags: [draft,lottery,utilities]
 ---
 In the spirit of the recent NFL draft and the upcoming NFL Fantasy Football
 season my league is preparing for an expansion draft. Draft order is
@@ -204,5 +202,3 @@ return listReturn;
 <cfoutput>#results#</cfoutput>
 
 ```
-
-

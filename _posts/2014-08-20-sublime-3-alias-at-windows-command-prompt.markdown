@@ -3,7 +3,8 @@ layout: post
 title: "Sublime 3 alias at Windows Command Prompt"
 date: 2014-08-20 08:12
 comments: true
-categories: [sublime,text-editor,windows,alias]
+category: general
+tags: [sublime,text-editor,windows,alias] 
 ---
 
 **UPDATED 29 AUG 2014**
@@ -58,4 +59,3 @@ subl <filename> &
 You can't put the & in the alias or else it will try to execute a bunch of commands based on the contents of the file you're trying to edit.  I just learned that from experience! Whoops.
 
 Sadly, defining the alias batch file doesn't work in gitbash - and defining the alias in .bashrc doesn't work in windows console so you're stuck defining it in both places.
-

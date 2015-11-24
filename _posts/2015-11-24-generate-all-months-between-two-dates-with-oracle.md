@@ -2,13 +2,13 @@
 layout: post
 title: "Generate All Months Between Two Dates with Oracle"
 description: using connect by and multiset to solve the tricky problem of finding all months between two dates in oracle.
-headline: 
+headline:
 date: 2015-11-24 09:34:19 -0500
-category: oracle
+category: sql
 tags: [oracle,multiset,cast,table,odcinumberlist,add_months,connectby]
-imagefeature: 
-mathjax: 
-chart: 
+imagefeature:
+mathjax:
+chart:
 comments: true
 featured: false
 ---
@@ -44,7 +44,7 @@ The other table sort of looks like this:
 
 So what we need to do is show if there are records in the second table (`entity_detail`) for every month in the span between `startDate` and `endDate` in the first table (`entity_lessee`)  If the endDate is null then we can substitute the current date `SYSDATE` in it's place.  Also note that `entity_detail.operatorId` is synonymous with `entity_lessee.lesseeId`.  All lessors and lessees are defined in an operator table and have an `operatorId`.
 
-  
+
 When the report is run the user of the system would ask what entities that are being leased to lessee 34 between Jan 2006 and Jan 2007 where not reported by the lessee?  In the older, slow solution, we looped over the months in question and did a union of the x number of queries sort of like so:
 
 ```sql
@@ -94,7 +94,7 @@ Now if you aren't familiar with most of those Oracle concepts you're probably th
 `trunc` in this case is converting the `startDate` value into the first day of the month of the `startDate`
 `CONNECT BY` is the magic creates the heirarchy of months.  Basically creating a list of months from the `startDate` to the `endDate`.  The join between the two tables basically creates a Cartesian Product resulting in a record for the entity for each month in the span from `startDate` to `endDate`
 
- 
+
 You can test the idea out without having a table other than `dual` like so:
 
 ```sql
@@ -154,7 +154,7 @@ SELECT ADD_MONTHS('1 JAN 2011', column_value - 1) as m, t.*
 
 `t.*` will give you the list of numbers that the table creates.  Basically you can see then that what is going on is that for each entry in the in memory `table` [1,2,3,4,5,6,7,8,9,10] the line `ADD_MONTHS('1 JAN 2011', column_value-1)` will do some date math.  For the first value 1 it adds zero (column_value-1) and thus you still get back 1 JAN 2011 and for the last value, ten, it adds 9 months and thus you get back `1 OCT 2011`.
 
- 
+
 The final reward for figuring this out was that the report generation time went down substantially.  For instance in UAT where the report, when run for a single year, took roughly 20 seconds to execute; now it takes about 0.4 seconds and the report runs equally well in production.
 
 To further optimize performance I created a materialized view `entity_on_lease_by_month` of this query which I was then able to index.  My final report query looks somewhat like this:

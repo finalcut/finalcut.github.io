@@ -3,9 +3,8 @@ layout: post
 title: "T-SQL Query Paging"
 date: 2006-12-01
 comments: false
-categories:
- - sql
- - t-sql
+category: sql
+tags: [mssql]
 ---
 Here is a tip to help you get pages of results back from SQL Server. For
 instance, let's say you were trying to display a listing of products with 20
@@ -313,13 +312,3 @@ Uhh... why not just use
 LIMIT start,num
 
 ?
-
-
-
-
-
-
-
-
-
-

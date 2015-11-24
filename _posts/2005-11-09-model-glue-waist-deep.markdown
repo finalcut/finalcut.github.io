@@ -3,10 +3,8 @@ layout: post
 title: "Model Glue : Waist Deep"
 date: 2005-11-09
 comments: false
-categories:
- - coldfusion
- - model-glue
- - oracle
+category: coldfusion
+tags: [modelglue,framework,oracle]
 ---
 I'm sure there is a lot to Model Glue I haven't touched yet. For instance I
 haven't even looked at the Coldspring tie in with MG. I also haven't done any
@@ -115,4 +113,3 @@ this the ConfigBeans work out really well.
 Whew, sorry I droned on :O) hopefully I haven't scared you away from my
 craziness and instead have illustrated some of the potential of ConfigBeans
 with ModelGlue.
-

@@ -3,9 +3,8 @@ layout: post
 title: "Are Getters and Setters Evil?"
 date: 2005-08-05
 comments: false
-categories:
- - coldfusion
- - design patterns
+category: coldfusion
+tags: [patterns,dao,oop]
 ---
 I don't know if you have seen [the articles by Allen
 Holub](http://www.javaworld.com/javaworld/jw-09-2003/jw-0905-toolbox_p.html)
@@ -132,4 +131,3 @@ id="txtEmailAddress" />
 
 I admit this is a pretty strange way of looking at CF development in general
 particularly in regards to Beans. What do you think?
-

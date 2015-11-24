@@ -3,12 +3,8 @@ layout: post
 title: "All My Pipes Belong To You"
 date: 2007-03-16
 comments: false
-categories:
- - aggregation
- - yahoo
- - yahoo-pipes
- - pipes
- - rss
+category: programming
+tags: [yahoo,pipes,yahoo-pipes,rss,aggregation]
 ---
 I have created three separate Yahoo pipes (2 of them use the third). So I have
 decided to put this post up here to help people find all of my pipes. I will
@@ -39,3 +35,4 @@ Last.fm at Amazon
 Convert any last.fm user's last ten played song list into a list of revenue generating links to amazon.com
 
 
+**NOTE** Yahoo has discontinued the pipes service so this page is no longer useful

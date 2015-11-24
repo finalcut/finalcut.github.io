@@ -3,11 +3,8 @@ layout: post
 title: "Refreshing WSDL Stubs"
 date: 2006-09-01
 comments: false
-categories:
- - cfc
- - stubs
- - rpc
- - wsdl
+category: coldfusion
+tags: [wsdl,rpc]
 ---
 This is actually something I got from [an old blog post by Brian
 Purcell](http://www.bpurcell.org/blog/index.cfm?mode=entry&entry=965) but I
@@ -47,4 +44,3 @@ Jeff Coughlin
 
 This just made my life so much easier! Thanks so much (well, thenks to Brian,
 but I wouldn't have seen it if you didn't repost :) ).
-

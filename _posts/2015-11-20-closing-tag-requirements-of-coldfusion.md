@@ -1,14 +1,14 @@
 ---
 layout: post
 title: "Closing Tag Requirements of ColdFusion"
-description: "Code that shows the closing tag requirements of all standard ColdFusion tags" 
-headline: 
+description: "Code that shows the closing tag requirements of all standard ColdFusion tags"
+headline:
 date: 2015-11-20 10:19:45 -0500
 category: coldfusion
-tags: [coldfusion,lucee]
-imagefeature: 
-mathjax: 
-chart: 
+tags: [lucee]
+imagefeature:
+mathjax:
+chart:
 comments: true
 featured: false
 ---
@@ -46,14 +46,14 @@ Here is the code I used to get a definitive list:
 
 <cfloop list="#StructKeyList(tags)#" index="tagname">
     <cfset tag = getTagData(namespace, tagname) />
-    
+
     <cfif not structkeyExists(bodies, tag.bodyType)>
         <cfset bodies[tag.bodyType] = ArrayNew(1) />
     </cfif>
-    
+
     <cfset ArrayAppend(bodies[tag.bodyType], tagname)>
-    
-    
+
+
 </cfloop>
 
 
@@ -65,10 +65,10 @@ Here is the code I used to get a definitive list:
                 <cfif ArrayLen(bodies[key]) GT maxLength>
                     <cfset maxLength = ArrayLen(bodies[key])>
                 </cfif>
-                <cfset ArraySort(bodies[key], "text", "asc")> 
+                <cfset ArraySort(bodies[key], "text", "asc")>
             </cfloop>
-            
-        
+
+
             <cfloop from="1" to="#maxLength#" index="i">
                 <tr>
                     <cfloop list="#structKeyList(bodies)#" index="key">

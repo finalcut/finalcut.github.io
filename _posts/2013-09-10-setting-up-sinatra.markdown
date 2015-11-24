@@ -3,7 +3,8 @@ layout: post
 title: "Setting Up Sinatra"
 date: 2013-09-10 13:38
 comments: true
-categories: [angular, grunt, sinatra, yeoman]
+categories: [javascript]
+tags: [angular,grunt,sinatra,yeoman]
 ---
 Today I deciced to try and setup a ruby web app that uses sinatra on the backend and angular on the front end. In order to support angular I also decided to use Yeoman which is really a trifecta of tools, to manage the various front end dependencies (including bootstrap).
 

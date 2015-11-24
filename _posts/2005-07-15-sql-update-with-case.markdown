@@ -3,8 +3,7 @@ layout: post
 title: "SQL Update with a CASE"
 date: 2005-07-15
 comments: false
-categories:
- - sql
+category: sql
 ---
 Because I just read the post titled "[Leveraging Your SQL - Update Using a
 Join](http://mkruger.cfwebtools.com/index.cfm?mode=alias&alias=Join%20Update)"
@@ -115,13 +114,3 @@ paul
 
 
 Is there a way to use a CASE statement in an Update to change the column that is being updated?
-
-
-
-
-
-
-
-
-
-

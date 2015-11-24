@@ -3,6 +3,8 @@ layout: post
 title: "basecomponent.cfc"
 date: 2005-11-07
 comments: false
+category: coldfusion
+tags: [oop,inheiritance]
 ---
 In a recent newsletter from Hal Helms he discussed having a component that all
 of his other components extend. I have been doing this for a while and I think
@@ -96,4 +98,3 @@ with one of my projects where I've got a deep nesting issue that throws an
 error intermittantly. I'd like to see if your memento and uuid comparison
 functions might help me diagnose the problem.
 Thanks.
-

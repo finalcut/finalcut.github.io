@@ -3,10 +3,8 @@ layout: post
 title: "CF Pleasantly Suprised Me"
 date: 2005-08-30
 comments: false
-categories:
- - coldfusion
- - data processing
- - oracle
+category: [coldfusion,sql]
+tags: [oracle]
 ---
 Today I was working on a project dealing with large sets of data in an Oracle
 9i database (over 200k records in our subset for development purposes). The
@@ -132,4 +130,3 @@ All of the data I have to read is in a view so the view is executed each time
 the function is called whereas with the CF only solution the view is only
 executed once (as opposed to thousands of times depending on how the requested
 report is being filtered).
-

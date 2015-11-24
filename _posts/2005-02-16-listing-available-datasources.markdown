@@ -3,9 +3,8 @@ layout: post
 title: "Listing Available Datasources"
 date: 2005-02-16
 comments: false
-categories:
- - coldfusion
- - utilities
+category: coldfusion
+tags: [utilities,database]
 ---
 Here is some code I wrote quite a while ago to list the available datasources
 on the server. More than likely it is some code I found somewhere else as I
@@ -40,4 +39,3 @@ However, I figure it might be useful to someone else so here goes:
 Mohsin Raza
 
 Thanks. This was very helpful in sorting out a hosting related problem.
-

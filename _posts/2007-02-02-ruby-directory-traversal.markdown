@@ -3,10 +3,8 @@ layout: post
 title: "Ruby - Directory Traversal"
 date: 2007-02-02
 comments: true
-categories:
- - ruby
- - utility
- - scripting
+category: ruby
+tags: [utilities,scripting]
 ---
 
 Yesterday I needed to write another quick ruby script to traverse a directory tree, extract source code from a variety of file types and create one file that contained all of the extracted source code. My initial thought was to use the <span class="kw">Dir</span> class; however, that resulted in a blind goose chase.

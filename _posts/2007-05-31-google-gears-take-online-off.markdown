@@ -3,12 +3,8 @@ layout: post
 title: "Google Gears - Take the online off"
 date: 2007-05-31
 comments: false
-categories:
- - webdevelopment
- - javascript
- - web3.0
- - offline
- - google
+category: javascript
+tags: [google,gears,localstorage]
 ---
 Google has released a new beta product called "Google Gears" which looks to be
 a really slick JavaScript API that will allow you to take dynamic website
@@ -41,4 +37,3 @@ properly incremented.
 
 Overall it looks really slick and I can't wait to dig into it a bit. You can
 check it out at <http://gears.google.com>
-

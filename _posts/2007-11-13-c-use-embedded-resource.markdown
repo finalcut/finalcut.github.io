@@ -29,26 +29,19 @@ using System.Reflection;
 using System.IO;
 using System.Xml;
 
-public XmlDocument GetResource(string resourceCode)
-{
-XmlDocument xml = null
-try
-{
-string filePath = "Com.MyDomain.MyProject.Resources" + resourceCode + ".xml";
-Stream fileStream =
-Assembly.GetExecutingAssembly().GetManifestResourceStream(filePath);
-if (fileStream != null)
-{
-xml = new XmlDocument();
-xml.Load(fileStream);
-}
-
-}
-catch {
-// if anything goes wrong I don't care - just return a null object.
-}
-
-return xml;
+public XmlDocument GetResource(string resourceCode){
+  XmlDocument xml = null
+  try{
+    string filePath = "Com.MyDomain.MyProject.Resources" + resourceCode + ".xml";
+    Stream fileStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(filePath);
+    if (fileStream != null) {
+      xml = new XmlDocument();
+      xml.Load(fileStream);
+    }
+  } catch {
+    // if anything goes wrong I don't care - just return a null object.
+  }
+  return xml;
 }
 
 ```
@@ -79,4 +72,3 @@ This is **exactly** what I needed :)
 @Ste
 
 very nice, thank you!
-

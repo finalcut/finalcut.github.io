@@ -2,11 +2,11 @@
 layout: post
 title: "QuickSort"
 date: 2006-12-19
-category: algorithms
-tags: [quicksort, sorting]
-imagefeature: 
-mathjax: 
-chart: 
+category: coldfusion
+tags: [quicksort,sorting,algorithms]
+imagefeature:
+mathjax:
+chart:
 comments: true
 featured: false
 ---
@@ -30,12 +30,12 @@ Here is the QuickSort Algorithim I used:
 	<cfargument name="a" type="array" />
 	<cfargument name="first" type="numeric" />
 	<cfargument name="last" type="numeric" />
-	
+
 	<cfset var pivot = arguments.a[arguments.first] />
 	<cfset var lastS1 = arguments.first />
 	<cfset var firstUnknown = arguments.first+1 />
 	<cfset var s = structNew() />
-	
+
 	<cfloop condition="firstUnknown LTE arguments.last">
 		<cfif a[firstUnknown] LT pivot>
 			<cfset lastS1 = lastS1 + 1 />
@@ -43,7 +43,7 @@ Here is the QuickSort Algorithim I used:
 		</cfif>
 		<cfset firstUnknown = firstUnknown + 1 />
 	</cfloop>
-	
+
 	<cfset arraySwap(arguments.a,arguments.first,lastS1) />
 	<cfset s.s1 = lastS1 />
 	<cfset s.a = arguments.a />
@@ -55,16 +55,16 @@ Here is the QuickSort Algorithim I used:
 	<cfargument name="a" type="array">
 	<cfargument name="first" type="numeric">
 	<cfargument name="last" type="numeric">
-	
+
 	<cfset var pivotInfo = StructNew() />
-	
+
 	<cfif arguments.first LT arguments.last>
 		<cfset pivotInfo = partition(a,arguments.first,arguments.last) />
 		<cfset arguments.a = pivotInfo.a />
 		<cfset arguments.a = quicksorter(arguments.a,arguments.first,pivotInfo.s1-1) />
 		<cfset arguments.a = quicksorter(arguments.a,pivotInfo.s1+1,arguments.last) />
 	</cfif>
-	
+
 	<cfreturn a />
 </cffunction>
 
@@ -90,4 +90,3 @@ The linked article has a couple of other sorting algorithms you can look at
 and has them implemented in many languages (just not CF). CF, however, is best
 not included in the conversation with languages like C++ which completes the
 quicksort on 10,000 elements in 0.0038 seconds.
-

@@ -3,6 +3,8 @@ layout: post
 title: "FireBug"
 date: 2006-06-30
 comments: false
+category: firefox
+tags: [firebug]
 ---
 On occasion I see a new FireFox plugin of note. Today, however, I saw one that
 is so remarkably handy that I felt I should not just note it personally, but
@@ -11,21 +13,21 @@ but it is new to me. [FireBug](http://www.joehewitt.com/software/firebug/#) is
 a pretty slick extension that makes debugging Javascript, CSS, and DOM issues
 much easier.
 
-  
+
 
 It does some of the same stuff as the web-developer toolbar, and has some of
 the same features as the venkman script debugger, and the html source
 validator plugin, and the http headers plugin all rolled into one very slick,
 clean, and generally easy to use package.
 
-  
+
 
 I doubt I will get rid of the web developer toolbar - but I can easily see
 losing the Venkman debugger, the http header plugin, and the html source
 validator plugin. While there are some small usability issues with the FireBug
 extension it's sheer utility is just too much not to keep.
 
-  
+
 
 It is the most useful extension I now have installed.
 
@@ -37,4 +39,3 @@ I've been using FireBug for about six months now. It's a fantastic tool if
 you're working with AJAX. Of course, it's also helpful for the DOM, Javascript
 and CSS. Glad you came across it. It's by far the extension that I use the
 most.
-

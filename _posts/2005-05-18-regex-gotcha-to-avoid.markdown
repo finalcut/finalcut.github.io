@@ -3,10 +3,8 @@ layout: post
 title: "RegEx Gotcha to Avoid"
 date: 2005-05-18
 comments: false
-categories:
- - phone number
- - regular expression
- - regex
+category: javascript
+tags: [phone-numbers,regular-expression,regex]
 ---
 Last week I posted about [a great javascript validation library](http://cf-
 bill.blogspot.com/2005/05/great-javascript-form-validation.html). However,
@@ -17,12 +15,12 @@ and it was almost perfect for my needs.
 
 Well, except for one major bug that let pretty much any garbage pass.
 
-Now, I also tested somewhat on the serverside as well so it hand't really
+Now, I also tested somewhat on the server side as well so it handling't really
 caused me a data problem but the possibility was there. The funny thing is
 this regEx and so many others like it on the net have been in use for years
 and almost all that I have seen have the same problem.
 
-I know alot of them do because when I first needed one I found it on the net
+I know a lot of them do because when I first needed one I found it on the net
 (before I knew anything at all about how to build my own regEx). Then later
 when I needed it to be more capable I found others and snipped clipped and
 pasted together many to get the one I needed. All of them have the same
@@ -130,4 +128,3 @@ understand it, I don't use it.
 
 I highly recommend the O'Reilly book "Mastering Regular Expressions". It's not
 an easy read, but well worth the effort.
-

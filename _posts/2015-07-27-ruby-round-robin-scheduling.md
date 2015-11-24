@@ -5,7 +5,7 @@ description: a simple script for creating league schedules
 headline:
 modified: 2015-07-27 12:29:32 -0400
 category: ruby
-tags: []
+tags: [kickball]
 imagefeature:
 mathjax:
 chart:

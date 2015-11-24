@@ -3,6 +3,8 @@ layout: post
 title: "winamp, itunes, and my ipods"
 date: 2005-05-11
 comments: false
+category: general
+tags: [music,winamp,itunes]
 ---
 When Lisa and I first bought our home she also bought me a 30gb iPod as a
 house warming present. At about that time I [switched to
@@ -25,7 +27,7 @@ I could synchronize just the meta data from my iPod to the iTunes library if
 it won't let me copy the whole song. But, alas, I can't. At least not with
 iTunes.
 
-  
+
 
 Today I upgraded to [winamp 5.09](http://www.winamp.com/) and while doing so I
 noticed a [plugin called
@@ -33,7 +35,7 @@ ml_pod](http://winamp.com/plugins/details.php?id=138888) that claims to
 provide iPod integration! Well, I had to check it out - and so far, I'm
 impressed.
 
-  
+
 
 After our trip to Vegas I bought an iPod Shuffle. My shuffle is associated
 with my home PC. So, when I am at work if I plug it into the USB port iTunes
@@ -46,7 +48,7 @@ it on my machine. That will come in handy tonight when I upgrade my home PC
 because I downloaded 3 more new songs recently while at work and will want
 them in my main library at home.
 
-  
+
 
 All isn't perfect though. First it doesn't have the autofill option that
 iTunes has for the shuffle, but frankly, I can live without that. And if I
@@ -57,7 +59,7 @@ and I'll have to wait for an update. However, it seems like the ml_pod
 developer, Will Stevens, is on his game and won't let ml_pod fall too far
 behind.
 
-  
+
 
 I've only been using it for an hour now so It is hard to say if it is my new
 favorite music player - but definitely put winamp back in the race. And for
@@ -73,4 +75,3 @@ better serves all of my needs than either iTunes or winamp currently.
 Anonymous
 
 Winamp 5.2 now has an Autofill feature;
-

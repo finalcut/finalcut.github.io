@@ -3,12 +3,8 @@ layout: post
 title: "VB.Net Generic Singleton Provider"
 date: 2006-10-11
 comments: false
-categories:
- - vb.net
- - pattern
- - generics
- - design patterns
- - singleton
+category: .net
+tags: [vb.net,patterns,generics,singleton]
 ---
 I took the c# generic singleton provider example found at [The Code
 Project](http://www.codeproject.com/csharp/genericsingleton.asp) and converted
@@ -58,4 +54,3 @@ method that takes in zero parameters.
 A cool thing about this is now the code for managing the singleton creation is
 removed from all your objects and your objects can focus on what they actually
 do instead of how to persist themselves in memory.
-

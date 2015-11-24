@@ -3,13 +3,8 @@ layout: post
 title: "WSO2 API Manager with Remote Governance"
 date: 2012-11-21
 comments: false
-categories:
- - java
- - mysql
- - registry
- - wso2
- - governance
- - api-manager
+category: [java,sql]
+tags: [wso2,governance,registry,greg,api-manager]
 ---
 NOTE: this article is superceded by my revised version at [WSO2 API Manager
 with Remote Governance : The Mostly Complete
@@ -293,11 +288,3 @@ WARN {org.wso2.carbon.registry.core.config.RegistryConfigurationProcessor} -  Th
 
 
 ```
-
-
-
-
-
-
-
-

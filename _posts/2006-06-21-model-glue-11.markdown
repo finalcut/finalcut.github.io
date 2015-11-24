@@ -3,6 +3,8 @@ layout: post
 title: "Model Glue 1.1"
 date: 2006-06-21
 comments: false
+category: coldfusion
+tags: [framework,modelglue]
 categories:
  - frameworks
  - coldfusion
@@ -54,4 +56,3 @@ name exists and let the user know the name is taken without even submitting
 the form.
 
 Gus
-

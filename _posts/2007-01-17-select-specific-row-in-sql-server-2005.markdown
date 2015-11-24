@@ -3,10 +3,8 @@ layout: post
 title: "Select a Specific Row in SQL Server 2005 using Row_Number"
 date: 2007-01-17
 comments: false
-categories:
- - sql
- - rownum
- - row_number
+category: sql
+tags: [rownum,row-header,mssql]
 ---
 Lets pretend we have a table, say a user table, with the following columns:
 
@@ -217,13 +215,3 @@ Anonymous
 
 
 Is there a way to set rowid as a calculated value?  For instance: order values asc, get the rowcount, and then retrieve the median value (half the row count)
-
-
-
-
-
-
-
-
-
-

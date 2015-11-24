@@ -3,12 +3,11 @@ layout: post
 title: "Firebug and Gmail - make friends!"
 date: 2006-08-29
 comments: false
-categories:
- - gmail
- - firebug
+category: firefox
+tags: [firebug,gmail]
 ---
 This is my final post, I hope, on the topic of Firebug and Gmail
-compatability. A recent reader of my blog has posted a [xpi hack that will get
+compatibility. A recent reader of my blog has posted a [xpi hack that will get
 Firebug to not interact with Gmail ](http://www.paulchaplin.com/blog/firebug-
 and-gmail-friends-at-last/)at all so you can keep a Gmail tab open and keep
 Firebug active.
@@ -78,4 +77,3 @@ solution more generalised - it can't be just us and just Gmail experiencing
 problems.
 
 Cheers Bill.
-

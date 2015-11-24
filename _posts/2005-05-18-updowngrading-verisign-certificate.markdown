@@ -3,6 +3,8 @@ layout: post
 title: "Up/Downgrading a Verisign Certificate"
 date: 2005-05-18
 comments: false
+category: general
+tags: [security,certificates,iis]
 ---
 Yesterday I was tasked with changing a clients verisign certificate. They had
 a certificate that was due to expire next month and during the renewal process
@@ -10,7 +12,7 @@ they decided to change the encryption level. To Verisign that is just like
 buying a new certificate, not renewing an old one, so the process is kind of a
 pain in the but. Here are the steps I used to get the new certificate, install
 it on the server, and get the site running.  
-  
+
 Note: Using IIS 6 - so your milage may vary if your using Apache/other.  
 
 ### Prep Work
@@ -19,7 +21,7 @@ Before you even begin to mess with verisign you need to build an CSR or
 certificate request. However, since I needed to leave the current site up and
 running with it's older certicate I had to create a new, duplicate, site to
 build the CSR with:  
-  
+
 
   1. create a website in IIS or use Default)
   2. right click on website and select properties
@@ -53,12 +55,12 @@ I can't give you step by step instructions because more than likely the
 website will change before  
 you read this - and I don't have any money to buy another one with (i didn't
 write down each step when I did it yesterday).  
-  
+
 At one point they will ask you for your CSR. Open up the file you just created
 in NOTEPAD or some other very simple text editor that wont change anything
 about the file. Copy the entire contents of that file into the form field
 specified by verisign.  
-  
+
 Wait 1-3 days...
 
 ### Installing the Certificate
@@ -81,9 +83,9 @@ them, and once it is installed you can't really go through it again.
 Now, in my case I also had to configure CF to work with this new website I
 created. If your reading this odds are you will too. Fortunately for us
 Macromedia provides a handy tool to do all the dirty work.  
-  
+
 Note, this will work for Apache as well.  
-  
+
 
   1. make sure your current webserver has a unique name (so it is easier to identify)
   2. go to C:\cfusionmx\runtime\bin (or whatever the equivilant path is on your machine)
@@ -104,7 +106,7 @@ Very handy.
 This is assuming your screwed and have to deal with Frontpage Server
 Extensions in any way. Hopefully, you dont. But, just in case here is how to
 configure your new site to support FPS.  
-  
+
 Note: this assumes Frontpage Server Extensions are already installed  
 
   1. open your browser on the server (not in terminal services, vnc, etc)  
@@ -136,8 +138,7 @@ venujakku
 
 Thank you, for comment on verisign cirtificate ..But can you give more steps
 in clearly.  
-  
-  
+
+
 Thank you.  
 vneujakku
-

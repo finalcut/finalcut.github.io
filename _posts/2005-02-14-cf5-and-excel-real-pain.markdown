@@ -3,9 +3,8 @@ layout: post
 title: "CF5 and Excel - a real pain"
 date: 2005-02-14
 comments: false
-categories:
- - coldfusion
- - excel
+category: coldfusion
+tags: [excel]
 ---
 Well I have been struggling with CF5 and MS Excel interoperability now for a
 few days and I have to say, "I'm annoyed!"
@@ -166,13 +165,3 @@ Found your site by having my own Excel/CF/COM issues.
 
 
 Ever make it work?
-
-
-
-
-
-
-
-
-
-

@@ -3,11 +3,8 @@ layout: post
 title: "SQL Server - Order a View"
 date: 2007-01-31
 comments: false
-categories:
- - sql
- - percent
- - t-sql
- - views
+category: sql
+tags: [mssql,views,percent]
 ---
 **Please Read the Update to this post as the post can not be considered accurate - the technique works but the result is not what I expected.**
 
@@ -383,13 +380,3 @@ Anonymous
 
 
 There is no such thing as an ordered view. What you are really attempting to do is to order the result of a SELECT statement that references a view even though that SELECT statement doesn't have an ORDER BY clause. This is not supported. The order of SELECT statements without ORDER BY is always undefined so the result you get is just "luck" not by design. There are demonstrably many cases where it will not work.
-
-
-
-
-
-
-
-
-
-

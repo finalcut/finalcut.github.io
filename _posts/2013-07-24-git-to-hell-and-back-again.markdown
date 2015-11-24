@@ -3,12 +3,8 @@ layout: post
 title: "Git to Hell and Back Again"
 date: 2013-07-24
 comments: false
-categories:
- - merge
- - svn2git
- - git
- - read-tree
- - multiple-repositories-into-one
+category: version-control
+tags: [merge,svn2git,git,read-tree,multiple-repositories-into-one]
 ---
 At my office we've long used Subversion (SVN) for our version control system
 but we've slowly been migrating to Git (and Github for hosting). I've not
@@ -199,9 +195,3 @@ from the past two weeks into a new branch on this new git repository.
 
 
 ```
-
-
-
-
-
-

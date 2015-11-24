@@ -3,7 +3,7 @@ layout: post
 title: "Barely Blogging"
 date: 2013-08-30 09:11
 comments: true
-categories:
+category: general
 ---
 So far my move to Octopress has resulted in one thing - I blog less than ever.  I'm not sure if that is a good thing or not.  The main problem I've been having is that I setup the blog using my personal laptop at home.  But, oftentimes, I want to blog while I'm at work about some little thing I found interesting while working.  My home computer is a Mac and my work computer is a Windows PC.  I was having some problems getting the whole Jekyll stack to work on my PC.  However, yesterday I managed to get Octopress installed at work and I found some instructions for setting up Octopress so that I can blog from two machines.
 

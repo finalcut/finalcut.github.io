@@ -3,10 +3,8 @@ layout: post
 title: "C#: Change ForeColor or BackColor on the actual tab of a TabControl"
 date: 2007-08-27
 comments: false
-categories:
- - .net
- - c#
- - ui
+category: [c#,.net]
+tags: [ui,tabcontrol]
 ---
 Exciting? Not exactly - but it is useful. Amazingly enough you can't just set
 a property on the tab to change the tab's fore or back color - the forecolor
@@ -28,19 +26,20 @@ this.tabParamType.DrawItem += new DrawItemEventHandler(tabParamType_DrawItem);
 
 void tabParamType_DrawItem(object sender, DrawItemEventArgs e)
 {
-Color foreColor = System.Drawing.SystemColors.ControlText;
-string tabName = this.tabParamType.TabPages[e.Index].Text;
+  Color foreColor = System.Drawing.SystemColors.ControlText;
+  string tabName = this.tabParamType.TabPages[e.Index].Text;
 
-// some logic to determine the color of the text - basically if the name
-contains an asterix make the text red, then make a weak effort to remove the
-asterix from what we actually show
-if (tabName.IndexOf("*") > 0)
-{
-foreColor = Color.Red;
-tabName = tabName.TrimEnd('*');
-}
+  /* some logic to determine the color of the text - basically if the name
+  contains an asterix make the text red, then make a weak effort to remove the
+  asterix from what we actually show
+  */
+  if (tabName.IndexOf("*") > 0)
+  {
+    foreColor = Color.Red;
+    tabName = tabName.TrimEnd('*');
+  }
 
-UIHelper.DrawTabText(this.tabParamType, e, foreColor, tabName);
+  UIHelper.DrawTabText(this.tabParamType, e, foreColor, tabName);
 
 }
 
@@ -53,64 +52,60 @@ Inside that event handler call one of these three methods:
 
 
 ```c#
-public static void DrawTabText(TabControl tabControl, DrawItemEventArgs
-e, string caption){
-Color backColor = (Color)System.Drawing.SystemColors.Control;
-Color foreColor = (Color)System.Drawing.SystemColors.ControlText;
-DrawTabText(tabControl, e, backColor, foreColor, caption);
+public static void DrawTabText(TabControl tabControl, DrawItemEventArgse, string caption)
+{
+  Color backColor = (Color)System.Drawing.SystemColors.Control;
+  Color foreColor = (Color)System.Drawing.SystemColors.ControlText;
+  DrawTabText(tabControl, e, backColor, foreColor, caption);
 }
-public static void DrawTabText(TabControl tabControl, DrawItemEventArgs e,
-System.Drawing.Color foreColor, string caption)
+public static void DrawTabText(TabControl tabControl, DrawItemEventArgs e, System.Drawing.Color foreColor, string caption)
 {
-Color backColor = (Color)System.Drawing.SystemColors.Control;
-DrawTabText(tabControl, e, backColor, foreColor, caption);
-}
-
-public static void DrawTabText(TabControl tabControl, DrawItemEventArgs e,
-System.Drawing.Color backColor, System.Drawing.Color foreColor, string
-caption)
-{
-#region setup
-Font tabFont;
-Brush foreBrush = new SolidBrush(foreColor);
-Rectangle r = e.Bounds;
-Brush backBrush = new SolidBrush(backColor);
-string tabName = tabControl.TabPages[e.Index].Text;
-StringFormat sf = new StringFormat();
-sf.Alignment = StringAlignment.Center;
-#endregion
-
-#region drawing
-e.Graphics.FillRectangle(backBrush, r);
-
-
-r = new Rectangle(r.X, r.Y + 3, r.Width, r.Height - 3);
-if (e.Index == tabControl.SelectedIndex)
-{
-tabFont = new Font(e.Font, FontStyle.Italic);
-tabFont = new Font(tabFont, FontStyle.Bold);
-}
-else
-{
-tabFont = e.Font;
+  Color backColor = (Color)System.Drawing.SystemColors.Control;
+  DrawTabText(tabControl, e, backColor, foreColor, caption);
 }
 
-e.Graphics.DrawString(caption, tabFont, foreBrush, r, sf);
-#endregion
+public static void DrawTabText(TabControl tabControl, DrawItemEventArgs e, System.Drawing.Color backColor, System.Drawing.Color foreColor, string caption)
+{
+  #region setup
+  Font tabFont;
+  Brush foreBrush = new SolidBrush(foreColor);
+  Rectangle r = e.Bounds;
+  Brush backBrush = new SolidBrush(backColor);
+  string tabName = tabControl.TabPages[e.Index].Text;
+  StringFormat sf = new StringFormat();
+  sf.Alignment = StringAlignment.Center;
+  #endregion
 
-#region cleanup
-sf.Dispose();
-if (e.Index == tabControl.SelectedIndex)
-{
-tabFont.Dispose();
-backBrush.Dispose();
-}
-else
-{
-backBrush.Dispose();
-foreBrush.Dispose();
-}
-#endregion
+  #region drawing
+  e.Graphics.FillRectangle(backBrush, r);
+
+  r = new Rectangle(r.X, r.Y + 3, r.Width, r.Height - 3);
+  if (e.Index == tabControl.SelectedIndex)
+  {
+    tabFont = new Font(e.Font, FontStyle.Italic);
+    tabFont = new Font(tabFont, FontStyle.Bold);
+  }
+  else
+  {
+    tabFont = e.Font;
+  }
+
+  e.Graphics.DrawString(caption, tabFont, foreBrush, r, sf);
+  #endregion
+
+  #region cleanup
+  sf.Dispose();
+  if (e.Index == tabControl.SelectedIndex)
+  {
+    tabFont.Dispose();
+    backBrush.Dispose();
+  }
+  else
+  {
+    backBrush.Dispose();
+    foreBrush.Dispose();
+  }
+  #endregion
 
 }
 
@@ -161,4 +156,3 @@ Luke
 
 I get a transparent or grey color behind the tabs, is there anyway to change
 this?
-

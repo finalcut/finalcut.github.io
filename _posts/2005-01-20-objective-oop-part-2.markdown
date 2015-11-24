@@ -3,9 +3,8 @@ layout: post
 title: "Objective OOP: Part 2"
 date: 2005-01-20
 comments: false
-categories:
- - coldfusion
- - oop
+category: coldfusion
+tags: [oop]
 ---
 Yesterday I talked about my ProTask dilemna concerning what objects to create
 and how to break my system down into logical parts. After writing about it - a
@@ -63,4 +62,3 @@ into ProTask as well as if I want to provide webservices etc. I only have to
 provide remote access to up to two objects and the entire system will be
 available remotely. It seems like a good way to go to me at the moment. What
 do you think?
-

@@ -3,6 +3,8 @@ layout: post
 title: "Acrobat Reader - slim and sporty"
 date: 2005-11-15
 comments: false
+category: general
+tags: [acrobat]
 ---
 Today I had to spend some time trying to slim Acrobat Reader down to it's
 barest minimum in order for it to work. The resulting Reader had to be able to
@@ -103,4 +105,3 @@ required No installation.
 Anonymous
 
 get a mac, use preview instead.
-

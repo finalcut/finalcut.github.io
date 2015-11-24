@@ -3,10 +3,8 @@ layout: post
 title: "XMLHttpRequest - Some Useful Methods"
 date: 2005-02-23
 comments: false
-categories:
- - javascript
- - ajax
- - xmlHttpRequest
+category: javascript
+tags: [ajax,xmlHttpRequest]
 ---
 First off, sorry I haven't posted. My wife's grandmother passed away and I
 have been unavailable.
@@ -130,4 +128,3 @@ files of this nature in one directory within the application and then have a
 javascript variable defined as a global with the full path to that directory
 already stored. That's why the first thing I do in loadXMLDoc() is some string
 concatenation.
-

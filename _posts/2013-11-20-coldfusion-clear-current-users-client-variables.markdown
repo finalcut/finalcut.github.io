@@ -3,7 +3,8 @@ layout: post
 title: "Coldfusion: Clear Current Users Client Variables"
 date: 2013-11-20 14:21
 comments: true
-categories: [coldfusion, client variables]
+category: [coldfusion]
+tags: [client variables]
 ---
 **`Be warned, you can probably seriously bork things by messing around in the CDATA nand CGLOBAL tables!`
 `Proceed  with great care and at your own risk.  If you use this and it breaks it's your fault.`**
@@ -59,7 +60,3 @@ Finally, I added in two queries to force the issue:
 
 
 You'll note I make a copy of `CFID` before I do anything else.  I also append a `%` to it so that I can do a `LIKE` search.  I'm not sure why but the exact string match didn't work.  I think there is some non-printable characters added to the end of `CFID` in the database.  I honestly don't have the time to dig more into it right now.  Anyway, use this at your own risk and, even better, [consider never using client variables](http://www.dopefly.com/pages/ColdFusionClientVariablesFinalNail.cfm.)
-
-
-
-

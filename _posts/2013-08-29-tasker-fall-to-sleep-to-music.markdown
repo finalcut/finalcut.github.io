@@ -3,7 +3,8 @@ layout: post
 title: "Tasker: Fall to Sleep to Music"
 date: 2013-08-29 20:35
 comments: true
-categories:
+category: android
+tags: [tasker]
 ---
 Lately I've gotten in the habit of listening to music via some bluetooth speakers before I fall asleep.  I setup a very simple tasker profile that would turn the music off at a certain time but, really, that isn't sufficient.
 
@@ -80,4 +81,3 @@ I'm pretty sure this is the last update I'm going to provide for this.  I've set
 Bada Bing, Bada Boom - the two tasks will work in harmony to turn off your music when you want it to.  Customize it for your needs and hopefully you'll fall asleep o the soothing sounds of your favorite music without worrying about it waking you up during the night.
 
 This is the third version of this - the prior two wouldn't work when the screen turned off and the phone went to sleep.  Hopefully you'll have good success converting this for your needs.
-

@@ -3,12 +3,8 @@ layout: post
 title: "Android: Change Keyboard Based on App Using Tasker"
 date: 2012-10-02
 comments: false
-categories:
- - tasker
- - keyboard
- - lastpass
- - swype
- - android
+category: android
+tags: [tasker,keyboard,lastpass,swype]
 ---
 Today I discovered that my password manager, LastPass, comes with it's own
 keyboard to make it easier to fill out forms with your username and password.
@@ -17,20 +13,20 @@ lazy to toggle my keyboards.  In fact, there is only one app where I always
 want the LastPass keyboard and that's my banking app.  The banking app won't
 let me past into the login fields but the LastPass keyboard can auto fill the
 forms for me.  
-  
+
 Well, fortunately, Tasker has come to the rescue yet again.  Note, however,
 that you need a rooted device to do this stuff.  I am not going to take the
 time right now to explain how to root your device sorry.  Instead I'll assume
 you've rooted and you own [Tasker][tasker].  
-  
+
 After installing Tasker you will also need a plugin called [Secure Settings][secureSettings].  You can get it at the play store.  Ok,
 before you jump into tasker first start up Secure Settings, switch to the
 Helper Tab, and install the helper.  You can't do anything without the Helper;
 it is what gives you access to the command to change the keyboard.  
-  
+
 Ok, now that your prerequisites are setup launch Tasker and do the following:  
-  
-  
+
+
 
   1. Create a new profile; I called mine "LastPass"
   2. Select the "Application" context
@@ -55,12 +51,12 @@ Ok, now that your prerequisites are setup launch Tasker and do the following:
   21. Exit the app, launch any different app and make sure your normal keyboard is back.
 
 That's it.  You're done.  Congratulations.  
-  
+
 These instructions are based on the set of instructions I found at [grokbase] and in the [google groups for tasker][googleGroup]
 
 
 [tasker]: https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm
-[secureSettings]: https://play.google.com/store/apps/details?id=com.intangibleobject.securesettings.plugin 
+[secureSettings]: https://play.google.com/store/apps/details?id=com.intangibleobject.securesettings.plugin
 [grokbase]: http://grokbase.com/t/gg/tasker/1292geqd8g/change-of-input-method-
 keyboard-with-tasker-and-plugin-secure-settings
 [googleGroup]: https://groups.google.com/forum/?fromgroups=#!topic/tasker/mAco_fbmh2c
@@ -71,14 +67,13 @@ Anonymous
 
 Thank you for this! This was exactly what I needed  
 Great instructions and well thought out.  
-  
+
 **to any noobs trying this, play around with the start and end tasks if you're switching keyboards between apps.   
 My quick paced setup (first try made the transition between keyboards VERY
 slow. This current set up doesn't hesitate, like its changed before the app
 keyboard even shows up.  
 not gonna include app names, just settings and keyboards.  
-  
-MMS pop up app- Start task- Kii keyboard, End task Samsung Keyboard  
-  
-MMS stock app- Start Samsung Keyboard, End task Samsung keyboard.
 
+MMS pop up app- Start task- Kii keyboard, End task Samsung Keyboard  
+
+MMS stock app- Start Samsung Keyboard, End task Samsung keyboard.

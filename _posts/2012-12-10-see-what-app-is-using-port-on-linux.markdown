@@ -3,9 +3,8 @@ layout: post
 title: "See What App is Using a Port on Linux"
 date: 2012-12-10
 comments: false
-categories:
- - linux
- - netstat
+category: linux
+tags: [netstat]
 ---
 Sometimes you need to know what application is using a specific port.  Here is
 the syntax so I can remember how to do it:
@@ -37,9 +36,3 @@ sudo netstat -lpn |grep :3306
 ```sh
 tcp        0      0 198.183.217.196:3306    0.0.0.0:*               LISTEN      880/mysqld
 ```
-
-
-
-
-
-

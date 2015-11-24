@@ -3,10 +3,8 @@ layout: post
 title: "HTML IDs are Anchors"
 date: 2007-05-01
 comments: false
-categories:
- - anchor
- - semantic
- - html
+category: programming
+tags: [html,anchor,semantic]
 ---
 It is said you learn something new everyday. Sure enough, today is one of
 those days for me. An id is the same thing as an anchor within a webpage. "So
@@ -273,13 +271,3 @@ Ben Nadel
 
 
 Awesome. I just learned something new also :) Thanks for putting that up, this will be ultra useful.
-
-
-
-
-
-
-
-
-
-

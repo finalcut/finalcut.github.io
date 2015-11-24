@@ -3,8 +3,8 @@ layout: post
 title: "Redesign In Practice - Part 2"
 date: 2005-03-21
 comments: false
-categories:
- - coldfusion
+category: programming
+tags: [oop]
 ---
 In my last post I talked about ProTask (an issue management system) and, sort
 of, covered how it was designed during its first two iterations. In this and
@@ -170,4 +170,3 @@ support the use of a [transfer object](http://java.sun.com/blueprints/corej2ee
 patterns/Patterns/TransferObject.html) where applicable as it seems there will
 be less overhead in using them, especially when dealing with the display of an
 objects data (calling multiple getters on an object).
-

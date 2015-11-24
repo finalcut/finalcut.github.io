@@ -3,14 +3,8 @@ layout: post
 title: "VB.Net (2005) and nUnit"
 date: 2006-09-26
 comments: false
-categories:
- - nUnit
- - xUnit
- - vb.net
- - development
- - .net
- - tdd
- - testing
+category: .net
+tags: [unittesting,nunit,vb.net2005,tdd,testing,xunit]
 ---
 I have recently been put on another project, this one with VB.Net (a windows
 client app) and decided this would be a good opportunity to learn a bit about
@@ -434,13 +428,3 @@ Anonymous
 
 
 on click of button, open next window in vb.net
-
-
-
-
-
-
-
-
-
-

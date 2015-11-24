@@ -3,6 +3,8 @@ layout: post
 title: "iTunes -vs- winamp w/plugin (I'm sold)"
 date: 2005-05-11
 comments: false
+category: general
+tags: [music,itunes,winamp]
 ---
 [![](http://photos10.flickr.com/13455565_75bac74640_m.jpg)](http://www.flickr.
 com/photos/43878892@N00/13455565/ "photo sharing" )  
@@ -18,13 +20,13 @@ like it more:
   2. Pull Music off my iPod - always handy
   3. MUCH SMALLER MEMORY FOOTPRINT
 As you can see I think alot of #3.  
-  
+
 In fact those numbers show winamp playing songs directly from my shuffle and
 iTunes doing nothing but sitting there. It isn't connected to the store, my
 ipod, or anything. Just an idle iTunes takes up 3x as much memory as active
 winamp with a song playing, playlist open, and the eq open and active. Whats
 up with that?  
-  
+
 So, if you haven't done it yet and you use an iPod on windows you should
 consider [winamp](http://winamp.com) with the
 [ml_pod](http://winamp.com/plugins/details.php?id=138888) plugin.  
@@ -36,11 +38,10 @@ Bill
 good question - and I doubt it. Though, with the release of apples network
 stuff ([bonjour](http://www.apple.com/support/downloads/bonjourforwindows_read
 me.html) for windows recently I'm sure he could add it.  
-  
+
 It just isn't a feature I ever used in iTunes so I didn't even notice it
 missing.
 
 _jvc
 
 Sounds good but no sharing?
-

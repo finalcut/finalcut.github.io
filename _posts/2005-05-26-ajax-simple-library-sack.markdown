@@ -3,6 +3,8 @@ layout: post
 title: "AJAX - simple library - SACK"
 date: 2005-05-26
 comments: false
+category: javascript
+tags: [ajax,sack,xmlHttpRequest]
 ---
 [SACK](http://twilightuniverse.com/2005/05/sack-of-ajax/) I saw a link to this
 from the AJAX weblog at mxna today and decided to finally take a look at
@@ -13,4 +15,3 @@ interface to the xmlHttpRequest object. Its not perfect - but it works nicely
 and he is fixing some things and cleaning it up some for a new version. If you
 haven't yet you should [check it out](http://twilightuniverse.com/2005/05
 /sack-of-ajax/).
-

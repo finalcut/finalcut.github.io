@@ -3,21 +3,19 @@ layout: post
 title: "Chrome Keywords - Oh how I love thee"
 date: 2013-01-22
 comments: false
-categories:
- - firefox
- - chrome
- - tips-and-tricks
+category: [chrome,firefox]
+tags: [tips-and-tricks]
 ---
 This is a pretty simple tip that might save some of you some time/trouble.  I
 actually started doing this originally on firefox so I assume it is still
 relevant there.  
-  
+
 In firefox I used to create bookmarks and associate a keyword with the
 bookmark.  For instance if you wanted you could create a bookmark for
 slashdot.org and then add the keyword '\\.' without the quotes.  Thus, when
 you typed \\. in the address bar the bookmark would be loaded and you'd go to
 slashdot.org.  
-  
+
 Chrome bookmarks don't support keywords - but custom search engines do.  Thus
 when I moved to chrome a couple years ago all of my keyword shortcuts were
 moved into custom searches.  For instance, for one of my projects to get to
@@ -26,9 +24,9 @@ warpbugs.  When I type warpbugs in the chrome address bar and hit enter the
 url I provided for the custom search engine (the actual web address of the
 issue instance for warp) is loaded.  It works exactly like the keywords for
 bookmarks that I used in chrome.  
-  
+
 Here is the slashdot example but as a custom search in chrome:  
-  
+
 
   1. right click in the address bar
   2. choose "edit search engines" from the popup menu
@@ -46,4 +44,3 @@ matt
 
 I took a look at my custom search engines. It looks like they might be
 integrated with google bookmarks.
-

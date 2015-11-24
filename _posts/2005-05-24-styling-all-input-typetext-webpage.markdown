@@ -3,9 +3,8 @@ layout: post
 title: "Styling All input type=text webpage controls"
 date: 2005-05-24
 comments: false
-categories:
- - javascript
- - css
+category: javascript
+tags: [css,dom,ie]
 ---
 CSS provides the facility to use selectors in order to narrow down your style
 application to a subset of controls. For instance, if you want to apply a
@@ -432,13 +431,3 @@ I was looking for this, but all i found was the usage of classes to style checkb
 
 
 nice work !
-
-
-
-
-
-
-
-
-
-

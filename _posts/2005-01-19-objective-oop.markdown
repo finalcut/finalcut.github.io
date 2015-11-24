@@ -2,6 +2,8 @@
 layout: post
 title: "Objective - OOP"
 date: 2005-01-19
+category: Programming
+tags: [oop,aop]
 comments: false
 ---
 While, nowadays, Aspect Oriented Programming (AOP) seems to be all the rage I
@@ -124,4 +126,3 @@ be very concise and there will be fewer objects (but one bigger one) in memory
 at any given time. So what would you do? Would you go with either of these
 options or would you do something completely different? I'll let you know what
 I do. To be continued....
-
