@@ -21,12 +21,12 @@ Data provided by the lessor comes roughly in the format `{entityId: ####, startD
 
 This data basically makes up the first table in question the `entity_lessee` table
 
-
+```
 |entityId|startDate|endDate	  |lesseeId|lessorId|
 |--------|---------|----------|--------|--------|
 | 1		 |10/1/2001|null   	  |34      |8       |
 | 2		 |8/5/2005 |11/19/2008|34      |8		|
-
+```
 
 The view titled `entity_detail` table is a table that is populted with new data everymonth.  Anyone that is currently responsible for the entity has to report on it each month and show how it is being used.  If they are leasing the entity they have to show that the entity is in use or that they have leased it out to another lessee.
 
@@ -35,11 +35,13 @@ The problem is not everyone remembers to report all their entities each month so
 
 The other table sort of looks like this:
 
+```
 |operatorId|entityId|startDate |endDate   |usage   |
 |----------|--------|--------- |----------|--------|
 | 34	   | 1      | 10/1/2001|10/31/2001|idle    |
 | 34	   | 1		| 11/1/2001|11/15/2001|cleaning|
 | 34	   | 1		|11/16/2001|11/30/2001|loading |
+```
 
 
 So what we need to do is show if there are records in the second table (`entity_detail`) for every month in the span between `startDate` and `endDate` in the first table (`entity_lessee`)  If the endDate is null then we can substitute the current date `SYSDATE` in it's place.  Also note that `entity_detail.operatorId` is synonymous with `entity_lessee.lesseeId`.  All lessors and lessees are defined in an operator table and have an `operatorId`.
@@ -109,6 +111,7 @@ SELECT ADD_MONTHS('1 JAN 2011', column_value - 1) as m
 				)
 ```
 
+```
 m         |
 -----------
 |1/1/2011 |
@@ -121,6 +124,7 @@ m         |
 |8/1/2011 |
 |9/1/2011 |
 |10/1/2011|
+```
 
 
 You can further break it down to see what happens by doing this:
@@ -138,6 +142,7 @@ SELECT ADD_MONTHS('1 JAN 2011', column_value - 1) as m, t.*
 ```
 
 
+```
 | m        |t*|
 |---------|---|
 |1/1/2011 | 1|
@@ -150,6 +155,7 @@ SELECT ADD_MONTHS('1 JAN 2011', column_value - 1) as m, t.*
 |8/1/2011 | 8|
 |9/1/2011 | 9|
 |10/1/2011| 10|
+```
 
 
 `t.*` will give you the list of numbers that the table creates.  Basically you can see then that what is going on is that for each entry in the in memory `table` [1,2,3,4,5,6,7,8,9,10] the line `ADD_MONTHS('1 JAN 2011', column_value-1)` will do some date math.  For the first value 1 it adds zero (column_value-1) and thus you still get back 1 JAN 2011 and for the last value, ten, it adds 9 months and thus you get back `1 OCT 2011`.
