@@ -5,7 +5,7 @@ date: 2005-10-20
 comments: false
 featured: true
 category: sql
-tags:[mssql,oracle,nvl,isnull]
+tags: [mssql,oracle,nvl,isnull]
 ---
 Sometimes when writing a query, particularly during concatenation, you don't
 want a NULL value in part to force a NULL return to the expression. With
