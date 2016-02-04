@@ -30,9 +30,6 @@ WITH COPY_ONLY
 
 The `WITH COPY_ONLY` makes sure your production database isn't interrupted while you make a backup of it.
 
-
-
-
 ### To restore the destination database
 
 ```sql
