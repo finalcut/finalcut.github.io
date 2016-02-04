@@ -61,7 +61,7 @@ We're basically going to be editing two files, httpd.conf and httpd-vhosts.conf.
 
 The http.conf file is located in the `D:\Apache22\conf` directory.  Open that in your favorite text editor (hopefully note notepad).  If you need a decent, free text editor download [atom](http://atom.io).  Once in httpd.conf we need to change a few lines.
 
-```apache
+```conf
 ServerRoot "D:\Apache22"
 ...
 Listen {ipaddress:}80

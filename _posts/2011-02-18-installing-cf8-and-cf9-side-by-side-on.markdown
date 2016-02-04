@@ -65,7 +65,7 @@ Ok, now on to the meat of the operation:
 
 
 
-```apache
+```conf
     <IfModule mod_jrun20.c>
 
     JRunConfig Verbose false
@@ -101,7 +101,7 @@ Ok, now on to the meat of the operation:
 I've actually edited it a little to make those last four lines stand out.    The 51000 is the port that CF9's proxy is listening on.  Basically that is how APACHE talks to JRUN and CF9.  If you have a virtual server setup that you want to use your CF8 install you'd just put the following code inside your virtual server node of the conf file:
 
 
-```apache
+```conf
     <IfModule mod_jrun20.c>
 
  JRunConfig Apialloc false
@@ -146,7 +146,3 @@ You'll want to check the following things.
   2.  You'll then want to go to the JRUN management console at http://localhost:8000 - login with your cfadmin username and password.
   3. Expand the cf8 server node in the left menu and then click on "services" in the right panel you should see "ProxyService" and the status will probably say "Initialized"  That's the problem, it needs to say "Running"
   4. Click on the "Play" icon under "Actions" beside ProxyService.. Once that starts you should be able to load your CF8 site without any problems.
-
-
-
-

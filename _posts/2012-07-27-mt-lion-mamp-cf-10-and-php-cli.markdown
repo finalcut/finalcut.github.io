@@ -60,7 +60,7 @@ At this point I can access my CF administrator via http://127.0.0.1/cfide/admini
 
 
 
-```apache
+```conf
 #
 
 # Virtual Hosts

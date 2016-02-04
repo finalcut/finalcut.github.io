@@ -18,7 +18,7 @@ server.  Then, once it was done I had to do a couple tweaks.
 First off, I removed the following lines from my httpd.conf:
 
 
-```apache
+```conf
 
         #JRunConfig Errorurl url
 
@@ -49,7 +49,7 @@ First off, I removed the following lines from my httpd.conf:
 If I left those in there CF got a little confused my CF 10 stuff wouldn't work properly.  So take those out.   Also, note, to get all of this to work you pretty much have to be using Virtual Hosts.  Thus, if you had a virtual host already defined that was talking to CF 9 then you'll need to add these four lines into those virtual hosts:
 
 
-```apache
+```conf
         JRunConfig Apialloc false
 
         JRunConfig Serverstore "C:/dev/tools/JRun4/lib/wsconfig/cf9/jrunserver.store"
@@ -70,7 +70,7 @@ Next up, create a virtual host that will be using CF 10.  You don't have to use 
 Here is an example virtual host that uses CF 10 and exposes the CF 10 administrator:
 
 
-```apache
+```conf
 #wcs_10
 
 <VirtualHost 127.0.0.1:80>
@@ -152,7 +152,7 @@ DirectoryIndex index.html index.shtml index.php default.htm default.html index.c
 Finally, go to your apache/conf directory and edit the mod_jk.conf file - you're basically removing a bunch of lines so that your file ends up looking like this:
 
 
-```apache
+```conf
 # Load mod_jk module
 
 LoadModule    jk_module  "C:\dev\tools\ColdFusion10\config\wsconfig\1\mod_jk.so"
