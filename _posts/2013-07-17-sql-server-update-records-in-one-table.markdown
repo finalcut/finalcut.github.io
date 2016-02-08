@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "SQL Server: Update Records in One Table by Copying Related Data from a Second Table"
+description: Using a select statement to update a record in mssql.  mssql update from select
 date: 2013-07-17
 comments: false
 category: sql
@@ -25,7 +26,7 @@ UPDATE table
 SET Col1 = i.Col1,
    Col2 = i.Col2
 FROM (
-    SELECT ID, Col1, Col2 
+    SELECT ID, Col1, Col2
     FROM other_table) i
 WHERE
     i.ID = table.ID
