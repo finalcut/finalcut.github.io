@@ -152,3 +152,23 @@ gulp.task('bundleDeps', function () {
 As you can see, I've broken my build back up and st the `bundleSfx` to false.  I didn't have to do that; `bundleSfx` is false by default.  I explicitly stated it here for clarity.
 
 Using the plugin is a tiny bit slower but doing it this way enables you to bundle, then ngAnnotate, then minimize and uglify in a nice gulp pipe fashion.
+
+
+**CAUTION**
+-- updated 14 March 2016
+Okay, so there is one big problem with using the plugin approach. The plugin does a very poor job of alerting the user to problems.  For instance, if there is a syntax error in a jspm package file that the plugin is trying to bundle you just get a worthless error message along the lines of:
+
+```
+'Uncaught, unspecified "error" event.'
+```
+
+Basically, the unspecified event will either be a missing file or a corrupt javascript file that the bundler can't process.  When this error occurs I run the non-plugin version of the bundler (I have a gulp task called `obundleDeps` that I run because this typically only happens when I try to bundle the dependencies.)
+
+Running the straight `jspm bundle` gives a much more verbose error message.  Typically, to fix it, I have to delete the plugin that has the error and then do a `jspm install` again to fix that plugin.
+
+For example, today I had a problem with the package `buffer@3.6.0`.  To fix it I had to delete the following:
+
+* jspm_packages/npm/buffer@3.60 (directory)
+* jspm_packages/npm/buffer@3.6.0.js 
+
+By deleting those two files and then re-installing I was able to run `gulp obundleDeps` fine and then, to make sure, I ran `gulp bundleDeps` and everything was working well.  It took me way to long to think of this solution to figuring out what was wrong so I wasted most of a day getting my build system working again.  Uggh! Hopefully this will save someone else some trouble.
