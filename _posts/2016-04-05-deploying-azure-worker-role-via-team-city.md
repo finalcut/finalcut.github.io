@@ -83,7 +83,7 @@ You'll need to expand the `Script Arguments` field so you can provide the variou
 ### Trigger a Failure in TeamCity
 According to the [TeamCity documentation](https://confluence.jetbrains.com/display/TCD9/PowerShell) you need to catch information in the build log to know if something went wrong.  The script facilitates that but throwing error messages proceeded by "POWERSHELL ERROR" and using an exit code of 1.  However, for these to be caught you need to set up a failure condition in TeamCity for your project.
 
-![powershell failure condition](/images/deploy-worker-role-to-azure/powershell-failure.png)
+![powershell failure condition](/images/deploy-worker-role-to-azure/powershell_failure.png)
 
 
 
