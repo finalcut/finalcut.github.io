@@ -5,6 +5,7 @@ def edit_config(name, value)
   File.open('_config.yml', 'w') {|f| f.write(config)}
 end
 
+  # usage: rake env:dev  or rake env:pro
   namespace :env do
     desc 'Sets the configuration for development mode.'
     task :dev do
