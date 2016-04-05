@@ -58,74 +58,135 @@ At this point, it should be obvious, that you want to keep your TeamCity server 
 
 
 ### PowerShell
-Finally, we need to define the PowerShell step; this part uses the commandlets you installed before via PowerShell script that will either create the new deployment if you've never deployed before OR will update the existing deployment.  This script is almost entirely from [Scott's blog](http://weblogs.asp.net/srkirkland/ci-deployment-of-azure-web-roles-using-teamcity) with the exception of a few minor mods to get it working with the current Azure SDK and commandlets.
+Next, we need to define the PowerShell step; this part uses the commandlets you installed before via PowerShell script that will either create the new deployment if you've never deployed before OR will update the existing deployment.  This script is almost entirely from [Scott's blog](http://weblogs.asp.net/srkirkland/ci-deployment-of-azure-web-roles-using-teamcity) with the exception of a few minor mods to get it working with the current Azure SDK and commandlets and to make it callable as an external script file.
 
-![msbuild publish](/images/deploy-worker-role-to-azure/powershell.png)
+![powershell deploy](/images/deploy-worker-role-to-azure/powershell.png)
 
-In the `Script Source` field you'll need to put your version of the following PowerShell script. You just have to update the first seven values to match your settings.  Then confirm the paths for the `Import-Module` commands.  Here is the script (or a [gist](https://gist.github.com/finalcut/db002990a0b083f4fa42d5a353250c5c) if you prefer).  I identified my changes to his script with the `::CHANGE::` prefix to a couple comments.  You'll see not much has changed.
+In the `Script` field keep "file" and in the script file field you'll need to put the path to the powershell script I've provided at the end of this post and in a [gist](https://gist.github.com/finalcut/db002990a0b083f4fa42d5a353250c5c).  You may need to edit the powershell script path to the imported modules if Azure Powershell changes after this is published.  As of 5 April 2016 those paths should be valid for the vast majority of installations.
+
+You'll need to expand the `Script Arguments` field so you can provide the various arguments.  There are nine possible but only the first five are required.
+
+** REQUIRED ARGUMENTS **
+* subscription - the name of your Azure subscription.  You can find that on your Azure Management Portal; on the All Items screen, in the Subscription column.
+* service - this is the Azure Cloud Service you're deploying/upgrading.  You can find that on your Azure Management Portal; on the All Items screen, in the Name column.
+* projectName - the name of your Visual Studio project that contains the "Role" - this is your startup project in the solution.
+* storageAccountName - the name of your Azure storage account that is tied to your service. You can find that on your Azure Management Portal; on the All Items screen, in the Name column.
+* pathToPublishSettingsFile - where you saved your publish settings.  In the earlier example that is `c:\TeamCity\azure.publishsettings`
+
+** OPTIONAL ARGUMENTS **
+* slot - production or staging.  default: staging
+* buildConfigName - release or debug.  default: release
+* timeStampFormat - look at the azure docs for formats.  default: g
+* deploymentLabel - how the deployment should be identified in the Azure management portal.  Default: Continuous Deploy.  I recommend overriding this to something like: "Continuous Deploy to $service v%build.number%" which will give you much more useful information in the portal.
+
+
+### Trigger a Failure in TeamCity
+According to the [TeamCity documentation](https://confluence.jetbrains.com/display/TCD9/PowerShell) you need to catch information in the build log to know if something went wrong.  The script facilitates that but throwing error messages proceeded by "POWERSHELL ERROR" and using an exit code of 1.  However, for these to be caught you need to set up a failure condition in TeamCity for your project.
+
+![powershell failure condition](/images/deploy-worker-role-to-azure/powershell-failure.png)
+
+
+
 
 ```posh
-#Modified and simplified version of https://www.windowsazure.com/en-us/develop/net/common-tasks/continuous-delivery/
-$subscription = "MY SUBSCRIPTION"  #not your subscription ID but the actual name of the subscription.
-$service = "MY SERVICE"
-$slot = "staging" #staging or production
-$projectName = "PROJECT IN SOLUTION WITH THE WORKER ROLE DEFINED"
-$buildConfigName = "release"  #debug or release...
-$storageAccountName = "MY AZURE STORAGE ACCOUNT NAME"
-$pathToPublishSettingsFile = "c:\TeamCity\azure.publishsettings"
-$deploymentLabel = "ContinuousDeploy to $service v%build.number%"
+[CmdletBinding()]
+Param(
+  [Parameter(Mandatory=$True,Position=1)]
+   [string]$subscription,
+
+   [Parameter(Mandatory=$True,Position=2)]
+   [string]$service,
+
+   [Parameter(Mandatory=$True,Position=3)]
+   [string]$projectName,
+
+   [Parameter(Mandatory=$True,Position=4)]
+   [string]$storageAccountName,
+
+   [Parameter(Mandatory=$True,Position=5)]
+   [string]$pathToPublishSettingsFile,
+
+
+   [Parameter(Mandatory=$False,Position=6)]
+   [string]$slot="staging",
+
+   [Parameter(Mandatory=$False,Position=7)]
+   [string]$buildConfigName="release",
+
+
+   [Parameter(Mandatory=$False,Position=8)]
+   [string]$timeStampFormat="g",
+
+
+   [Parameter(Mandatory=$False,Position=9)]
+   [string]$deploymentLabel="Continuous Deploy"
+
+)
 
 
 $package = "$($projectName)\bin\$($buildConfigName)\app.publish\$($projectName).cspkg"
 $configuration =  "$($projectName)\bin\$($buildConfigName)\app.publish\ServiceConfiguration.Cloud.cscfg"
-$timeStampFormat = "g"
+$errorKey = "POWERSHELL ERROR"
 
-Write-Output "Running Azure Imports"
-# ::CHANGE:: I had to update these as the stuff at Scotts blog was outdated
-Import-Module "C:\Program Files (x86)\Microsoft SDKs\Azure\PowerShell\ResourceManager\AzureResourceManager\AzureRM.Profile\AzureRM.Profile.psd1"
-Import-Module "C:\Program Files (x86)\Microsoft SDKs\Azure\PowerShell\Storage\Azure.Storage\Azure.Storage.psd1"
-Import-Module "C:\Program Files (x86)\Microsoft SDKs\Azure\PowerShell\ServiceManagement\Azure\Azure.psd1"
-
-# ::CHANGE:: I added variable for pathToPublishSettingsFile
-Import-AzurePublishSettingsFile $(pathToPublishSettingsFile)
-# ::CHANGE:: I had to add the $storageAccount name instead of using the $service here
-Set-AzureSubscription -CurrentStorageAccount $storageAccountName -SubscriptionName $subscription
-
-function Publish(){
- $deployment = Get-AzureDeployment -ServiceName $service -Slot $slot -ErrorVariable a -ErrorAction silentlycontinue
- Write-Output $deployment
-
- if ($a[0] -ne $null) {
-    Write-Output "$(Get-Date -f $timeStampFormat) - No deployment is detected. Creating a new deployment. "
- }
-
- if ($deployment.Name -ne $null) {
-    #Update deployment inplace (usually faster, cheaper, won't destroy VIP)
-    Write-Output "$(Get-Date -f $timeStampFormat) - Deployment exists in $servicename.  Upgrading deployment."
-    UpgradeDeployment
- } else {
-    CreateNewDeployment
- }
+Write-Host "Running Azure Imports"
+try {
+  Import-Module "C:\Program Files (x86)\Microsoft SDKs\Azure\PowerShell\ResourceManager\AzureResourceManager\AzureRM.Profile\AzureRM.Profile.psd1"
+  Import-Module "C:\Program Files (x86)\Microsoft SDKs\Azure\PowerShell\Storage\Azure.Storage\Azure.Storage.psd1"
+  Import-Module "C:\Program Files (x86)\Microsoft SDKs\Azure\PowerShell\ServiceManagement\Azure\Azure.psd1"
+} Catch {
+  $ErrorMessage = $_.Exception.Message
+  Write-Host $errorKey
+  Write-Host "Error Importing Modules"
+  Write-Host $ErrorMessage
+  exit(1)
 }
+
+
+# import settings
+Write-Host "Import Settings File"
+try {
+  Import-AzurePublishSettingsFile $pathToPublishSettingsFile
+} Catch {
+  $ErrorMessage = $_.Exception.Message
+  Write-Host $errorKey
+  Write-Host "Error Importing Publish Settings File"
+  Write-Host $ErrorMessage
+  exit(1)
+}
+
+#setup azure information
+Write-Host "Setup Azure Subscription Information"
+try {
+  Set-AzureSubscription -CurrentStorageAccount $storageAccountName -SubscriptionName $subscription
+} Catch {
+  $ErrorMessage = $_.Exception.Message
+  Write-Host $errorKey
+  Write-Host "Error Setting Azure Subscription"
+  Write-Host $ErrorMessage
+  exit(1)
+}
+
+
+# DEFINE FUNCTIONS
 
 function CreateNewDeployment()
 {
-    write-progress -id 3 -activity "Creating New Deployment" -Status "In progress"
-    Write-Output "$(Get-Date -f $timeStampFormat) - Creating New Deployment: In progress"
+    Write-Host -id 3 -activity "Creating New Deployment" -Status "In progress"
+    Write-Host "$(Get-Date -f $timeStampFormat) - Creating New Deployment: In progress"
 
     $opstat = New-AzureDeployment -Slot $slot -Package $package -Configuration $configuration -label $deploymentLabel -ServiceName $service
 
     $completeDeployment = Get-AzureDeployment -ServiceName $service -Slot $slot
     $completeDeploymentID = $completeDeployment.deploymentid
 
-    write-progress -id 3 -activity "Creating New Deployment" -completed -Status "Complete"
-    Write-Output "$(Get-Date -f $timeStampFormat) - Creating New Deployment: Complete, Deployment ID: $completeDeploymentID"
+    Write-Host -id 3 -activity "Creating New Deployment" -completed -Status "Complete"
+    Write-Host "$(Get-Date -f $timeStampFormat) - Creating New Deployment: Complete, Deployment ID: $completeDeploymentID"
 }
 
 function UpgradeDeployment()
 {
-    write-progress -id 3 -activity "Upgrading Deployment" -Status "In progress"
-    Write-Output "$(Get-Date -f $timeStampFormat) - Upgrading Deployment: In progress"
+    Write-Host -id 3 -activity "Upgrading Deployment" -Status "In progress"
+    Write-Host "$(Get-Date -f $timeStampFormat) - Upgrading Deployment: In progress"
 
     # perform Update-Deployment
     $setdeployment = Set-AzureDeployment -Upgrade -Slot $slot -Package $package -Configuration $configuration -label $deploymentLabel -ServiceName $service -Force
@@ -133,12 +194,48 @@ function UpgradeDeployment()
     $completeDeployment = Get-AzureDeployment -ServiceName $service -Slot $slot
     $completeDeploymentID = $completeDeployment.deploymentid
 
-    write-progress -id 3 -activity "Upgrading Deployment" -completed -Status "Complete"
-    Write-Output "$(Get-Date -f $timeStampFormat) - Upgrading Deployment: Complete, Deployment ID: $completeDeploymentID"
+    Write-Host -id 3 -activity "Upgrading Deployment" -completed -Status "Complete"
+    Write-Host "$(Get-Date -f $timeStampFormat) - Upgrading Deployment: Complete, Deployment ID: $completeDeploymentID"
 }
 
-Write-Output "Create Azure Deployment"
+
+function Publish(){
+ $deployment = Get-AzureDeployment -ServiceName $service -Slot $slot -ErrorVariable a -ErrorAction silentlycontinue
+ Write-Host $deployment
+
+ if ($a[0] -ne $null) {
+    Write-Host "$(Get-Date -f $timeStampFormat) - No deployment is detected. Creating a new deployment. "
+ }
+
+ if ($deployment.Name -ne $null) {
+    #Update deployment inplace (usually faster, cheaper, won't destroy VIP)
+    Write-Host "$(Get-Date -f $timeStampFormat) - Deployment exists in $servicename.  Upgrading deployment."
+
+    try {
+      UpgradeDeployment
+    } catch {
+      $ErrorMessage = $_.Exception.Message
+      Write-Host $errorKey
+      Write-Host "Error Upgrading Deployment"
+      Write-Host $ErrorMessage
+      exit(1)
+    }
+ } else {
+    try {
+      CreateNewDeployment
+    } catch {
+      $ErrorMessage = $_.Exception.Message
+      Write-Host $errorKey
+      Write-Host "Error Upgrading Deployment"
+      Write-Host $ErrorMessage
+      exit(1)
+    }
+ }
+}
+
 Publish
+
+Exit(0)
 ```
 
-At this point you should be able to run your build on TeamCity and see that your worker role has been deployed properly.  You can always tell by viewing the build log on TeamCity and by going to your Cloud Service "Dashboard" on the Azure Management Portal and looking in the right column for "Deployment Label"  It should say something like `ContinuousDeploy to MyService v39` which is the value defined in the above script as `$deploymentLabel`.
+At this point you should be able to run your build on TeamCity and see that your worker role has been deployed properly.  You can always tell by viewing the build log on TeamCity and by going to your Cloud Service "Dashboard" on the Azure Management Portal and looking in the right column for "Deployment Label"  It should say something like `Continuous Deploy to MyService v39` or whatever value you  defined for the  `deploymentLabel` argument.
