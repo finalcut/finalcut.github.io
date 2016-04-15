@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Storing Secrets in Git With Blackbox"
+title: "Storing Secrets in Git With Blackbox and Git Bash (MinGW)"
 description:
 headline:
 date: 2016-04-14 16:58:20 -0400
-category: personal
-tags: [windows,git,gpg,encryption,secrets]
+category: development
+tags: [windows,git,gpg,encryption,secrets,mingw,bash]
 imagefeature:
 mathjax:
 chart:
@@ -82,11 +82,15 @@ To register a file we reference it from the root of the project.  So, in my case
 
 Blackbox will then encrypt the file using my public key (if there was more than one admin it would encrypt it against all of our keys so any of us could decrypt it with our own private key).  It will then delete the plain text version of the file and add an entry to .gitignore telling it to ignore the original file name.  Plus it will commit the encrypted file.  At that point I can `git push` or add some any other files to the encrypt list.
 
-Typically, when I am working on the project I need to keep the file (and any other secret files) unencrypted.  In order to quickly decrypt all the files in the crypt I can just execute:
-
 #### Working with Secret Files
 
+Typically, when I am working on the project I need to keep the file (and any other secret files) unencrypted.  In order to quickly decrypt all the files in the crypt I can just execute:
+
 `$ blackbox postdeploy`
+
+Unfortunately, you will be prompted for your gpg key passphrase for each file you've encrypted.  This is because we can't get gpg-agent that is compatiable with the gpg used by MinGW.  MinGW uses gpg v1.  You could installin GpG4Win but it comes with gpg-agent v2.x which is not compataible with MingGW's gpg.  Thus, even with GpG4Win you'll see a message that gpg-agent is not available in this session and you'll be prompted for your password for each file being decrypted.
+
+Fortunately, if you're using a password manage you can just copy the password, and shift+ins each time it asks for the password to paste it. (That's probably bad security advice so take it with a grain of salt).
 
 Before leaving the day, if I wanted to clean up the secret files so they weren't sitting around decrypted I could run:
 
