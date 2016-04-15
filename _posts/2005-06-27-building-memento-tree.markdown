@@ -3,7 +3,7 @@ layout: post
 title: "Building the Memento Tree"
 date: 2005-06-27
 comments: false
-category: coldfusion`
+category: coldfusion
 tags: [patterns,memento]
 ---
 I know some may frown on the idea of having a base "bean" class but that is
