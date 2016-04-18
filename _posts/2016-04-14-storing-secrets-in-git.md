@@ -115,7 +115,7 @@ which would reencrypt the updated file so I could commit the changes.
 
 Adding another admin is a little more complicated but it isn't too bad.  Basically the new team member will fork the repo and add them self.  They won't be able to decrypt any files yet and they won't be able to re-encrypt them; but they can add themselves to the list of addmins and add their public key to the keyring.  
 
-They should follow the earlier steps for adding themself to the project and should also import the current projects keyring into their own by executing this from the root of their repository:
+They should follow the earlier steps for [adding themself to the project](#add-yourself-as-an-admin) and should also import the current projects keyring into their own by executing this from the root of their repository:
 
   `$ git --import keyrings/live/pubring`
 
