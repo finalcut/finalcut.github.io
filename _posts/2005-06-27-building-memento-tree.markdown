@@ -13,6 +13,8 @@ able to do with my bean:
 
   1. dump it
   2. get a memento
+
+  
 When I dump a bean though I don't want all the stuff in the var scope but
 instead the variables.instance structure. Also, my memento is basically just a
 copy of the variables.instance structure (sort of).
@@ -25,15 +27,14 @@ Here is an example from a recent project. I have studentenrollment object. It
 consists of a few things:
 
   * student - an instance of student.cfc
-
-* address - an instance of address.cfc
-
+  * address - an instance of address.cfc
   * class - an instance of theclass.cfc (named that way so i don't accidentally call getClass())
-
   * entryassessment - an instance of assessment.cfc
   * interimassessment - an instance of assessment.cfc
   * exitassessment - an instance of assessment.cfc
   * a bunch of other things specific to that student+class relationship
+
+
 So when I go to get the memento of the studentenrollment I really want the
 memento that is crafted from studentenrollment.variables.instance and all the
 composite objects variables.instance structs. To that end I added two methods

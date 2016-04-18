@@ -19,7 +19,7 @@ with your own. Then you need to add an event handler to your tab controls
 DrawItem event
 
 
-```c#
+```cs
 this.tabParamType.DrawMode = TabDrawMode.OwnerDrawFixed;
 this.tabParamType.DrawItem += new DrawItemEventHandler(tabParamType_DrawItem);
 
@@ -42,8 +42,6 @@ void tabParamType_DrawItem(object sender, DrawItemEventArgs e)
   UIHelper.DrawTabText(this.tabParamType, e, foreColor, tabName);
 
 }
-
-
 ```
 
 
@@ -51,7 +49,7 @@ void tabParamType_DrawItem(object sender, DrawItemEventArgs e)
 Inside that event handler call one of these three methods:
 
 
-```c#
+```cs
 public static void DrawTabText(TabControl tabControl, DrawItemEventArgse, string caption)
 {
   Color backColor = (Color)System.Drawing.SystemColors.Control;
