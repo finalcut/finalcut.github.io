@@ -30,6 +30,11 @@ Like I said, you're going to need to install some extra stuff before you can use
   * Next, run "install.bat" - I told it to install my tools in `c:\dev\tools\GnuWin32`
   * Finally, add the path of the GnuWin32 installation's bin directory you to your system path.  `c:\dev\tools\GnuWin32\bin` in my example.
 
+## CAVEAT
+If you are using blackbox and your decrypted file name send up having some non-printable characters on the end (A newline character) then you can do one of two things:
+1. rename the decrypted file to remove the bogus character, delete the encrypted copies, and delete the file `keyrings\blackbox-files.txt`.  Basically, that file is using windows new lines instead of Unix ones for some reason.  More than likely the way it was checked out of git.  Then re-encrypt the files.  This is a pretty crappy solution.
+2. **MY PREFERRED METHOD*** Don't use the official blackbox but use my fork at https://github.com/billrawlinson/blackbox - I've put a fix in there that takes care of it by cleaning the strings in the blackbox-files.txt file before processing them.  I've submitted a pull request but, so far, it hasn't been accepted.
+
 
 ## Using Blackbox
 
