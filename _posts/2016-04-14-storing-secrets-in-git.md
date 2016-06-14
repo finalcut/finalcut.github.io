@@ -122,26 +122,35 @@ Adding another admin is a little more complicated but it isn't too bad.  Basical
 
 They should follow the earlier steps for [adding themself to the project](#add-yourself-as-an-admin) and should also import the current projects keyring into their own by executing this from the root of their repository:
 
-  `$ git --import keyrings/live/pubring`
+```sh
+	$ gpg --import keyrings/live/pubring
+```
 
 After adding themself they should commit and push their changes and make a pull request asking that they be approved as an admin.
 
 If the current maintainer of the Orign repo agrees he can then merge the pull request and then re-encrypt all of files.  The maintainer would do the following after the merge at your central git repo:
 
 1. Fetch the code with the new admin:
-  ```
+
+  ```sh
   $ git pull
   ```
+
 2. Import the new key into the maintainers keyring
-  ```
+
+  ```sh
   $ gpg --import keyrings/live/pubring.gpg
   ```
+
 3. decrypt and re-encrypt all of the files that have been identified as secret
-  ```
+
+  ```sh
   $ blackbox_update_all_files
   ```
+
 4. commit and push the changes back to your central git repo
-  ```
+
+  ```sh
   $ git commit -a
   $ git push
   ```
