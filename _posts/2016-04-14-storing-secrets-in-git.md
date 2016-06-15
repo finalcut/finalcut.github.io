@@ -91,7 +91,7 @@ Blackbox will then encrypt the file using my public key (if there was more than 
 
 Typically, when I am working on the project I need to keep the file (and any other secret files) unencrypted.  In order to quickly decrypt all the files in the crypt I can just execute:
 
-`$ blackbox postdeploy`
+`$ blackbox_postdeploy`
 
 Unfortunately, you will be prompted for your gpg key passphrase for each file you've encrypted.  This is because we can't get gpg-agent that is compatiable with the gpg used by MinGW.  MinGW uses gpg v1.  You could installin GpG4Win but it comes with gpg-agent v2.x which is not compataible with MingGW's gpg.  Thus, even with GpG4Win you'll see a message that gpg-agent is not available in this session and you'll be prompted for your password for each file being decrypted.
 
