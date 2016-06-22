@@ -4,8 +4,8 @@ title: "Samsung Galaxy S7 Active Initial Impression"
 description:
 headline:
 date: 2016-06-22 15:06:26 -0400
-category: personal
-tags: []
+category: review
+tags: [android,samsung,galaxys7,s7]
 imagefeature:
 mathjax:
 chart:
