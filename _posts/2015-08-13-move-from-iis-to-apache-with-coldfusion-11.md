@@ -4,8 +4,8 @@ title: "Move from IIS to Apache with Coldfusion 11"
 description:
 headline:
 modified: 2015-08-13 10:00:25 -0400
-category: [coldfusion,apache]
-tags: [iis,apache]
+category: [development]
+tags: [iis,apache,coldfusion]
 imagefeature:
 mathjax:
 chart:

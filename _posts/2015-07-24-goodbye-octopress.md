@@ -4,7 +4,7 @@ title: "Goodbye Octopress Hello Jeckyll"
 description:
 headline:
 modified: 2015-07-24 17:09:53 -0400
-category: general
+category: personal
 tags: [octopress,jeckyll]
 imagefeature:
 mathjax:

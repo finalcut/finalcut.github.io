@@ -1,14 +1,14 @@
 ---
 layout: post
 title: "JSPM Bundling Options"
-description: 
+description:
 headline: i sho
 date: 2015-11-05 11:24:05 -0500
-category: javascript
-tags: [jspm,gulp,systemjs,bundle,bundle-sfx]
-imagefeature: 
-mathjax: 
-chart: 
+category: development
+tags: [jspm,gulp,systemjs,bundle,bundle-sfx,javascript]
+imagefeature:
+mathjax:
+chart:
 comments: true
 featured: false
 ---
@@ -37,7 +37,7 @@ angular.element(document).ready(function() {
 
 ```
 
-The app file is really where all the magic happens and where we import a bunch of other files.  The bundler goes through all of the imported files and figures out all of the dependencies (based on yet more imports) and eventually makes sense of it all and builds the final javascript file in such a way that all of the code is included in it in the correct order. 
+The app file is really where all the magic happens and where we import a bunch of other files.  The bundler goes through all of the imported files and figures out all of the dependencies (based on yet more imports) and eventually makes sense of it all and builds the final javascript file in such a way that all of the code is included in it in the correct order.
 
 This is pretty damn cool and powerful.  However, there is a problem.  The self-executing bundler can't handle projects with too many files and I ran into that limitation this week.  The error was pretty unclear and figuring out that it was caused by too many files too a few hours.  The bundle process seemed to work ok and the resulting file looked like it should work but it didn't and when the app tried to load angular wasn't defined.
 
@@ -62,7 +62,7 @@ Now I have two separate bundle tasks in my gulp file.  The first builds the depe
 
 ```js
 gulp.task('bundle', ['bundleDeps'], plugins.shell.task([
-  // this bundles all of the code we wrote and excludes anything 
+  // this bundles all of the code we wrote and excludes anything
   // in dependencies.js (which are all of our external dependencies)
   'jspm bundle src/app/app-bootstrap - tmp/scripts/dependencies.js ' + paths.tmp.scripts + 'build.js'
 ]));
@@ -81,7 +81,7 @@ The primary bundle task (`bundle`) now bundles the src/app/app-bootstrap tree bu
 I've mentioned bundle math a couple times.  You can tell I'm using it by the presence of the `-` in the commands.  The `-` means "exclude" this.  You can also use a `+` to explicitly include a dependency if you need to.
 
 At this point I'm pretty close to having everything working auto-magically for me both in development and on my build server that deploys to production.  However, there are still some missing pieces that are provided by some other gulp tasks.  Namely, `inject` and `usemin`.  I might cover those (and some "gotchas") in another post.
- 
+
 **BONUS COVERAGE**
 
 There is a problem with the way I'm doing things above - using the shell task I can't pipe things together quite as well as I could if `jspm bundle` were a native gulp plugin.  Fortunately, a plugin exists called [gulp-jspm-build](https://www.npmjs.com/package/gulp-jspm-build) which will do exactly what I need.  You can do both the self executing bundle and the standard bundle using this plugin.
@@ -169,6 +169,6 @@ Running the straight `jspm bundle` gives a much more verbose error message.  Typ
 For example, today I had a problem with the package `buffer@3.6.0`.  To fix it I had to delete the following:
 
 * jspm_packages/npm/buffer@3.60 (directory)
-* jspm_packages/npm/buffer@3.6.0.js 
+* jspm_packages/npm/buffer@3.6.0.js
 
 By deleting those two files and then re-installing I was able to run `gulp obundleDeps` fine and then, to make sure, I ran `gulp bundleDeps` and everything was working well.  It took me way to long to think of this solution to figuring out what was wrong so I wasted most of a day getting my build system working again.  Uggh! Hopefully this will save someone else some trouble.

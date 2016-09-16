@@ -3,8 +3,8 @@ layout: post
 title: "Coldfusion: Clear Current Users Client Variables"
 date: 2013-11-20 14:21
 comments: true
-category: [coldfusion]
-tags: [client variables]
+category: [development]
+tags: [client variables,coldfusion]
 ---
 **`Be warned, you can probably seriously bork things by messing around in the CDATA nand CGLOBAL tables!`
 `Proceed  with great care and at your own risk.  If you use this and it breaks it's your fault.`**

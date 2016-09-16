@@ -4,8 +4,8 @@ title: "Unlocking Your Blackbox Secrets with TeamCity on Windows"
 description:
 headline:
 date: 2016-04-14 16:59:53 -0400
-category: personal
-tags: []
+category: development
+tags: [security,encryption,utilities,ci]
 imagefeature:
 mathjax:
 chart:
@@ -122,10 +122,10 @@ $
 
 ## Exporting The Key to TeamCity
 
-Here we will deviate from the official instructions because we're on windows and we probably can't rsync to the TeamCity server.  But we do need to export the key to that machine. 
+Here we will deviate from the official instructions because we're on windows and we probably can't rsync to the TeamCity server.  But we do need to export the key to that machine.
 
 ```bat
-$ cd /tmp/TEAMCITY 
+$ cd /tmp/TEAMCITY
 $ gpg --homedir . --export -a ROLEUSER >/tmp/TEAMCITY/pubkey.txt
 $ tar cvf /tmp/keys.tar .
 $ mv /tmp/keys.tar ~/teamcity_keys.tar

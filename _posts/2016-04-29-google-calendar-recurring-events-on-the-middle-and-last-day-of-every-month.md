@@ -4,7 +4,7 @@ title: "Google Calendar Recurring Events on the Middle and Last Day of Every Mon
 description:
 headline:
 date: 2016-04-29 15:51:43 -0400
-category: personal
+category: utility
 tags: [calendar,ical]
 imagefeature:
 mathjax:

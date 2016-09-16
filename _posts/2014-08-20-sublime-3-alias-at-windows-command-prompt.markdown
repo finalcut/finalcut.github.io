@@ -3,8 +3,8 @@ layout: post
 title: "Sublime 3 alias at Windows Command Prompt"
 date: 2014-08-20 08:12
 comments: true
-category: general
-tags: [sublime,text-editor,windows,alias] 
+category: utility
+tags: [sublime,text-editor,windows,alias]
 ---
 
 **UPDATED 29 AUG 2014**

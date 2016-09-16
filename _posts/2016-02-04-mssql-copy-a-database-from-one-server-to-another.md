@@ -4,7 +4,7 @@ title: "MSSQL Copy a Database From One Server to Another"
 description:
 headline:
 date: 2016-02-04 13:32:13 -0500
-category: personal
+category: development
 tags: [mssql]
 imagefeature:
 mathjax:

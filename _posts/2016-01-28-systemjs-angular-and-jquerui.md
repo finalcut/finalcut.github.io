@@ -2,13 +2,13 @@
 layout: post
 title: "SystemJs Angular Jquery JqueryUi and Load Ordering"
 description: Getting Angular UI Sortable to work in an Angular app using JSPM and SystemJs
-headline: 
+headline:
 date: 2016-01-28 16:10:13 -0500
-category: personal
+category: development
 tags: [angular,jspm,jquery,jqueryui,angular-ui,angular-ui-sortable]
-imagefeature: 
-mathjax: 
-chart: 
+imagefeature:
+mathjax:
+chart:
 comments: true
 featured: false
 ---
@@ -55,7 +55,3 @@ System.config({
 The `meta` element was the key.  Fortunately, I am able to use the mapped name for angular-ui-sortable in meta.  
 
 There is a lot more in my `map` but I cut the rest out for simplicity.
-
-
-
-

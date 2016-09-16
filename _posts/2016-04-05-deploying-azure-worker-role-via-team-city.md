@@ -4,8 +4,8 @@ title: "Deploying Azure Worker Role via Team City"
 description:
 headline:
 date: 2016-04-05 08:48:18 -0400
-category: continuous-integration
-tags: [azure,teamcity,ci]
+category: development
+tags: [azure,teamcity,ci,continuous-integration]
 imagefeature:
 mathjax:
 chart:

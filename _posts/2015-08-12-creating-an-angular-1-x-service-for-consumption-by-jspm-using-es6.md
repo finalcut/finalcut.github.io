@@ -4,8 +4,8 @@ title: "Creating an Angular 1.x Service for Consumption by JSPM using ES6"
 description:
 headline:
 modified: 2015-08-12 19:18:32 -0400
-category: javascript
-tags: [angular,jspm,ecmascript6]
+category: development
+tags: [angular,jspm,ecmascript6,javascript]
 imagefeature:
 mathjax:
 chart:

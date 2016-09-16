@@ -3,8 +3,8 @@ layout: post
 title: "Tasker: Fall to Sleep to Music"
 date: 2013-08-29 20:35
 comments: true
-category: android
-tags: [tasker]
+category: personal
+tags: [tasker,android]
 ---
 Lately I've gotten in the habit of listening to music via some bluetooth speakers before I fall asleep.  I setup a very simple tasker profile that would turn the music off at a certain time but, really, that isn't sufficient.
 

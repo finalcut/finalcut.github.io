@@ -3,8 +3,8 @@ layout: post
 title: "Data Only Docker Container"
 date: 2014-08-18 10:23
 comments: true
-category: [docker,coldfusion]
-tags: [framework,fw1,coldspring,ioc,mxunit,unittest]
+category: [sysops]
+tags: [framework,fw1,coldspring,ioc,mxunit,unittest,docker,coldfusion]
 published: true
 ---
 This post is about creating a docker container that has data in it that other containers need to access.  You can use the exact same technique to connect a container that other containers would write to.  In this example I will just be reading from the data container.

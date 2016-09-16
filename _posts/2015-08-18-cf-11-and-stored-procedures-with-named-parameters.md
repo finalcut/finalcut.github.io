@@ -4,8 +4,8 @@ title: "CF 11 and Stored Procedures with Named Parameters"
 description:
 headline:
 date: 2015-08-18 08:42:53 -0400
-category: [coldfusion,sql]
-tags: [oracle,mssql]
+category: [development]
+tags: [oracle,mssql,coldfusion,sql]
 imagefeature:
 mathjax:
 chart:
