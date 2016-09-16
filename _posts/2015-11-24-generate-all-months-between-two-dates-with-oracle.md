@@ -4,7 +4,7 @@ title: "Generate All Months Between Two Dates with Oracle"
 description: using connect by and multiset to solve the tricky problem of finding all months between two dates in oracle.
 headline:
 date: 2015-11-24 09:34:19 -0500
-category: sql
+category: development
 tags: [oracle,multiset,cast,table,odcinumberlist,add_months,connectby]
 imagefeature:
 mathjax:

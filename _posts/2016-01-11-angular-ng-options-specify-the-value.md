@@ -4,7 +4,7 @@ title: "Angular ng-options Specify The Value"
 description:
 headline:
 date: 2016-01-11 11:15:21 -0500
-category: angular
+category: development
 tags: [angular1.x,angular,ngoptions,javascript]
 imagefeature:
 mathjax:
