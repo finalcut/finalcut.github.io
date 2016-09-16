@@ -1,14 +1,14 @@
 ---
 layout: post
 title: "SystemJS and Internet Explorer"
-description: 
-headline: 
+description:
+headline:
 date: 2016-01-28 16:38:52 -0500
-category: personal
+category: development
 tags: []
-imagefeature: 
-mathjax: 
-chart: 
+imagefeature:
+mathjax:
+chart:
 comments: true
 featured: false
 ---
@@ -59,4 +59,3 @@ gulp.task('copyStuff',function(){
 Once the system-polyfills.js path was added to paths.app.configScripts it was put in the correct location on the built side of things.  Then, when SystemJs injected it's own script tag to point to system-polyfills.js the file was actually there when it was requested by the browser.
 
 Basically, just make sure system-polyfills.js is in the same directory as system.js on your deployed site and SystemJs will work as expected in IE.
-
