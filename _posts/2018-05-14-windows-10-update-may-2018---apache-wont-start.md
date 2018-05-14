@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Windows 10 Update May 2018 - Apache Wont Start"
-description: 
+description: Windows 10 May 2018 Update stopped Apache start.  The fix is simple!
 headline: 
 date: 2018-05-14 09:23:25 -0400
 category: windows,development
