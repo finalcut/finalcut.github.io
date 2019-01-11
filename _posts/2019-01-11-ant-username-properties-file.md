@@ -17,19 +17,18 @@ I have an ant build file that loads custom configuration settings based on the d
 Before importing the properties file I have the following ant logic near the top of the build file:
 
 ```ant
-	<loadresource property="username">
-		<propertyresource name="user.name"/>
-		<filterchain>
-			<tokenfilter>
-				<filetokenizer/>
-				<replaceregex pattern=".*\\" replace="" />
-			</tokenfilter>
-		</filterchain>
-	</loadresource>
+    <loadresource property="username">
+        <propertyresource name="user.name"/>
+        <filterchain>
+            <tokenfilter>
+                <filetokenizer/>
+                <replaceregex pattern=".*\\" replace="" />
+            </tokenfilter>
+        </filterchain>
+    </loadresource>
 
-	<import file="base_build.xml" />
+    <import file="base_build.xml" />
     <property file="${username}.properties" />
-
 ```
 
 
