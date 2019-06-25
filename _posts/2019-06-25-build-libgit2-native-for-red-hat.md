@@ -12,15 +12,15 @@ Today I was trying to deploy a project that uses dotnet core to a Red Hat Enterp
 To be frank, I don't know anything about building stuff on a linux box.  So I did a bunch of digging and looking around and running into problems until I came up with this short and relatively easy solution to the problem.
 
 ```sh
--- install the tools
+# install the tools
 sudo yum install git cmake powershell gcc gcc-c++ glibc-static openssl-devel
--- checkout the repository
+# checkout the repository
 git clone --recursive https://github.com/libgit2/libgit2sharp.nativebinaries
--- move into the repo directory
+# move into the repo directory
 cd libgit2sharp.nativebinaries
--- run the powershell script to change to the correct commit hash specified by libgit2sharp
+# run the powershell script to change to the correct commit hash specified by libgit2sharp
 pwsh UpdateLibgit2ToSha.ps1 572e4d8
--- build it.
+# build it.
 ./build.libgit2.sh
 ```
 
