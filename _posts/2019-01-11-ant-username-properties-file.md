@@ -1,14 +1,10 @@
 ---
 layout: post
 title: "Ant Properties File Based on Windows Username"
-description: If you login with a azure active directory account to a windows machien your username will contain a slash and ant cant handle that.  Here is the fix.
-headline: 
-date: 2018-05-14 09:23:25 -0400
+description: "If you login with a azure active directory account to a windows machien your username will contain a slash and ant cant handle that.  Here is the fix."
+date: 2018-05-14
 category: windows,development
-tags: []
-imagefeature: 
-mathjax: 
-chart: 
+tags: [windows,development]
 comments: true
 featured: false
 ---
