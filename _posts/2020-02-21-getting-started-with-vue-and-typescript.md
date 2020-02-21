@@ -132,7 +132,7 @@ Next, change `/src/App.vue` to be this simple bit of code.
 <!-- single file component; has template at the top, and logic/script at the bottom -->
 <template>
   <div id="main">
-    <h1>{{ AppTitle }}</h1>
+    <h1>{% raw %}{{ AppTitle }}{% endraw %}</h1>
   </div>
 </template>
 <script lang="ts">
@@ -146,8 +146,10 @@ import { Component, Vue } from 'vue-property-decorator'
 })
 
 export default class extends Vue {
+  {% raw %}
   // this is a property getter.  Typescript lets us say what type of
   // value will be returned (string).  It's used up in the template as {{ AppTitle }}
+  {% endraw %}
   get AppTitle (): string { return 'lootly' }
 }
 </script>
