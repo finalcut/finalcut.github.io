@@ -81,7 +81,7 @@ The `-d` flag means use all the default answers for things.  I don't know what o
 
 Once you run it go get a drink or something - it takes a while.  My corporate network is particulary bad so I'm going to take a nap.
 
-Once it is done you can cd into the `lootly` directory and type `npm run serve` and you'll have a working vue website.  It isn't much, but it's a start.  You can edit files and it will "hot-reload" the page you open at http://localhost:8080.  So keep it running and we'll see what happens.  Basically, your current project will look just like this [commit](https://github.com/finalcut/vue-lootly/tree/eb86dc6380e2aa29f917072decd1b6cf05631d5a)
+Once it is done you can cd into the `lootly` directory and type `npm run serve` and you'll have a working vue website.  It isn't much, but it's a start.  You can edit files and it will "hot-reload" the page you open at http://localhost:8080.  So keep it running and we'll see what happens.  Basically, your current project will look just like this [commit](https://github.com/finalcut/vue-lootly/tree/1aae4316b1f99384b4a482af116012476b607264)
 
 ### Quick Overview of the Structure
 
@@ -102,7 +102,7 @@ In addition to the directories there are a few files:
 
 The next steps are going to be some housecleaning.  Like I said, I don't know what my initial settings where when I did this before so I have kind of figured out what I have to do on the fly to reproduce the initial project state.
 
-First you need to update your package.json - use this [commit](https://github.com/finalcut/vue-lootly/commit/2084baba56a50180d233657a2d682eed3b481203) to see the differences.  After you update your package.json you'll need to run.
+First you need to update your package.json - use this [commit](https://github.com/finalcut/vue-lootly/commit/2c7c45c65a6017f8fffa7e833dba1156537598df) to see the differences.  After you update your package.json you'll need to run.
 
 ```sh
 npm install
@@ -110,7 +110,7 @@ npm install
 
 This will take a bit of time and pull in the rest of the dependencies.  Note, not only did I add a bunch of other dependencies I also removed a section from the file for eslint.  I prefer to have that in it's own config file; it just makes more sense to me that way.  The eslint files `.eslintrc.js` and `.eslintignore` are in the same commit as the updated package.json; so feel free to copy them as well.
 
-There are a few other files I ended up needing/wanting so here they are.  Again, you can probably just [copy these from my repository](https://github.com/finalcut/vue-lootly/tree/efb839f7ed3038e4954e46f1af0fb3647347a961).
+There are a few other files I ended up needing/wanting so here they are.  Again, you can probably just [copy these from my repository](https://github.com/finalcut/vue-lootly/tree/63d55585cb24e20003aa0a8242564326960c5519).
 
 ```sh
 # babel is a translator, this file tells babel how to do it's magic
@@ -175,7 +175,7 @@ new Vue({
 }).$mount('#app')
 ```
 
-You can [see the entire appliation, as it stands now, at this commit point](https://github.com/finalcut/vue-lootly/commit/e7416fa33df745d81fc5f29fa6c69c516c82039f).
+You can [see the entire appliation, as it stands now, at this commit point](https://github.com/finalcut/vue-lootly/tree/d09593e1c2bf560756be069735ec77f1984df378).
 
 ## Conclusion
 
