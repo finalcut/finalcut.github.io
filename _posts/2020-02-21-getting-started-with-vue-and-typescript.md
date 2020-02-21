@@ -71,7 +71,7 @@ There is also a ui for all of this - `vue ui` which I think just puts a pretty w
 
 ## Lets Create a Project
 
-For these posts I'm going to actually create a project as I go.  I'm going to call it vue-blog and I'll have the entire thing put up on my github.  To get started with this I went to a directory I wanted to work in and entered:
+For these posts I'm going to actually create a project as I go.  I'm going to call it lootly and I'll have the entire thing put up on my github.  To get started with this I went to a directory I wanted to work in and entered:
 
 ```sh
 vue create -d lootly
