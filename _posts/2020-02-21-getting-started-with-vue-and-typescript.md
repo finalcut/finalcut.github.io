@@ -21,13 +21,13 @@ I'm probably doing stuff wrong.  I'm probably using some anti-patterns.  I'm not
 
 As I go through these posts I'm going to be building an actual project.  I'll be doing very non-atomic commits in git - meaning that I won't commit each little change; instead I'll commit at key points in the series and link to those commits so you can see the code at that point.
 
-This project is going to be something I've built before - about 15 years ago - in Coldfusion!  It's called lootly.  Basically, it lets you track some things you own; like books, cds, video games, tools, etc, and lend them to friends.  We're not going to actually add user authentication or some of the lending/borrowing functionality.  Instead, we'll just have the one user (me) at the moment and the inventory capture.
+This project is going to be something I've built before - about 15 years ago - in Coldfusion!  It's called lootly.  Basically, it let's you track some things you own; like books, cds, video games, tools, etc, and lend them to friends.  We're not going to actually add user authentication or some of the lending/borrowing functionality.  Instead, we'll just have the one user (me) at the moment and the inventory capture.
 
 So our models will be, at a mininum; account, book, videogame, boardgame, tool, movie, album, cd when we are done.  All of these except account will implement some common interfaces (ILoanable for instance) and maybe some others.  I didn't have some of these cool programming tricks available to me with Coldfusion 4.7 or whatever it was back then so I'll be figuring out some of this as I go.
 
 ## Tools, Tools, and More Tools
 
-Before we get into using Vue - lets talk about tooling.  I am using Visual Studio Code as my editor for this project.  The Vue tools for it are pretty solid and will help us avoid all sorts of little gotchas!
+Before we get into using Vue - let's talk about tooling.  I am using Visual Studio Code as my editor for this project.  The Vue tools for it are pretty solid and will help us avoid all sorts of little gotchas!
 
 ### Visual Studio Code Extensions
 
@@ -69,7 +69,7 @@ Pay attention; even though I'm working with VUE 2 - the Vue Cli version I'm oper
 
 There is also a ui for all of this - `vue ui` which I think just puts a pretty wrapper on the vue cli.   I'm not going to go through all of the UI stuff.
 
-## Lets Create a Project
+## Let's Create a Project
 
 For these posts I'm going to actually create a project as I go.  I'm going to call it lootly and I'll have the entire thing put up on my github.  To get started with this I went to a directory I wanted to work in and entered:
 
@@ -147,7 +147,7 @@ import { Component, Vue } from 'vue-property-decorator'
 
 export default class extends Vue {
   {% raw %}
-  // this is a property getter.  Typescript lets us say what type of
+  // this is a property getter.  Typescript let's us say what type of
   // value will be returned (string).  It's used up in the template as {{ AppTitle }}
   {% endraw %}
   get AppTitle (): string { return 'lootly' }
