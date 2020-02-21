@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Getting Started with VueJs 2 and Typescript"
-date: 2020-02-20
+date: 2020-02-21
 category: Programming
 tags: [vue,typescript]
 comments: true
