@@ -61,13 +61,13 @@ I really like lint. It keeps things "clean". However, the rules can still be rea
 }
 ```
 
-## Install the Vue Cli
+## Install the Vue cli
 
-Install the [Vue CLI](https://cli.vuejs.org/guide/installation.html) - it will make your life eaiser in the long run.  Trust me.  I tried the `npm install vue` option, but quite frankly I floundered around a bit trying to translate my outdated Angular 1.x (that I hadn't touched for a year) into Vue setup/build/packaging and gave up.   The Vue Cli makes everything pretty easy.  This [link](https://cli.vuejs.org/guide/installation.html) takes you right to the installation instructions.
+Install the [Vue cli](https://cli.vuejs.org/guide/installation.html) - it will make your life eaiser in the long run.  Trust me.  I tried the `npm install vue` option, but quite frankly I floundered around a bit trying to translate my outdated Angular 1.x (that I hadn't touched for a year) into Vue setup/build/packaging and gave up.   The Vue cli makes everything pretty easy.  This [link](https://cli.vuejs.org/guide/installation.html) takes you right to the installation instructions.
 
-Pay attention; even though I'm working with VUE 2, the Vue Cli version I'm operating with is 4.1.1 - version numbers for Vue aren't consistent across all "vue related things." That makes sense if you think about it, but I can imagine it might confuse some people.
+Pay attention; even though I'm working with VUE 2, the Vue cli version I'm operating with is 4.1.1 - version numbers for Vue aren't consistent across all "vue related things." That makes sense if you think about it, but I can imagine it might confuse some people.
 
-There is also a UI for all of this - `vue ui`, which I think just puts a pretty wrapper on the Vue VLI.   I'm not going to go through all of the UI stuff.
+There is also a UI for all of this - `vue ui`, which I think just puts a pretty wrapper on the Vue cli.   I'm not going to go through all of the UI stuff.
 
 ## Let's Create a Project
 
@@ -85,41 +85,41 @@ Once it is done you, can cd into the `lootly` directory and type `npm run serve`
 
 ### Quick Overview of the Structure
 
-When the CLI finishes you end up with three primary folders inside your project folder:
+When the cli finishes you end up with three primary folders inside your project folder:
 
-* node_modules - you'll never really have to navigate around in there.  Node uses those, and the modules that exist in there are all defined in the package.json file that is in the root directory of your project.
-* public - has just a couple files.  These serve as the "wrapper" to your cool Vue application.  Don't muck with these yet.
-* src - here is where the Vue code you'll be writing goes.  We'll spend most of our time in there.
+* **node_modules** - you'll never really have to navigate around in there.  Node uses those, and the modules that exist in there are all defined in the package.json file that is in the root directory of your project.
+* **public** - has just a couple files.  These serve as the "wrapper" to your cool Vue application.  Don't muck with these yet.
+* **src** - here is where the Vue code you'll be writing goes.  We'll spend most of our time in there.
 
 In addition to the directories, there are a few files:
 
-* .gitignore - used by git.  If you don't know what that is, it's beyond the scope of this, sorry. In short, though, this file tells git which files to ignore.
-* babel.config.js - babel in essence converts all the cutting edge language stuff we might do in Javascript or Typescript and converts it to plain old Javascript that will work in all the modern browsers.  It's awesome.  This file tells babel some rules it needs to know.
-* package-lock.json - don't touch this file.  Seriously.  It is created by npm and managed by it. If you muck around with it you might cause yourself some grief.  You can delete it, but the next time you build it will come back.
-* package.json - lots of import configurations and all of our external dependencies are defined here.  The ESLint rules are also in here and, while they can stay in there, I'm not a huge fan of that, so I'll be moving those into their own file.  We'll get into that in the next section.
+* **.gitignore** - used by git.  If you don't know what that is, it's beyond the scope of this, sorry. In short, though, this file tells git which files to ignore.
+* **babel.config.js** - babel in essence converts all the cutting edge language stuff we might do in Javascript or Typescript and converts it to plain old Javascript that will work in all the modern browsers.  It's awesome.  This file tells babel some rules it needs to know.
+* **package-lock.json** - don't touch this file.  Seriously.  It is created by npm and managed by it. If you muck around with it you might cause yourself some grief.  You can delete it, but the next time you build it will come back.
+* **package.json** - lots of import configurations and all of our external dependencies are defined here.  The ESLint rules are also in here and, while they can stay in there, I'm not a huge fan of that, so I'll be moving those into their own file.  We'll get into that in the next section.
 
 ## Some Initial Tweaks
 
-The next steps are going to be some housecleaning.  Like I said, I don't know what my initial settings were when I did this before, so I have kind of figured out what I have to do on the fly to reproduce the initial project state.
+The next steps are going to be some house cleaning.  Like I said, I don't know what my initial settings were when I did this before, so I have kind of figured out what I have to do on the fly to reproduce the initial project state.
 
-First, you need to update your package.json - use this [commit](https://github.com/finalcut/vue-lootly/commit/2c7c45c65a6017f8fffa7e833dba1156537598df) to see the differences.  After you update your package.json you'll need to run.
+First, you need to update your package.json - use this [commit](https://github.com/finalcut/vue-lootly/commit/2c7c45c65a6017f8fffa7e833dba1156537598df) to see the differences.  After you update your package.json you'll need to run the following command:
 
 ```sh
 npm install
 ```
 
-This will take a bit of time to pull in the rest of the dependencies.  Note, not only did I add a bunch of other dependencies, I also removed a section from the file for eslint.  I prefer to have that in it's own config file; it just makes more sense to me that way.  The eslint files `.eslintrc.js` and `.eslintignore` are in the same commit as the updated package.json, so feel free to copy them as well.
+This will take a bit of time to pull in the rest of the dependencies.  **Note**, not only did I add a bunch of other dependencies, I also removed a section from the file for eslint.  I prefer to have that in it's own config file; it just makes more sense to me that way.  The eslint files `.eslintrc.js` and `.eslintignore` are in the same commit as the updated package.json, so feel free to copy them as well.
 
 There are a few other files I ended up needing/wanting, so here they are.  Again, you can probably just [copy these from my repository](https://github.com/finalcut/vue-lootly/tree/63d55585cb24e20003aa0a8242564326960c5519).
 
 ```sh
-# babel is a translator, this file tells babel how to do it's magic
+# babel is a translator, this file tells babel how to do it's magic. I changed this from its default.  I'm not sure it was necessary
 /babel.config.js
-# this is super important since we're using typescript.  One setting that I had to tweak was  "experimentalDecorators" which I set to "true".
+# this is super important since we're using typescript.  One setting that I had to tweak was  "experimentalDecorators" which I set to "true".  REQUIRED for the rest of the project
 /tsconfig.json
-# this is where you can configure webpack (how vue deploys things) as well as some extra rules for your development process.
+# this is where you can configure webpack (how vue deploys things) as well as some extra rules for your development process. REQUIRED
 /vue.config.js
-# these shim files help typescript understand various types.
+# these shim files help typescript understand various types.  These are REQUIRED for the rest of the project
 /src/shims-tsx.d.ts
 /src/shims-vue.d.ts
 ```
