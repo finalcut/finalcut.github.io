@@ -65,7 +65,7 @@ I really like lint. It keeps things "clean". However, the rules can still be rea
 
 Install the [Vue CLI](https://cli.vuejs.org/guide/installation.html) - it will make your life eaiser in the long run.  Trust me.  I tried the `npm install vue` option, but quite frankly I floundered around a bit trying to translate my outdated Angular 1.x (that I hadn't touched for a year) into Vue setup/build/packaging and gave up.   The Vue Cli makes everything pretty easy.  This [link](https://cli.vuejs.org/guide/installation.html) takes you right to the installation instructions.
 
-Pay attention; even though I'm working with VUE 2, the Vue Cli version I'm operating with is 4.1.1 - version numbers for Vue aren't consistent across all "vue related things." That makes sense if you think about it,but I can imagine it might confuse some people.
+Pay attention; even though I'm working with VUE 2, the Vue Cli version I'm operating with is 4.1.1 - version numbers for Vue aren't consistent across all "vue related things." That makes sense if you think about it, but I can imagine it might confuse some people.
 
 There is also a UI for all of this - `vue ui`, which I think just puts a pretty wrapper on the Vue VLI.   I'm not going to go through all of the UI stuff.
 
