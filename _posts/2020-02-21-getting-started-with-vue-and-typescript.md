@@ -161,7 +161,6 @@ And finally, you'll need to make tweaks to the `/src/main.js` file:
 
 1. rename it to main.ts - this identifies it as a typescript file
 2. edit the main.js file and remove the comma on line 7
-3. update line 2 to change the . to an @
 
 main.ts should look like this
 
