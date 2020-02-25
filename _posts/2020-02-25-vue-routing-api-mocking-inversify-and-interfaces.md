@@ -89,8 +89,7 @@ Next, start the JSON Server so you can visit that endpoint:
 npm run api
 ```
 
-At this point you can hit the API in your browser at http://localhost:3001/books  - If you don't have the `--port 3001` part of the command JSON server defaults to 3000
-
+At this point you can hit the API in your browser at [http://localhost:3001/books](http://localhost:3001/books)  - If you don't have the `--port 3001` part of the command JSON server defaults to 3000
 
 ## Our First Service and Axios
 
@@ -172,7 +171,7 @@ export default function buildDependencyContainer (): void {
 }
 ```
 
-Wow, we've actually done quite a bit already.  Let's make sure it all compiles and loads properly by entering `npm run serve` at the command line in the root of your project.  If all goes well you can launch the site at http://localhost:8080.  Sure, we didn't change what it's doing yet - but we know the dependency container loaded properly.
+Wow, we've actually done quite a bit already.  Let's make sure it all compiles and loads properly by entering `npm run serve` at the command line in the root of your project.  If all goes well you can launch the site at [http://localhost:8080](http://localhost:8080).  Sure, we didn't change what it's doing yet - but we know the dependency container loaded properly.
 
 ## Flush out the Service and the API a smidge
 
@@ -342,7 +341,6 @@ and in the `template`:
 
 At this point you may get some things that don't work.  That is becuase we introduced some values in the `.env.development` file earlier.  But, becuase the server was already running via `npm run serve` those changes were never picked up.  We need to kill the app and then restart it. Find the terminal you started the app in and hit CTRL+C then reenter `npm run serve`
 
-
 ## Reflect.hasOwnMetadata is not a function
 
 An error has arisen in the console in your browser.  This is a sneaky problem and I've made it happen on purpose.  If you look in `app.container.ts` we are `import 'reflect-metadata'` which seems like it should fix this problem.
@@ -376,7 +374,7 @@ For instance, if you put your `<book>` component in the `App.vue` template incor
     </v-content>
 ```
 
-Note, `v-container` is a self-closing tag.  SO the <div> you put the book in won't appear at all.
+Note, `v-container` is a self-closing tag.  SO the `<book>` tag you in won't appear at all.
 
 Instead change that snippet to:
 
