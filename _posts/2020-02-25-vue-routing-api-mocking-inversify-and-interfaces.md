@@ -406,3 +406,5 @@ Now the header will say **Lootly (Dev)**
 In this phase we tied a lot of things together.  We've added a service, an implementation of the service, a model interface, a mock api that implements the model interface, a component that displays the model, and we've used that component as a new `html` tag of `book`!
 
 Overall, that's a pretty good day.  In the next article we'll look at making some of our code more reusable with the help of generics and inheiritance.
+
+You can see [the state of the projects code, at this point, on github](https://github.com/finalcut/vue-lootly/commit/898bfaf770ecfa32a7a369a7c39da0370bb8dc51)
