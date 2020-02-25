@@ -7,7 +7,7 @@ tags: [vue,typescript]
 comments: true
 featured: true
 ---
-This is a daunting first post in the [series](http://code.rawlinson.us/2020/02/introducing-a-series-on-vue-js.html), but I made the promise, so it's time to get started.
+This is a daunting first post in the [series](/2020/02/introducing-a-series-on-vue-js.html), but I made the promise, so it's time to get started.
 
 This is written from the perspective of someone who hasn't done anything with Vue.  I won't be comparing things with how you'd do it in Javascript; I literally just dove in with no idea what I was doing and this is how I came out on the other side.
 

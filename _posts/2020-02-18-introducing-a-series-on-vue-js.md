@@ -9,8 +9,8 @@ featured: true
 ---
 In the past month and a half I've taken a rapid and deep dive into [VueJs version 2](https://vuejs.org/v2/guide/).  I didn't really know anything about the framework when I started nor did I know anything about the surrounding ecosystem.  Needless to say I still have a lot to figure out but it has been a pretty productive 45 days.  In the coming days I will be writing about the following topics.
 
-1. [Getting started with VueJs and Typescript](http://code.rawlinson.us/2020/02/getting-started-with-vue-and-typescript.html)
-2. Material Design using Veutify and Dependency Injection using Inversify
+1. [Getting started with VueJs and Typescript](/2020/02/getting-started-with-vue-and-typescript.html)
+2. [Material Design using Veutify and Dependency Injection using Inversify](/2020/02/vue-material-design-and-dependency-injection.html)
 3. Custom Routes, Mocking your API with JsonServer, and Interfaces, Oh My!
 4. Vuex (Modules) with Typescript and Inversify
 5. Vue Mixins and why I love them
