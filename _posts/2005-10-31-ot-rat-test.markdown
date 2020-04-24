@@ -7,9 +7,10 @@ category: general
 ---
 I found this post today via another blog (Mac OSX Code i think) and while it
 doesn't relate directly to CF or development I thought it was interesting
-enough to share the link:  
+enough to share the link:
 
-<http://productivity.strategy-blogs.com/2005/10/the_rat_experim.html>
+http://www.productivity501.com/the-rat-experiment/30/
+
 
 ## Comments
 
@@ -18,7 +19,7 @@ Anonymous
 I don't remember the source, but I heard about an experiment where they did
 this with teachers. They told them that half of the class was gifted and the
 other half was normal even though everyone in the class was the same. The
-teachers consistently graded the "gifted" students better.  
+teachers consistently graded the "gifted" students better.
 
 Thanks for linking to that post of mine. The new url for the site is
 http://www.productivity501.com, but the old links should transfer through for
