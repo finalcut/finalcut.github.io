@@ -3,10 +3,21 @@ layout: post
 title: "Setting Up Keyoxide Profile on a Mac!"
 date: 2022-11-08
 category: General
-tags: [identity,encryption,mac,gpg]
+tags: [identity,encryption,mac,gpg,reddit,twitter,mastodon,hackernews,github]
 comments: true
 featured: true
 ---
+
+# Preface
+This guide will help you validate your account between Keyoxide and the following:
+
+  1. [Mastodon](#mastodon)
+  2. [Reddit](#reddit)
+  3. [Github](#github)
+  4. [Twitter](#twitter)
+  5. [Hackernews](#hackernews)
+
+There are small niggles to get some working so I'm only covering the way I got each to work.
 
 # Introduction
 As folks are moving from #Twitter to #Mastodon or other options one topic seems to be popping up - validation.  On Twitter those *used* to be the blue checks.  But, since you can pay for a mark now it is meaningless.  The question that arises then is how can you validate someone is who they say they are.  Mastodon uses a system called Keyoxide.  It's kind of neat but it's also kind of complicated and the "getting started" guide left me a little disappointed.
@@ -54,7 +65,7 @@ I saved mine under the name of `keyoxide gpg keypair` with a username of my emai
 
 I have verified a few accounts now; mastodon (my instance is hachyderm.io), reddit, twitter, and github.  I'll give you some tips here on how to get these things all done.  Lets start with mastodon.
 
-## Mastodon (activitypub)
+## Mastodon
 Mastdodon is an implemention of activitypub.  So when you validate this one keyoxide will reflect it as "activitypub"  Here are the key tricks.
 
 ### Within Mastodon Instance - Editing your Profile
