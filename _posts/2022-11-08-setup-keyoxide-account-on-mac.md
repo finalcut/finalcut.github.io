@@ -96,11 +96,11 @@ Use the email address you used when creating the key.  Again, make sure you can 
 
 Next:
 
-1. visit https://keys.openpgp.org/upload
+1. visit [https://keys.openpgp.org/upload](https://keys.openpgp.org/upload)
 2. upload your publkey.asc file
 3. Once it finishes (it finishes fast) visit https://keyoxide.org/FINGERPRINT (replace fingerprint)
 4. You'll see your profile and an entry for `activitypub` that should have a green checkmark.
-5. Go to your mastodon account profile page like https://hachyderm.io/@finalcut and you'll see your metadata of "keyoxide" is green with a checkmark.
+5. Go to your mastodon account profile page like [https://hachyderm.io/@finalcut](https://hachyderm.io/@finalcut) and you'll see your metadata of "keyoxide" is green with a checkmark.
 
 Congrats, you've verified your account on your mastodon instance.
 
@@ -145,7 +145,7 @@ This is pretty straight forward except the format is specific.  You're just goin
 
 NOTE: all text before the word `key:` is basically whatever you want but once you put in the text `key:` you then need a space and your FINGERPRINT and then the closing square bracket.
 
-Once you post the tweet twitter gives you a link to "view" the tweet.  Click that so you are at your tweet and you can copy the URL of the specific tweet.  Like this: https://twitter.com/finalcut/status/1590009400579993601
+Once you post the tweet twitter gives you a link to "view" the tweet.  Click that so you are at your tweet and you can copy the URL of the specific tweet.  Like this: [https://twitter.com/finalcut/status/1590009400579993601](https://twitter.com/finalcut/status/1590009400579993601)
 
 ### Within GPG - Claim your Twitter Profile
 
@@ -194,6 +194,33 @@ save
 
 If you want you can [upload your key](#Upload_your_Key) again and then wait a bit and you'll see the reddit part of your keyoxide profile get verified.
 
+## Hackernews
+
+hackernews news a little care.  I had my keybase validation in there already so I removed it for this purpose.  I don't know if it would work with both.
+
+## Within Hackernews
+
+Go to your hackernews profile page.. something like [https://news.ycombinator.com/user?id=finalcut](https://news.ycombinator.com/user?id=finalcut) (change finalcut to your username).  You need to add text that matches the message format with your FINGERPRINT:
+
+```sh
+[put whatever message you want here key: FINGERPRINT]
+```
+
+NOTE: all text before the word `key:` is basically whatever you want but once you put in the text `key:` you then need a space and your FINGERPRINT and then the closing square bracket.
+
+### Within GPG - Claim your Hackernews Profile
+
+All of these commands will be done at the terminal. Wherever you see FINGERPRINT replace it with your key fingerprint.  I told you you'd need this value.  Lines preceded by a `#` are comments to guide you; you don't have to type those.
+
+```sh
+gpg --edit-key FINGERPRINT
+uid 1
+notation
+# replace URL_TO_YOUR_HN_PROFILE with your hackernews profile url
+proof@ariadne.id=https://URL_TO_YOUR_HN_PROFILE
+# you'll provably have to enter your password for the key here
+save
+```
 ## Final Key Upload
 
 If you haven't yet - then you should definitely [upload your key](#Upload_your_Key).  You've put up to four different identities into it and once you upload it keyoxide will match the values in there with the posts/tweets/metadata/gists and verify you own each of those accounts by making sure the content at those match the formats specified.
