@@ -20,8 +20,8 @@ owner:
   description:    I write code, play sports, and occassionaly brew beer.
   # Social networking links used in footer. Update and remove as you like.
   twitter:        finalcut
-  facebook:       bill.rawlinson
   github:         finalcut
+  mastodon:       https://hachyderm.io/@finalcut
   instagram:      _finalcut_
   # For Google Authorship https://plus.google.com/authorship
   google_plus:    https://plus.google.com/u/0/+BillRawlinson
