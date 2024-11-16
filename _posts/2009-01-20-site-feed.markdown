@@ -1,0 +1,18 @@
+---
+layout: post
+title: "Site Feed"
+date: 2009-01-20
+comments: false
+categories:
+ - meta
+---
+I just updated the sites feed to be published by feedburner instead of the
+normal blogspot feed. This shouldn't have any impact on my few (if any)
+subscribers but I thought I should give a heads up.  
+  
+I'm also including, at least as a temporary trial, google adsense in the new
+feed. If it seems like a pain in the ass or is too distracting, or if my few
+(if any) readers complain about it then I'll remove it.  
+  
+Sorry for this totally meta post.
+
