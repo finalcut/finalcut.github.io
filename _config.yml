@@ -34,6 +34,8 @@ paginate: 5
 # theme: minimal-mistakes-jekyll
 remote_theme: mmistakes/minimal-mistakes
 minimal_mistakes_skin: "dirt" #"default", "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+logo: "/assets/images/wmr.jpg"
+
 
 include:
   - _pages
