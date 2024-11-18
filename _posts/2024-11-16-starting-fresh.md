@@ -2,7 +2,6 @@
 layout: single
 title: "Starting Fresh"
 intro:
-date: 2024-11-16
 category: blogging
 tags: [personal]
 comments: false
