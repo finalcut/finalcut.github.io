@@ -3,7 +3,7 @@ layout: single
 title: "Goodbye Known"
 intro:
 category: blogging
-tags: [personal]
+tags: [website,github-pages]
 comments: false
 featured: false
 ---

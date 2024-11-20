@@ -3,7 +3,7 @@ layout: single
 title: "Starting Fresh"
 intro:
 category: blogging
-tags: [personal]
+tags: [website,github-pages]
 comments: false
 featured: false
 ---
