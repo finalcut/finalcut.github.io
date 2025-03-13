@@ -20,6 +20,7 @@
 
 title: Bills Bits
 subtitle: Typically short form posts about things I find interesting.
+domain: code.rawlinson.us
 email: bill@rawlinson.us
 description: >- # this means to ignore newlines until "baseurl:"
   Random thoughts on many things
