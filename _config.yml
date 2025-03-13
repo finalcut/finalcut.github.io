@@ -19,30 +19,31 @@
 # in the templates via {{ site.myvariable }}.
 
 title: Bills Bits
-subtitle: Typically short form posts about things I find interesting.
-domain: code.rawlinson.us
 email: bill@rawlinson.us
 description: >- # this means to ignore newlines until "baseurl:"
   Random thoughts on many things
+twitter_username:
+github_username:  finalcut
+minimal_mistakes_skin: "dirt" #"default", "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+search: true
+
+# other stuff
+subtitle: Typically short form posts about things I find interesting.
+domain: code.rawlinson.us
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://code.rawlinson.us" # the base hostname & protocol for your site, e.g. http://example.com
 repository: finalcut/finalcut.github.io
-twitter_username:
-github_username:  finalcut
 
 # Build settings
 # remote_theme: pages-themes/merlot@v0.2.0
-# theme: minimal-mistakes-jekyll
-remote_theme: mmistakes/minimal-mistakes
-minimal_mistakes_skin: "dirt" #"default", "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
-logo: "/assets/images/wmr.jpg"
-
-# Build settings
+#theme: minimal-mistakes-jekyll
 markdown: kramdown
+remote_theme: mmistakes/minimal-mistakes
 # Outputting
 permalink: /:categories/:title/
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
+logo: "/assets/images/wmr.jpg"
 timezone: America/New_York
 
 include:
@@ -70,9 +71,16 @@ author:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/finalcut"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://www.instagram.com/_finalcut_/"
+
+
+footer:
+  links:
+    - label: "BlueSky"
+      icon: "fa-brands fa-bluesky"
+      url: "https://bsky.app/profile/rawlinson.us"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/finalcut"
 
 
 defaults:
