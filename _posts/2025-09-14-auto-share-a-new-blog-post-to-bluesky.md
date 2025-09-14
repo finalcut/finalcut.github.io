@@ -23,7 +23,7 @@ Things not working great yet:
 
 
  - [ ] Im dumb?
- - [ ] post too long with AI
+ - [ ] post too long with AI  (tried ai to 250 adn 220.. now 200)- actually im dumb and was using the wrong var
  - [x] AI not generating post text 
  - [x] using wrong ai model? or Im not setting permissions? IT WAS PERMISSIONS
  - [ ] bluesky post step not returning the url to bsky
