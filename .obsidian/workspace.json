@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "08142e4724a5c460",
+        "id": "bce878fcabc3adb6",
         "type": "tabs",
         "children": [
           {
-            "id": "430a7c5f3f2ab653",
+            "id": "71f575fd8793e169",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "_posts/2015-07-27-ruby-round-robin-scheduling.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "2015-07-27-ruby-round-robin-scheduling"
+              "title": "New tab"
             }
           }
         ]
@@ -181,22 +177,25 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "430a7c5f3f2ab653",
+  "active": "71f575fd8793e169",
   "lastOpenFiles": [
+    "_extras/templates/post.md",
+    "_posts/2025-09-14-regal-devil.md",
+    "assets/images/devil-caterpiller-top-down.png",
+    "assets/images/devil-caterpiller-face.png",
+    "_extras/posts.md",
+    "_posts/2015-10-11-rules-of-the-game-strictly-volleypong.md",
+    "_posts/2015-07-27-ruby-round-robin-scheduling.md",
     "_posts/2016-04-29-google-calendar-recurring-events-on-the-middle-and-last-workday-days-of-every-month.md",
     "_posts/2024-11-16-starting-fresh.md",
     "_posts/2024-11-18-goodbye-known.md",
     "_posts/2025-03-06-lets-encrypt.md",
     "_posts/2025-03-27-disc-golf-2025-preview-and-results.md",
     "_posts/2025-09-13-obsidian-a-beginning.md",
-    "_posts/2015-10-11-rules-of-the-game-strictly-volleypong.md",
-    "_extras/templates/post.md",
-    "_extras/posts.md",
     "_posts/2025-09-13 - no-big-chains-or-spaces.-ok.md",
     "_posts/2025-09-13 - ao-test-0-now.md",
     "_posts/2025-09-13 - this - is -a -test.md",
     "_posts/2025-09-13 - this is - a - fun hting test.md",
-    "_posts/2015-07-27-ruby-round-robin-scheduling.md",
     "_posts/2025-09-13 - testing.md",
     "placeholder.md.md",
     "placeholder.md",
@@ -209,7 +208,6 @@
     "_extras/templates",
     "_extras",
     "2024-11-16-starting-fresh.md",
-    "2024-11-18-goodbye-known.md",
-    "2025-03-06-lets-encrypt.md"
+    "2024-11-18-goodbye-known.md"
   ]
 }
