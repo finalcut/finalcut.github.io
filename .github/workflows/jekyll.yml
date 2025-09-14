@@ -95,9 +95,13 @@ jobs:
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v3
+        with:
+          name: github-pages-initial
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          name: github-pages-initial
 
   bluesky-social:
     name: Post to Bluesky
@@ -187,7 +191,7 @@ jobs:
 
             # Extract the message from the response
             AI_MESSAGE=$(echo "$AI_RESPONSE" | jq -r '.choices[0].message.content')
-            BLUESKY_TEXT="${AI_MESSAGE} ${POST_URL}"
+            BLUESKY_TEXT="${AI_MESSAGE:-$POST_DESCRIPTION} ${POST_URL}"
             POST_FILE="$post_file"
 
             echo "Generated message: $BLUESKY_TEXT"
@@ -258,6 +262,10 @@ jobs:
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v3
+        with:
+          name: github-pages-final
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          name: github-pages-final
