@@ -23,7 +23,8 @@ Things not working great yet:
 
 
  - [ ] Im dumb?
- - [ ] AI not generating post text 
+ - [ ] post too long with AI
+ - [x] AI not generating post text 
  - [x] using wrong ai model? or Im not setting permissions? IT WAS PERMISSIONS
  - [ ] bluesky post step not returning the url to bsky
  - [ ] getting the github action to update the post and commit it back to git with the post url 
