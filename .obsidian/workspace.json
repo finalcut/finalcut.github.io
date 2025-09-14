@@ -15,7 +15,7 @@
               "state": {
                 "file": "_posts/2025-09-14-auto-share-a-new-blog-post-to-bluesky.md",
                 "mode": "source",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
               "title": "2025-09-14-auto-share-a-new-blog-post-to-bluesky"
@@ -183,8 +183,9 @@
   },
   "active": "19126adb2ab273b8",
   "lastOpenFiles": [
-    "_extras/posts.md",
+    "_posts/2025-09-14-regal-devil.md",
     "_posts/2025-09-14-auto-share-a-new-blog-post-to-bluesky.md",
+    "_extras/posts.md",
     "_extras/templates/post.md",
     "_posts/2025-09-14-autoposting-from-my-blog-to-bluesky.md",
     "_posts/2009-02-09-distance-between-two-latitude.md",
@@ -195,7 +196,6 @@
     "_posts/2024-11-18-goodbye-known.md",
     "_posts/2025-09-13-obsidian-a-beginning.md",
     "_posts/2025-03-27-disc-golf-2025-preview-and-results.md",
-    "_posts/2025-09-14-regal-devil.md",
     "_posts/2025-03-06-lets-encrypt.md",
     "assets/images/devil-caterpiller-top-down.png",
     "assets/images/devil-caterpiller-face.png",

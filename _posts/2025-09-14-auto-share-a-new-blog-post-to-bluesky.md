@@ -1,7 +1,7 @@
 ---
 firstprop: first
 layout: single
-title: Auto Share a new Blog Post to Bluesky
+title: Auto Share a New Blog Post to BlueSky
 category: blogging
 tags:
   - github-pages

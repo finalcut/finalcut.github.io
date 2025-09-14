@@ -46,15 +46,15 @@ jobs:
           CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
           echo "Changed files:"
           echo "$CHANGED_FILES"
-          
+
           # Find new posts in src/content/post/
           NEW_POSTS=$(echo "$CHANGED_FILES" | grep "^_posts/.*\.md\?$" | grep -v "^D" || true)
           echo "New posts: $NEW_POSTS"
-          
+
           # Check if any new posts don't have blueskyPostURI
           HAS_NEW_POSTS_WITHOUT_BLUESKY="false"
           NEW_POSTS_WITHOUT_BLUESKY=""
-          
+
           if [ ! -z "$NEW_POSTS" ]; then
             for post in $NEW_POSTS; do
               if [ -f "$post" ]; then
@@ -71,7 +71,7 @@ jobs:
               fi
             done
           fi
-          
+
           echo "new-posts=$NEW_POSTS_WITHOUT_BLUESKY" >> $GITHUB_OUTPUT
           echo "has-new-posts-without-bluesky=$HAS_NEW_POSTS_WITHOUT_BLUESKY" >> $GITHUB_OUTPUT
           echo "Has new posts without Bluesky: $HAS_NEW_POSTS_WITHOUT_BLUESKY"
@@ -98,7 +98,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-  
+
   bluesky-social:
     name: Post to Bluesky
     runs-on: ubuntu-latest
@@ -109,7 +109,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - name: Process new posts and post to Bluesky
         id: process-posts
         env:
@@ -118,32 +118,32 @@ jobs:
         run: |
           # Install jq for JSON processing
           sudo apt-get update && sudo apt-get install -y jq
-          
+
           # Initialize variables
           BLUESKY_TEXT=""
           POST_FILE=""
-          
+
           # Process each new post
           IFS=',' read -ra POSTS <<< "${{ needs.build-and-deploy.outputs.new-posts }}"
           for post_file in "${POSTS[@]}"; do
             echo "Processing $post_file"
-            
-            # Extract post title and description
-            POST_TITLE=$(grep "^title:" "$post_file" | sed 's/title: *"//' | sed 's/"$//')
-            POST_DESCRIPTION=$(grep "^description:" "$post_file" | sed 's/description: *"//' | sed 's/"$//')
-            
+
+            # Extract post title and description. maybe qutotes maybe not..
+            POST_TITLE=$(grep "^title:" "$post_file" | sed 's/title: *//; s/^"\(.*\)"$/\1/')
+            POST_DESCRIPTION=$(grep "^description:" "$post_file" | sed 's/description: *//; s/^"\(.*\)"$/\1/')
+
             # Extract categories and tags for context
-            POST_CATEGORIES=$(grep "^categories:" "$post_file" | sed 's/categories: *//')
+            POST_CATEGORIES=$(grep "^category:" "$post_file" | sed 's/category: *//')
             POST_TAGS=$(grep "^tags:" "$post_file" | sed 's/tags: *//')
-            
+
             # Extract and clean post content (first few paragraphs)
             # Remove frontmatter and get first 500 characters of actual content
             POST_CONTENT=$(awk '
               BEGIN { in_frontmatter = 0; content_started = 0; }
-              /^---$/ { 
+              /^---$/ {
                 if (in_frontmatter == 1) { content_started = 1; }
-                in_frontmatter = !in_frontmatter; 
-                next; 
+                in_frontmatter = !in_frontmatter;
+                next;
               }
               content_started == 1 && in_frontmatter == 0 {
                 # Skip empty lines at start
@@ -158,20 +158,20 @@ jobs:
               }
               END { print substr(content, 1, 500); }
             ' "$post_file")
-            
+
             # Convert file path to URL path
             POST_URL_PATH=$(echo "$post_file" | sed 's|_posts/||' | sed 's|\.mdx\?$||')
-            POST_URL="${PAGE_URL}post/${POST_URL_PATH}/"
-            
+            POST_URL="${PAGE_URL}/${POST_URL_PATH}/"
+
             echo "Post title: $POST_TITLE"
             echo "Post description: $POST_DESCRIPTION"
             echo "Post URL: $POST_URL"
             echo "Post categories: $POST_CATEGORIES"
             echo "Post content preview: ${POST_CONTENT:0:200}..."
-            
+
             # Create enhanced prompt with post context
             PROMPT="Write a short, engaging social media post (under 250 characters) for a new blog post. Use US english, never use emdash and only use hashtags sparingly and if they fit into the body of the text in a way that reads like a sentence. Title: $POST_TITLE. Description: $POST_DESCRIPTION. Categories: $POST_CATEGORIES. Content preview: $POST_CONTENT. Make it conversational and include relevant hashtags. Don't include the URL."
-            
+
             AI_RESPONSE=$(curl -s "https://models.github.ai/inference/chat/completions" \
               -H "Content-Type: application/json" \
               -H "Authorization: Bearer $GITHUB_TOKEN" \
@@ -184,18 +184,18 @@ jobs:
                 ],
                 \"model\": \"openai/gpt-4.1\"
               }")
-            
+
             # Extract the message from the response
             AI_MESSAGE=$(echo "$AI_RESPONSE" | jq -r '.choices[0].message.content')
             BLUESKY_TEXT="${AI_MESSAGE} ${POST_URL}"
             POST_FILE="$post_file"
-            
+
             echo "Generated message: $BLUESKY_TEXT"
-            
+
             # Set outputs for next step
             echo "BLUESKY_TEXT=$BLUESKY_TEXT" >> $GITHUB_OUTPUT
             echo "POST_FILE=$POST_FILE" >> $GITHUB_OUTPUT
-            
+
             # Only process one post for now
             break
           done
@@ -215,12 +215,12 @@ jobs:
         run: |
           # Update the post file with the Bluesky URI
           POST_FILE="${{ steps.process-posts.outputs.POST_FILE }}"
-          
+
           # Find the line with firstprop: first and add blueskyPostURI after it
           sed -i "/^firstprop: first$/a blueskyPostURI: \"${{ steps.bluesky-post.outputs.uri }}\"" "$POST_FILE"
-          
+
           echo "Updated $POST_FILE with Bluesky URI: ${{ steps.bluesky-post.outputs.uri }}"
-          
+
       - name: Commit updated post files
         if: steps.bluesky-post.outputs.uri != ''
         run: |
@@ -228,7 +228,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git add _posts/
           git diff --staged --quiet || git commit -m "Add Bluesky post URI to new blog post"
-          git push        
+          git push
 
   rebuild-after-bluesky:
     name: Rebuild After Bluesky Update
