@@ -1,4 +1,4 @@
-name: Deploy Blog
+name: Send Bluesky Post
 
 on:
   # Runs on pushes targeting the default branch
