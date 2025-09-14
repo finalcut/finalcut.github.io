@@ -22,5 +22,7 @@ At this point I have the bluesky posting working, the AI is not.  Updating the b
 Things not working great yet:
 
  -[ ] AI not generating post text
+ -[ ] bluesky post step not returning the url to bsky
  -[ ] getting the github action to update the post and commit it back to git with the post url
- -[ ] links are not valid
+ -[ ] links are not valid; are using the title property not the actual link
+ -[x] link is using extra slash
