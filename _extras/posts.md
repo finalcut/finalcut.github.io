@@ -1,3 +1,5 @@
+Create a new Post:
+
 ```meta-bind-button
 label: New Post
 hidden: false

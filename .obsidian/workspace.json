@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2009-02-09-distance-between-two-latitude.md",
+                "file": "_posts/2025-09-14-auto-share-a-new-blog-post-to-bluesky.md",
                 "mode": "source",
-                "source": true
+                "source": false
               },
               "icon": "lucide-file",
-              "title": "2009-02-09-distance-between-two-latitude"
+              "title": "2025-09-14-auto-share-a-new-blog-post-to-bluesky"
             }
           }
         ]
@@ -183,6 +183,11 @@
   },
   "active": "19126adb2ab273b8",
   "lastOpenFiles": [
+    "_extras/posts.md",
+    "_posts/2025-09-14-auto-share-a-new-blog-post-to-bluesky.md",
+    "_extras/templates/post.md",
+    "_posts/2025-09-14-autoposting-from-my-blog-to-bluesky.md",
+    "_posts/2009-02-09-distance-between-two-latitude.md",
     "_posts/2015-07-27-ruby-round-robin-scheduling.md",
     "_posts/2015-10-11-rules-of-the-game-strictly-volleypong.md",
     "_posts/2016-04-29-google-calendar-recurring-events-on-the-middle-and-last-workday-days-of-every-month.md",
@@ -191,12 +196,9 @@
     "_posts/2025-09-13-obsidian-a-beginning.md",
     "_posts/2025-03-27-disc-golf-2025-preview-and-results.md",
     "_posts/2025-09-14-regal-devil.md",
-    "_extras/templates/post.md",
-    "_posts/2009-02-09-distance-between-two-latitude.md",
     "_posts/2025-03-06-lets-encrypt.md",
     "assets/images/devil-caterpiller-top-down.png",
     "assets/images/devil-caterpiller-face.png",
-    "_extras/posts.md",
     "_posts/2025-09-13 - no-big-chains-or-spaces.-ok.md",
     "_posts/2025-09-13 - ao-test-0-now.md",
     "_posts/2025-09-13 - this - is -a -test.md",
@@ -211,8 +213,6 @@
     "2025-03-27-disc-golf.md",
     "2016-04-29-google-calendar-recurring-events-on-the-middle-and-last-day-of-every-month.md",
     "_extras/templates",
-    "_extras",
-    "2024-11-16-starting-fresh.md",
-    "2024-11-18-goodbye-known.md"
+    "_extras"
   ]
 }

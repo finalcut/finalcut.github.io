@@ -1,10 +1,11 @@
 ---
 <%*
-const title = tp.file.title;
+let title = tp.file.title;
 let fileName = title;
 if (fileName.includes("Untitled")) {
 	fileName = await tp.system.prompt("Meeting Subject")
 } 
+title = fileName;
 fileName = fileName.replace(/ +/g, '-').toLowerCase();
 fileName = fileName.replace(/-+/g, '-');
 await tp.file.move("_posts/" + tp.date.now("YYYY-MM-DD") + "-" + fileName)
