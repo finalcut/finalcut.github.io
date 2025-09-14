@@ -137,7 +137,7 @@ jobs:
             POST_DESCRIPTION=$(grep "^description:" "$post_file" | sed 's/description: *//; s/^"\(.*\)"$/\1/')
 
             # Extract categories and tags for context
-            POST_CATEGORIES=$(grep "^category:" "$post_file" | sed 's/category: *//')
+            POST_CATEGORY=$(grep "^category:" "$post_file" | sed 's/category: *//')
             POST_TAGS=$(grep "^tags:" "$post_file" | sed 's/tags: *//')
 
             # Extract and clean post content (first few paragraphs)
@@ -165,16 +165,16 @@ jobs:
 
             # Convert file path to URL path
             POST_URL_PATH=$(echo "$post_file" | sed 's|_posts/||' | sed 's|\.mdx\?$||')
-            POST_URL="${PAGE_URL}/${POST_URL_PATH}/"
+            POST_URL="${PAGE_URL}/${POST_CATEGORY}/${POST_URL_PATH}/"
 
             echo "Post title: $POST_TITLE"
             echo "Post description: $POST_DESCRIPTION"
             echo "Post URL: $POST_URL"
-            echo "Post categories: $POST_CATEGORIES"
+            echo "Post category: $POST_CATEGORY"
             echo "Post content preview: ${POST_CONTENT:0:200}..."
 
             # Create enhanced prompt with post context
-            PROMPT="Write a short, engaging social media post (under 250 characters) for a new blog post. Use US english, never use emdash and only use hashtags sparingly and if they fit into the body of the text in a way that reads like a sentence. Title: $POST_TITLE. Description: $POST_DESCRIPTION. Categories: $POST_CATEGORIES. Content preview: $POST_CONTENT. Make it conversational and include relevant hashtags. Don't include the URL."
+            PROMPT="Write a short, engaging social media post (under 250 characters) for a new blog post. Use US english, never use emdash and only use hashtags sparingly and if they fit into the body of the text in a way that reads like a sentence. Title: $POST_TITLE. Description: $POST_DESCRIPTION. Category: $POST_CATEGORY. Content preview: $POST_CONTENT. Make it conversational and include relevant hashtags. Don't include the URL."
 
             AI_RESPONSE=$(curl -s "https://models.github.ai/inference/chat/completions" \
               -H "Content-Type: application/json" \

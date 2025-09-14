@@ -14,6 +14,7 @@ description: photos of a large Hickory Horned Devil caterpillar
 ---
 This amazing caterpillar was crawling across a creek bed yesterday.  It is a Hickory Horned Devil - and it transforms into a Regal Moth aka the Royal Walnut Moth.  
 
-This caterpillar was at least 4-5" long.  Probably the biggest caterpiller I've ever seen!
-![[devil-caterpiller-face.png]]
-![[devil-caterpiller-top-down.png]]
+This caterpillar was at least 4-5" long.  Probably the biggest caterpillar I've ever seen!
+
+![Caterpiller Face](/assets/images/devil-caterpiller-face.png)
+![Caterpiller Body](/assets/images/devil-caterpiller-top-down.png)

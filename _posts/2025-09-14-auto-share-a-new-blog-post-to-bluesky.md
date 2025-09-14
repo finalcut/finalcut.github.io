@@ -23,3 +23,4 @@ Things not working great yet:
 
  -[ ] AI not generating post text
  -[ ] getting the github action to update the post and commit it back to git with the post url
+ -[ ] links are not valid
