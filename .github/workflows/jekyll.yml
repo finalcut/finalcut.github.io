@@ -190,7 +190,7 @@ jobs:
                     \"content\": $(echo "$PROMPT" | jq -R -s .)
                   }
                 ],
-                \"model\": \"openai/gpt-4.1\"
+                \"model\": \"openai/gpt-4.1-mini\"
               }")
 
             echo "ai response:  $AI_RESPONSE"

@@ -24,6 +24,7 @@ Things not working great yet:
 
  - [ ] Im dumb?
  - [ ] AI not generating post text 
+ - [ ] using wrong ai agent?
  - [ ] bluesky post step not returning the url to bsky
  - [ ] getting the github action to update the post and commit it back to git with the post url 
  - [ ] try to debug AI
