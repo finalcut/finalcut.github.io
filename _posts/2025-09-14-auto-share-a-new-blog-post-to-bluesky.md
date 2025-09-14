@@ -24,10 +24,10 @@ Things not working great yet:
 
  - [ ] Im dumb?
  - [ ] AI not generating post text 
- - [ ] using wrong ai model? or Im not setting permissions?
+ - [x] using wrong ai model? or Im not setting permissions? IT WAS PERMISSIONS
  - [ ] bluesky post step not returning the url to bsky
  - [ ] getting the github action to update the post and commit it back to git with the post url 
- - [ ] try to debug AI
+ - [x] try to debug AI
  - [x] need links to be lowercase with hyphens replacing spaces?
  - [x] links don't encode spaces etc.
  - [x] links are not valid; are using the title property not the actual link
