@@ -11,14 +11,14 @@
             "id": "19126adb2ab273b8",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "split-diff-view",
               "state": {
-                "file": "_posts/2025-09-14-auto-share-a-new-blog-post-to-bluesky.md",
-                "mode": "source",
-                "source": true
+                "aFile": ".github/workflows/jekyll.yml",
+                "bFile": ".github/workflows/jekyll.yml",
+                "aRef": ""
               },
-              "icon": "lucide-file",
-              "title": "2025-09-14-auto-share-a-new-blog-post-to-bluesky"
+              "icon": "diff",
+              "title": "Diff: jekyll.yml"
             }
           }
         ]
@@ -183,8 +183,8 @@
   },
   "active": "19126adb2ab273b8",
   "lastOpenFiles": [
-    "_posts/2025-09-14-regal-devil.md",
     "_posts/2025-09-14-auto-share-a-new-blog-post-to-bluesky.md",
+    "_posts/2025-09-14-regal-devil.md",
     "_extras/posts.md",
     "_extras/templates/post.md",
     "_posts/2025-09-14-autoposting-from-my-blog-to-bluesky.md",

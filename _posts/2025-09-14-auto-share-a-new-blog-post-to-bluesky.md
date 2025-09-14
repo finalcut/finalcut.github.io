@@ -18,3 +18,8 @@ I really want to share my blog posts to Bluesky but I'm lazy and don't want to c
 One of the things Also working on is having AI generate a nice description of the post beyond the short little descriptive text I provide. 
 
 At this point I have the bluesky posting working, the AI is not.  Updating the blog post the bluesky url is also not working so far.
+
+Things not working great yet:
+
+ -[ ] AI not generating post text
+ -[ ] getting the github action to update the post and commit it back to git with the post url
