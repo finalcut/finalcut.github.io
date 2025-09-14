@@ -1,4 +1,5 @@
 ---
+firstprop: first
 layout: single
 title: Rules of the Game - Strictly VolleyPong
 category: fun
@@ -10,6 +11,7 @@ comments: false
 featured: false
 date: 2015-10-11
 author: Bill Rawlinson
+description: Comprehensive rules to a hybrid sport called VolleyPong.  It combines ping-pong, volleyball, hacky sack and shenanigans
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/SwfrcDgqPHY?si=pvWOG9oXhcaLXGUe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

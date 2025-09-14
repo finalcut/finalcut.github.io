@@ -1,14 +1,18 @@
 ---
+firstprop: first
 layout: single
-title: "Distance Between Two Latitude + LongitudePoints - PHP"
+title: Distance Between Two Latitude + LongitudePoints - PHP
 date: 2009-02-09
 comments: false
 category: development
-tags: [php,algorithims]
+tags:
+  - php
+  - algorithims
+description: A simple php method for computing the distance between two points on a map using their latitude/longitude values.
 ---
 I once had a project where the client wanted customers to be able to search
 for the nearest vendor to the customers zip code - this project was in PHP but
-the algorithim contained here can be translated to other languages pretty
+the algorithm contained here can be translated to other languages pretty
 easily (Note, this returns the value in miles):
 
 

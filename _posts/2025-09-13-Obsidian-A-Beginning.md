@@ -1,4 +1,5 @@
 ---
+firstprop: first
 layout: single
 title: Obsidian - A Beginning
 category: blogging
@@ -6,9 +7,10 @@ tags:
   - github-pages
   - obsidian
 comments: false
-featured: true
+featured: false
 date: 2025-09-13
 author: Bill Rawlinson
+description: A brief overview of why I started using obsidian and some handy plugins
 ---
 # Intro
 I've generally just written my markdown in vs-code and called it a day.  However, I started using Obsidian as a note taking app and thought, "maybe I could use it to manage my blog writing?" So, here I am.  Writing my first blog entry using #Obsidian.

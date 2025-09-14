@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "bce878fcabc3adb6",
+        "id": "24f0e7aff2a0d3c8",
         "type": "tabs",
         "children": [
           {
-            "id": "71f575fd8793e169",
+            "id": "19126adb2ab273b8",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "_posts/2009-02-09-distance-between-two-latitude.md",
+                "mode": "source",
+                "source": true
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "2009-02-09-distance-between-two-latitude"
             }
           }
         ]
@@ -177,22 +181,22 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "71f575fd8793e169",
+  "active": "19126adb2ab273b8",
   "lastOpenFiles": [
-    "_posts/2009-02-09-distance-between-two-latitude.md",
-    "_extras/templates/post.md",
-    "_posts/2025-09-14-regal-devil.md",
-    "assets/images/devil-caterpiller-top-down.png",
-    "assets/images/devil-caterpiller-face.png",
-    "_extras/posts.md",
-    "_posts/2015-10-11-rules-of-the-game-strictly-volleypong.md",
     "_posts/2015-07-27-ruby-round-robin-scheduling.md",
+    "_posts/2015-10-11-rules-of-the-game-strictly-volleypong.md",
     "_posts/2016-04-29-google-calendar-recurring-events-on-the-middle-and-last-workday-days-of-every-month.md",
     "_posts/2024-11-16-starting-fresh.md",
     "_posts/2024-11-18-goodbye-known.md",
-    "_posts/2025-03-06-lets-encrypt.md",
-    "_posts/2025-03-27-disc-golf-2025-preview-and-results.md",
     "_posts/2025-09-13-obsidian-a-beginning.md",
+    "_posts/2025-03-27-disc-golf-2025-preview-and-results.md",
+    "_posts/2025-09-14-regal-devil.md",
+    "_extras/templates/post.md",
+    "_posts/2009-02-09-distance-between-two-latitude.md",
+    "_posts/2025-03-06-lets-encrypt.md",
+    "assets/images/devil-caterpiller-top-down.png",
+    "assets/images/devil-caterpiller-face.png",
+    "_extras/posts.md",
     "_posts/2025-09-13 - no-big-chains-or-spaces.-ok.md",
     "_posts/2025-09-13 - ao-test-0-now.md",
     "_posts/2025-09-13 - this - is -a -test.md",

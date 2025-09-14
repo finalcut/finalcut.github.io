@@ -1,11 +1,14 @@
 ---
+firstprop: first
 layout: single
-title: "Starting Fresh"
-intro:
+title: Starting Fresh
 category: blogging
-tags: [website,github-pages]
+tags:
+  - website
+  - github-pages
 comments: false
 featured: false
+description: A very brief status update on my blog and its history
 ---
 
 # What's Up?

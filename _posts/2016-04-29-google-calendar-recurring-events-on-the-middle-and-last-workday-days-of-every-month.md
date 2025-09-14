@@ -1,8 +1,13 @@
 ---
+firstprop: first
 layout: single
-title: "Google Calendar Recurring Events on the Middle and Last Workday Days of Every Month"
+title: Google Calendar Recurring Events on the Middle and Last Workday Days of Every Month
 category: utility
-tags: [calendar,ical,events]
+tags:
+  - calendar
+  - ical
+  - events
+description: How I used ical standard to create recurring events on my google calendar.
 ---
 Why I needed this isn't important.  This isn't a cooking blog where you need a backstory!
 

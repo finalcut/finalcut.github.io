@@ -1,9 +1,13 @@
 ---
+firstprop: first
 layout: single
-title: "Ruby Round Robin Scheduling"
-description: a simple script for creating league schedules
+title: Ruby Round Robin Scheduling
+description: a simple ruby script for creating league schedules in a round robin fashion making sure to avoid duplicate matches
 category: development
-tags: [kickball,ruby,scheduling]
+tags:
+  - kickball
+  - ruby
+  - scheduling
 ---
 ## Background
 I play kickball in an adult league and this season our league manager ran into a problem with

@@ -1,11 +1,14 @@
 ---
+firstprop: first
 layout: single
-title: "Goodbye Known"
-intro:
+title: Goodbye Known
 category: blogging
-tags: [website,github-pages]
+tags:
+  - website
+  - github-pages
 comments: false
 featured: false
+description: Moving on from the Known blogging platform to github pages.
 ---
 
 # What's Up?

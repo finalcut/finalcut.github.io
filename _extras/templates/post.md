@@ -9,6 +9,7 @@ fileName = fileName.replace(/ +/g, '-').toLowerCase();
 fileName = fileName.replace(/-+/g, '-');
 await tp.file.move("_posts/" + tp.date.now("YYYY-MM-DD") + "-" + fileName)
 -%>
+firstprop: first
 layout: single
 title: <% title %>
 category: 
@@ -17,4 +18,5 @@ comments: false
 featured: false
 date: <% tp.file.creation_date('YYYY-MM-DD') %>
 author: Bill Rawlinson
+description:
 ---

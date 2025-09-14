@@ -1,11 +1,13 @@
 ---
+firstprop: first
 layout: single
-title: "Disc Golf - 2025 - Preview and Results"
-intro:
+title: Disc Golf - 2025 - Preview and Results
 category: blogging
-tags: [disc-golf]
+tags:
+  - disc-golf
 comments: false
-featured: true
+featured: false
+description: Looking forward at my 2025 year of disc golf - updated occasionally to discuss results for the competitive season.
 ---
 I've always used this site to talk about _work_ stuff but I think I'm going to have a bit more fun with it.  So in that vein I'm going to kick it off with some disc golf.
 
