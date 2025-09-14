@@ -26,7 +26,8 @@ Things not working great yet:
  - [ ] AI not generating post text 
  - [ ] bluesky post step not returning the url to bsky
  - [ ] getting the github action to update the post and commit it back to git with the post url 
- - [ ] need links to be lowercase with hyphens replacing spaces?
+ - [ ] try to debug AI
+ - [x] need links to be lowercase with hyphens replacing spaces?
  - [x] links don't encode spaces etc.
  - [x] links are not valid; are using the title property not the actual link
  - [x] link is using extra slash

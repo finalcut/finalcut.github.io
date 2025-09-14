@@ -193,9 +193,11 @@ jobs:
                 \"model\": \"openai/gpt-4.1\"
               }")
 
+            echo "ai response:  $AI_RESPONSE"
+
             # Extract the message from the response
             AI_MESSAGE=$(echo "$AI_RESPONSE" | jq -r '.choices[0].message.content')
-            BLUESKY_TEXT="${AI_MESSAGE:-$POST_DESCRIPTION} ${POST_URL}"
+            BLUESKY_TEXT="${POST_DESCRIPTION} ${POST_URL}"
             POST_FILE="$post_file"
 
             echo "Generated message: $BLUESKY_TEXT"
