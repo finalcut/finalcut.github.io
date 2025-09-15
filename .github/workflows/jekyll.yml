@@ -34,7 +34,7 @@ jobs:
     outputs:
       page-url: ${{ steps.deployment.outputs.page_url }}
       new-posts: ${{ steps.detect.outputs.new-posts }}
-      has-new-posts-without-bluesky: ${{ steps.bluesky-post.outputs.uri }}
+      has-new-posts-without-bluesky: ${{ steps.detect.outputs.has-new-posts-without-bluesky }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4

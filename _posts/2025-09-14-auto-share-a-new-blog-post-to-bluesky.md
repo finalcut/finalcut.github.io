@@ -43,7 +43,6 @@ First, I had already created GitHub secrets for my bluesky handle and password (
 Second, because I use Jekyll the path to my posts is a bit different than his.  So I had to replace places where he referenced `src/content/post` with `_posts`.  I also didn't look for `categories` I just look for `category` in my front matter (post metadata).  The initial logic to process the posts uses AI a bit - there was a caveat there I'll cover in the next section.
 
 During the build and deploy process there were two steps I needed to tweak from the default - `Upload Artifact` and `Deploy to Github Pages` - I had to give the artificat a name and reference it via that name:
-
 ### Upload Artifact
 
 #### Before
@@ -60,7 +59,6 @@ During the build and deploy process there were two steps I needed to tweak from 
 ```
 
 I think I just stole the name Martin was using.  It is `initial` here because we do these two things twice in the process and each instance needs a distinct name.  So, since this is the first its the initial.
-
 ### Deploy to GitHub Pages
 #### Before
 ```
@@ -110,7 +108,6 @@ I added a fake property at the top of all my blogs posts called `firstprop` so I
 The logic for whether or not to publish a post to BlueSky is based on if the post already has a BlueSkyURI property or not.  The Jekyll workflow adds this and then tries to update the git repo. Well, it should add it but, it doesn't.  The GitHub action I'm leaning on to post to BlueSky doesn't seem to actually have the output variable that Mr. Woodward is using.  I'm not sure what's up there.  So, for the time being I still have to do some copy/paste.  Kind of annoying.
 
 Woodward is using version 0.1.0 of the action `zentered/bluesky-post-action` but I don't get the uri from it - so I tried updating to 0.3.0 and, still no luck.  I'm not sure why it doesn't have the `uri` as an output as Woodward's code implies it should.  For now, because that value doesn't exist the `rebuild-after-bluesky` job doesn't actually fire off yet.
-
 
 When I have time I'll figure out the issue and address it. I suspect I just don't understand something about GitHub Actions.
 
