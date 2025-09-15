@@ -11,14 +11,14 @@
             "id": "19126adb2ab273b8",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": "_posts/2025-09-14-auto-share-a-new-blog-post-to-bluesky.md",
-                "bFile": "_posts/2025-09-14-auto-share-a-new-blog-post-to-bluesky.md",
-                "aRef": ""
+                "file": "_posts/2025-09-14-the-regal-devil.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: 2025-09-14-auto-share-a-new-blog-post-to-bluesky"
+              "icon": "lucide-file",
+              "title": "2025-09-14-the-regal-devil"
             }
           }
         ]
@@ -181,9 +181,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "19126adb2ab273b8",
+  "active": "bf91325baa902245",
   "lastOpenFiles": [
-    "_posts/2025-09-14-regal-devil.md",
+    "_posts/2025-09-14-the-regal-devil.md",
     "assets/images/devil-caterpiller-top-down.png",
     "_posts/2025-09-14-auto-share-a-new-blog-post-to-bluesky.md",
     "assets/images/github-actions-build.png",
