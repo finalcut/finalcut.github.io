@@ -1,5 +1,6 @@
 ---
 firstprop: first
+blueskyPostURI: https://bsky.app/profile/rawlinson.us/post/3lytlfzwn5u2q
 layout: single
 title: Auto Share a New Blog Post to BlueSky
 category: blogging
@@ -12,7 +13,6 @@ featured: true
 date: 2025-09-14
 author: Bill Rawlinson
 description: How I am sharing my blog postings to bluesky using a github action.
-blueskyPostURI: https://bsky.app/profile/rawlinson.us/post/3lytlfzwn5u2q
 ---
 Today I decided I would figure out if I could auto-post about my blog posts to BlueSky? I figured there had to be a way so after a bit of google hunting I found [a great blog post](https://www.woodwardweb.com/post/2025/08/automated-bluesky-integration/) that gave me _most_ of the keys to the process.  
 

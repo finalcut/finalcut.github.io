@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2025-09-14-the-regal-devil.md",
+                "file": "_posts/2025-09-14-auto-share-a-new-blog-post-to-bluesky.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2025-09-14-the-regal-devil"
+              "title": "2025-09-14-auto-share-a-new-blog-post-to-bluesky"
             }
           }
         ]
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 496.5
   },
   "right": {
     "id": "65308a40b0a634ba",
@@ -181,23 +181,23 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "bf91325baa902245",
+  "active": "19126adb2ab273b8",
   "lastOpenFiles": [
     "_posts/2025-09-14-the-regal-devil.md",
-    "assets/images/devil-caterpiller-top-down.png",
     "_posts/2025-09-14-auto-share-a-new-blog-post-to-bluesky.md",
-    "assets/images/github-actions-build.png",
-    "_extras/posts.md",
-    "_extras/templates/post.md",
-    "_posts/2025-09-14-autoposting-from-my-blog-to-bluesky.md",
     "_posts/2009-02-09-distance-between-two-latitude.md",
     "_posts/2015-07-27-ruby-round-robin-scheduling.md",
     "_posts/2015-10-11-rules-of-the-game-strictly-volleypong.md",
     "_posts/2016-04-29-google-calendar-recurring-events-on-the-middle-and-last-workday-days-of-every-month.md",
     "_posts/2024-11-16-starting-fresh.md",
     "_posts/2024-11-18-goodbye-known.md",
-    "_posts/2025-09-13-obsidian-a-beginning.md",
     "_posts/2025-03-27-disc-golf-2025-preview-and-results.md",
+    "_posts/2025-09-13-obsidian-a-beginning.md",
+    "assets/images/devil-caterpiller-top-down.png",
+    "assets/images/github-actions-build.png",
+    "_extras/posts.md",
+    "_extras/templates/post.md",
+    "_posts/2025-09-14-autoposting-from-my-blog-to-bluesky.md",
     "_posts/2025-03-06-lets-encrypt.md",
     "assets/images/devil-caterpiller-face.png",
     "_posts/2025-09-13 - no-big-chains-or-spaces.-ok.md",

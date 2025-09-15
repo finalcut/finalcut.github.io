@@ -1,5 +1,6 @@
 ---
 firstprop: first
+blueskyPostURI: https://bsky.app/profile/rawlinson.us/post/3lytm2avnaw2q
 layout: single
 title: The Regal Devil
 category: photos
