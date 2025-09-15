@@ -34,7 +34,7 @@ jobs:
     outputs:
       page-url: ${{ steps.deployment.outputs.page_url }}
       new-posts: ${{ steps.detect.outputs.new-posts }}
-      has-new-posts-without-bluesky: ${{ steps.detect.outputs.has-new-posts-without-bluesky }}
+      has-new-posts-without-bluesky: ${{ steps.bluesky-post.outputs.uri }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -48,7 +48,7 @@ jobs:
           echo "Changed files:"
           echo "$CHANGED_FILES"
 
-          # Find new posts in src/content/post/
+          # Find new posts in _posts
           NEW_POSTS=$(echo "$CHANGED_FILES" | grep "^_posts/.*\.md\?$" | grep -v "^D" || true)
           echo "New posts: $NEW_POSTS"
 
@@ -175,11 +175,8 @@ jobs:
             echo "Post category: $POST_CATEGORY"
             echo "Post content preview: ${POST_CONTENT:0:200}..."
 
-
-
-
             # Create enhanced prompt with post context
-            PROMPT="Write a short, engaging social media post (under 220 characters) for a new blog post. Use US english, never use emdash and only use hashtags sparingly and if they fit into the body of the text in a way that reads like a sentence. Title: $POST_TITLE. Description: $POST_DESCRIPTION. Category: $POST_CATEGORY. Content preview: $POST_CONTENT. Make it conversational and include relevant hashtags. Don't include the URL."
+            PROMPT="Write a short, engaging social media post (under 225 characters) for a new blog post. Use US english, never use emdash and only use hashtags sparingly and if they fit into the body of the text in a way that reads like a sentence. Title: $POST_TITLE. Description: $POST_DESCRIPTION. Category: $POST_CATEGORY. Content preview: $POST_CONTENT. Make it conversational and include relevant hashtags. Don't include the URL."
 
             AI_RESPONSE=$(curl -s "https://models.github.ai/inference/chat/completions" \
               -H "Content-Type: application/json" \
@@ -218,11 +215,12 @@ jobs:
         with:
           post: ${{ steps.process-posts.outputs.BLUESKY_TEXT }}
         env:
-          BSKY_IDENTIFIER: ${{ secrets. BLUESKY_IDENTIFIER }}
-          BSKY_PASSWORD: ${{ secrets. BLUESKY_PASSWORD }}
+          BSKY_IDENTIFIER: ${{ secrets.BLUESKY_IDENTIFIER }}
+          BSKY_PASSWORD: ${{ secrets.BLUESKY_PASSWORD }}
 
       - name: Update post with Bluesky URI
         if: steps.bluesky-post.outputs.uri != ''
+        id: update-posts-in-github
         run: |
           # Update the post file with the Bluesky URI
           POST_FILE="${{ steps.process-posts.outputs.POST_FILE }}"
