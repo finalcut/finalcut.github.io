@@ -38,15 +38,34 @@ Wine Cellar Showdown,MA1,N,15,5,6,only one round; ass whipping
 Spring Break at Goliath,MP50,Y,3,3,2,good second round
 --->
 
-| Date | Event                   | Division | Pro | Competitors | Place | Strokes from 1st | Notes                        |
-|------|-------------------------|----------|-----|-------------|-------|------------------|------------------------------|
-| 25 JAN | Ice Bowl                | MA2      | N   | 17          | 2     | -                | tied; lost in playoff              |
-| 01 MAR | Capital City Classic    | MP40     | Y   | 4           | 4     | 10               | ass whipping                 |
-| 08 MAR | Wine Cellar Showdown    | MA1      | N   | 15          | 5     | 6                | only one round; ass whipping |
-| 22 MAR | Spring Break at Goliath | MP50     | Y   | 3           | 3     | 2                | good second round            |
-| 05 APR | Chucktown Throwdown     | MA1      | N   | 10          | 9     | 13               | below my standard |
-| 12 APR | Thorn Spring Fling 6    | MP40     | Y   | 2           | 1     | -                | I won.   |
-| 26 APR | Shaffers Auto Sales     | MP40     | Y   | 3           | 2     | 6                | The guy who won was just _better_. |
-| 24 MAY | Don Kleppe Memorial     | MP40     | Y   | 7           | 2     | 3                | I played really well |
-| 30 MAY | Tennessee States        | MP50     | Y   | 12          | 7     | 25                | Such a collapse |
-| 06 JUN | KVR                     | MA40     | N   | 12          | 8     | 9                | Weird event for me.   |
+| #   | Date   | Event                   | Division | Pro | Competitors | Place | Strokes from 1st | Notes                              |
+| --- | ------ | ----------------------- | -------- | --- | ----------- | ----- | ---------------- | ---------------------------------- |
+| 1   | 25 JAN | Ice Bowl                | MA2      | N   | 17          | 2     | -                | tied; lost in playoff              |
+| 2   | XX Feb | Taylors Baby Bash       | ?        | N   | ?           | ?     | ?                | ACE on my second hole              |
+| 3   | 01 MAR | Capital City Classic    | MP40     | Y   | 4           | 4     | 10               | ass whipping                       |
+| 4   | 08 MAR | Wine Cellar Showdown    | MA1      | N   | 15          | 5     | 6                | only one round; ass whipping       |
+| 5   | 22 MAR | Spring Break at Goliath | MP50     | Y   | 3           | 3     | 2                | good second round                  |
+| 6   | 29 MAR | Marshall Urban Champs   | ?        | N   | ?           | ?     | ?                | fun but dont remember              |
+| 7   | 05 APR | Chucktown Throwdown     | MA1      | N   | 10          | 9     | 13               | below my standard                  |
+| 8   | 12 APR | Thorn Spring Fling 6    | MP40     | Y   | 2           | 1     | -                | I won.                             |
+| 9   | 26 APR | Shaffers Auto Sales     | MP40     | Y   | 3           | 2     | 6                | The guy who won was just _better_. |
+| 10  | 24 MAY | Don Kleppe Memorial     | MP40     | Y   | 7           | 2     | 3                | I played really well               |
+| 11  | 30 MAY | Tennessee States        | MP50     | Y   | 12          | 7     | 25               | Such a collapse                    |
+| 12  | 06 JUN | KVR                     | MA40     | N   | 12          | 8     | 9                | Weird event for me.                |
+| 13  | 14 JUN | Boyd County Open        | MP40     | Y   | 4           | 4     | 19               | Horrible 2nd round                 |
+| 14  | 28 JUN | Bayville Bash           | MP40     | Y   | 5           | 4     | 11               | Struggle Bus.                      |
+| 15  | 18 JUL | Nati Big 3              | MP50     | Y   | 8           | 7     | 26               | Got work to do!                    |
+| 16  | 26 JUL | Echo Valley Open        | MP40     | Y   | 13          | 9     | 15               | Better than expected               |
+| 17  | 02 AUG | Barboursville Open      | MP40     | Y   | 3           | 1     | -                | Winner Winner!                     |
+| 18  | 30 AUG | Beech Fork Open         | MP40     | Y   | 3           | 2     | 6                | Cashed!                            |
+| 19  | 27 SEP | FDGC 3 Disc Challenge   | MA40     | N   | ?           | 1     | -                | Fun Event in Scotland! Winner!     |
+| 20  | 18 OCT | Wayside Autumn Fest     | MP40     | Y   | 4           | 3     | 2                | Shit Timing on Drives              |
+| 21  | 25 OCT | All Hyzer's Eve         | MP50     | Y   | 4           | 3     | 9                | Felt better than my score          |
+| 22  | 08 NOV | Putnam County Classic   | MP40     | Y   | 8           | 4     | 12               | Shit putting in round 3 - Cashed!  |
+
+
+Im pretty sure my season is done.  I don't know of any other sanctioned events taking place near me when I'm available this year.  It was fun! I played more events than I expected - 22!  I think I had wanted to play 10.  I had not realized how many events I did.
+
+I don't remember exactly how well I did in a couple of the unsanctioned ones or even exactly when they were.  I do remember having fun!  Highlight of the year was playing in Scotland and meeting a bunch of cool folks there including a member of the Scottish Womens Olympic Volleybal Team!  I feel like I represented the spirit of Huntington WV Disc Golf well there - lots of compliments on my putting.
+
+Tomorrow is my next rating release. I estimate I'll end the season with a 922.  That means I'll have achieved all 3 goals.  Time to start thinking about next years goals!
