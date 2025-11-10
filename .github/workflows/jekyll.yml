@@ -48,8 +48,8 @@ jobs:
           echo "Changed files:"
           echo "$CHANGED_FILES"
 
-          # Find new posts in _posts
-          NEW_POSTS=$(echo "$CHANGED_FILES" | grep "^_posts/.*\.md\?$" | grep -v "^D" || true)
+          # Find new posts in _posts (only additions, not modifications)
+          NEW_POSTS=$(git diff --name-only --diff-filter=A HEAD~1 HEAD | grep "^_posts/.*\.md\?$" || true)
           echo "New posts: $NEW_POSTS"
 
           # Check if any new posts don't have blueskyPostURI
@@ -62,12 +62,17 @@ jobs:
                 # Check if post has blueskyPostURI in frontmatter (only between --- markers)
                 FRONTMATTER=$(awk '/^---$/{if(seen){exit} seen=1; next} seen{print}' "$post")
                 if ! echo "$FRONTMATTER" | grep -q "blueskyPostURI:"; then
+                  echo "Found new post without Bluesky URI: $post"
                   HAS_NEW_POSTS_WITHOUT_BLUESKY="true"
                   if [ -z "$NEW_POSTS_WITHOUT_BLUESKY" ]; then
                     NEW_POSTS_WITHOUT_BLUESKY="$post"
                   else
                     NEW_POSTS_WITHOUT_BLUESKY="$NEW_POSTS_WITHOUT_BLUESKY,$post"
                   fi
+                else
+                  echo "Post already has Bluesky URI: $post"
+                fi
+              fi
                 fi
               fi
             done
@@ -210,13 +215,56 @@ jobs:
 
       - name: Post to Bluesky
         if: steps.process-posts.outputs.BLUESKY_TEXT != ''
-        uses: zentered/bluesky-post-action@v0.3.0
         id: bluesky-post
-        with:
-          post: ${{ steps.process-posts.outputs.BLUESKY_TEXT }}
+        run: |
+          # Install AT Protocol client and GitHub Actions core
+          npm install @atproto/api @actions/core
+
+          # Create a Node.js script to post to Bluesky and capture the response
+          cat > post_to_bluesky.js << 'EOF'
+          const { BskyAgent } = require('@atproto/api');
+          const core = require('@actions/core');
+
+          async function main() {
+            const agent = new BskyAgent({
+              service: 'https://bsky.social'
+            });
+
+            try {
+              await agent.login({
+                identifier: process.env.BSKY_IDENTIFIER,
+                password: process.env.BSKY_PASSWORD
+              });
+
+              const response = await agent.post({
+                text: process.env.POST_TEXT,
+                createdAt: new Date().toISOString()
+              });
+
+              console.log('Post successful!');
+              console.log('URI:', response.uri);
+              console.log('CID:', response.cid);
+
+              // Set outputs for GitHub Actions
+              core.setOutput('uri', response.uri);
+              core.setOutput('cid', response.cid);
+              core.setOutput('url', `https://bsky.app/profile/${process.env.BSKY_IDENTIFIER}/post/${response.uri.split('/').pop()}`);
+
+            } catch (error) {
+              console.error('Error posting to Bluesky:', error);
+              process.exit(1);
+            }
+          }
+
+          main();
+          EOF
+
+          # Run the script
+          node post_to_bluesky.js
         env:
           BSKY_IDENTIFIER: ${{ secrets.BLUESKY_IDENTIFIER }}
           BSKY_PASSWORD: ${{ secrets.BLUESKY_PASSWORD }}
+          POST_TEXT: ${{ steps.process-posts.outputs.BLUESKY_TEXT }}
 
       - name: Update post with Bluesky URI
         if: steps.bluesky-post.outputs.uri != ''
