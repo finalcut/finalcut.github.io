@@ -166,7 +166,7 @@ jobs:
 
             # Convert file path to URL path
             POST_URL_PATH=$(echo "$post_file" | sed 's|_posts/||' | sed 's|\.mdx\?$||')
-            ENCODED_TITLE=$(echo "$POST_TITLE" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+            ENCODED_TITLE=$(echo "$POST_TITLE" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | sed 's/--*/-/g')
             POST_URL="${PAGE_URL}${POST_CATEGORY}/${ENCODED_TITLE}/"
 
             echo "Post title: $POST_TITLE"
