@@ -73,8 +73,6 @@ jobs:
                   echo "Post already has Bluesky URI: $post"
                 fi
               fi
-                fi
-              fi
             done
           fi
 
