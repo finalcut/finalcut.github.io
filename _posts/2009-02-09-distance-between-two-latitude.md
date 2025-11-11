@@ -5,11 +5,11 @@ title: Distance Between Two Latitude + Longitude Points - PHP
 date: 2009-02-09
 comments: false
 category: development
-forceRepost: true
 tags:
   - php
   - algorithims
 description: A simple php method for computing the distance between two points on a map using their latitude/longitude values.
+blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3m5f6rnbhni2j
 ---
 Years ago I had a project where the client wanted customers to be able to search
 for the nearest vendor to the customers zip code - this project was in PHP but
