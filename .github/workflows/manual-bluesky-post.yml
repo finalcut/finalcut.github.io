@@ -81,13 +81,29 @@ jobs:
           ENCODED_TITLE=$(echo "$URL_PART" | sed 's/ /-/g')
           POST_URL="${SITE_URL}/${POST_CATEGORY}/${ENCODED_TITLE}/"
 
+          # Calculate the exact URL length and determine maximum AI response length
+          URL_LENGTH=$(echo -n "$POST_URL" | wc -c)
+          # Reserve 5 characters for the space and any punctuation between message and URL
+          SPACE_BUFFER=5
+          MAX_AI_LENGTH=$((300 - URL_LENGTH - SPACE_BUFFER))
+
+          # Safety check: ensure we have at least 50 characters for the AI response
+          if [ "$MAX_AI_LENGTH" -lt 50 ]; then
+            echo "Warning: URL is very long ($URL_LENGTH chars). Setting minimum AI length to 50."
+            MAX_AI_LENGTH=50
+          fi
+
+          echo "Post URL: $POST_URL"
+          echo "URL length: $URL_LENGTH characters"
+          echo "Max AI response length: $MAX_AI_LENGTH characters"
+
           if [ -n "${{ github.event.inputs.custom_message }}" ]; then
             MESSAGE="${{ github.event.inputs.custom_message }} $POST_URL"
             echo "Using custom message with URL"
           else
             echo "Generating AI message"
-            # Create enhanced prompt with post context
-            PROMPT="Write a thoughtful, natural introduction (under 240 characters) for a blog post share. Create a genuine summary that sparks curiosity through interesting details, not questions or calls to action. Avoid click-bait language, exclamation points, and phrases like 'you need to', 'must read', 'will blow your mind', etc. Write in a conversational, informative tone like you're telling a friend about something interesting you learned. Use US English, avoid em-dashes, and only include hashtags if they naturally fit the sentence flow. Title: $POST_TITLE. Description: $POST_DESCRIPTION. Category: $POST_CATEGORY. Content preview: $POST_CONTENT. The URL will be added automatically."
+            # Create enhanced prompt with calculated character limit
+            PROMPT="Write a thoughtful, natural introduction (under $MAX_AI_LENGTH characters) for a blog post share. Create a genuine summary that sparks curiosity through interesting details, not questions or calls to action. Avoid click-bait language, exclamation points, and phrases like 'you need to', 'must read', 'will blow your mind', etc. Write in a conversational, informative tone like you're telling a friend about something interesting you learned. Use US English, avoid em-dashes, and only include hashtags if they naturally fit the sentence flow. The response must be under $MAX_AI_LENGTH characters as a URL will be appended. Title: $POST_TITLE. Description: $POST_DESCRIPTION. Category: $POST_CATEGORY. Content preview: $POST_CONTENT. The URL will be added automatically."
 
             AI_RESPONSE=$(curl -s "https://models.github.ai/inference/chat/completions" \
               -H "Content-Type: application/json" \
