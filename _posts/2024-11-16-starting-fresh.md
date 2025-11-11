@@ -18,6 +18,6 @@ I'll dig through the archive and see what I might want to restore.  Otherwise, I
 
 If you are looking for my social presense you can find me in a couple places:
 
-* [BlueSky](https://bsky.app/profile/2d2.us)
+* [BlueSky](https://bsky.app/profile/rawlinson.us)
 * [LinkedIn](https://www.linkedin.com/in/billrawlinson/)
 * [Instagram](https://www.instagram.com/_finalcut_/)
