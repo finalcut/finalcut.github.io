@@ -9,6 +9,7 @@ tags:
   - php
   - algorithims
 description: A simple php method for computing the distance between two points on a map using their latitude/longitude values.
+forceRepost: true
 blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3m5f6rnbhni2j
 ---
 Years ago I had a project where the client wanted customers to be able to search
