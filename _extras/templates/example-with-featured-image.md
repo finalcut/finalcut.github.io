@@ -12,19 +12,10 @@ excerpt: Learn how to add featured images to your Jekyll posts so they display p
 
 # Featured image options (choose one approach):
 
-# Option 1: Simple image field (will be used for teaser and og_image)
-image: /assets/images/posts/my-featured-image.jpg
 
-# Option 2: Full header configuration with different images for different purposes
 # header:
-#   image: /assets/images/posts/my-header-image.jpg     # Full-width header (1280x400px recommended)
-#   teaser: /assets/images/posts/my-teaser-image.jpg    # Thumbnail for post lists (500x300px recommended)
-#   og_image: /assets/images/posts/my-og-image.jpg      # Social sharing image (1200x630px recommended)
-#   caption: "Photo credit: [Your Name](https://example.com)"
+#   teaser: /assets/images/posts/my-teaser-image.jpg
 
-# Option 3: Just Open Graph image for social sharing
-# header:
-#   og_image: /assets/images/posts/my-social-image.jpg
 
 ---
 

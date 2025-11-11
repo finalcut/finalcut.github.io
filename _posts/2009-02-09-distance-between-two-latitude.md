@@ -1,6 +1,6 @@
 ---
 firstprop: first
-layout: single
+layout: post-with-discussion
 title: Distance Between Two Latitude + LongitudePoints - PHP
 date: 2009-02-09
 comments: false
@@ -61,3 +61,5 @@ Bill
 I'll tell you the same thing i told kinky ben, use a bounding box instead.
 
 Paul Hastings
+
+

@@ -1,7 +1,7 @@
 ---
 firstprop: first
 blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3lytlfzwn5u2q
-layout: single
+layout: post-with-discussion
 title: Auto Share a New Blog Post to BlueSky
 category: blogging
 tags:
@@ -115,8 +115,3 @@ When I have time I'll figure out the issue and address it. I suspect I just don'
 Once more, if you want to see the inspiration post - visit [Martin Woodwar's Blog Post](https://www.woodwardweb.com/post/2025/08/automated-bluesky-integration/) and if you want to see my workflow you can see the [Jekyll yaml file in GitHub](https://github.com/finalcut/finalcut.github.io/blob/main/.github/workflows/jekyll.yml)
 
 
-## Discussion
-
-Join the conversation on Bluesky and see what people are saying about this post:
-
-{% include bluesky-engagement.html %}

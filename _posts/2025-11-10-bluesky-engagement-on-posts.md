@@ -1,6 +1,6 @@
 ---
 firstprop: first
-layout: single
+layout: post-with-discussion
 title: Bluesky Engagement on Posts
 category: blogging
 tags:
@@ -32,8 +32,3 @@ Provides interactive elements for engaging with the social post
 
 And Copilot created a fully functional widget for Jekyll. I'm kind of impressed. At some point I'll have to extract that out to being a reusable component, but for now, I'm pretty happy with how it works.
 
-## Discussion
-
-Join the conversation on Bluesky and see what people are saying about this post:
-
-{% include bluesky-engagement.html %}

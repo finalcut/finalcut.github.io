@@ -1,6 +1,6 @@
 ---
 firstprop: first
-layout: single
+layout: post-with-discussion
 title: Ruby Round Robin Scheduling
 description: a simple ruby script for creating league schedules in a round robin fashion making sure to avoid duplicate matches
 category: development

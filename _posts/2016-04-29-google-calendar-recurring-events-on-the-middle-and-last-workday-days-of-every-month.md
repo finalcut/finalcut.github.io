@@ -1,6 +1,6 @@
 ---
 firstprop: first
-layout: single
+layout: post-with-discussion
 title: Google Calendar Recurring Events on the Middle and Last Workday Days of Every Month
 category: utility
 tags:

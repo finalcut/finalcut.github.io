@@ -1,6 +1,6 @@
 ---
 firstprop: first
-layout: single
+layout: post-with-discussion
 title: Rules of the Game - Strictly VolleyPong
 category: fun
 tags:

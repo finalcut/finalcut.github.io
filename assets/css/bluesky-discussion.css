@@ -1,0 +1,32 @@
+/* Bluesky Discussion Section Styling */
+.bluesky-discussion {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.bluesky-discussion h2 {
+  color: #2e3440;
+  margin-bottom: 0.5rem;
+  font-size: 1.5em;
+}
+
+.bluesky-discussion p {
+  margin-bottom: 1rem;
+  color: #5e6572;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .bluesky-discussion {
+    border-top-color: #3e4047;
+  }
+
+  .bluesky-discussion h2 {
+    color: #d8dee9;
+  }
+
+  .bluesky-discussion p {
+    color: #a8b2c2;
+  }
+}

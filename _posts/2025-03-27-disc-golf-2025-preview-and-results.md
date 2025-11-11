@@ -1,6 +1,6 @@
 ---
 firstprop: first
-layout: single
+layout: post-with-discussion
 title: Disc Golf - 2025 - Preview and Results
 category: blogging
 tags:
@@ -71,8 +71,3 @@ I don't remember exactly how well I did in a couple of the unsanctioned ones or 
 
 Tomorrow is my next rating release. I estimate I'll end the season with a 922.  That means I'll have achieved all 3 goals.  Time to start thinking about next years goals!
 
-## Discussion
-
-Join the conversation on Bluesky and see what people are saying about this post:
-
-{% include bluesky-engagement.html %}

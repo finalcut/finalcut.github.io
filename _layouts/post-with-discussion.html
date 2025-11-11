@@ -1,0 +1,21 @@
+---
+layout: single
+---
+
+<!-- Include discussion section styling -->
+<link rel="stylesheet" href="{{ '/assets/css/bluesky-discussion.css' | relative_url }}">
+
+{{ content }}
+
+{% if page.blueskyPostURL %}
+<section class="bluesky-discussion">
+  <h2>Discussion</h2>
+  <p>Join the conversation on Bluesky and see what people are saying about this post:</p>
+  {% include bluesky-engagement.html %}
+</section>
+{% elsif page.layout == 'post-with-discussion' %}
+<section class="bluesky-discussion">
+  <h2>Discussion</h2>
+  <p>This post will show Bluesky engagement once it's shared on the platform.</p>
+</section>
+{% endif %}

@@ -1,6 +1,6 @@
 ---
 firstprop: first
-layout: single
+layout: post-with-discussion
 title: Fix the Bluesky Posting of Blog Posts
 category: blogging
 tags:
@@ -22,8 +22,3 @@ The PR has some unit tests but sometimes its nice to get a concerete example so 
 
 One other thing I discovered (or maybe it changed) since I last visited this was the need to format the post in a way that links in the post show up properly.  So this tests that approach.
 
-## Discussion
-
-Join the conversation on Bluesky and see what people are saying about this post:
-
-{% include bluesky-engagement.html %}

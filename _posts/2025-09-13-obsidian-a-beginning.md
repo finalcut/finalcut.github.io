@@ -1,6 +1,6 @@
 ---
 firstprop: first
-layout: single
+layout: post-with-discussion
 title: Obsidian - A Beginning
 category: blogging
 tags:
@@ -16,11 +16,11 @@ description: A brief overview of why I started using obsidian and some handy plu
 I've generally just written my markdown in vs-code and called it a day.  However, I started using Obsidian as a note taking app and thought, "maybe I could use it to manage my blog writing?" So, here I am.  Writing my first blog entry using #Obsidian.
 
 # What Is Obsidian
-[Obsidian](https://obsidian.md/) is a powerful note taking tool.  It has a ton of functionality thanks to its healthy plugin ecosystem. However, before you even install a plugin it seems pretty useful.  Its a clean and easy to use markdown editor.  
+[Obsidian](https://obsidian.md/) is a powerful note taking tool.  It has a ton of functionality thanks to its healthy plugin ecosystem. However, before you even install a plugin it seems pretty useful.  Its a clean and easy to use markdown editor.
 
 Because my blog is written in markdown it is, at its core, a fine tool for writing new blog posts.
 # Considerations
-To be honest, when you first install it if you don't look at plugins, or templates, or anything else - it seems pretty simple.  But its also kind of hard to dive right into because you can see all the available options, plugins, templates, etc and then it quickly becomes overwhelming.  
+To be honest, when you first install it if you don't look at plugins, or templates, or anything else - it seems pretty simple.  But its also kind of hard to dive right into because you can see all the available options, plugins, templates, etc and then it quickly becomes overwhelming.
 
 I figure there are just a few types of people who stick with Obsidian.  The first are people who _really_ like taking notes and don't mind the steep learning curve.  I'm not a big fan of note taking so I'm not in this category (yet, maybe Obsidian will convert me).  The second are people who like to tinker with tech stuff and want to understand how it all works.  I'm more or less in that group.  I've been hearing about Obsidian for quite a while via news feeds and it just keeps on popping up - so I decided to give it a try and saw the complexity as a challenge.
 
@@ -53,3 +53,4 @@ Becuase this blog is hosted as a Github page I need to `push` my posts to github
 More info on [Git Plugin](https://github.com/Vinzent03/obsidian-git)
 # Summary
 This post serves as a test of my use of Obsidian for this purpose.  I will probably evolve my process.  As figure out the best way for me to use it for work I'll probably share "my system" and my templates so others (if anyone reads these) might benefit.  For now, I'm exploring and learning.
+

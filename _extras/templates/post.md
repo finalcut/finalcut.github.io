@@ -11,7 +11,7 @@ fileName = fileName.replace(/-+/g, '-');
 await tp.file.move("_posts/" + tp.date.now("YYYY-MM-DD") + "-" + fileName)
 -%>
 firstprop: first
-layout: single
+layout: post-with-discussion
 title: <% title %>
 category:
 tags: []
@@ -28,3 +28,5 @@ header:
   caption: # Optional caption for header image
 image: # Alternative way to set featured image (will be used as teaser and og_image if others not specified)
 ---
+
+<!-- Your post content goes here -->
