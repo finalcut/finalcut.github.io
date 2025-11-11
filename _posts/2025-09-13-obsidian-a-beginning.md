@@ -11,6 +11,7 @@ featured: false
 date: 2025-09-13
 author: Bill Rawlinson
 description: A brief overview of why I started using obsidian and some handy plugins
+blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3m5ewq4f4gn2h
 ---
 # Intro
 I've generally just written my markdown in vs-code and called it a day.  However, I started using Obsidian as a note taking app and thought, "maybe I could use it to manage my blog writing?" So, here I am.  Writing my first blog entry using #Obsidian.
@@ -53,4 +54,3 @@ Becuase this blog is hosted as a Github page I need to `push` my posts to github
 More info on [Git Plugin](https://github.com/Vinzent03/obsidian-git)
 # Summary
 This post serves as a test of my use of Obsidian for this purpose.  I will probably evolve my process.  As figure out the best way for me to use it for work I'll probably share "my system" and my templates so others (if anyone reads these) might benefit.  For now, I'm exploring and learning.
-
