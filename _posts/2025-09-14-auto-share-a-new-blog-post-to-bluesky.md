@@ -33,7 +33,7 @@ The entire process is driven via GitHub Actions.  My blog is hosted via GitHub P
 
 The first thing I had to do, once I realized it, was to change the default `Build and Deployment` setting on the Github Pages to use `GitHub Actions` instead of `Deploy from a branch`.  You can do this by going to your GitHub repository -> Settings -> Pages.  Then change the `Build and deployment` source to `Github Actions`.  Once you do that it gives you the ability to copy the code that currently deploys your site into a jekyll.yml file.  Here is [my jekyll.yml file](https://github.com/finalcut/finalcut.github.io/blob/main/.github/workflows/jekyll.yml) after I made the tweaks this post discusses.
 
-![GitHub Actions Setting](/assets/images/github-actions-build.png)
+![GitHub Actions Setting](/assets/images/2025/github-actions-build.png)
 
 Second, I took the steps from the `build` and `deploy` jobs and merged them into one job which I called, appropriately, `build-and-deploy`.  This was both logical and it made it easier for me to port the code from Martin Woodward.
 
@@ -113,5 +113,3 @@ Woodward is using version 0.1.0 of the action `zentered/bluesky-post-action` but
 When I have time I'll figure out the issue and address it. I suspect I just don't understand something about GitHub Actions.
 
 Once more, if you want to see the inspiration post - visit [Martin Woodwar's Blog Post](https://www.woodwardweb.com/post/2025/08/automated-bluesky-integration/) and if you want to see my workflow you can see the [Jekyll yaml file in GitHub](https://github.com/finalcut/finalcut.github.io/blob/main/.github/workflows/jekyll.yml)
-
-
