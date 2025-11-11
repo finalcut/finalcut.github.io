@@ -14,6 +14,7 @@ featured: false
 date: 2025-11-10
 author: Bill Rawlinson
 description: Bluesky in my blog? Sure!
+blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3m5d3v53bht2p
 ---
 Today I did a bunch of work (using copilot AI) to help fix some things with posting to bluesky - but then I thought - why not see if we can include social engagement at the bottom of the blog post much like [Martin Did here](https://www.woodwardweb.com/post/2025/08/automated-bluesky-integration/).
 
