@@ -24,11 +24,12 @@ I started the season with a rating of 919.  So far it has fallen, already, to a 
 
 <div class="notice--info"><h4>Goals</h4>
 <ul>
-<li>[&nbsp;&nbsp;] End of Year Rating &gt; 920</li>
-<li>[x] At least one tournament victory - mp40 win at [Thorn Spring Fling](https://www.pdga.com/tour/event/88892#MP40)</li>
-<li>[x] At least one "cash" position in a pro event</li>
+<li>✅ (https://www.pdga.com/player/96685/stats/2025) End of Year Rating &gt; 920 - BOOM! 923!</li>
+<li>✅  At least one tournament victory - BOOM! 2! Both Pro Events!</li>
+<li>✅  At least one "cash" position in a pro event - BOOM! 6!</li>
 </ul>
 </div>
+[End of year Details](https://www.pdga.com/player/96685/stats/2025)
 
 As I compete I'll keep this post update with my results and track my season goals.  I may have some individual posts based on certain events.  Stay tuned!
 <!---
@@ -70,4 +71,3 @@ Im pretty sure my season is done.  I don't know of any other sanctioned events t
 I don't remember exactly how well I did in a couple of the unsanctioned ones or even exactly when they were.  I do remember having fun!  Highlight of the year was playing in Scotland and meeting a bunch of cool folks there including a member of the Scottish Womens Olympic Volleybal Team!  I feel like I represented the spirit of Huntington WV Disc Golf well there - lots of compliments on my putting.
 
 Tomorrow is my next rating release. I estimate I'll end the season with a 922.  That means I'll have achieved all 3 goals.  Time to start thinking about next years goals!
-
