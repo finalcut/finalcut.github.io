@@ -4,11 +4,11 @@ layout: post-with-discussion
 title: Ruby Round Robin Scheduling
 description: a simple ruby script for creating league schedules in a round robin fashion making sure to avoid duplicate matches
 category: development
-forceRepost: true
 tags:
   - kickball
   - ruby
   - scheduling
+blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3m5f4xfwus22f
 ---
 ## Background
 I used to play kickball in an adult league and season our league manager ran into a problem with
