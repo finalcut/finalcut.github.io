@@ -28,7 +28,6 @@ jobs:
     secrets:
       BSKY_IDENTIFIER: ${{ secrets.BSKY_IDENTIFIER }}
       BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4

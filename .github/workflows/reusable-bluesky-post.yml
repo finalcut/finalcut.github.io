@@ -21,8 +21,6 @@ on:
         required: true
       BSKY_PASSWORD:
         required: true
-      GITHUB_TOKEN:
-        required: true
     outputs:
       posted:
         description: 'Whether a post was made'
