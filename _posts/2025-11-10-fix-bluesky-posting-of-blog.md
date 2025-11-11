@@ -18,7 +18,7 @@ A few months ago I talked about [autoposting to bluesky](https://rawlinson.us/bl
 
 So today I used a bit of copilot AI and updated the github action.  I'm pretty sure it works properly and I [submitted a PR back to the original author](https://github.com/zentered/bluesky-post-action/pull/17/files).  For the time being I just have some [hand-rolled code in my github action](https://github.com/finalcut/finalcut.github.io/blob/a5b7acc33814f570b776cbc7251f4454f3a14e1c/.github/workflows/jekyll.yml#L214) that implements the suggestions from copilot.  So this post acts as both an annoucement and a test of the functionality.
 
-The PR has some unit tests but sometimes its nice to get a concerete example so - here it is.  Ideally, after I submit this it will auto-post to bluesky, add the frontmatter for `blueskyPostURI` and commit that without reposting ad infinium (it won't).
+The PR has some unit tests but sometimes its nice to get a concerete example so - here it is.  Ideally, after I submit this it will auto-post to bluesky, add the frontmatter for `blueskyPostURL` and commit that without reposting ad infinium (it won't).
 
 One other thing I discovered (or maybe it changed) since I last visited this was the need to format the post in a way that links in the post show up properly.  So this tests that approach.
 
