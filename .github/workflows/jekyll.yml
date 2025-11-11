@@ -52,17 +52,17 @@ jobs:
           NEW_POSTS=$(git diff --name-only --diff-filter=A HEAD~1 HEAD | grep "^_posts/.*\.md\?$" || true)
           echo "New posts: $NEW_POSTS"
 
-          # Check if any new posts don't have blueskyPostURI
+          # Check if any new posts don't have blueskyPostURL or blueskyPostURI (backward compatibility)
           HAS_NEW_POSTS_WITHOUT_BLUESKY="false"
           NEW_POSTS_WITHOUT_BLUESKY=""
 
           if [ ! -z "$NEW_POSTS" ]; then
             for post in $NEW_POSTS; do
               if [ -f "$post" ]; then
-                # Check if post has blueskyPostURI in frontmatter (only between --- markers)
+                # Check if post has blueskyPostURL or blueskyPostURI in frontmatter (only between --- markers)
                 FRONTMATTER=$(awk '/^---$/{if(seen){exit} seen=1; next} seen{print}' "$post")
-                if ! echo "$FRONTMATTER" | grep -q "blueskyPostURI:"; then
-                  echo "Found new post without Bluesky URI: $post"
+                if ! echo "$FRONTMATTER" | grep -q -E "blueskyPost(URL|URI):"; then
+                  echo "Found new post without Bluesky URL: $post"
                   HAS_NEW_POSTS_WITHOUT_BLUESKY="true"
                   if [ -z "$NEW_POSTS_WITHOUT_BLUESKY" ]; then
                     NEW_POSTS_WITHOUT_BLUESKY="$post"
@@ -70,7 +70,7 @@ jobs:
                     NEW_POSTS_WITHOUT_BLUESKY="$NEW_POSTS_WITHOUT_BLUESKY,$post"
                   fi
                 else
-                  echo "Post already has Bluesky URI: $post"
+                  echo "Post already has Bluesky URL: $post"
                 fi
               fi
             done
@@ -214,84 +214,76 @@ jobs:
       - name: Post to Bluesky
         if: steps.process-posts.outputs.BLUESKY_TEXT != ''
         id: bluesky-post
-        run: |
-          # Install AT Protocol client and GitHub Actions core
-          npm install @atproto/api @actions/core
-
-          # Create a Node.js script to post to Bluesky and capture the response
-          cat > post_to_bluesky.js << 'EOF'
-          const { BskyAgent, RichText } = require('@atproto/api');
-          const core = require('@actions/core');
-
-          async function main() {
-            const agent = new BskyAgent({
-              service: 'https://bsky.social'
-            });
-
-            try {
-              await agent.login({
-                identifier: process.env.BSKY_IDENTIFIER,
-                password: process.env.BSKY_PASSWORD
-              });
-
-              // Use RichText to properly detect links and create facets
-              const richText = new RichText({
-                text: process.env.POST_TEXT
-              });
-
-              // This will detect URLs and create proper facets for links
-              await richText.detectFacets(agent);
-
-              const response = await agent.post({
-                text: richText.text,
-                facets: richText.facets,
-                createdAt: new Date().toISOString()
-              });
-
-              console.log('Post successful!');
-              console.log('URI:', response.uri);
-              console.log('CID:', response.cid);
-
-              // Set outputs for GitHub Actions
-              core.setOutput('uri', response.uri);
-              core.setOutput('cid', response.cid);
-              core.setOutput('url', `https://bsky.app/profile/${process.env.BSKY_IDENTIFIER}/post/${response.uri.split('/').pop()}`);
-
-            } catch (error) {
-              console.error('Error posting to Bluesky:', error);
-              process.exit(1);
-            }
-          }
-
-          main();
-          EOF
-
-          # Run the script
-          node post_to_bluesky.js
+        uses: finalcut/bluesky-post-action@feature/add-post-outputs
         env:
           BSKY_IDENTIFIER: ${{ secrets.BLUESKY_IDENTIFIER }}
           BSKY_PASSWORD: ${{ secrets.BLUESKY_PASSWORD }}
-          POST_TEXT: ${{ steps.process-posts.outputs.BLUESKY_TEXT }}
+        with:
+          post: ${{ steps.process-posts.outputs.BLUESKY_TEXT }}
+          service: https://bsky.social
 
-      - name: Update post with Bluesky URI
-        if: steps.bluesky-post.outputs.uri != ''
+      - name: Update post with Bluesky URL
+        if: steps.bluesky-post.outputs.url != ''
         id: update-posts-in-github
         run: |
-          # Update the post file with the Bluesky URI
+          # Update the post file with the Bluesky URL
           POST_FILE="${{ steps.process-posts.outputs.POST_FILE }}"
+          BLUESKY_URL="${{ steps.bluesky-post.outputs.url }}"
 
-          # Find the line with firstprop: first and add blueskyPostURI after it
-          sed -i "/^firstprop: first$/a blueskyPostURI: \"${{ steps.bluesky-post.outputs.uri }}\"" "$POST_FILE"
+          # Check if post already has blueskyPostURL
+          if grep -q "blueskyPostURL:" "$POST_FILE"; then
+            echo "Post already has blueskyPostURL. Replacing existing entries."
+            # Remove all existing blueskyPostURL lines and add the new one
+            awk -v uri="$BLUESKY_URL" '
+            BEGIN { in_frontmatter = 0; inserted = 0 }
+            /^---$/ {
+                if (!in_frontmatter) {
+                    in_frontmatter = 1
+                    print $0
+                } else if (!inserted) {
+                    print "blueskyPostURL: " uri
+                    print $0
+                    inserted = 1
+                } else {
+                    print $0
+                }
+                next
+            }
+            # Skip existing blueskyPostURL lines
+            /^blueskyPostURL:/ && in_frontmatter { next }
+            { print $0 }
+            ' "$POST_FILE" > "$POST_FILE.tmp" && mv "$POST_FILE.tmp" "$POST_FILE"
+          else
+            # Add new blueskyPostURL to frontmatter
+            echo "Adding new blueskyPostURL to frontmatter."
+            awk -v uri="$BLUESKY_URL" '
+            BEGIN { in_frontmatter = 0; inserted = 0 }
+            /^---$/ {
+                if (!in_frontmatter) {
+                    in_frontmatter = 1
+                    print $0
+                } else if (!inserted) {
+                    print "blueskyPostURL: " uri
+                    print $0
+                    inserted = 1
+                } else {
+                    print $0
+                }
+                next
+            }
+            { print $0 }
+            ' "$POST_FILE" > "$POST_FILE.tmp" && mv "$POST_FILE.tmp" "$POST_FILE"
+          fi
 
-          echo "Updated $POST_FILE with Bluesky URI: ${{ steps.bluesky-post.outputs.uri }}"
+          echo "Updated $POST_FILE with Bluesky URL: $BLUESKY_URL"
 
       - name: Commit updated post files
-        if: steps.bluesky-post.outputs.uri != ''
+        if: steps.bluesky-post.outputs.url != ''
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add _posts/
-          git diff --staged --quiet || git commit -m "Add Bluesky post URI to new blog post"
+          git diff --staged --quiet || git commit -m "Add Bluesky post URL to new blog post"
           git push
 
   rebuild-after-bluesky:
