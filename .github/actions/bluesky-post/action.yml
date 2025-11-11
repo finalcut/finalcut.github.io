@@ -83,64 +83,20 @@ runs:
           MESSAGE="${{ inputs.custom_message }}"
         else
           echo "Generating AI message"
-          node -e "
-            const OpenAI = require('openai');
-            const openai = new OpenAI({ apiKey: '${{ inputs.openai_api_key }}' });
-
-            (async () => {
-              try {
-                const response = await openai.chat.completions.create({
-                  model: 'gpt-4',
-                  messages: [{
-                    role: 'user',
-                    content: 'Write a short, engaging social media post (under 280 chars) for this blog post. Title: \"${{ env.TITLE }}\". Excerpt: \"${{ env.EXCERPT }}\". Include the URL at the end: ${{ env.POST_URL }}'
-                  }],
-                  max_tokens: 100,
-                  temperature: 0.7
-                });
-                console.log(response.choices[0].message.content.trim());
-              } catch (error) {
-                console.error('Error generating message:', error);
-                process.exit(1);
-              }
-            })();
-          " > generated_message.txt
-          MESSAGE=$(cat generated_message.txt)
+          export OPENAI_API_KEY="${{ inputs.openai_api_key }}"
+          MESSAGE=$(node ${{ github.action_path }}/generate-message.js)
         fi
-
+        
         echo "MESSAGE=$MESSAGE" >> $GITHUB_ENV
-        echo "Generated message: $MESSAGE"
-
-    - name: Post to Bluesky
+        echo "Generated message: $MESSAGE"    - name: Post to Bluesky
       if: env.SKIP_POST != 'true'
       shell: bash
       run: |
-        node -e "
-          const { BskyAgent } = require('@atproto/api');
-
-          (async () => {
-            try {
-              const agent = new BskyAgent({ service: 'https://bsky.social' });
-              await agent.login({
-                identifier: '${{ inputs.bluesky_username }}',
-                password: '${{ inputs.bluesky_password }}'
-              });
-
-              const post = await agent.post({
-                text: '${{ env.MESSAGE }}',
-                createdAt: new Date().toISOString()
-              });
-
-              console.log('Posted to Bluesky successfully');
-              console.log('Post URI:', post.uri);
-              console.log('AT_URI=' + post.uri);
-            } catch (error) {
-              console.error('Error posting to Bluesky:', error);
-              process.exit(1);
-            }
-          })();
-        " > post_result.txt
-
+        export BLUESKY_USERNAME="${{ inputs.bluesky_username }}"
+        export BLUESKY_PASSWORD="${{ inputs.bluesky_password }}"
+        
+        node ${{ github.action_path }}/post-to-bluesky.js > post_result.txt
+        
         AT_URI=$(grep "AT_URI=" post_result.txt | cut -d'=' -f2)
         echo "AT_URI=$AT_URI" >> $GITHUB_ENV
         cat post_result.txt
@@ -150,14 +106,9 @@ runs:
       shell: bash
       run: |
         if [ -n "${{ env.AT_URI }}" ]; then
-          # Add blueskyPostURI to frontmatter
-          sed -i.bak '/^---$/,/^---$/ {
-            /^---$/a\
-blueskyPostURI: "${{ env.AT_URI }}"
-          }' "${{ env.POST_PATH }}"
-
-          echo "Updated ${{ env.POST_PATH }} with blueskyPostURI"
-
+          # Use Python script to safely update frontmatter
+          python3 ${{ github.action_path }}/update-frontmatter.py
+          
           # Commit the change
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
