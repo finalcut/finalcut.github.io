@@ -8,7 +8,9 @@ tags:
   - natural-beauty
 comments: false
 featured: true
-image: /assets/images/devil-caterpiller-face.png
+header:
+  og_image: "https://rawlinson.us/assets/images/devil-caterpiller-face.png"
+  teaser: "/assets/images/devil-caterpiller-face.png"
 date: 2025-09-14
 author: Bill Rawlinson
 description: photos of a large Hickory Horned Devil caterpillar
