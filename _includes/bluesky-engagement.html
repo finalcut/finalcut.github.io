@@ -1,0 +1,19 @@
+{% comment %}
+Bluesky Engagement Include for Jekyll
+Usage in post: {% include bluesky-engagement.html %}
+This will automatically use the blueskyPostURL from the post's frontmatter
+{% endcomment %}
+
+{% if page.blueskyPostURL or page.blueskyPostURI %}
+  {% assign bluesky_url = page.blueskyPostURL | default: page.blueskyPostURI %}
+  
+  <div class="bluesky-engagement-container" 
+       data-bluesky-url="{{ bluesky_url }}"
+       data-show-likes="{{ include.show_likes | default: 'true' }}"
+       data-show-reposts="{{ include.show_reposts | default: 'true' }}"
+       data-show-replies="{{ include.show_replies | default: 'true' }}"
+       data-max-avatars="{{ include.max_avatars | default: '10' }}"
+       data-max-replies="{{ include.max_replies | default: '5' }}">
+    <!-- Bluesky engagement will be loaded here via JavaScript -->
+  </div>
+{% endif %}

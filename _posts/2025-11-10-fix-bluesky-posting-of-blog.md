@@ -21,3 +21,9 @@ So today I used a bit of copilot AI and updated the github action.  I'm pretty s
 The PR has some unit tests but sometimes its nice to get a concerete example so - here it is.  Ideally, after I submit this it will auto-post to bluesky, add the frontmatter for `blueskyPostURI` and commit that without reposting ad infinium (it won't).
 
 One other thing I discovered (or maybe it changed) since I last visited this was the need to format the post in a way that links in the post show up properly.  So this tests that approach.
+
+## Discussion
+
+Join the conversation on Bluesky and see what people are saying about this post:
+
+{% include bluesky-engagement.html %}
