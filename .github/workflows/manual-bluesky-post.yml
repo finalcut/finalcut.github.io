@@ -123,14 +123,32 @@ jobs:
           POST_PATH="_posts/${{ github.event.inputs.post_file }}"
           BLUESKY_URL="${{ steps.bluesky.outputs.url }}"
 
-          # Check if post already has blueskyPostURI (unless force_repost is true)
-          if [ "${{ github.event.inputs.force_repost }}" != "true" ] && grep -q "blueskyPostURI:" "$POST_PATH"; then
-            echo "Post already has blueskyPostURI and force_repost is false. Updating existing URI."
-            # Update existing blueskyPostURI
-            sed -i.bak "s|blueskyPostURI:.*|blueskyPostURI: $BLUESKY_URL|" "$POST_PATH"
+          # Check if post already has blueskyPostURI
+          if grep -q "blueskyPostURI:" "$POST_PATH"; then
+            echo "Post already has blueskyPostURI. Replacing existing entries."
+            # Remove all existing blueskyPostURI lines and add the new one
+            awk -v uri="$BLUESKY_URL" '
+            BEGIN { in_frontmatter = 0; inserted = 0 }
+            /^---$/ {
+                if (!in_frontmatter) {
+                    in_frontmatter = 1
+                    print $0
+                } else if (!inserted) {
+                    print "blueskyPostURI: " uri
+                    print $0
+                    inserted = 1
+                } else {
+                    print $0
+                }
+                next
+            }
+            # Skip existing blueskyPostURI lines
+            /^blueskyPostURI:/ && in_frontmatter { next }
+            { print $0 }
+            ' "$POST_PATH" > "$POST_PATH.tmp" && mv "$POST_PATH.tmp" "$POST_PATH"
           else
             # Add new blueskyPostURI to frontmatter
-            # Use awk to safely insert the URL before the closing ---
+            echo "Adding new blueskyPostURI to frontmatter."
             awk -v uri="$BLUESKY_URL" '
             BEGIN { in_frontmatter = 0; inserted = 0 }
             /^---$/ {
