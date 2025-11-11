@@ -216,13 +216,11 @@ class BlueskyEngagement {
 
       // Debug: Log the post object to see what fields are available
       console.log('Bluesky post data:', post);
-      console.log('Like count:', likeCount, 'Repost count:', repostCount, 'Reply count:', replyCount);
-      console.log('Available keys:', Object.keys(post));
 
       html += `
         <div class="bluesky-stats">
           <span class="bluesky-stat">❤️ ${likeCount} ${likeCount === 1 ? 'like' : 'likes'}</span>
-          <span class="bluesky-stat">🔄 ${repostCount} ${repostCount === 1 ? 'repost' : 'reposts'}</span>
+          <span class="bluesky-stat">🔄 ${quoteCount} ${quoteCount === 1 ? 'quote' : 'quotes'}</span>
           <span class="bluesky-stat">💬 ${replyCount} ${replyCount === 1 ? 'reply' : 'replies'}</span>
         </div>
       `;
