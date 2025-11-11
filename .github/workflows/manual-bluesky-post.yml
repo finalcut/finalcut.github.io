@@ -15,20 +15,25 @@ on:
         description: 'Force repost even if blueskyPostURI already exists'
         required: false
         type: boolean
-        default: 'false'
+        default: false
 
 permissions:
   contents: write
-  actions: read
 
 jobs:
-  call-bluesky-post:
+  post-to-bluesky:
     name: Post to Bluesky
-    uses: finalcut/finalcut.github.io/.github/workflows/reusable-bluesky-post.yml@main
-    with:
-      post_file: ${{ github.event.inputs.post_file }}
-      custom_message: ${{ github.event.inputs.custom_message }}
-      force_update: ${{ github.event.inputs.force_repost }}
-    secrets:
-      BSKY_IDENTIFIER: ${{ secrets.BSKY_IDENTIFIER }}
-      BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Post to Bluesky
+        uses: ./.github/actions/bluesky-post
+        with:
+          post_file: ${{ github.event.inputs.post_file }}
+          custom_message: ${{ github.event.inputs.custom_message }}
+          force_repost: ${{ github.event.inputs.force_repost }}
+          bluesky_username: ${{ secrets.BLUESKY_USERNAME }}
+          bluesky_password: ${{ secrets.BLUESKY_PASSWORD }}
+          openai_api_key: ${{ secrets.OPENAI_API_KEY }}

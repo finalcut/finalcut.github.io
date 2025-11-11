@@ -1,0 +1,167 @@
+name: 'Post to Bluesky'
+description: 'Posts a blog post to Bluesky with AI-generated or custom message'
+inputs:
+  post_file:
+    description: 'Blog post filename (e.g., 2025-11-10-my-blog-post.md)'
+    required: true
+  custom_message:
+    description: 'Optional custom message (if empty, will generate one with AI)'
+    required: false
+    default: ''
+  force_repost:
+    description: 'Force repost even if blueskyPostURI already exists'
+    required: false
+    default: 'false'
+  bluesky_username:
+    description: 'Bluesky username'
+    required: true
+  bluesky_password:
+    description: 'Bluesky password'
+    required: true
+  openai_api_key:
+    description: 'OpenAI API key for message generation'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        npm install @atproto/api openai
+
+    - name: Validate post file exists
+      shell: bash
+      run: |
+        POST_PATH="_posts/${{ inputs.post_file }}"
+        if [ ! -f "$POST_PATH" ]; then
+          echo "Error: Post file $POST_PATH not found"
+          exit 1
+        fi
+        echo "Post file found: $POST_PATH"
+
+    - name: Extract post content and check if already posted
+      shell: bash
+      run: |
+        POST_PATH="_posts/${{ inputs.post_file }}"
+        
+        # Check if already posted (unless force_repost is true)
+        if [ "${{ inputs.force_repost }}" != "true" ]; then
+          if grep -q "blueskyPostURI:" "$POST_PATH"; then
+            echo "Post already has blueskyPostURI and force_repost is false. Skipping."
+            echo "SKIP_POST=true" >> $GITHUB_ENV
+            exit 0
+          fi
+        fi
+        
+        # Extract title and content
+        TITLE=$(grep "^title:" "$POST_PATH" | sed 's/^title: *//; s/^["'\'']*//; s/["'\'']*$//')
+        EXCERPT=$(grep "^excerpt:" "$POST_PATH" | sed 's/^excerpt: *//; s/^["'\'']*//; s/["'\'']*$//')
+        
+        # Get the post URL (assuming Jekyll permalink structure)
+        FILENAME=$(basename "${{ inputs.post_file }}" .md)
+        DATE_PART=$(echo "$FILENAME" | grep -o '^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}')
+        URL_PART=$(echo "$FILENAME" | sed "s/^$DATE_PART-//")
+        POST_URL="https://finalcut.github.io/blogging/$URL_PART/"
+        
+        echo "TITLE=$TITLE" >> $GITHUB_ENV
+        echo "EXCERPT=$EXCERPT" >> $GITHUB_ENV
+        echo "POST_URL=$POST_URL" >> $GITHUB_ENV
+        echo "POST_PATH=$POST_PATH" >> $GITHUB_ENV
+
+    - name: Generate or use custom message
+      if: env.SKIP_POST != 'true'
+      shell: bash
+      run: |
+        if [ -n "${{ inputs.custom_message }}" ]; then
+          echo "Using custom message"
+          MESSAGE="${{ inputs.custom_message }}"
+        else
+          echo "Generating AI message"
+          node -e "
+            const OpenAI = require('openai');
+            const openai = new OpenAI({ apiKey: '${{ inputs.openai_api_key }}' });
+            
+            (async () => {
+              try {
+                const response = await openai.chat.completions.create({
+                  model: 'gpt-4',
+                  messages: [{
+                    role: 'user',
+                    content: 'Write a short, engaging social media post (under 280 chars) for this blog post. Title: \"${{ env.TITLE }}\". Excerpt: \"${{ env.EXCERPT }}\". Include the URL at the end: ${{ env.POST_URL }}'
+                  }],
+                  max_tokens: 100,
+                  temperature: 0.7
+                });
+                console.log(response.choices[0].message.content.trim());
+              } catch (error) {
+                console.error('Error generating message:', error);
+                process.exit(1);
+              }
+            })();
+          " > generated_message.txt
+          MESSAGE=$(cat generated_message.txt)
+        fi
+        
+        echo "MESSAGE=$MESSAGE" >> $GITHUB_ENV
+        echo "Generated message: $MESSAGE"
+
+    - name: Post to Bluesky
+      if: env.SKIP_POST != 'true'
+      shell: bash
+      run: |
+        node -e "
+          const { BskyAgent } = require('@atproto/api');
+          
+          (async () => {
+            try {
+              const agent = new BskyAgent({ service: 'https://bsky.social' });
+              await agent.login({
+                identifier: '${{ inputs.bluesky_username }}',
+                password: '${{ inputs.bluesky_password }}'
+              });
+              
+              const post = await agent.post({
+                text: '${{ env.MESSAGE }}',
+                createdAt: new Date().toISOString()
+              });
+              
+              console.log('Posted to Bluesky successfully');
+              console.log('Post URI:', post.uri);
+              console.log('AT_URI=' + post.uri);
+            } catch (error) {
+              console.error('Error posting to Bluesky:', error);
+              process.exit(1);
+            }
+          })();
+        " > post_result.txt
+        
+        AT_URI=$(grep "AT_URI=" post_result.txt | cut -d'=' -f2)
+        echo "AT_URI=$AT_URI" >> $GITHUB_ENV
+        cat post_result.txt
+
+    - name: Update post with Bluesky URI
+      if: env.SKIP_POST != 'true'
+      shell: bash
+      run: |
+        if [ -n "${{ env.AT_URI }}" ]; then
+          # Add blueskyPostURI to frontmatter
+          sed -i.bak '/^---$/,/^---$/ {
+            /^---$/a\
+blueskyPostURI: "${{ env.AT_URI }}"
+          }' "${{ env.POST_PATH }}"
+          
+          echo "Updated ${{ env.POST_PATH }} with blueskyPostURI"
+          
+          # Commit the change
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add "${{ env.POST_PATH }}"
+          git commit -m "Add Bluesky post URI to ${{ inputs.post_file }}"
+          git push
+        fi
