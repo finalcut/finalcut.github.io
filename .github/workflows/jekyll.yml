@@ -56,6 +56,10 @@ jobs:
           HAS_NEW_POSTS_WITHOUT_BLUESKY="false"
           NEW_POSTS_WITHOUT_BLUESKY=""
 
+          # Check for posts with forceRepost flag
+          FORCE_REPOST_POSTS=""
+          ALL_POSTS=$(find _posts -name "*.md" -type f)
+
           if [ ! -z "$NEW_POSTS" ]; then
             for post in $NEW_POSTS; do
               if [ -f "$post" ]; then
@@ -76,10 +80,42 @@ jobs:
             done
           fi
 
-          echo "new-posts=$NEW_POSTS_WITHOUT_BLUESKY" >> $GITHUB_OUTPUT
+          # Check for existing posts with forceRepost flag
+          for post in $ALL_POSTS; do
+            if [ -f "$post" ]; then
+              FRONTMATTER=$(awk '/^---$/{if(seen){exit} seen=1; next} seen{print}' "$post")
+              if echo "$FRONTMATTER" | grep -q "forceRepost:\s*true"; then
+                echo "Found post with forceRepost flag: $post"
+                HAS_NEW_POSTS_WITHOUT_BLUESKY="true"
+                if [ -z "$FORCE_REPOST_POSTS" ]; then
+                  FORCE_REPOST_POSTS="$post"
+                else
+                  FORCE_REPOST_POSTS="$FORCE_REPOST_POSTS,$post"
+                fi
+              fi
+            fi
+          done
+
+          # Combine new posts and force repost posts
+          ALL_POSTS_TO_PROCESS=""
+          if [ ! -z "$NEW_POSTS_WITHOUT_BLUESKY" ]; then
+            ALL_POSTS_TO_PROCESS="$NEW_POSTS_WITHOUT_BLUESKY"
+          fi
+          if [ ! -z "$FORCE_REPOST_POSTS" ]; then
+            if [ -z "$ALL_POSTS_TO_PROCESS" ]; then
+              ALL_POSTS_TO_PROCESS="$FORCE_REPOST_POSTS"
+            else
+              ALL_POSTS_TO_PROCESS="$ALL_POSTS_TO_PROCESS,$FORCE_REPOST_POSTS"
+            fi
+          fi
+
+          echo "new-posts=$ALL_POSTS_TO_PROCESS" >> $GITHUB_OUTPUT
           echo "has-new-posts-without-bluesky=$HAS_NEW_POSTS_WITHOUT_BLUESKY" >> $GITHUB_OUTPUT
+          echo "force-repost-posts=$FORCE_REPOST_POSTS" >> $GITHUB_OUTPUT
           echo "Has new posts without Bluesky: $HAS_NEW_POSTS_WITHOUT_BLUESKY"
           echo "New posts without Bluesky: $NEW_POSTS_WITHOUT_BLUESKY"
+          echo "Force repost posts: $FORCE_REPOST_POSTS"
+          echo "All posts to process: $ALL_POSTS_TO_PROCESS"
 
       - name: Setup Ruby
         # https://github.com/ruby/setup-ruby/releases/tag/v1.220.0
@@ -232,11 +268,18 @@ jobs:
           POST_FILE="${{ steps.process-posts.outputs.POST_FILE }}"
           BLUESKY_URL="${{ steps.bluesky-post.outputs.url }}"
 
+          # Check if this was a force repost
+          IS_FORCE_REPOST="false"
+          if grep -q "forceRepost:\s*true" "$POST_FILE"; then
+            IS_FORCE_REPOST="true"
+            echo "This is a force repost - will remove forceRepost flag"
+          fi
+
           # Check if post already has blueskyPostURL
           if grep -q "blueskyPostURL:" "$POST_FILE"; then
             echo "Post already has blueskyPostURL. Replacing existing entries."
             # Remove all existing blueskyPostURL lines and add the new one
-            awk -v uri="$BLUESKY_URL" '
+            awk -v uri="$BLUESKY_URL" -v remove_force_repost="$IS_FORCE_REPOST" '
             BEGIN { in_frontmatter = 0; inserted = 0 }
             /^---$/ {
                 if (!in_frontmatter) {
@@ -253,12 +296,14 @@ jobs:
             }
             # Skip existing blueskyPostURL lines
             /^blueskyPostURL:/ && in_frontmatter { next }
+            # Skip forceRepost lines if this was a force repost
+            /^forceRepost:/ && in_frontmatter && remove_force_repost == "true" { next }
             { print $0 }
             ' "$POST_FILE" > "$POST_FILE.tmp" && mv "$POST_FILE.tmp" "$POST_FILE"
           else
             # Add new blueskyPostURL to frontmatter
             echo "Adding new blueskyPostURL to frontmatter."
-            awk -v uri="$BLUESKY_URL" '
+            awk -v uri="$BLUESKY_URL" -v remove_force_repost="$IS_FORCE_REPOST" '
             BEGIN { in_frontmatter = 0; inserted = 0 }
             /^---$/ {
                 if (!in_frontmatter) {
@@ -273,11 +318,16 @@ jobs:
                 }
                 next
             }
+            # Skip forceRepost lines if this was a force repost
+            /^forceRepost:/ && in_frontmatter && remove_force_repost == "true" { next }
             { print $0 }
             ' "$POST_FILE" > "$POST_FILE.tmp" && mv "$POST_FILE.tmp" "$POST_FILE"
           fi
 
           echo "Updated $POST_FILE with Bluesky URL: $BLUESKY_URL"
+          if [ "$IS_FORCE_REPOST" = "true" ]; then
+            echo "Removed forceRepost flag from $POST_FILE"
+          fi
 
       - name: Commit updated post files
         if: steps.bluesky-post.outputs.url != ''
@@ -285,8 +335,18 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add _posts/
-          git diff --staged --quiet || git commit -m "Add Bluesky post URL to new blog post"
-          git push
+          # Check if any files were changed
+          if ! git diff --staged --quiet; then
+            # Check if this was a force repost
+            if [[ "${{ needs.build-and-deploy.outputs.new-posts }}" == *"forceRepost"* ]]; then
+              git commit -m "Update Bluesky post URL and remove forceRepost flag"
+            else
+              git commit -m "Add Bluesky post URL to new blog post"
+            fi
+            git push
+          else
+            echo "No changes to commit"
+          fi
 
   rebuild-after-bluesky:
     name: Rebuild After Bluesky Update

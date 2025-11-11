@@ -17,6 +17,7 @@ category:
 tags: []
 comments: false
 featured: false
+forceRepost: false
 date: <% tp.file.creation_date('YYYY-MM-DD') %>
 author: Bill Rawlinson
 description:
