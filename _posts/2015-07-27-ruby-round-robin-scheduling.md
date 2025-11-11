@@ -4,21 +4,22 @@ layout: post-with-discussion
 title: Ruby Round Robin Scheduling
 description: a simple ruby script for creating league schedules in a round robin fashion making sure to avoid duplicate matches
 category: development
+forceRepost: true
 tags:
   - kickball
   - ruby
   - scheduling
 ---
 ## Background
-I play kickball in an adult league and this season our league manager ran into a problem with
+I used to play kickball in an adult league and season our league manager ran into a problem with
 creating the schedule.  He tried to do it by hand but eventually everything started to blur so
 he kind of gave up which resulted in at least one set of teams not playing each other.
 
-The difficulty was the fact that we have 9 teams in the league this year and he didn't want
+The difficulty was the fact that we have 9 teams in the league that year and he didn't want
 anyone to have a bye - instead he wanted each team to have one week with a double header.
 
-I just noticed the scheduling problem this week (there is one week left in the season). So I
-decided to put together a little ruby script to help prevent the problem next year.
+When I noticed the scheduling problem week (with one week left in the season) I thought I would help avoid it in the future. So I
+put together a little ruby script.
 
 A couple points to consider.
 
@@ -26,8 +27,6 @@ A couple points to consider.
 double header logic.
 2. I imagine it would be easy to add the option to pass in some command line arguments to turn
 on and off the bye week option.
-3. I'll probably convert this to a web app at some point so people can use it without having
-to have ruby locally.
 
 
 ## Configuration
