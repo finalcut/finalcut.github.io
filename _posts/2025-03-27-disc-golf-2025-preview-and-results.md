@@ -69,3 +69,9 @@ Im pretty sure my season is done.  I don't know of any other sanctioned events t
 I don't remember exactly how well I did in a couple of the unsanctioned ones or even exactly when they were.  I do remember having fun!  Highlight of the year was playing in Scotland and meeting a bunch of cool folks there including a member of the Scottish Womens Olympic Volleybal Team!  I feel like I represented the spirit of Huntington WV Disc Golf well there - lots of compliments on my putting.
 
 Tomorrow is my next rating release. I estimate I'll end the season with a 922.  That means I'll have achieved all 3 goals.  Time to start thinking about next years goals!
+
+## Discussion
+
+Join the conversation on Bluesky and see what people are saying about this post:
+
+{% include bluesky-engagement.html %}

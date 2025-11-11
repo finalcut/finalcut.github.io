@@ -19,3 +19,9 @@ This caterpillar was at least 5" long and maybe 3/4" across. Definitely the bigg
 
 ![Caterpiller Face](/assets/images/devil-caterpiller-face.png)
 ![Caterpiller Body](/assets/images/devil-caterpiller-top-down.png)
+
+## Discussion
+
+Join the conversation on Bluesky and see what people are saying about this post:
+
+{% include bluesky-engagement.html %}
