@@ -183,6 +183,7 @@
   },
   "active": "a0f3576c1eb5a955",
   "lastOpenFiles": [
+    "_layouts/post-no-default-og.html",
     "_extras/FORCE_REPOST_GUIDE.md",
     "assets/images/2025/github-actions-build.png",
     "assets/images/2025/devil-caterpiller-top-down.png",
@@ -216,7 +217,6 @@
     "2025-09-13 - tet.md",
     "staging",
     "2015-07-27-ruby-round-robin-scheduling.md",
-    "2025-03-27-disc-golf.md",
     "_extras/templates",
     "_extras"
   ]
