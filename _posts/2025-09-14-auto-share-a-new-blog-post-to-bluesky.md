@@ -1,6 +1,6 @@
 ---
 firstprop: first
-blueskyPostURI: https://bsky.app/profile/rawlinson.us/post/3lytlfzwn5u2q
+blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3lytlfzwn5u2q
 layout: single
 title: Auto Share a New Blog Post to BlueSky
 category: blogging
