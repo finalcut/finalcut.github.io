@@ -3,12 +3,12 @@ firstprop: first
 layout: post-with-discussion
 title: Google Calendar Recurring Events on the Middle and Last Workday Days of Every Month
 category: utility
-forceRepost: true
 tags:
   - calendar
   - ical
   - events
 description: How I used ical standard to create recurring events on my google calendar.
+blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3m5f3twnxjn2w
 ---
 Why I needed this isn't important.  This isn't a cooking blog where you need a backstory!
 
