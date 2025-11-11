@@ -91,8 +91,8 @@ social:
     - "https://bsky.app/profile/rawlinson.us"
     - "https://github.com/finalcut"
 
-# Default Open Graph image (fallback when posts don't have featured images)
-og_image: "/assets/images/wmr.jpg"
+# Default Open Graph image removed - only use explicit images from frontmatter
+# og_image: "/assets/images/wmr.jpg"
 
 # Social media usernames (without @)
 # twitter_username: # Add if you have Twitter
