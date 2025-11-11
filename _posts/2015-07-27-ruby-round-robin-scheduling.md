@@ -8,8 +8,7 @@ tags:
   - kickball
   - ruby
   - scheduling
-blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3m5f4xfwus22f
-forceRepost: true
+blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3m5f5eg57a52i
 ---
 ## Background
 I used to play kickball in an adult league and season our league manager ran into a problem with
