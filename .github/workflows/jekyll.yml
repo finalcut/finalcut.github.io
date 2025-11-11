@@ -270,43 +270,29 @@ jobs:
           if [ "${{ steps.bluesky-post.outcome }}" = "failure" ]; then
             echo "❌ Bluesky posting failed!"
 
-            # Count graphemes (characters including emojis, accents, etc.)
-            # Using Python for accurate grapheme counting
-            GRAPHEME_COUNT=$(python3 -c "
-import unicodedata
-import sys
-
-def count_graphemes(text):
-    # Normalize the text to handle composed characters
-    normalized = unicodedata.normalize('NFC', text)
-    # Count grapheme clusters (this is a simplified approach)
-    # For a more accurate count, we'd need a proper grapheme library
-    return len(normalized)
-
-text = '''$POST_TEXT'''
-print(count_graphemes(text))
-")
-
-            # Also get byte length and character count for comparison
+            # Count characters using standard Unix tools
+            # AWK length() function handles UTF-8 properly and is closest to grapheme count
             CHAR_COUNT=$(echo -n "$POST_TEXT" | wc -c)
-            UNICODE_COUNT=$(python3 -c "print(len('''$POST_TEXT'''))")
+            UNICODE_CHAR_COUNT=$(echo -n "$POST_TEXT" | wc -m 2>/dev/null || echo -n "$POST_TEXT" | wc -c)
+            AWK_CHAR_COUNT=$(echo -n "$POST_TEXT" | awk '{print length($0)}')
 
             echo "📊 Message analysis:"
-            echo "   Graphemes (approximate): $GRAPHEME_COUNT"
-            echo "   Unicode characters: $UNICODE_COUNT"
-            echo "   Bytes: $CHAR_COUNT"
+            echo "   Character count (awk): $AWK_CHAR_COUNT"
+            echo "   Unicode chars (wc -m): $UNICODE_CHAR_COUNT"
+            echo "   Bytes (wc -c): $CHAR_COUNT"
             echo "   Bluesky limit: 300 graphemes"
             echo ""
             echo "📝 Message content:"
             echo "$POST_TEXT"
             echo ""
 
-            if [ "$GRAPHEME_COUNT" -gt 300 ]; then
-              echo "💡 The message is $(($GRAPHEME_COUNT - 300)) graphemes over the 300 limit."
+            # Use AWK count as best approximation for graphemes
+            if [ "$AWK_CHAR_COUNT" -gt 300 ]; then
+              echo "💡 The message is $(($AWK_CHAR_COUNT - 300)) characters over the 300 limit."
               echo "   Consider shortening the AI prompt to generate shorter messages."
             fi
 
-            echo "::error title=Bluesky Post Failed::Message has $GRAPHEME_COUNT graphemes (limit: 300). Check the AI prompt length."
+            echo "::error title=Bluesky Post Failed::Message has $AWK_CHAR_COUNT characters (limit: 300). Check the AI prompt length."
             exit 1
           else
             echo "✅ Bluesky posting succeeded!"
