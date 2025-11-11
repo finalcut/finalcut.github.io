@@ -216,9 +216,9 @@ class BlueskyEngagement {
 
       html += `
         <div class="bluesky-stats">
-          <span class="bluesky-stat">❤️ ${likeCount} likes</span>
-          <span class="bluesky-stat">🔄 ${repostCount} reposts</span>
-          <span class="bluesky-stat">💬 ${replyCount} replies</span>
+          <span class="bluesky-stat">❤️ ${likeCount} ${likeCount === 1 ? 'like' : 'likes'}</span>
+          <span class="bluesky-stat">🔄 ${repostCount} ${repostCount === 1 ? 'repost' : 'reposts'}</span>
+          <span class="bluesky-stat">💬 ${replyCount} ${replyCount === 1 ? 'reply' : 'replies'}</span>
         </div>
       `;
 

@@ -45,12 +45,30 @@
 }
 
 .bluesky-stat {
-  background: white;
-  padding: 0.5rem 0.75rem;
-  border-radius: 20px;
+  background: transparent;
+  padding: 0.25rem 0;
+  border-radius: 0;
   font-size: 0.85rem;
   color: #64748b;
-  border: 1px solid #e2e8f0;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
+  font-style: italic;
+}
+
+.bluesky-stat::before {
+  content: "•";
+  color: #cbd5e1;
+  margin-right: 0.25rem;
+}
+
+.bluesky-stat:first-child::before {
+  content: "";
+  margin-right: 0;
 }
 
 .bluesky-section {
