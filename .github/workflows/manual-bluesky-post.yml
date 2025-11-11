@@ -17,10 +17,14 @@ on:
         type: boolean
         default: false
 
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   call-bluesky-post:
     name: Post to Bluesky
-    uses: ./.github/workflows/reusable-bluesky-post.yml
+    uses: finalcut/finalcut.github.io/.github/workflows/reusable-bluesky-post.yml@main
     with:
       post_file: ${{ github.event.inputs.post_file }}
       custom_message: ${{ github.event.inputs.custom_message }}
