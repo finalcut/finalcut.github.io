@@ -1,6 +1,5 @@
 ---
 firstprop: first
-blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3lytm2avnaw2q
 layout: single
 title: The Regal Devil
 category: photos
@@ -12,6 +11,7 @@ featured: true
 date: 2025-09-14
 author: Bill Rawlinson
 description: photos of a large Hickory Horned Devil caterpillar
+blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3m5d4o5kkwh2p
 ---
 This amazing caterpillar was crawling across a creek bed yesterday.  It is a Hickory Horned Devil - and it transforms into a Regal Moth aka the Royal Walnut Moth.
 
