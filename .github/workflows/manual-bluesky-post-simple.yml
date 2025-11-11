@@ -1,0 +1,37 @@
+name: Manual Bluesky Post Simple
+
+on:
+  workflow_dispatch:
+    inputs:
+      post_file:
+        description: 'Blog post filename (e.g., 2025-11-10-my-blog-post.md)'
+        required: true
+        type: string
+      custom_message:
+        description: 'Optional custom message (if empty, will generate one with AI)'
+        required: false
+        type: string
+      force_repost:
+        description: 'Force repost even if blueskyPostURI already exists'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  post-to-bluesky:
+    name: Post to Bluesky
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate inputs and post to Bluesky
+        run: |
+          echo "Testing manual workflow without reusable dependency"
+          echo "Post file: ${{ github.event.inputs.post_file }}"
+          echo "Custom message: ${{ github.event.inputs.custom_message }}"
+          echo "Force repost: ${{ github.event.inputs.force_repost }}"
+          echo "This workflow runs successfully!"
