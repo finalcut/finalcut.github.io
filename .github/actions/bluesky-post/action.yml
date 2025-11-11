@@ -49,7 +49,7 @@ runs:
       shell: bash
       run: |
         POST_PATH="_posts/${{ inputs.post_file }}"
-        
+
         # Check if already posted (unless force_repost is true)
         if [ "${{ inputs.force_repost }}" != "true" ]; then
           if grep -q "blueskyPostURI:" "$POST_PATH"; then
@@ -58,17 +58,17 @@ runs:
             exit 0
           fi
         fi
-        
+
         # Extract title and content
         TITLE=$(grep "^title:" "$POST_PATH" | sed 's/^title: *//; s/^["'\'']*//; s/["'\'']*$//')
         EXCERPT=$(grep "^excerpt:" "$POST_PATH" | sed 's/^excerpt: *//; s/^["'\'']*//; s/["'\'']*$//')
-        
+
         # Get the post URL (assuming Jekyll permalink structure)
         FILENAME=$(basename "${{ inputs.post_file }}" .md)
         DATE_PART=$(echo "$FILENAME" | grep -o '^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}')
         URL_PART=$(echo "$FILENAME" | sed "s/^$DATE_PART-//")
         POST_URL="https://finalcut.github.io/blogging/$URL_PART/"
-        
+
         echo "TITLE=$TITLE" >> $GITHUB_ENV
         echo "EXCERPT=$EXCERPT" >> $GITHUB_ENV
         echo "POST_URL=$POST_URL" >> $GITHUB_ENV
@@ -86,7 +86,7 @@ runs:
           node -e "
             const OpenAI = require('openai');
             const openai = new OpenAI({ apiKey: '${{ inputs.openai_api_key }}' });
-            
+
             (async () => {
               try {
                 const response = await openai.chat.completions.create({
@@ -107,7 +107,7 @@ runs:
           " > generated_message.txt
           MESSAGE=$(cat generated_message.txt)
         fi
-        
+
         echo "MESSAGE=$MESSAGE" >> $GITHUB_ENV
         echo "Generated message: $MESSAGE"
 
@@ -117,7 +117,7 @@ runs:
       run: |
         node -e "
           const { BskyAgent } = require('@atproto/api');
-          
+
           (async () => {
             try {
               const agent = new BskyAgent({ service: 'https://bsky.social' });
@@ -125,12 +125,12 @@ runs:
                 identifier: '${{ inputs.bluesky_username }}',
                 password: '${{ inputs.bluesky_password }}'
               });
-              
+
               const post = await agent.post({
                 text: '${{ env.MESSAGE }}',
                 createdAt: new Date().toISOString()
               });
-              
+
               console.log('Posted to Bluesky successfully');
               console.log('Post URI:', post.uri);
               console.log('AT_URI=' + post.uri);
@@ -140,7 +140,7 @@ runs:
             }
           })();
         " > post_result.txt
-        
+
         AT_URI=$(grep "AT_URI=" post_result.txt | cut -d'=' -f2)
         echo "AT_URI=$AT_URI" >> $GITHUB_ENV
         cat post_result.txt
@@ -155,9 +155,9 @@ runs:
             /^---$/a\
 blueskyPostURI: "${{ env.AT_URI }}"
           }' "${{ env.POST_PATH }}"
-          
+
           echo "Updated ${{ env.POST_PATH }} with blueskyPostURI"
-          
+
           # Commit the change
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
