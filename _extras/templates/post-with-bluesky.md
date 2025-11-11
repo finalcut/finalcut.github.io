@@ -20,10 +20,10 @@ Join the conversation on Bluesky! Here's what people are saying:
 
 <!-- You can also customize the display options: -->
 {% comment %}
-{% include bluesky-engagement.html 
-   show_likes="true" 
-   show_reposts="true" 
-   show_replies="true" 
-   max_avatars="8" 
+{% include bluesky-engagement.html
+   show_likes="true"
+   show_reposts="true"
+   show_replies="true"
+   max_avatars="8"
    max_replies="3" %}
 {% endcomment %}

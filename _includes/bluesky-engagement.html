@@ -6,8 +6,8 @@ This will automatically use the blueskyPostURL from the post's frontmatter
 
 {% if page.blueskyPostURL or page.blueskyPostURI %}
   {% assign bluesky_url = page.blueskyPostURL | default: page.blueskyPostURI %}
-  
-  <div class="bluesky-engagement-container" 
+
+  <div class="bluesky-engagement-container"
        data-bluesky-url="{{ bluesky_url }}"
        data-show-likes="{{ include.show_likes | default: 'true' }}"
        data-show-reposts="{{ include.show_reposts | default: 'true' }}"

@@ -14,10 +14,10 @@ class BlueskyEngagement {
       maxReplies: 5,
       ...options
     };
-    
+
     this.atUri = null;
     this.postData = null;
-    
+
     if (this.container && this.blueskyUrl) {
       this.init();
     }
@@ -62,7 +62,7 @@ class BlueskyEngagement {
 
     const { handle, postId } = uriData;
     const did = await this.resolveHandleToDid(handle);
-    
+
     if (!did) {
       console.error('Could not resolve handle to DID');
       return null;
@@ -74,7 +74,7 @@ class BlueskyEngagement {
       // Fetch post thread to get replies and engagement
       const response = await fetch(`https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?uri=${encodeURIComponent(this.atUri)}&depth=1`);
       const data = await response.json();
-      
+
       return data.thread;
     } catch (error) {
       console.error('Error fetching post data:', error);
@@ -87,7 +87,7 @@ class BlueskyEngagement {
    */
   async fetchLikes() {
     if (!this.atUri) return [];
-    
+
     try {
       const response = await fetch(`https://public.api.bsky.app/xrpc/app.bsky.feed.getLikes?uri=${encodeURIComponent(this.atUri)}&limit=${this.options.maxAvatars}`);
       const data = await response.json();
@@ -103,7 +103,7 @@ class BlueskyEngagement {
    */
   async fetchReposts() {
     if (!this.atUri) return [];
-    
+
     try {
       const response = await fetch(`https://public.api.bsky.app/xrpc/app.bsky.feed.getRepostedBy?uri=${encodeURIComponent(this.atUri)}&limit=${this.options.maxAvatars}`);
       const data = await response.json();
@@ -121,16 +121,16 @@ class BlueskyEngagement {
     const avatar = profile.avatar || 'https://via.placeholder.com/32x32?text=?';
     const handle = profile.handle;
     const displayName = profile.displayName || handle;
-    
+
     return `
-      <a href="https://bsky.app/profile/${handle}" 
-         class="bluesky-avatar" 
+      <a href="https://bsky.app/profile/${handle}"
+         class="bluesky-avatar"
          title="${displayName} ${type} this post"
-         target="_blank" 
+         target="_blank"
          rel="noopener">
-        <img src="${avatar}" 
-             alt="${displayName}" 
-             class="bluesky-avatar-img" 
+        <img src="${avatar}"
+             alt="${displayName}"
+             class="bluesky-avatar-img"
              loading="lazy" />
       </a>
     `;
@@ -196,9 +196,9 @@ class BlueskyEngagement {
 
       const post = postThread.post;
       const replies = postThread.replies || [];
-      
+
       let html = '<div class="bluesky-engagement">';
-      
+
       // Header
       html += `
         <div class="bluesky-header">
@@ -262,7 +262,7 @@ class BlueskyEngagement {
       }
 
       html += '</div>';
-      
+
       this.container.innerHTML = html;
 
     } catch (error) {
@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
       maxAvatars: parseInt(container.dataset.maxAvatars) || 10,
       maxReplies: parseInt(container.dataset.maxReplies) || 5
     };
-    
+
     new BlueskyEngagement(container, url, options);
   });
 });

@@ -14,7 +14,7 @@ date: 2025-09-14
 author: Bill Rawlinson
 description: How I am sharing my blog postings to bluesky using a github action.
 ---
-Today I decided I would figure out if I could auto-post about my blog posts to BlueSky? I figured there had to be a way so after a bit of google hunting I found [a great blog post](https://www.woodwardweb.com/post/2025/08/automated-bluesky-integration/) that gave me _most_ of the keys to the process.  
+Today I decided I would figure out if I could auto-post about my blog posts to BlueSky? I figured there had to be a way so after a bit of google hunting I found [a great blog post](https://www.woodwardweb.com/post/2025/08/automated-bluesky-integration/) that gave me _most_ of the keys to the process.
 
 It took a while for me to get it all sorted out.  For starters, I'm using Jekyll behind the scenes on this and the other person is using Astro.  He actually has a cool component to his blog that takes things a bit further (where I'd like to get) but, for now, it was enough to get me started.
 
@@ -37,7 +37,7 @@ The first thing I had to do, once I realized it, was to change the default `Buil
 
 Second, I took the steps from the `build` and `deploy` jobs and merged them into one job which I called, appropriately, `build-and-deploy`.  This was both logical and it made it easier for me to port the code from Martin Woodward.
 
-I had to make some changes to things.  
+I had to make some changes to things.
 
 First, I had already created GitHub secrets for my bluesky handle and password (using [an app password](https://bsky.app/settings/app-passwords)).  Make sure you use an app password.
 
@@ -48,7 +48,7 @@ During the build and deploy process there were two steps I needed to tweak from 
 
 #### Before
 ```
-      - name: Upload artifact        
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 ```
 #### After
@@ -115,3 +115,8 @@ When I have time I'll figure out the issue and address it. I suspect I just don'
 Once more, if you want to see the inspiration post - visit [Martin Woodwar's Blog Post](https://www.woodwardweb.com/post/2025/08/automated-bluesky-integration/) and if you want to see my workflow you can see the [Jekyll yaml file in GitHub](https://github.com/finalcut/finalcut.github.io/blob/main/.github/workflows/jekyll.yml)
 
 
+## Discussion
+
+Join the conversation on Bluesky and see what people are saying about this post:
+
+{% include bluesky-engagement.html %}
