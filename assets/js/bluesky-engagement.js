@@ -211,7 +211,7 @@ class BlueskyEngagement {
 
       // Stats - check multiple possible field names for reposts
       const likeCount = post.likeCount || 0;
-      const repostCount = post.repostCount || post.repostCounts || post.reposts || 0;
+      const quoteCount = post.quoteCount ||0;
       const replyCount = post.replyCount || 0;
 
       // Debug: Log the post object to see what fields are available
