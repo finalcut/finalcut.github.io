@@ -13,7 +13,7 @@ header:
 date: 2025-09-14
 author: Bill Rawlinson
 description: photos of a large Hickory Horned Devil caterpillar
-blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3m5dd7hl5je2p
+blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3m5ddkozesn2p
 ---
 This amazing caterpillar was crawling across a creek bed yesterday.  It is a Hickory Horned Devil - and it transforms into a Regal Moth aka the Royal Walnut Moth.
 
