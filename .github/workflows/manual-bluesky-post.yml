@@ -28,12 +28,38 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Extract post content and prepare message
+        id: prepare
+        run: |
+          POST_PATH="_posts/${{ github.event.inputs.post_file }}"
+          
+          if [ ! -f "$POST_PATH" ]; then
+            echo "Error: Post file $POST_PATH not found"
+            exit 1
+          fi
+          
+          # Extract title and excerpt for message generation
+          TITLE=$(grep "^title:" "$POST_PATH" | sed 's/^title: *//; s/^["'\'']*//; s/["'\'']*$//')
+          EXCERPT=$(grep "^excerpt:" "$POST_PATH" | sed 's/^excerpt: *//; s/^["'\'']*//; s/["'\'']*$//')
+          
+          # Get the post URL
+          FILENAME=$(basename "${{ github.event.inputs.post_file }}" .md)
+          DATE_PART=$(echo "$FILENAME" | grep -o '^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}')
+          URL_PART=$(echo "$FILENAME" | sed "s/^$DATE_PART-//")
+          POST_URL="https://finalcut.github.io/blogging/$URL_PART/"
+          
+          if [ -n "${{ github.event.inputs.custom_message }}" ]; then
+            MESSAGE="${{ github.event.inputs.custom_message }}"
+          else
+            # Create a simple message with title and URL
+            MESSAGE="New blog post: $TITLE $POST_URL"
+          fi
+          
+          echo "MESSAGE=$MESSAGE" >> $GITHUB_OUTPUT
+          echo "Generated message: $MESSAGE"
+
       - name: Post to Bluesky
         uses: finalcut/bluesky-post-action@feature/add-post-outputs
         with:
-          post_file: ${{ github.event.inputs.post_file }}
-          custom_message: ${{ github.event.inputs.custom_message }}
-          force_repost: ${{ github.event.inputs.force_repost }}
-          bluesky_username: ${{ secrets.BLUESKY_USERNAME }}
-          bluesky_password: ${{ secrets.BLUESKY_PASSWORD }}
-          openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+          post: ${{ steps.prepare.outputs.MESSAGE }}
+          service: https://bsky.social
