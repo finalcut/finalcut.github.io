@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       post_file:
-        description: 'Path to the blog post file'
+        description: 'Blog post filename (e.g., 2025-11-10-my-blog-post.md)'
         required: true
         type: string
       custom_message:
@@ -59,6 +59,9 @@ jobs:
           FORCE_UPDATE: ${{ inputs.force_update }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Build full path to post file
+          POST_FILE="_posts/${{ inputs.post_file }}"
+
           # Check if file exists
           if [ ! -f "$POST_FILE" ]; then
             echo "Error: File $POST_FILE not found"

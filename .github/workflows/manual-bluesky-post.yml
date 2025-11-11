@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       post_file:
-        description: 'Blog post file to share (e.g., _posts/2025-11-10-my-blog-post.md)'
+        description: 'Blog post filename (e.g., 2025-11-10-my-blog-post.md)'
         required: true
         type: string
       custom_message:
