@@ -1,46 +1,62 @@
-name: Manual Bluesky Post
+name: Reusable Bluesky Post
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       post_file:
-        description: 'Blog post file to share (e.g., _posts/2025-11-10-my-blog-post.md)'
+        description: 'Path to the blog post file'
         required: true
         type: string
       custom_message:
-        description: 'Optional custom message (if empty, will generate one with AI)'
+        description: 'Custom message to post (optional)'
         required: false
         type: string
-      force_repost:
-        description: 'Force repost even if blueskyPostURI already exists'
+      force_update:
+        description: 'Force update even if blueskyPostURI exists'
         required: false
         type: boolean
         default: false
+    secrets:
+      BSKY_IDENTIFIER:
+        required: true
+      BSKY_PASSWORD:
+        required: true
+      GITHUB_TOKEN:
+        required: true
+    outputs:
+      posted:
+        description: 'Whether a post was made'
+        value: ${{ jobs.bluesky-post.outputs.posted }}
+      bluesky_uri:
+        description: 'The Bluesky post URI'
+        value: ${{ jobs.bluesky-post.outputs.bluesky_uri }}
+      bluesky_url:
+        description: 'The Bluesky post URL'
+        value: ${{ jobs.bluesky-post.outputs.bluesky_url }}
+
+permissions:
+  contents: write
 
 jobs:
-  call-bluesky-post:
+  bluesky-post:
     name: Post to Bluesky
-    uses: ./.github/workflows/reusable-bluesky-post.yml
-    with:
-      post_file: ${{ github.event.inputs.post_file }}
-      custom_message: ${{ github.event.inputs.custom_message }}
-      force_update: ${{ github.event.inputs.force_repost }}
-    secrets:
-      BSKY_IDENTIFIER: ${{ secrets.BSKY_IDENTIFIER }}
-      BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    runs-on: ubuntu-latest
+    outputs:
+      posted: ${{ steps.bluesky-post.outputs.posted }}
+      bluesky_uri: ${{ steps.bluesky-post.outputs.uri }}
+      bluesky_url: ${{ steps.bluesky-post.outputs.url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Validate and process post
+      - name: Process post and generate message
         id: process-post
         env:
-          POST_FILE: ${{ github.event.inputs.post_file }}
-          CUSTOM_MESSAGE: ${{ github.event.inputs.custom_message }}
-          FORCE_REPOST: ${{ github.event.inputs.force_repost }}
+          POST_FILE: ${{ inputs.post_file }}
+          CUSTOM_MESSAGE: ${{ inputs.custom_message }}
+          FORCE_UPDATE: ${{ inputs.force_update }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Check if file exists
@@ -49,18 +65,19 @@ jobs:
             exit 1
           fi
 
-          # Check if already has Bluesky URI and force_repost is false
-          if [ "$FORCE_REPOST" != "true" ]; then
+          # Check if already has Bluesky URI and force_update is false
+          if [ "$FORCE_UPDATE" != "true" ]; then
             FRONTMATTER=$(awk '/^---$/{if(seen){exit} seen=1; next} seen{print}' "$POST_FILE")
             if echo "$FRONTMATTER" | grep -q "blueskyPostURI:"; then
-              echo "Error: Post already has blueskyPostURI. Use force_repost=true to override."
-              exit 1
+              echo "Post already has blueskyPostURI. Skipping."
+              echo "SKIP_POST=true" >> $GITHUB_OUTPUT
+              exit 0
             fi
           fi
 
           echo "Processing file: $POST_FILE"
 
-          # Extract post title and description
+          # Extract post metadata
           POST_TITLE=$(grep "^title:" "$POST_FILE" | sed 's/title: *//; s/^"\(.*\)"$/\1/')
           POST_DESCRIPTION=$(grep "^description:" "$POST_FILE" | sed 's/description: *//; s/^"\(.*\)"$/\1/')
           POST_CATEGORY=$(grep "^category:" "$POST_FILE" | sed 's/category: *//')
@@ -124,9 +141,10 @@ jobs:
           # Set outputs
           echo "BLUESKY_TEXT=$BLUESKY_TEXT" >> $GITHUB_OUTPUT
           echo "POST_FILE=$POST_FILE" >> $GITHUB_OUTPUT
+          echo "SKIP_POST=false" >> $GITHUB_OUTPUT
 
       - name: Post to Bluesky
-        if: steps.process-post.outputs.BLUESKY_TEXT != ''
+        if: steps.process-post.outputs.SKIP_POST != 'true' && steps.process-post.outputs.BLUESKY_TEXT != ''
         id: bluesky-post
         run: |
           # Install AT Protocol client and GitHub Actions core
@@ -166,6 +184,7 @@ jobs:
 
               core.setOutput('uri', response.uri);
               core.setOutput('cid', response.cid);
+              core.setOutput('posted', 'true');
 
               const identifier = process.env.BSKY_IDENTIFIER || '';
               const username = identifier.startsWith('@') ? identifier.slice(1) : identifier;
@@ -177,6 +196,7 @@ jobs:
 
             } catch (error) {
               console.error('Error posting to Bluesky:', error);
+              core.setOutput('posted', 'false');
               process.exit(1);
             }
           }
@@ -186,12 +206,12 @@ jobs:
 
           node post_to_bluesky.js
         env:
-          BSKY_IDENTIFIER: ${{ secrets.BLUESKY_IDENTIFIER }}
+          BSKY_IDENTIFIER: ${{ secrets.BSKY_IDENTIFIER }}
           BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD }}
           POST_TEXT: ${{ steps.process-post.outputs.BLUESKY_TEXT }}
 
       - name: Update post with Bluesky URI
-        if: steps.bluesky-post.outputs.uri != ''
+        if: steps.bluesky-post.outputs.posted == 'true'
         run: |
           POST_FILE="${{ steps.process-post.outputs.POST_FILE }}"
 
@@ -207,7 +227,7 @@ jobs:
           fi
 
       - name: Commit changes
-        if: steps.bluesky-post.outputs.uri != ''
+        if: steps.bluesky-post.outputs.posted == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -216,7 +236,7 @@ jobs:
           git push
 
       - name: Summary
-        if: steps.bluesky-post.outputs.uri != ''
+        if: steps.bluesky-post.outputs.posted == 'true'
         run: |
           echo "✅ Successfully posted to Bluesky!"
           echo "📝 Post: ${{ steps.process-post.outputs.POST_FILE }}"
