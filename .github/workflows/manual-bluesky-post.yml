@@ -70,16 +70,14 @@ jobs:
             END { print substr(content, 1, 500); }
           ' "$POST_PATH")
 
-          # Get the post URL
+          # Generate URL using filename (matching Jekyll's behavior)
           FILENAME=$(basename "${{ github.event.inputs.post_file }}" .md)
-          DATE_PART=$(echo "$FILENAME" | grep -o '^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}')
-          URL_PART=$(echo "$FILENAME" | sed "s/^$DATE_PART-//")
+          URL_SLUG=$(echo "$FILENAME" | sed 's/^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}-//')
 
           # Use the correct site URL and category for the post URL
           SITE_URL="https://rawlinson.us"
           POST_CATEGORY="${CATEGORY:-blogging}"
-          ENCODED_TITLE=$(echo "$URL_PART" | sed 's/ /-/g')
-          POST_URL="${SITE_URL}/${POST_CATEGORY}/${ENCODED_TITLE}/"
+          POST_URL="${SITE_URL}/${POST_CATEGORY}/${URL_SLUG}/"
 
           # Calculate the exact URL length and determine maximum AI response length
           URL_LENGTH=$(echo -n "$POST_URL" | wc -c)

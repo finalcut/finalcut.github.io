@@ -1,7 +1,7 @@
 ---
 firstprop: first
 layout: post-with-discussion
-title: Distance Between Two Latitude + LongitudePoints - PHP
+title: Distance Between Two Latitude + Longitude Points - PHP
 date: 2009-02-09
 comments: false
 category: development
