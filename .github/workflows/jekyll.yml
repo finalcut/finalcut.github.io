@@ -218,7 +218,7 @@ jobs:
 
             # Create enhanced prompt with post context
             # Note: URL will be appended, so we need to leave room for ~50 characters for the URL
-            PROMPT="Write a short, engaging social media post (under 240 characters) for a new blog post. The post must be under 240 characters because a URL will be appended to it. Use US english, never use emdash and only use hashtags sparingly and if they fit into the body of the text in a way that reads like a sentence. Title: $POST_TITLE. Description: $POST_DESCRIPTION. Category: $POST_CATEGORY. Content preview: $POST_CONTENT. Make it conversational and include relevant hashtags. Don't include the URL as it will be added automatically."
+            PROMPT="Write a short, engaging social media post (under 240 characters) for a new blog post. DO NOT BE CLICK BAIT. The post must be under 240 characters because a URL will be appended to it. Use US english, never use emdash and only use hashtags sparingly and if they fit into the body of the text in a way that reads like a sentence. Title: $POST_TITLE. Description: $POST_DESCRIPTION. Category: $POST_CATEGORY. Content preview: $POST_CONTENT. Make it conversational and include relevant hashtags. Don't include the URL as it will be added automatically. Seriously, do not create click bait headlines."
 
             AI_RESPONSE=$(curl -s "https://models.github.ai/inference/chat/completions" \
               -H "Content-Type: application/json" \
