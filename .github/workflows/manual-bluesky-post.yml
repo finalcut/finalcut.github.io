@@ -74,7 +74,12 @@ jobs:
           FILENAME=$(basename "${{ github.event.inputs.post_file }}" .md)
           DATE_PART=$(echo "$FILENAME" | grep -o '^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}')
           URL_PART=$(echo "$FILENAME" | sed "s/^$DATE_PART-//")
-          POST_URL="https://finalcut.github.io/blogging/$URL_PART/"
+
+          # Use the correct site URL and category for the post URL
+          SITE_URL="https://rawlinson.us"
+          POST_CATEGORY="${CATEGORY:-blogging}"
+          ENCODED_TITLE=$(echo "$URL_PART" | sed 's/ /-/g')
+          POST_URL="${SITE_URL}/${POST_CATEGORY}/${ENCODED_TITLE}/"
 
           if [ -n "${{ github.event.inputs.custom_message }}" ]; then
             MESSAGE="${{ github.event.inputs.custom_message }} $POST_URL"

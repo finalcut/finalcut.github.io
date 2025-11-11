@@ -29,9 +29,9 @@ search: true
 
 # other stuff
 subtitle: Typically short form posts about things I find interesting.
-domain: code.rawlinson.us
+domain: rawlinson.us
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://code.rawlinson.us" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://rawlinson.us" # the base hostname & protocol for your site, e.g. http://example.com
 repository: finalcut/finalcut.github.io
 
 # Build settings

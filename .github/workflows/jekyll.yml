@@ -122,10 +122,12 @@ jobs:
         id: process-posts
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PAGE_URL: ${{ needs.build-and-deploy.outputs.page-url }}
         run: |
           # Install jq for JSON processing
           sudo apt-get update && sudo apt-get install -y jq
+
+          # Use the correct domain for URL generation
+          SITE_URL="https://rawlinson.us"
 
           # Initialize variables
           BLUESKY_TEXT=""
@@ -170,7 +172,7 @@ jobs:
             # Convert file path to URL path
             POST_URL_PATH=$(echo "$post_file" | sed 's|_posts/||' | sed 's|\.mdx\?$||')
             ENCODED_TITLE=$(echo "$POST_TITLE" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | sed 's/--*/-/g')
-            POST_URL="${PAGE_URL}${POST_CATEGORY}/${ENCODED_TITLE}/"
+            POST_URL="${SITE_URL}/${POST_CATEGORY}/${ENCODED_TITLE}/"
 
             echo "Post title: $POST_TITLE"
             echo "Post description: $POST_DESCRIPTION"
