@@ -122,7 +122,7 @@ jobs:
         run: |
           POST_PATH="_posts/${{ github.event.inputs.post_file }}"
           BLUESKY_URI="${{ steps.bluesky.outputs.uri }}"
-          
+
           # Check if post already has blueskyPostURI (unless force_repost is true)
           if [ "${{ github.event.inputs.force_repost }}" != "true" ] && grep -q "blueskyPostURI:" "$POST_PATH"; then
             echo "Post already has blueskyPostURI and force_repost is false. Updating existing URI."
@@ -130,43 +130,45 @@ jobs:
             sed -i.bak "s|blueskyPostURI:.*|blueskyPostURI: $BLUESKY_URI|" "$POST_PATH"
           else
             # Add new blueskyPostURI to frontmatter
+            export POST_PATH
+            export BLUESKY_URI
             python3 << 'EOF'
-          import os
-          import sys
-          
-          post_path = os.environ['POST_PATH']
-          bluesky_uri = os.environ['BLUESKY_URI']
-          
-          with open(post_path, 'r') as f:
-              lines = f.readlines()
-          
-          # Find the end of frontmatter and insert blueskyPostURI
-          in_frontmatter = False
-          frontmatter_end = -1
-          
-          for i, line in enumerate(lines):
-              if line.strip() == '---':
-                  if not in_frontmatter:
-                      in_frontmatter = True
-                  else:
-                      frontmatter_end = i
-                      break
-          
-          if frontmatter_end > 0:
-              # Insert blueskyPostURI before the closing ---
-              lines.insert(frontmatter_end, f'blueskyPostURI: {bluesky_uri}\n')
-              
-              with open(post_path, 'w') as f:
-                  f.writelines(lines)
-              print(f"Added blueskyPostURI to {post_path}")
-          else:
-              print("Error: Could not find frontmatter in post")
-              sys.exit(1)
-          EOF
+import os
+import sys
+
+post_path = os.environ['POST_PATH']
+bluesky_uri = os.environ['BLUESKY_URI']
+
+with open(post_path, 'r') as f:
+    lines = f.readlines()
+
+# Find the end of frontmatter and insert blueskyPostURI
+in_frontmatter = False
+frontmatter_end = -1
+
+for i, line in enumerate(lines):
+    if line.strip() == '---':
+        if not in_frontmatter:
+            in_frontmatter = True
+        else:
+            frontmatter_end = i
+            break
+
+if frontmatter_end > 0:
+    # Insert blueskyPostURI before the closing ---
+    lines.insert(frontmatter_end, f'blueskyPostURI: {bluesky_uri}\n')
+
+    with open(post_path, 'w') as f:
+        f.writelines(lines)
+    print(f"Added blueskyPostURI to {post_path}")
+else:
+    print("Error: Could not find frontmatter in post")
+    sys.exit(1)
+EOF
           fi
-          
+
           echo "Updated $POST_PATH with Bluesky URI: $BLUESKY_URI"
-          
+
           # Commit the change
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
