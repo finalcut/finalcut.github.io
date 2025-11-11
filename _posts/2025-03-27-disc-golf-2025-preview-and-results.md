@@ -8,6 +8,7 @@ tags:
 comments: false
 featured: false
 description: Looking forward at my 2025 year of disc golf - updated occasionally to discuss results for the competitive season.
+blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3m5d4fqnjpy27
 ---
 I've always used this site to talk about _work_ stuff but I think I'm going to have a bit more fun with it.  So in that vein I'm going to kick it off with some disc golf.
 
