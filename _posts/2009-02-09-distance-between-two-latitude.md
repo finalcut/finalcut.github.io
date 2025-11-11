@@ -5,18 +5,16 @@ title: Distance Between Two Latitude + LongitudePoints - PHP
 date: 2009-02-09
 comments: false
 category: development
+forceRepost: true
 tags:
   - php
   - algorithims
 description: A simple php method for computing the distance between two points on a map using their latitude/longitude values.
 ---
-I once had a project where the client wanted customers to be able to search
+Years ago I had a project where the client wanted customers to be able to search
 for the nearest vendor to the customers zip code - this project was in PHP but
 the algorithm contained here can be translated to other languages pretty
 easily (Note, this returns the value in miles):
-
-
-
 
 
 ```php
@@ -49,17 +47,14 @@ function computeDistance($lat1,$lon1,$lat2,$lon2){
 
 ## Comment Archive
 
+<blockquote>
+ I'll tell you the same thing i told kinky ben, use a bounding box instead.
+ Paul Hastings
+</blockquote>
 ---
 That is probably a good suggestion however in my case I don't know if is any more efficient.
 I'll have to experiment.
 
 There are only about 10 global distributors and I don't have a zipcode db to compute against. I have the coordinates of the warehouses and then a random zipcode.  I then have to find the warehouse nearest the zipcode
 
-Bill
-
----
-I'll tell you the same thing i told kinky ben, use a bounding box instead.
-
-Paul Hastings
-
-
+- Bill
