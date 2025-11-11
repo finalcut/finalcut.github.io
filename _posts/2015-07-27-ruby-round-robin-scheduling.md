@@ -9,6 +9,7 @@ tags:
   - ruby
   - scheduling
 blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3m5f4xfwus22f
+forceRepost: true
 ---
 ## Background
 I used to play kickball in an adult league and season our league manager ran into a problem with
