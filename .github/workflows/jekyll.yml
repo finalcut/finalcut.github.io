@@ -16,7 +16,7 @@ on:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: read
+  contents: write  # Need write access to push Bluesky URI updates back to posts
   pages: write
   id-token: write
   models: read
@@ -220,7 +220,7 @@ jobs:
 
           # Create a Node.js script to post to Bluesky and capture the response
           cat > post_to_bluesky.js << 'EOF'
-          const { BskyAgent } = require('@atproto/api');
+          const { BskyAgent, RichText } = require('@atproto/api');
           const core = require('@actions/core');
 
           async function main() {
@@ -234,8 +234,17 @@ jobs:
                 password: process.env.BSKY_PASSWORD
               });
 
+              // Use RichText to properly detect links and create facets
+              const richText = new RichText({
+                text: process.env.POST_TEXT
+              });
+
+              // This will detect URLs and create proper facets for links
+              await richText.detectFacets(agent);
+
               const response = await agent.post({
-                text: process.env.POST_TEXT,
+                text: richText.text,
+                facets: richText.facets,
                 createdAt: new Date().toISOString()
               });
 
