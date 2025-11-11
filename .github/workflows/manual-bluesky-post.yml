@@ -19,6 +19,7 @@ on:
 
 permissions:
   contents: write
+  models: read
 
 jobs:
   post-to-bluesky:
@@ -30,31 +31,79 @@ jobs:
 
       - name: Extract post content and prepare message
         id: prepare
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Install jq for JSON processing
+          sudo apt-get update && sudo apt-get install -y jq
+
           POST_PATH="_posts/${{ github.event.inputs.post_file }}"
-          
+
           if [ ! -f "$POST_PATH" ]; then
             echo "Error: Post file $POST_PATH not found"
             exit 1
           fi
-          
+
           # Extract title and excerpt for message generation
           TITLE=$(grep "^title:" "$POST_PATH" | sed 's/^title: *//; s/^["'\'']*//; s/["'\'']*$//')
           EXCERPT=$(grep "^excerpt:" "$POST_PATH" | sed 's/^excerpt: *//; s/^["'\'']*//; s/["'\'']*$//')
-          
+          DESCRIPTION=$(grep "^description:" "$POST_PATH" | sed 's/description: *//; s/^"\(.*\)"$/\1/')
+          CATEGORY=$(grep "^category:" "$POST_PATH" | sed 's/category: *//')
+
+          # Extract post content for context
+          POST_CONTENT=$(awk '
+            BEGIN { in_frontmatter = 0; content_started = 0; }
+            /^---$/ {
+              if (in_frontmatter == 1) { content_started = 1; }
+              in_frontmatter = !in_frontmatter;
+              next;
+            }
+            content_started == 1 && in_frontmatter == 0 {
+              if (NF == 0 && length(content) == 0) next;
+              gsub(/^#+\s*/, "");
+              gsub(/\[([^\]]*)\]\([^\)]*\)/, "\\1");
+              gsub(/\*\*([^\*]*)\*\*/, "\\1");
+              gsub(/\*([^\*]*)\*/, "\\1");
+              content = content " " $0;
+              if (length(content) > 500) exit;
+            }
+            END { print substr(content, 1, 500); }
+          ' "$POST_PATH")
+
           # Get the post URL
           FILENAME=$(basename "${{ github.event.inputs.post_file }}" .md)
           DATE_PART=$(echo "$FILENAME" | grep -o '^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}')
           URL_PART=$(echo "$FILENAME" | sed "s/^$DATE_PART-//")
           POST_URL="https://finalcut.github.io/blogging/$URL_PART/"
-          
+
           if [ -n "${{ github.event.inputs.custom_message }}" ]; then
-            MESSAGE="${{ github.event.inputs.custom_message }}"
+            MESSAGE="${{ github.event.inputs.custom_message }} $POST_URL"
+            echo "Using custom message with URL"
           else
-            # Create a simple message with title and URL
-            MESSAGE="New blog post: $TITLE $POST_URL"
+            echo "Generating AI message"
+            # Create enhanced prompt with post context
+            PROMPT="Write a short, engaging social media post (under 225 characters) for a new blog post. Use US english, never use emdash and only use hashtags sparingly and if they fit into the body of the text in a way that reads like a sentence. Title: $TITLE. Description: $DESCRIPTION. Category: $CATEGORY. Content preview: $POST_CONTENT. Make it conversational and include relevant hashtags. Don't include the URL."
+
+            AI_RESPONSE=$(curl -s "https://models.github.ai/inference/chat/completions" \
+              -H "Content-Type: application/json" \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
+              -d "{
+                \"messages\": [
+                  {
+                    \"role\": \"user\",
+                    \"content\": $(echo "$PROMPT" | jq -R -s .)
+                  }
+                ],
+                \"model\": \"openai/gpt-4.1\"
+              }")
+
+            echo "AI response: $AI_RESPONSE"
+
+            # Extract the message from the response
+            AI_MESSAGE=$(echo "$AI_RESPONSE" | jq -r '.choices[0].message.content')
+            MESSAGE="${AI_MESSAGE} ${POST_URL}"
           fi
-          
+
           echo "MESSAGE=$MESSAGE" >> $GITHUB_OUTPUT
           echo "Generated message: $MESSAGE"
 
