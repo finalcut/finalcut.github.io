@@ -87,7 +87,7 @@ jobs:
           else
             echo "Generating AI message"
             # Create enhanced prompt with post context
-            PROMPT="Write a short, engaging social media post (under 225 characters) for a new blog post. Use US english, never use emdash and only use hashtags sparingly and if they fit into the body of the text in a way that reads like a sentence. Title: $TITLE. Description: $DESCRIPTION. Category: $CATEGORY. Content preview: $POST_CONTENT. Make it conversational and include relevant hashtags. Don't include the URL."
+            PROMPT="Write a thoughtful, natural introduction (under 240 characters) for a blog post share. Create a genuine summary that sparks curiosity through interesting details, not questions or calls to action. Avoid click-bait language, exclamation points, and phrases like 'you need to', 'must read', 'will blow your mind', etc. Write in a conversational, informative tone like you're telling a friend about something interesting you learned. Use US English, avoid em-dashes, and only include hashtags if they naturally fit the sentence flow. Title: $POST_TITLE. Description: $POST_DESCRIPTION. Category: $POST_CATEGORY. Content preview: $POST_CONTENT. The URL will be added automatically."
 
             AI_RESPONSE=$(curl -s "https://models.github.ai/inference/chat/completions" \
               -H "Content-Type: application/json" \
