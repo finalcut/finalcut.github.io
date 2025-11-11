@@ -130,41 +130,24 @@ jobs:
             sed -i.bak "s|blueskyPostURI:.*|blueskyPostURI: $BLUESKY_URI|" "$POST_PATH"
           else
             # Add new blueskyPostURI to frontmatter
-            export POST_PATH
-            export BLUESKY_URI
-            python3 << 'EOF'
-import os
-import sys
-
-post_path = os.environ['POST_PATH']
-bluesky_uri = os.environ['BLUESKY_URI']
-
-with open(post_path, 'r') as f:
-    lines = f.readlines()
-
-# Find the end of frontmatter and insert blueskyPostURI
-in_frontmatter = False
-frontmatter_end = -1
-
-for i, line in enumerate(lines):
-    if line.strip() == '---':
-        if not in_frontmatter:
-            in_frontmatter = True
-        else:
-            frontmatter_end = i
-            break
-
-if frontmatter_end > 0:
-    # Insert blueskyPostURI before the closing ---
-    lines.insert(frontmatter_end, f'blueskyPostURI: {bluesky_uri}\n')
-
-    with open(post_path, 'w') as f:
-        f.writelines(lines)
-    print(f"Added blueskyPostURI to {post_path}")
-else:
-    print("Error: Could not find frontmatter in post")
-    sys.exit(1)
-EOF
+            # Use awk to safely insert the URI before the closing ---
+            awk -v uri="$BLUESKY_URI" '
+            BEGIN { in_frontmatter = 0; inserted = 0 }
+            /^---$/ {
+                if (!in_frontmatter) {
+                    in_frontmatter = 1
+                    print $0
+                } else if (!inserted) {
+                    print "blueskyPostURI: " uri
+                    print $0
+                    inserted = 1
+                } else {
+                    print $0
+                }
+                next
+            }
+            { print $0 }
+            ' "$POST_PATH" > "$POST_PATH.tmp" && mv "$POST_PATH.tmp" "$POST_PATH"
           fi
 
           echo "Updated $POST_PATH with Bluesky URI: $BLUESKY_URI"
