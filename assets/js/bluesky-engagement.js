@@ -209,10 +209,15 @@ class BlueskyEngagement {
         </div>
       `;
 
-      // Stats
+      // Stats - check multiple possible field names for reposts
       const likeCount = post.likeCount || 0;
-      const repostCount = post.repostCount || 0;
+      const repostCount = post.repostCount || post.repostCounts || post.reposts || 0;
       const replyCount = post.replyCount || 0;
+
+      // Debug: Log the post object to see what fields are available
+      console.log('Bluesky post data:', post);
+      console.log('Like count:', likeCount, 'Repost count:', repostCount, 'Reply count:', replyCount);
+      console.log('Available keys:', Object.keys(post));
 
       html += `
         <div class="bluesky-stats">
