@@ -8,6 +8,7 @@ tags:
   - funstuff
 comments: false
 featured: false
+forceRepost: true
 date: 2025-11-12
 author: Bill Rawlinson
 description: During my trip to Scotland I had the chance to playin a disc golf tournament.
@@ -50,7 +51,7 @@ His disc was about 1/3 of the way there when his brother Jason called it!  It wa
 
 Everyone we met there was super nice.  They ended up having a cookout at one of the guys houses after the event - but my wife and I had to catch a bus to get back to Edinburgh so David was nice enough to drive us back to the station.
 
-My prize pack included a disc stamped with the FDGC club stamp (one thing I wanted to get while there) as well as stickers, bag tag, and the cool trophy.  Plus, 3 beers from Loch Lomond Brewery - "Southern Summit American IPA".  It was a good beer and a cool part of the prize pack!
+My prize pack included a disc stamped with the FDGC club stamp (one thing I wanted to get while there) as well as stickers, bag tag, and the cool trophy.  Plus, 3 beers from [Loch Lomond Brewery - "Southern Summit American IPA"](https://www.lochlomondbrewery.com/product-page/southern-summit-4-american-pale-ale-12-x-440ml).  It was a good beer and a cool part of the prize pack!
 
 ![Trophy](/assets/images/2025/scotland-disc-golf/trophy.jpg)
 
