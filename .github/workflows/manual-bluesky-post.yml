@@ -77,7 +77,7 @@ jobs:
           # Use the correct site URL and category for the post URL
           SITE_URL="https://rawlinson.us"
           POST_CATEGORY="${CATEGORY:-blogging}"
-          POST_URL="${SITE_URL}/${POST_CATEGORY}/${URL_SLUG}/"
+          POST_URL="${SITE_URL}/${POST_CATEGORY}/${URL_SLUG}/#page-title"
 
           # Calculate the exact URL length and determine maximum AI response length
           URL_LENGTH=$(echo -n "$POST_URL" | wc -c)
