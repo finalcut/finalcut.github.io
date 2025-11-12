@@ -13,12 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2025-09-14-the-regal-devil.md",
+                "file": "_posts/2025-11-12-disc-golf-in-scotland.md",
                 "mode": "source",
-                "source": false
+                "source": false,
+                "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "2025-09-14-the-regal-devil"
+              "title": "2025-11-12-disc-golf-in-scotland"
             }
           }
         ]
@@ -181,16 +182,27 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a0f3576c1eb5a955",
+  "active": "19126adb2ab273b8",
   "lastOpenFiles": [
+    "_posts/2025-09-14-the-regal-devil.md",
+    "_posts/2025-11-12-disc-golf-in-scotland.md",
+    "assets/images/2025/scotland-disc-golf/trophy.jpg",
+    "assets/images/2025/scotland-disc-golf/83FEE760-CBBB-469B-BA2B-84F778499FA0.jpg",
+    "_extras/posts.md",
+    "_extras/templates/post.md",
+    "assets/images/2025/scotland-disc-golf/hippos.jpg",
+    "assets/images/2025/scotland-disc-golf/IMG_6032.jpg",
+    "assets/images/2025/scotland-disc-golf/ace-hole-18.jpg",
+    "assets/images/2025/scotland-disc-golf/IMG_6026.jpg",
+    "assets/images/2025/scotland-disc-golf/fife-group.jpg",
+    "assets/images/2025/scotland-disc-golf/IMG_6039.jpg",
+    "assets/images/2025/scotland-disc-golf/IMG_6038.jpg",
+    "assets/images/2025/scotland-disc-golf",
     "_layouts/post-no-default-og.html",
     "_extras/FORCE_REPOST_GUIDE.md",
     "assets/images/2025/github-actions-build.png",
-    "assets/images/2025/devil-caterpiller-top-down.png",
-    "assets/images/2025/devil-caterpiller-face.png",
     "assets/images/2025",
     "_posts/2025-09-14-auto-share-a-new-blog-post-to-bluesky.md",
-    "_posts/2025-09-14-the-regal-devil.md",
     "_posts/2009-02-09-distance-between-two-latitude.md",
     "_posts/2015-07-27-ruby-round-robin-scheduling.md",
     "_posts/2015-10-11-rules-of-the-game-strictly-volleypong.md",
@@ -199,13 +211,8 @@
     "_posts/2024-11-18-goodbye-known.md",
     "_posts/2025-03-27-disc-golf-2025-preview-and-results.md",
     "_posts/2025-09-13-obsidian-a-beginning.md",
-    "assets/images/devil-caterpiller-top-down.png",
-    "assets/images/github-actions-build.png",
-    "_extras/posts.md",
-    "_extras/templates/post.md",
     "_posts/2025-09-14-autoposting-from-my-blog-to-bluesky.md",
     "_posts/2025-03-06-lets-encrypt.md",
-    "assets/images/devil-caterpiller-face.png",
     "_posts/2025-09-13 - no-big-chains-or-spaces.-ok.md",
     "_posts/2025-09-13 - ao-test-0-now.md",
     "_posts/2025-09-13 - this - is -a -test.md",
@@ -216,7 +223,6 @@
     "2025-09-13 - Obsidian - A Beginning.md",
     "2025-09-13 - tet.md",
     "staging",
-    "2015-07-27-ruby-round-robin-scheduling.md",
     "_extras/templates",
     "_extras"
   ]
