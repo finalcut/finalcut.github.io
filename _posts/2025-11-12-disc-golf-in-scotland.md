@@ -18,6 +18,7 @@ header:
   og_image: /assets/images/2025/scotland-disc-golf/trophy
   caption:
 image:
+blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3m5guiqu7d22p
 ---
 
 This past September my wife and I had the opportunity to visit Scotland.  It was a wonderful trip which I could post a few times about - this post, specifically is about a bonus event I got to take place in - a disc golf tournament in Glenrothes Scotland.  It was on our first Saturday in the country and took about a 90 minute bus ride from where we were staying in Edinburgh.
