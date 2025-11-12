@@ -8,7 +8,6 @@ tags:
   - funstuff
 comments: false
 featured: false
-forceRepost: true
 date: 2025-11-12
 author: Bill Rawlinson
 description: During my trip to Scotland I had the chance to playin a disc golf tournament.
@@ -19,7 +18,7 @@ header:
   og_image: /assets/images/2025/scotland-disc-golf/trophy.jpg
   caption:
 image:
-blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3m5guoshbyi2t
+blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3m5gv6pqwvz27
 ---
 
 This past September my wife and I had the opportunity to visit Scotland.  It was a wonderful trip which I could post a few times about - this post, specifically is about a bonus event I got to take place in - a disc golf tournament in Glenrothes Scotland.  It was on our first Saturday in the country and took about a 90 minute bus ride from where we were staying in Edinburgh.
