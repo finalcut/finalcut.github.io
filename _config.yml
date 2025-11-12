@@ -45,6 +45,7 @@ paginate: 5 # amount of posts to show
 paginate_path: /page:num/
 logo: "/assets/images/wmr.jpg"
 timezone: America/New_York
+og_image: /assets/images/bill.png
 
 include:
   - _pages
