@@ -10,20 +10,18 @@ fileName = fileName.replace(/ +/g, '-').toLowerCase();
 fileName = fileName.replace(/-+/g, '-');
 await tp.file.move("_posts/" + tp.date.now("YYYY-MM-DD") + "-" + fileName)
 -%>
-firstprop: first
 layout: post-with-discussion
 title: <% title %>
 category:
 tags: []
 comments: false
 featured: false
-forceRepost: false
 date: <% tp.file.creation_date('YYYY-MM-DD') %>
 author: Bill Rawlinson
 description:
 excerpt:
 header:
-  image: # Full-width header image (recommended: 1280x400px)
+  image: # Full-width header image (recommended: 1280x400px); relative path: /path/to/your/image.jpg
   teaser: # Thumbnail image (recommended: 500x300px)
   og_image: # Open Graph image for social sharing (recommended: 1200x630px)
   caption: # Optional caption for header image
