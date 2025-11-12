@@ -118,8 +118,44 @@ jobs:
 
             echo "AI response: $AI_RESPONSE"
 
-            # Extract the message from the response
-            AI_MESSAGE=$(echo "$AI_RESPONSE" | jq -r '.choices[0].message.content')
+            # Check if the response contains an error
+            API_ERROR=$(echo "$AI_RESPONSE" | jq -r '.error.message // empty')
+            if [ -n "$API_ERROR" ]; then
+              echo "❌ GitHub AI API Error: $API_ERROR"
+              echo "Full error response: $AI_RESPONSE"
+              AI_MESSAGE=""  # Set to empty to trigger fallback
+            else
+              # Extract the message from the response
+              AI_MESSAGE=$(echo "$AI_RESPONSE" | jq -r '.choices[0].message.content // empty')
+              if [ -z "$AI_MESSAGE" ] || [ "$AI_MESSAGE" = "null" ]; then
+                echo "❌ AI API returned empty or null content"
+                echo "Response structure: $AI_RESPONSE"
+              fi
+            fi
+
+            # Check if AI response is null or empty, use fallbacks
+            if [ "$AI_MESSAGE" = "null" ] || [ -z "$AI_MESSAGE" ]; then
+              echo "AI response was null or empty, using fallback logic"
+
+              # Check if description has a value
+              if [ -n "$POST_DESCRIPTION" ] && [ "$POST_DESCRIPTION" != "" ]; then
+                echo "Using description from frontmatter"
+                AI_MESSAGE="$POST_DESCRIPTION"
+              else
+                # Check if excerpt has a value
+                POST_EXCERPT=$(grep "^excerpt:" "$POST_PATH" | sed 's/excerpt: *//; s/^"\(.*\)"$/\1/')
+                if [ -n "$POST_EXCERPT" ] && [ "$POST_EXCERPT" != "" ]; then
+                  echo "Using excerpt from frontmatter"
+                  AI_MESSAGE="$POST_EXCERPT"
+                else
+                  # Use first 200 characters of clean text content
+                  echo "Using first 200 characters of post content"
+                  CLEAN_CONTENT=$(echo "$POST_CONTENT" | sed 's/!\[[^\]]*\]([^)]*)//g; s/\[[^\]]*\]([^)]*)//g; s/\*\*//g; s/\*//g; s/#\+//g' | tr -s ' ' | sed 's/^ *//; s/ *$//')
+                  AI_MESSAGE=$(echo "$CLEAN_CONTENT" | cut -c1-200)
+                fi
+              fi
+            fi
+
             MESSAGE="${AI_MESSAGE} ${POST_URL}"
           fi
 
