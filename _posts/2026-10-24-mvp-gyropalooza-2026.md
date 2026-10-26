@@ -15,9 +15,8 @@ excerpt:
 header:
   image: /assets/images/2026/gyropalooza.jpg
   teaser:
-  og_image: /assets/images/2025/gyropalooza.jpg
+  og_image: "https://rawlinson.us/assets/images/2026/gyropalooza.png"
   caption:
-image:
 forceRepost: true
 ---
 ## Intro
