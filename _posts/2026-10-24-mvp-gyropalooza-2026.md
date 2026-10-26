@@ -15,9 +15,9 @@ excerpt:
 header:
   image: /assets/images/2026/gyropalooza.jpg
   teaser:
-  og_image: "https://rawlinson.us/assets/images/2026/gyropalooza.png"
+  og_image: "https://rawlinson.us/assets/images/2026/gyropalooza.jpg"
   caption:
-blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3myqhx4xwks2y
+forceRepost: true
 ---
 ## Intro
 Early this year my buddy Barry was the "lucky" recipient of a golden ticket to the annual MVP Gyropalooza event at the MVP factory in Marlette Michigan; a town that has not much else beyond the MVP factory.  He is a huge MVP fan-boy and had previously attended three Gyropalooza events in the pre-covid era.  Back then he was intrumental in a popular glow round that took place around a Days Inn in a nearby town.
