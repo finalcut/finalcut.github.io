@@ -18,8 +18,9 @@ header:
   og_image: /assets/images/2025/gyropalooza.jpg
   caption:
 image:
-blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3myqglotgko2m
+forceRepost: true
 ---
+## Intro
 Early this year my buddy Barry was the "lucky" recipient of a golden ticket to the annual MVP Gyropalooza event at the MVP factory in Marlette Michigan; a town that has not much else beyond the MVP factory.  He is a huge MVP fan-boy and had previously attended three Gyropalooza events in the pre-covid era.  Back then he was intrumental in a popular glow round that took place around a Days Inn in a nearby town.
 
 I am not an MVP fanboy.  I do bag a Trail which I really do like but, beyond that, I only bag one other disc from the MVP family - a Streamline Turbulance.  My bag is an ecclectic mix of discs that "work for me".  I'm not sponsored and don't really have any brand loyalty.  I don't really understand Barry's affection but I'm also glad it is a source of joy for him.  Life can be rough and I'll not knock anyone for the small joys they find in the mundane.
