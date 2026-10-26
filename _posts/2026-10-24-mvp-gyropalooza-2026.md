@@ -10,7 +10,7 @@ comments: false
 featured: true
 date: 2026-10-24
 author: Bill Rawlinson
-description: Gyropalooza from a discgolfer perspective - a discgolfer who isn't an MVP fanatic
+description: I went to MVP Gyropalooza expecting a disc golf festival. Instead, I met superfans, got bored waiting in line for mini-games, then watched a thrilling finale - a putting showdown between Eagle and a kid named Tony.
 excerpt:
 header:
   image: /assets/images/2026/gyropalooza.jpg
@@ -82,4 +82,4 @@ I won't go again.  I thought it would be more of a festival - live music and a p
 ## Honerable Mention
 On Friday, Oct 23rd, we went and played a private course about 30 minutes away called "Mill Creek".  The guy who lives there and built the course was super nice and welcoming.  The course is beautiful - especially in the fall with the leaves changing.  He had just leaf-blown the main 18 fairways!  The course is a bit tight in some places with holes nearly overlapping and many of the holes have the same RHBH friendly hyzer finish - but it was so damn pretty it is hard to say anything that might be critical.
 
-If you're in the area it was the best course we saw by a good margin.  Call ahead and make reservations essentially - it is the guys property that he lives on and his family deserves warning before strangers popup in his driveway - but definitley make the effort to get out and play.
+If you're in the area it was the best course we saw by a good margin.  Call ahead and make reservations. Essentially - it is the guys property that he lives on and his family deserves warning before strangers popup in his driveway. Definitley make the effort to get out and play.
