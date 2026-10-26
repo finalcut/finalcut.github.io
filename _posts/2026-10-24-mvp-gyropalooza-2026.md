@@ -13,9 +13,9 @@ author: Bill Rawlinson
 description: Gyropalooza from a discgolfer perspective - a discgolfer who isn't an MVP fanatic
 excerpt:
 header:
-  image: /assets/images/2026/gryopalooza.jpg
+  image: /assets/images/2026/gyropalooza.jpg
   teaser:
-  og_image: /assets/images/2025/gryopalooza.jpg
+  og_image: /assets/images/2025/gyropalooza.jpg
   caption:
 image:
 ---
