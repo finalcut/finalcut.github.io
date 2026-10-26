@@ -19,7 +19,6 @@ permissions:
   contents: write  # Need write access to push Bluesky URI updates back to posts
   pages: write
   id-token: write
-  models: read
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
@@ -154,151 +153,21 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Process new posts and post to Bluesky
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install message preparation dependencies
+        run: python -m pip install -r .github/scripts/requirements.txt
+
+      - name: Prepare message from blog description
         id: process-posts
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          POST_FILES: ${{ needs.build-and-deploy.outputs.new-posts }}
         run: |
-          # Install jq for JSON processing
-          sudo apt-get update && sudo apt-get install -y jq
-
-          # Use the correct domain for URL generation
-          SITE_URL="https://rawlinson.us"
-
-          # Initialize variables
-          BLUESKY_TEXT=""
-          POST_FILE=""
-
-          # Process each new post
-          IFS=',' read -ra POSTS <<< "${{ needs.build-and-deploy.outputs.new-posts }}"
-          for post_file in "${POSTS[@]}"; do
-            echo "Processing $post_file"
-
-            # Extract post title and description. maybe qutotes maybe not..
-            POST_TITLE=$(grep "^title:" "$post_file" | sed 's/title: *//; s/^"\(.*\)"$/\1/')
-            POST_DESCRIPTION=$(grep "^description:" "$post_file" | sed 's/description: *//; s/^"\(.*\)"$/\1/')
-
-            # Extract categories and tags for context
-            POST_CATEGORY=$(grep "^category:" "$post_file" | sed 's/category: *//')
-            POST_TAGS=$(grep "^tags:" "$post_file" | sed 's/tags: *//')
-
-            # Extract and clean post content (first few paragraphs)
-            # Remove frontmatter and get first 500 characters of actual content
-            POST_CONTENT=$(awk '
-              BEGIN { in_frontmatter = 0; content_started = 0; }
-              /^---$/ {
-                if (in_frontmatter == 1) { content_started = 1; }
-                in_frontmatter = !in_frontmatter;
-                next;
-              }
-              content_started == 1 && in_frontmatter == 0 {
-                # Skip empty lines at start
-                if (NF == 0 && length(content) == 0) next;
-                # Skip markdown headers and links for cleaner text
-                gsub(/^#+\s*/, "");
-                gsub(/\[([^\]]*)\]\([^\)]*\)/, "\\1");
-                gsub(/\*\*([^\*]*)\*\*/, "\\1");
-                gsub(/\*([^\*]*)\*/, "\\1");
-                content = content " " $0;
-                if (length(content) > 500) exit;
-              }
-              END { print substr(content, 1, 500); }
-            ' "$post_file")
-
-            # Convert filename to URL path (matching Jekyll's behavior)
-            # Extract filename without date prefix and extension
-            FILENAME=$(basename "$post_file" .md)
-            URL_SLUG=$(echo "$FILENAME" | sed 's/^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}-//')
-            POST_URL="${SITE_URL}/${POST_CATEGORY}/${URL_SLUG}/#page-title"
-
-            # Calculate the exact URL length and determine maximum AI response length
-            URL_LENGTH=$(echo -n "$POST_URL" | wc -c)
-            # Reserve 5 characters for the space and any punctuation between message and URL
-            SPACE_BUFFER=5
-            MAX_AI_LENGTH=$((300 - URL_LENGTH - SPACE_BUFFER))
-
-            # Safety check: ensure we have at least 50 characters for the AI response
-            if [ "$MAX_AI_LENGTH" -lt 50 ]; then
-              echo "Warning: URL is very long ($URL_LENGTH chars). Setting minimum AI length to 50."
-              MAX_AI_LENGTH=50
-            fi
-
-            echo "Post title: $POST_TITLE"
-            echo "Post description: $POST_DESCRIPTION"
-            echo "Post URL: $POST_URL"
-            echo "URL length: $URL_LENGTH characters"
-            echo "Max AI response length: $MAX_AI_LENGTH characters"
-            echo "Post category: $POST_CATEGORY"
-            echo "Post content preview: ${POST_CONTENT:0:200}..."
-
-            # Create enhanced prompt with calculated character limit
-            PROMPT="Write a thoughtful, natural introduction (under $MAX_AI_LENGTH characters) for a blog post share. Create a genuine summary that sparks curiosity through interesting details, not questions or calls to action. Avoid click-bait language, exclamation points, and phrases like 'you need to', 'must read', 'will blow your mind', etc. Write in a conversational, informative tone like you're telling a friend about something interesting you learned. Use US English, avoid em-dashes, and only include hashtags if they naturally fit the sentence flow. The response must be under $MAX_AI_LENGTH characters as a URL will be appended. Title: $POST_TITLE. Description: $POST_DESCRIPTION. Category: $POST_CATEGORY. Content preview: $POST_CONTENT. The URL will be added automatically."
-
-            AI_RESPONSE=$(curl -s "https://models.github.ai/inference/chat/completions" \
-              -H "Content-Type: application/json" \
-              -H "Authorization: Bearer $GITHUB_TOKEN" \
-              -d "{
-                \"messages\": [
-                  {
-                    \"role\": \"user\",
-                    \"content\": $(echo "$PROMPT" | jq -R -s .)
-                  }
-                ],
-                \"model\": \"openai/gpt-4.1\"
-              }")
-
-            echo "ai response:  $AI_RESPONSE"
-
-            # Check if the response contains an error
-            API_ERROR=$(echo "$AI_RESPONSE" | jq -r '.error.message // empty')
-            if [ -n "$API_ERROR" ]; then
-              echo "❌ GitHub AI API Error: $API_ERROR"
-              echo "Full error response: $AI_RESPONSE"
-              AI_MESSAGE=""  # Set to empty to trigger fallback
-            else
-              # Extract the message from the response
-              AI_MESSAGE=$(echo "$AI_RESPONSE" | jq -r '.choices[0].message.content // empty')
-              if [ -z "$AI_MESSAGE" ] || [ "$AI_MESSAGE" = "null" ]; then
-                echo "❌ AI API returned empty or null content"
-                echo "Response structure: $AI_RESPONSE"
-              fi
-            fi
-
-            # Check if AI response is null or empty, use fallbacks
-            if [ "$AI_MESSAGE" = "null" ] || [ -z "$AI_MESSAGE" ]; then
-              echo "AI response was null or empty, using fallback logic"
-
-              # Check if description has a value
-              if [ -n "$POST_DESCRIPTION" ] && [ "$POST_DESCRIPTION" != "" ]; then
-                echo "Using description from frontmatter"
-                AI_MESSAGE="$POST_DESCRIPTION"
-              else
-                # Check if excerpt has a value
-                POST_EXCERPT=$(grep "^excerpt:" "$post_file" | sed 's/excerpt: *//; s/^"\(.*\)"$/\1/')
-                if [ -n "$POST_EXCERPT" ] && [ "$POST_EXCERPT" != "" ]; then
-                  echo "Using excerpt from frontmatter"
-                  AI_MESSAGE="$POST_EXCERPT"
-                else
-                  # Use first 200 characters of clean text content
-                  echo "Using first 200 characters of post content"
-                  CLEAN_CONTENT=$(echo "$POST_CONTENT" | sed 's/!\[[^\]]*\]([^)]*)//g; s/\[[^\]]*\]([^)]*)//g; s/\*\*//g; s/\*//g; s/#\+//g' | tr -s ' ' | sed 's/^ *//; s/ *$//')
-                  AI_MESSAGE=$(echo "$CLEAN_CONTENT" | cut -c1-200)
-                fi
-              fi
-            fi
-
-            BLUESKY_TEXT="${AI_MESSAGE} ${POST_URL}"
-            POST_FILE="$post_file"
-
-            echo "Generated message: $BLUESKY_TEXT"
-
-            # Set outputs for next step
-            echo "BLUESKY_TEXT=$BLUESKY_TEXT" >> $GITHUB_OUTPUT
-            echo "POST_FILE=$POST_FILE" >> $GITHUB_OUTPUT
-
-            # Only process one post for now
-            break
-          done
+          IFS=',' read -ra POSTS <<< "$POST_FILES"
+          POST_FILE="${POSTS[0]}" python3 .github/scripts/bluesky_post.py
 
       - name: Post to Bluesky
         if: steps.process-posts.outputs.BLUESKY_TEXT != ''
@@ -339,10 +208,10 @@ jobs:
             # Use AWK count as best approximation for graphemes
             if [ "$AWK_CHAR_COUNT" -gt 300 ]; then
               echo "💡 The message is $(($AWK_CHAR_COUNT - 300)) characters over the 300 limit."
-              echo "   Consider shortening the AI prompt to generate shorter messages."
+              echo "   Shorten the blog description to fit the message limit."
             fi
 
-            echo "::error title=Bluesky Post Failed::Message has $AWK_CHAR_COUNT characters (limit: 300). Check the AI prompt length."
+            echo "::error title=Bluesky Post Failed::Message has $AWK_CHAR_COUNT characters (limit: 300). Check the action logs for the failure reason."
             exit 1
           else
             echo "✅ Bluesky posting succeeded!"

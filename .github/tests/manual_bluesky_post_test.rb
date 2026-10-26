@@ -2,77 +2,68 @@ require 'minitest/autorun'
 require 'yaml'
 require 'open3'
 require 'tempfile'
+require 'date'
 
 class ManualBlueskyPostTest < Minitest::Test
   ROOT = File.expand_path('../..', __dir__)
   POST_FILE = '2026-10-24-mvp-gyropalooza-2026.md'
   POST_URL = 'https://rawlinson.us/fun/mvp-gyropalooza-2026/#page-title'
-  DESCRIPTION = "Gyropalooza from a discgolfer perspective - a discgolfer who isn't an MVP fanatic"
+  DESCRIPTION = YAML.safe_load(
+    File.read(File.join(ROOT, '_posts', POST_FILE)).split(/^---$/, 3)[1],
+    permitted_classes: [Date]
+  ).fetch('description')
 
-  def prepare_message(response, check_prompt: false)
-    workflow = YAML.load_file(File.join(ROOT, '.github/workflows/manual-bluesky-post.yml'))
-    step = workflow.fetch('jobs').fetch('post-to-bluesky').fetch('steps').find do |candidate|
-      candidate['id'] == 'prepare'
+  def prepare_message(custom_message: '', workflow_file: 'manual-bluesky-post.yml', job: 'post-to-bluesky', step_id: 'prepare')
+    workflow = YAML.load_file(File.join(ROOT, '.github/workflows', workflow_file))
+    step = workflow.fetch('jobs').fetch(job).fetch('steps').find do |candidate|
+      candidate['id'] == step_id
     end
     script = step.fetch('run')
-      .gsub('${{ github.event.inputs.post_file }}', POST_FILE)
-      .gsub('${{ github.event.inputs.custom_message }}', '')
+    environment = step.fetch('env').transform_values do |value|
+      value.gsub('${{ github.event.inputs.post_file }}', POST_FILE)
+        .gsub('${{ github.event.inputs.custom_message }}', custom_message)
+        .gsub('${{ needs.build-and-deploy.outputs.new-posts }}', "_posts/#{POST_FILE}")
+    end
 
     stubs = <<~'BASH'
       sudo() { return 0; }
       curl() {
-        if [ "$CHECK_PROMPT" = "true" ]; then
-          while [ "$#" -gt 0 ]; do
-            if [ "$1" = "-d" ]; then
-              printf '%s' "$2" | jq -e '.messages[0].content | contains("Title: MVP Gyropalooza 2026.") and contains("Description: Gyropalooza from a discgolfer perspective")' >/dev/null || return 1
-              break
-            fi
-            shift
-          done
-        fi
-        printf '%s' "$AI_RESPONSE_FIXTURE"
+        echo 'Unexpected AI request' >&2
+        printf '%s' '{"choices":[{"message":{"content":"AI must not be used."}}]}'
       }
     BASH
 
     Tempfile.create('bluesky-output') do |output|
       stdout, stderr, result = Open3.capture3(
-        {
-          'AI_RESPONSE_FIXTURE' => response,
-          'CHECK_PROMPT' => check_prompt.to_s,
-          'GITHUB_OUTPUT' => output.path,
-          'GITHUB_TOKEN' => 'offline-test'
-        },
+        environment.merge('GITHUB_OUTPUT' => output.path),
         'bash', '-e', '-o', 'pipefail', '-c', stubs + script,
         chdir: ROOT
       )
       assert result.success?, "Prepare step failed (#{result.exitstatus}):\n#{stdout}\n#{stderr}"
-      File.read(output.path).strip
+      refute_includes stderr, 'Unexpected AI request'
+      File.read(output.path).lines.map { |line| line.strip.split('=', 2) }.to_h
     end
   end
 
-  def test_plain_text_response_uses_description
-    assert_equal "MESSAGE=#{DESCRIPTION} #{POST_URL}", prepare_message('OK')
+  def test_manual_workflow_uses_description_without_ai
+    assert_equal "#{DESCRIPTION} #{POST_URL}", prepare_message.fetch('MESSAGE')
   end
 
-  def test_empty_response_uses_description
-    assert_equal "MESSAGE=#{DESCRIPTION} #{POST_URL}", prepare_message('')
+  def test_automated_workflow_uses_description_without_ai
+    outputs = prepare_message(workflow_file: 'jekyll.yml', job: 'bluesky-social', step_id: 'process-posts')
+    assert_equal "#{DESCRIPTION} #{POST_URL}", outputs.fetch('BLUESKY_TEXT')
+    assert_equal "_posts/#{POST_FILE}", outputs.fetch('POST_FILE')
   end
 
-  def test_non_object_json_uses_description
-    assert_equal "MESSAGE=#{DESCRIPTION} #{POST_URL}", prepare_message('[]')
+  def test_manual_custom_message_is_preserved
+    message = 'A "custom" visit to Gyropalooza with $shell syntax.'
+    assert_equal "#{message} #{POST_URL}", prepare_message(custom_message: message).fetch('MESSAGE')
   end
 
-  def test_api_error_uses_description
-    response = '{"error":{"message":"Rate limit exceeded"}}'
-    assert_equal "MESSAGE=#{DESCRIPTION} #{POST_URL}", prepare_message(response)
-  end
-
-  def test_missing_ai_content_uses_description
-    assert_equal "MESSAGE=#{DESCRIPTION} #{POST_URL}", prepare_message('{}')
-  end
-
-  def test_successful_response_uses_ai_content_and_frontmatter_prompt
-    response = '{"choices":[{"message":{"content":"A visit to Gyropalooza."}}]}'
-    assert_equal "MESSAGE=A visit to Gyropalooza. #{POST_URL}", prepare_message(response, check_prompt: true)
+  def test_workflows_do_not_request_models_permission
+    %w[manual-bluesky-post.yml jekyll.yml].each do |filename|
+      workflow = YAML.load_file(File.join(ROOT, '.github/workflows', filename))
+      refute workflow.fetch('permissions').key?('models'), "#{filename} still requests model access"
+    end
   end
 end
