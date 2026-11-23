@@ -21,7 +21,9 @@ class ManualBlueskyPostTest < Minitest::Test
     script = step.fetch('run')
     environment = step.fetch('env').transform_values do |value|
       value.gsub('${{ github.event.inputs.post_file }}', POST_FILE)
+        .gsub('${{ inputs.post_file }}', POST_FILE)
         .gsub('${{ github.event.inputs.custom_message }}', custom_message)
+        .gsub('${{ inputs.custom_message }}', custom_message)
         .gsub('${{ needs.build-and-deploy.outputs.new-posts }}', "_posts/#{POST_FILE}")
     end
 
@@ -58,6 +60,19 @@ class ManualBlueskyPostTest < Minitest::Test
   def test_manual_custom_message_is_preserved
     message = 'A "custom" visit to Gyropalooza with $shell syntax.'
     assert_equal "#{message} #{POST_URL}", prepare_message(custom_message: message).fetch('MESSAGE')
+  end
+
+  def test_force_repost_prepares_social_image_before_message
+    workflow = YAML.load_file(File.join(ROOT, '.github/workflows/manual-bluesky-post.yml'))
+    steps = workflow.fetch('jobs').fetch('post-to-bluesky').fetch('steps')
+    prepare_images = steps.find { |step| step['name'] == 'Prepare social images' }
+    prepare_message_step = steps.find { |step| step['id'] == 'prepare' }
+
+    refute_nil prepare_images
+    assert_includes prepare_images.fetch('if'), 'force_repost'
+    assert_includes prepare_images.fetch('run'), 'prepare_social_images.py'
+    assert_includes prepare_images.fetch('run'), 'git push'
+    assert_operator steps.index(prepare_images), :<, steps.index(prepare_message_step)
   end
 
   def test_workflows_do_not_request_models_permission

@@ -36,11 +36,29 @@ jobs:
       - name: Install message preparation dependencies
         run: python -m pip install -r .github/scripts/requirements.txt
 
+      - name: Prepare social images
+        if: ${{ inputs.force_repost }}
+        env:
+          POST_FILE: _posts/${{ inputs.post_file }}
+        run: |
+          python3 .github/scripts/prepare_social_images.py \
+            --repository-root . "$POST_FILE"
+
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add "$POST_FILE" assets/images/
+          if ! git diff --staged --quiet; then
+            git commit -m "Prepare social image for Bluesky repost"
+            git push
+          else
+            echo "No social image changes to commit"
+          fi
+
       - name: Prepare message from blog description
         id: prepare
         env:
-          POST_FILE: _posts/${{ github.event.inputs.post_file }}
-          CUSTOM_MESSAGE: ${{ github.event.inputs.custom_message }}
+          POST_FILE: _posts/${{ inputs.post_file }}
+          CUSTOM_MESSAGE: ${{ inputs.custom_message }}
         run: |
           python3 .github/scripts/bluesky_post.py
 
@@ -57,14 +75,15 @@ jobs:
       - name: Update post with Bluesky URL
         if: steps.bluesky.outputs.url != ''
         run: |
-          POST_PATH="_posts/${{ github.event.inputs.post_file }}"
+          POST_PATH="_posts/${{ inputs.post_file }}"
           BLUESKY_URL="${{ steps.bluesky.outputs.url }}"
+          REMOVE_FORCE_REPOST="${{ inputs.force_repost }}"
 
           # Check if post already has blueskyPostURL
           if grep -q "blueskyPostURL:" "$POST_PATH"; then
             echo "Post already has blueskyPostURL. Replacing existing entries."
             # Remove all existing blueskyPostURL lines and add the new one
-            awk -v uri="$BLUESKY_URL" '
+            awk -v uri="$BLUESKY_URL" -v remove_force_repost="$REMOVE_FORCE_REPOST" '
             BEGIN { in_frontmatter = 0; inserted = 0 }
             /^---$/ {
                 if (!in_frontmatter) {
@@ -81,12 +100,13 @@ jobs:
             }
             # Skip existing blueskyPostURL lines
             /^blueskyPostURL:/ && in_frontmatter { next }
+            /^forceRepost:/ && in_frontmatter && remove_force_repost == "true" { next }
             { print $0 }
             ' "$POST_PATH" > "$POST_PATH.tmp" && mv "$POST_PATH.tmp" "$POST_PATH"
           else
             # Add new blueskyPostURL to frontmatter
             echo "Adding new blueskyPostURL to frontmatter."
-            awk -v uri="$BLUESKY_URL" '
+            awk -v uri="$BLUESKY_URL" -v remove_force_repost="$REMOVE_FORCE_REPOST" '
             BEGIN { in_frontmatter = 0; inserted = 0 }
             /^---$/ {
                 if (!in_frontmatter) {
@@ -101,6 +121,7 @@ jobs:
                 }
                 next
             }
+            /^forceRepost:/ && in_frontmatter && remove_force_repost == "true" { next }
             { print $0 }
             ' "$POST_PATH" > "$POST_PATH.tmp" && mv "$POST_PATH.tmp" "$POST_PATH"
           fi
@@ -111,7 +132,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add "$POST_PATH"
-          git commit -m "Add Bluesky post URL to ${{ github.event.inputs.post_file }}"
+          git commit -m "Add Bluesky post URL to ${{ inputs.post_file }}"
           git push
 
   rebuild-site:
