@@ -14,7 +14,7 @@ class SocialImageWorkflowTest(unittest.TestCase):
             WORKFLOW,
         )
         self.assertIn("prepare_social_images.py", WORKFLOW)
-        self.assertIn('IFS=\',\' read -ra POSTS <<< "$CHANGED_POSTS"', WORKFLOW)
+        self.assertIn('IFS=\',\' read -ra POSTS <<< "$POST_FILES"', WORKFLOW)
 
     def test_bluesky_job_checks_out_generated_main_commit(self):
         self.assertIn("ref: main", WORKFLOW)
@@ -25,6 +25,17 @@ class SocialImageWorkflowTest(unittest.TestCase):
         ruby_index = WORKFLOW.index("- name: Setup Ruby")
         self.assertLess(processor_index, ruby_index)
         self.assertIn("git add _posts/ assets/images/", WORKFLOW)
+
+    def test_force_repost_posts_are_prepared_before_bluesky(self):
+        self.assertIn(
+            "FORCE_REPOST_POSTS: ${{ steps.detect.outputs.force-repost-posts }}",
+            WORKFLOW,
+        )
+        self.assertIn(
+            "steps.detect.outputs.force-repost-posts != ''",
+            WORKFLOW,
+        )
+        self.assertIn('POST_FILES="$CHANGED_POSTS"', WORKFLOW)
 
 
 if __name__ == "__main__":

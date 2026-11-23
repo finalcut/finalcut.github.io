@@ -120,12 +120,21 @@ jobs:
           echo "All posts to process: $ALL_POSTS_TO_PROCESS"
 
       - name: Prepare social images
-        if: steps.detect.outputs.changed-posts != ''
+        if: steps.detect.outputs.changed-posts != '' || steps.detect.outputs.force-repost-posts != ''
         env:
           CHANGED_POSTS: ${{ steps.detect.outputs.changed-posts }}
+          FORCE_REPOST_POSTS: ${{ steps.detect.outputs.force-repost-posts }}
         run: |
           python -m pip install -r .github/scripts/requirements.txt
-          IFS=',' read -ra POSTS <<< "$CHANGED_POSTS"
+          POST_FILES="$CHANGED_POSTS"
+          if [ -n "$FORCE_REPOST_POSTS" ]; then
+            if [ -n "$POST_FILES" ]; then
+              POST_FILES="$POST_FILES,$FORCE_REPOST_POSTS"
+            else
+              POST_FILES="$FORCE_REPOST_POSTS"
+            fi
+          fi
+          IFS=',' read -ra POSTS <<< "$POST_FILES"
           python3 .github/scripts/prepare_social_images.py \
             --repository-root . "${POSTS[@]}"
 
