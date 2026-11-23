@@ -3,3 +3,6 @@
 Gemfile.lock
 _site
 .DS_Store
+.github/scripts/__pycache__/*
+.github/tests/__pycache__/*
+docs/superpowers/*
