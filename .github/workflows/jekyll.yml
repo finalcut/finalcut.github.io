@@ -46,6 +46,9 @@ jobs:
           CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
           echo "Changed files:"
           echo "$CHANGED_FILES"
+          CHANGED_POSTS=$(git diff --name-only HEAD~1 HEAD | grep "^_posts/.*\.md\?$" | paste -sd, - || true)
+          echo "Changed posts: $CHANGED_POSTS"
+          echo "changed-posts=$CHANGED_POSTS" >> $GITHUB_OUTPUT
 
           # Find new posts in _posts (only additions, not modifications)
           NEW_POSTS=$(git diff --name-only --diff-filter=A HEAD~1 HEAD | grep "^_posts/.*\.md\?$" || true)
@@ -116,6 +119,26 @@ jobs:
           echo "Force repost posts: $FORCE_REPOST_POSTS"
           echo "All posts to process: $ALL_POSTS_TO_PROCESS"
 
+      - name: Prepare social images
+        if: steps.detect.outputs.changed-posts != ''
+        env:
+          CHANGED_POSTS: ${{ steps.detect.outputs.changed-posts }}
+        run: |
+          python -m pip install -r .github/scripts/requirements.txt
+          IFS=',' read -ra POSTS <<< "$CHANGED_POSTS"
+          python3 .github/scripts/prepare_social_images.py \
+            --repository-root . "${POSTS[@]}"
+
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add _posts/ assets/images/
+          if ! git diff --staged --quiet; then
+            git commit -m "Prepare social images for Bluesky"
+            git push
+          else
+            echo "No social image changes to commit"
+          fi
+
       - name: Setup Ruby
         # https://github.com/ruby/setup-ruby/releases/tag/v1.220.0
         uses: ruby/setup-ruby@v1
@@ -152,6 +175,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          ref: main
 
       - name: Setup Python
         uses: actions/setup-python@v5
