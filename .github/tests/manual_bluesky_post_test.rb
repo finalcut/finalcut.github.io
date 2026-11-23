@@ -75,6 +75,17 @@ class ManualBlueskyPostTest < Minitest::Test
     assert_operator steps.index(prepare_images), :<, steps.index(prepare_message_step)
   end
 
+  def test_force_repost_deploys_updated_site_before_posting
+    workflow = YAML.load_file(File.join(ROOT, '.github/workflows/manual-bluesky-post.yml'))
+    steps = workflow.fetch('jobs').fetch('post-to-bluesky').fetch('steps')
+    deploy = steps.find { |step| step['name'] == 'Deploy site before Bluesky post' }
+    post = steps.find { |step| step['name'] == 'Post to Bluesky' }
+
+    refute_nil deploy
+    assert_includes deploy.fetch('run'), 'bundle exec jekyll build'
+    assert_operator steps.index(deploy), :<, steps.index(post)
+  end
+
   def test_workflows_do_not_request_models_permission
     %w[manual-bluesky-post.yml jekyll.yml].each do |filename|
       workflow = YAML.load_file(File.join(ROOT, '.github/workflows', filename))

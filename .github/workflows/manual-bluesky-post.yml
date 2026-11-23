@@ -19,6 +19,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   post-to-bluesky:
@@ -61,6 +63,33 @@ jobs:
           CUSTOM_MESSAGE: ${{ inputs.custom_message }}
         run: |
           python3 .github/scripts/bluesky_post.py
+
+      - name: Setup Ruby before Bluesky post
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+          cache-version: 1
+
+      - name: Setup Pages before Bluesky post
+        id: pre-post-pages
+        uses: actions/configure-pages@v5
+
+      - name: Deploy site before Bluesky post
+        run: |
+          bundle exec jekyll build --baseurl "${{ steps.pre-post-pages.outputs.base_path }}"
+        env:
+          JEKYLL_ENV: production
+
+      - name: Upload site before Bluesky post
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: github-pages-before-bluesky
+
+      - name: Publish site before Bluesky post
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-before-bluesky
 
       - name: Post to Bluesky
         id: bluesky
