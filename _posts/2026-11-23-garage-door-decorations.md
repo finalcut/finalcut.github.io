@@ -13,9 +13,9 @@ author: Bill Rawlinson
 description: A comparison between the quality, value, price, and ease of install between two different garage door decorative covers from two different companies.
 excerpt:
 header:
-  image: /assets/images/2026/nutcracker-garage-cover.png
+  image: /assets/images/2026/nutcracker-less-wrinkles.png
   teaser:
-  og_image: "https://rawlinson.us/assets/images/2026/nutcracker-garage-cover.png"
+  og_image: "https://rawlinson.us/assets/images/2026/nutcracker-less-wrinkles.png"
   caption:
 blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3n2yllwfslx2b
 ---
@@ -39,7 +39,7 @@ It looked fine but I don't think I can trust the installation method for a secon
 
 The Christmas cover, from Garage Buddy, features [four nutcrackers in front of some french doors and has some snowy christmas trees](https://garagebuddy.com/products/nutcracker-guards-christmas-garage-door-cover?variant=49082601603318).  It was also expensive but much less so than dbackdrop. I paid ~$144 for it.  It took a long time to get to me - about a month as it was shipped directly from China.  For this one I didn't get a choice for the grommets so I used the velcro and attached strap method.  It was VASTLY superior.  First you clean off near the top of the garage door (ehind the top weather strip).. Let it dry, then apply a LONG strand of velcro up there.  After that you let the velcro adhesive back cure for a day before adding the garage cover.  Adding the garage cover was pretty trivial - you have to have the garage door open just enough to get your arms and hands into the gap and you just start one one side (just outisde the weather seal) and work your way across.  I didn't have to fight with ropes or tearing fabric etc.  It installed flat and easy and has three bungies on the bottom that you loop under the garage door and hook onto metal parts of the garage door interior.  That's it.  I can use this one for a few years at least unless I do something dumb. 
 
-![Christmas Nutcracker Garage Door](https://rawlinson.us/assets/images/2026/nutcracker-garage-cover.png)
+![Christmas Nutcracker Garage Door](https://rawlinson.us/assets/images/2026/nutcracker-less-wrinkles.png)
 
 
 I think had I gone with the velcro on the Halloween option it would be good to go for future years too but, I didn't and it isn't.  
