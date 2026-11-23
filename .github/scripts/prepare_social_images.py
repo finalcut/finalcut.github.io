@@ -90,7 +90,7 @@ def _write_social_image(image_path: Path, threshold: int) -> Path:
 
         jpeg_path = output_base.with_suffix(".jpg")
         temporary_path = jpeg_path.with_suffix(".jpg.tmp")
-        for width, height in reversed(dimensions):
+        for width, height in dimensions:
             resized = source.resize((width, height), Image.Resampling.LANCZOS)
             rgb_image = ImageOps.exif_transpose(resized).convert("RGBA")
             background = Image.new("RGB", rgb_image.size, "white")
@@ -143,10 +143,25 @@ def process_post(post_path: Path, repository_root: Path, threshold: int = 1_000_
     if image_path.stat().st_size <= threshold:
         return False
 
-    social_path = _write_social_image(image_path, threshold)
-    relative_social_path = "/" + social_path.relative_to(repository_root).as_posix()
-    updated_text = _update_og_image(text, start, end, relative_social_path)
-    post_path.write_text(updated_text, encoding="utf-8")
+    output_base = image_path.with_name(f"{image_path.stem}-social")
+    existing_outputs = {
+        output_base.with_suffix(".png"),
+        output_base.with_suffix(".jpg"),
+    }
+    existing_outputs = {path for path in existing_outputs if path.exists()}
+    try:
+        social_path = _write_social_image(image_path, threshold)
+        relative_social_path = "/" + social_path.relative_to(repository_root).as_posix()
+        updated_text = _update_og_image(text, start, end, relative_social_path)
+        post_path.write_text(updated_text, encoding="utf-8")
+    except (OSError, ValueError):
+        for output_path in (
+            output_base.with_suffix(".png"),
+            output_base.with_suffix(".jpg"),
+        ):
+            if output_path.exists() and output_path not in existing_outputs:
+                output_path.unlink()
+        raise
     return True
 
 

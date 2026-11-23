@@ -77,6 +77,15 @@ class PrepareSocialImagesTest(unittest.TestCase):
         self.assertIn("og_image: /assets/images/photo-social.jpg", self.post.read_text())
         self.assertFalse((self.asset_dir / "photo-social.png").exists())
 
+    def test_jpeg_fallback_keeps_largest_candidate_under_threshold(self):
+        self.write_noise_image("photo.png")
+        self.write_post("/assets/images/photo.png")
+
+        process_post(self.post, self.root, threshold=500_000)
+
+        with Image.open(self.asset_dir / "photo-social.jpg") as social_image:
+            self.assertEqual(social_image.size, (1200, 900))
+
     def test_absolute_site_url_resolves(self):
         self.write_noise_image("photo.png", size=(40, 40))
         self.write_post("https://rawlinson.us/assets/images/photo.png")
@@ -94,6 +103,23 @@ class PrepareSocialImagesTest(unittest.TestCase):
         self.post.write_text("not frontmatter\n", encoding="utf-8")
 
         with self.assertRaisesRegex(ValueError, "missing YAML frontmatter"):
+            process_post(self.post, self.root)
+
+        self.assertFalse((self.asset_dir / "photo-social.png").exists())
+        self.assertFalse((self.asset_dir / "photo-social.jpg").exists())
+
+    def test_uneditable_header_leaves_no_partial_output(self):
+        self.write_noise_image("photo.png")
+        self.post.write_text(
+            "---\n"
+            "title: Example\n"
+            "header: {image: /assets/images/photo.png, og_image: /assets/images/photo.png}\n"
+            "---\n"
+            "Post content.\n",
+            encoding="utf-8",
+        )
+
+        with self.assertRaisesRegex(ValueError, "frontmatter header mapping is required"):
             process_post(self.post, self.root)
 
         self.assertFalse((self.asset_dir / "photo-social.png").exists())
