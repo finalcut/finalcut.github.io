@@ -15,7 +15,7 @@ excerpt:
 header:
   image: /assets/images/2026/nutcracker-less-wrinkles.png
   teaser:
-  og_image: "https://rawlinson.us/assets/images/2026/nutcracker-less-wrinkles.png"
+  og_image: /assets/images/2026/nutcracker-less-wrinkles-social.png
   caption:
 blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3n2yro4fol32q
 ---
