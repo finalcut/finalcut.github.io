@@ -17,6 +17,7 @@ header:
   teaser:
   og_image: "https://rawlinson.us/assets/images/2026/nutcracker-garage-cover.png"
   caption:
+blueskyPostURL: https://bsky.app/profile/rawlinson.us/post/3n2yllwfslx2b
 ---
 ## Intro
 This year I decided to buy a garage door decorative cover for our house for Halloween.  Our neighbors and I were doing a old-western style carnival and I wanted to get something that would help the garage blend in but while also having a young-kid friendly Halloween theme.  I found one at dbackdrop that really fit the bill. It's [fun friendly scene of hay, some jack-o-laterns, some cutout bats, and some sheet ghosts in front of an old barn door](https://www.dbackdrop.com/products/spooky-halloween-rustic-ghost-pumpkin-barn-garage-door-decor-csh67-33-2-car).
